@@ -1,4 +1,5 @@
 <?php
+
 use GeoIp2\Database\Reader;
 use Predis\Client;
 
@@ -51,10 +52,10 @@ function get_device() {
 function registration_register_routes(): void {
 	// signup post method
 	register_rest_route('signup', '/account', array(
-		'methods'  => WP_REST_Server::CREATABLE,
+		'methods' => WP_REST_Server::CREATABLE,
 		'callback' => 'request_account',
-		'args'     => array(
-			'id'    => array(
+		'args' => array(
+			'id' => array(
 				'validate_callback' => function ($param) {
 					return is_numeric($param);
 				}
@@ -69,17 +70,17 @@ function registration_register_routes(): void {
 
 	// providers json
 	register_rest_route('signup', '/providers', array(
-		'methods'  => WP_REST_Server::READABLE,
+		'methods' => WP_REST_Server::READABLE,
 		'callback' => 'get_providers_list'
 	));
 
 	// get statistics
 	register_rest_route('signup', '/stats', array(
-		'methods'  => WP_REST_Server::READABLE,
+		'methods' => WP_REST_Server::READABLE,
 		'callback' => 'get_statistics',
-		'args'     => array(
-			'key'  => array(
-				'required'          => true,
+		'args' => array(
+			'key' => array(
+				'required' => true,
 				'validate_callback' => function ($key) {
 					return strlen($key) === 32;
 				}
@@ -99,12 +100,12 @@ function request_account($request) {
 	global $readerCountry;
 
 	$limit = [
-		'interval'     => 300, // seconds
+		'interval' => 300, // seconds
 		'num_requests' => 10, // number of requests allowed per interval
-		'user_ip'      => whatismyip() // getting the user IP.
+		'user_ip' => whatismyip() // getting the user IP.
 	];
 
-	$rateId    = "requests_count_{$limit['user_ip']}";
+	$rateId = "requests_count_{$limit['user_ip']}";
 	$rateLimit = (int) $redis->get($rateId);
 	if ($rateLimit + 1 > $limit['num_requests']) {
 		$remainingTTL = $redis->ttl($rateId);
@@ -127,11 +128,11 @@ function request_account($request) {
 	}
 
 	// init vars
-	$email      = $request['email'];
+	$email = $request['email'];
 	$providerId = intval($request['id']);
 	$locationId = intval($request['location']);
 	$newsletter = array_key_exists('newsletter', $request);
-	$subscribe  = boolval($request['subscribe']);
+	$subscribe = boolval($request['subscribe']);
 
 	// get providers list && check provider id
 	$json = json_decode(file_get_contents(PROVIDERS_FILE));
@@ -141,18 +142,18 @@ function request_account($request) {
 
 	// init post request
 	$provider = $json[$providerId];
-	$url      = $provider->locations[$locationId]->url . '/ocs/v2.php/account/request/' . $provider->locations[$locationId]->key;
-	$data     = array(
+	$url = $provider->locations[$locationId]->url . '/ocs/v2.php/account/request/' . $provider->locations[$locationId]->key;
+	$data = array(
 		'headers' => array(
 			'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8'
 		),
-		'body'    => 'email=' . $email,
+		'body' => 'email=' . $email,
 		'timeout' => 30
 	);
 
 	// request account && consume one rate token
 	$post = wp_remote_post($url, $data);
-	$ttl  = $redis->ttl($rateId);
+	$ttl = $redis->ttl($rateId);
 	$redis->set($rateId, $rateLimit + 1);
 	$redis->expire($rateId, $ttl > 0 ? $ttl : $limit['interval']);
 
@@ -169,7 +170,6 @@ function request_account($request) {
 			if ($decodedBody !== null &&
 				isset($decodedBody['data']['message']) &&
 				$decodedBody['data']['message'] === 'user already exists') {
-
 				return new WP_Error('username_already_used', 'User already exists', array('status' => 400));
 			}
 		}
@@ -190,18 +190,18 @@ function request_account($request) {
 		subscribe($email);
 	}
 
-    // store stats
-    try {
-        $country = $readerCountry->country(whatismyip())->country->isoCode;
-    } catch (Exception $e) {
-        $country = 'unknown';
-    }
-    try {
-	    $redis->set(time(), json_encode([
-	        'device' => get_device(),
-	        'country' => $country,
-	        'provider' => $provider->name
-	    ]));
+	// store stats
+	try {
+		$country = $readerCountry->country(whatismyip())->country->isoCode;
+	} catch (Exception $e) {
+		$country = 'unknown';
+	}
+	try {
+		$redis->set(time(), json_encode([
+			'device' => get_device(),
+			'country' => $country,
+			'provider' => $provider->name
+		]));
 	} catch (Exception $e) {
 		error_log($e->getMessage());
 	}
@@ -237,12 +237,11 @@ function get_providers_list() {
 }
 
 function subscribe($email) {
-
 	$data = array(
 		'headers' => array(
 			'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8'
 		),
-		'body'    => 'login=' . NEWSLETTER_API_USER . '&password=' . NEWSLETTER_API_TOKEN,
+		'body' => 'login=' . NEWSLETTER_API_USER . '&password=' . NEWSLETTER_API_TOKEN,
 		'timeout' => 5
 	);
 
@@ -266,7 +265,7 @@ function get_statistics() {
 
 		// filter out
 		if ($_GET['time'] ?? false) {
-			$keys = array_filter($keys, function($time) {
+			$keys = array_filter($keys, function ($time) {
 				return $time > $_GET['time'];
 			});
 		}
