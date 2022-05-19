@@ -4,6 +4,10 @@ if (!empty($_SERVER['SCRIPT_FILENAME']) && 'functions.php' == basename($_SERVER[
     die('Error!');
 }
 
+require_once locate_template('vendor/autoload.php');
+require_once locate_template('lib/signup.php');
+
+
 add_theme_support('post-thumbnails');
 add_filter('show_admin_bar', '__return_false');
 
