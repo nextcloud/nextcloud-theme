@@ -37,7 +37,6 @@ $case_form = get_field('whitepaper_form', 'options');
                 $att = get_field('attachment', $study->ID);
                 $str = substr($att, 38);
                 echo '<div>';
-                echo '<div class="post-holder">';
                 echo '<div class="post-holder" data-file="' . $att . '">';
                 echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
                 echo '<div class="post-body">';
