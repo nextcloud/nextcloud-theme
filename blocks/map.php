@@ -11,21 +11,21 @@ $map = get_field('map');
             <div class="col-12">
                 <div class="map-block">
                     <?php
-                    if (!empty($map)) {
-                        echo '<img src="' . $map . '" alt=""/>';
-                    }
-                    if (have_rows('locations')) {
-                        echo '<ul>';
-                        while (have_rows('locations')) {
-                            the_row();
-                            $text = get_sub_field('location_text');
-                            echo '<li>';
-                            echo wpautop($text);
-                            echo '</li>';
-                        }
-                        echo '</ul>';
-                    }
-                    ?>
+					if (!empty($map)) {
+						echo '<img src="' . $map . '" alt=""/>';
+					}
+					if (have_rows('locations')) {
+						echo '<ul>';
+						while (have_rows('locations')) {
+							the_row();
+							$text = get_sub_field('location_text');
+							echo '<li>';
+							echo wpautop($text);
+							echo '</li>';
+						}
+						echo '</ul>';
+					}
+					?>
                 </div>
             </div>
         </div>

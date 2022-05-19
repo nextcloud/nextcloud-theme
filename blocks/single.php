@@ -10,10 +10,10 @@ $text = get_field('content');
             <div class="col-lg-12">
                 <div class="text-block">
                     <?php
-                    if (!empty($text)) {
-                        echo $text;
-                    }
-                    ?>
+					if (!empty($text)) {
+						echo $text;
+					}
+					?>
                 </div>
             </div>
         </div>

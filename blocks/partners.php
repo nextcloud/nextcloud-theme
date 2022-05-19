@@ -18,16 +18,16 @@ $technology = get_field('technology_partners');
                 <div class="section-title">
 
                     <?php
-                if (!empty($title)) {
-                    echo '<h4>' . $title . '</h4>';
-                }
-                if ($link) {
-                    $link_url = $link['url'];
-                    $link_title = $link['title'];
-                    $link_target = $link['target'] ? $link['target'] : '_self';
-                    echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-                }
-                ?>
+				if (!empty($title)) {
+					echo '<h4>' . $title . '</h4>';
+				}
+				if ($link) {
+					$link_url = $link['url'];
+					$link_title = $link['title'];
+					$link_target = $link['target'] ? $link['target'] : '_self';
+					echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+				}
+				?>
             </div>
             </div>
         </div>
@@ -53,28 +53,28 @@ $technology = get_field('technology_partners');
             <div class="col-lg-12">
                 <div class="desc-text">
                     <?php
-                    if (!empty($subtext)) {
-                        echo wpautop($subtext);
-                    }
-                    ?>
+					if (!empty($subtext)) {
+						echo wpautop($subtext);
+					}
+					?>
                 </div>
                 <div class="text-block">
                     <?php
-                    if (!empty($cert)) {
-                        echo '<p>' . $cert . '</p>';
-                    }
-                    ?>
+					if (!empty($cert)) {
+						echo '<p>' . $cert . '</p>';
+					}
+					?>
                 </div>
                 <?php
-                if ($logos) {
-                    echo '<ul class="logos">';
+				if ($logos) {
+					echo '<ul class="logos">';
 
-                    foreach ($logos as $lg) {
-                        echo '<li><img src="' . $lg . '" alt=""/></li>';
-                    }
-                    echo '</ul>';
-                }
-                ?>
+					foreach ($logos as $lg) {
+						echo '<li><img src="' . $lg . '" alt=""/></li>';
+					}
+					echo '</ul>';
+				}
+				?>
             </div>
         </div>
         <div class="row">
@@ -198,98 +198,96 @@ $technology = get_field('technology_partners');
             <div class="col-12">
                 <div class="custom-partner-tab-content">
                     <?php
-                    if ($solution) {
-                    ?>
+					if ($solution) {
+						?>
                         <div class="custom-tab-panel active" data-panel="solution-tab">
                             <div class="partners-holder">
                                 <?php
-                                foreach ($solution as $sol) {
-                                    $name = get_the_title($sol->ID);
-                                    $level = get_field('partner_level', $sol->ID);
-                                    $servs = get_field('services', $sol->ID);
-                                    $country = get_field('region', $sol->ID);
-                                    $logo = get_field('logo', $sol->ID);
-                                    $text = get_field('text', $sol->ID);
-                                    $service_text = get_field('service_text', $sol->ID);
-                                    $website_link = get_field('website_link', $sol->ID);
+								foreach ($solution as $sol) {
+									$name = get_the_title($sol->ID);
+									$level = get_field('partner_level', $sol->ID);
+									$servs = get_field('services', $sol->ID);
+									$country = get_field('region', $sol->ID);
+									$logo = get_field('logo', $sol->ID);
+									$text = get_field('text', $sol->ID);
+									$service_text = get_field('service_text', $sol->ID);
+									$website_link = get_field('website_link', $sol->ID);
 
-                                    echo '<div class="partner-col" data-type="' . $level;
-                                    foreach ($servs as $s) {
-                                        echo ' ' . $s;
-                                    }
-                                    echo '" data-country="' . $country . '">';
-                                    echo '<div class="partner-box">';
-                                    echo '<div class="certificate-line ' . $level . '">';
-                                    echo $level . ' Partner';
-                                    echo '</div>';
-                                    echo '<div class="partner-logo">';
-                                    if (!empty($logo)) {
-                                        echo '<img src="' . $logo["url"] . '" alt="' . $logo["alt"] . '" title="' . $logo["title"] . '" />';
-                                    }
-                                    echo '</div>';
-                                    echo '<div class="partner-text">';
-                                    echo '<h4>' . $name . '</h4>';
-                                    if (!empty($text)) {
-                                        echo wpautop($text);
-                                    }
-                                    echo '</div>';
-                                    echo '<ul class="partner-info">';
-                                    if (!empty($service_text)) {
-                                        echo '<li>' . $service_text . '</li>';
-                                    }
-                                    if (!empty($website_link)) {
-                                        echo '<li><a href="' . $website_link . '" target="_blank">Go to website</a></li>';
-                                    }
-                                    echo '</ul>';
-                                    echo '</div>';
-                                    echo '</div>';
-                                }
-                                ?>
+									echo '<div class="partner-col" data-type="' . $level;
+									foreach ($servs as $s) {
+										echo ' ' . $s;
+									}
+									echo '" data-country="' . $country . '">';
+									echo '<div class="partner-box">';
+									echo '<div class="certificate-line ' . $level . '">';
+									echo $level . ' Partner';
+									echo '</div>';
+									echo '<div class="partner-logo">';
+									if (!empty($logo)) {
+										echo '<img src="' . $logo["url"] . '" alt="' . $logo["alt"] . '" title="' . $logo["title"] . '" />';
+									}
+									echo '</div>';
+									echo '<div class="partner-text">';
+									echo '<h4>' . $name . '</h4>';
+									if (!empty($text)) {
+										echo wpautop($text);
+									}
+									echo '</div>';
+									echo '<ul class="partner-info">';
+									if (!empty($service_text)) {
+										echo '<li>' . $service_text . '</li>';
+									}
+									if (!empty($website_link)) {
+										echo '<li><a href="' . $website_link . '" target="_blank">Go to website</a></li>';
+									}
+									echo '</ul>';
+									echo '</div>';
+									echo '</div>';
+								} ?>
                             </div>
                         </div>
                     <?php
-                    }
-                    if ($technology) {
-                    ?>
+					}
+					if ($technology) {
+						?>
                         <div class="custom-tab-panel" data-panel="technology-tab">
                             <div class="partners-holder">
                                 <?php
-                                foreach ($technology as $teh) {
-                                    $name = get_the_title($teh->ID);
-                                    $logo = get_field('logo', $teh->ID);
-                                    $text = get_field('text', $teh->ID);
-                                    $service_text = get_field('service_text', $teh->ID);
-                                    $website_link = get_field('website_link', $teh->ID);
-                                    echo '<div class="partner2-col">';
-                                    echo '<div class="partner-box">';
-                                    echo '<div class="partner-logo">';
-                                    if (!empty($logo)) {
-                                        echo '<img src="' . $logo["url"] . '" alt="' . $logo["alt"] . '" title="' . $logo["title"] . '" />';
-                                    }
-                                    echo '</div>';
-                                    echo '<div class="partner-text">';
-                                    echo '<h4>' . $name . '</h4>';
-                                    if (!empty($text)) {
-                                        echo wpautop($text);
-                                    }
-                                    echo '</div>';
-                                    echo '<ul class="partner-info">';
-                                    if (!empty($service_text)) {
-                                        echo '<li>' . $service_text . '</li>';
-                                    }
-                                    if (!empty($website_link)) {
-                                        echo '<li><a href="' . $website_link . '" target="_blank">Go to website</a></li>';
-                                    }
-                                    echo '</ul>';
-                                    echo '</div>';
-                                    echo '</div>';
-                                }
-                                ?>
+								foreach ($technology as $teh) {
+									$name = get_the_title($teh->ID);
+									$logo = get_field('logo', $teh->ID);
+									$text = get_field('text', $teh->ID);
+									$service_text = get_field('service_text', $teh->ID);
+									$website_link = get_field('website_link', $teh->ID);
+									echo '<div class="partner2-col">';
+									echo '<div class="partner-box">';
+									echo '<div class="partner-logo">';
+									if (!empty($logo)) {
+										echo '<img src="' . $logo["url"] . '" alt="' . $logo["alt"] . '" title="' . $logo["title"] . '" />';
+									}
+									echo '</div>';
+									echo '<div class="partner-text">';
+									echo '<h4>' . $name . '</h4>';
+									if (!empty($text)) {
+										echo wpautop($text);
+									}
+									echo '</div>';
+									echo '<ul class="partner-info">';
+									if (!empty($service_text)) {
+										echo '<li>' . $service_text . '</li>';
+									}
+									if (!empty($website_link)) {
+										echo '<li><a href="' . $website_link . '" target="_blank">Go to website</a></li>';
+									}
+									echo '</ul>';
+									echo '</div>';
+									echo '</div>';
+								} ?>
                             </div>
                         </div>
                     <?php
-                    }
-                    ?>
+					}
+					?>
                 </div>
             </div>
         </div>

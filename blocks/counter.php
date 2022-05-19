@@ -11,11 +11,11 @@ $sale_live_date = get_field('event_start_date');
             <div class="col-12">
                 <div class="text-block">
                     <?php
-                    echo '<div id="counter">';
-                    echo '<span class="block"><span class="text">Days</span></span><span class="block"><span class="text">Hours</span></span><span class="block"><span class="text">Minutes</span></span><span class="block"><span class="text">Seconds</span></span>';
-                    echo '</div>';
-                    if (!empty($sale_live_date)) {
-                        ?>
+					echo '<div id="counter">';
+					echo '<span class="block"><span class="text">Days</span></span><span class="block"><span class="text">Hours</span></span><span class="block"><span class="text">Minutes</span></span><span class="block"><span class="text">Seconds</span></span>';
+					echo '</div>';
+					if (!empty($sale_live_date)) {
+						?>
                         <script>
                             // Set the date we're counting down to
                             var countDownDate = new Date("<?php echo $sale_live_date; ?>").getTime();
@@ -46,8 +46,8 @@ $sale_live_date = get_field('event_start_date');
                             }, 1000);
                         </script>
                         <?php
-                    }
-                    ?>
+					}
+					?>
                 </div>
             </div>
         </div>

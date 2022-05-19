@@ -87,7 +87,7 @@ $id = get_field('section_id');
                         </form>
                     </div>
                 </div>-->
-				<?php echo do_shortcode( '[contact-form-7 id="16243" title="Get a qoute"]' );  ?>
+				<?php echo do_shortcode('[contact-form-7 id="16243" title="Get a qoute"]');  ?>
             </div>
         </div>
     </div>

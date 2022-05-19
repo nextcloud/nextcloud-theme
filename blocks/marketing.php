@@ -12,13 +12,13 @@ $text = get_field('text');
             <div class="col-lg-6">
                 <div class="section-title">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h1>' . $title . '</h1>';
-                    }
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h1>' . $title . '</h1>';
+					}
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					?>
                 </div>
             </div>
             <div class="col-lg-5">

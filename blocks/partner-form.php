@@ -8,19 +8,19 @@ $text = get_field('text');
 <section class="partner-section" id="<?php echo $id; ?>">
     <div class="container">
         <?php
-        if (!empty($text)) {
-            echo '<div class="row justify-content-center">';
-            echo '<div class="col-lg-8">';
-            echo '<div class="section-title">';
-            echo wpautop($text);
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-        }
-        ?>
+		if (!empty($text)) {
+			echo '<div class="row justify-content-center">';
+			echo '<div class="col-lg-8">';
+			echo '<div class="section-title">';
+			echo wpautop($text);
+			echo '</div>';
+			echo '</div>';
+			echo '</div>';
+		}
+		?>
         <div class="row justify-content-center">
             <div class="col-lg-6">
-				<?php echo do_shortcode( '[contact-form-7 id="16229" title="Partner program"]' );  ?>
+				<?php echo do_shortcode('[contact-form-7 id="16229" title="Partner program"]');  ?>
                 <!--<div class="form-block">
                     <div class="form-holder">
                         <form name="contact" method="post" action="">

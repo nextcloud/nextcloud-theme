@@ -1,6 +1,6 @@
 <?php
 if (!defined('WPINC')) {
-    die;
+	die;
 }
 /*
  * Header file for the theme.
@@ -19,8 +19,8 @@ if (!defined('WPINC')) {
 
 <body <?php body_class(); ?>>
     <?php
-    wp_body_open();
-    ?>
+	wp_body_open();
+	?>
     <header>
         <div class="container">
             <div class="row">
@@ -28,10 +28,10 @@ if (!defined('WPINC')) {
                     <div class="header-holder">
                         <div class="logo-holder">
                             <?php
-                            if (get_custom_logo()) {
-                                the_custom_logo();
-                            }
-                            ?>
+							if (get_custom_logo()) {
+								the_custom_logo();
+							}
+							?>
                         </div>
                         <div class="phone-menu">
                             <div class="bar1"></div>
@@ -40,12 +40,12 @@ if (!defined('WPINC')) {
                         </div>
                         <div class="header-items">
                             <?php
-                            wp_nav_menu(array(
-                                'theme_location' => 'primary',
-                                'menu' => 'primary-menu',
-                                'menu_class' => 'primary-menu',
-                            ));
-                            ?>
+							wp_nav_menu(array(
+								'theme_location' => 'primary',
+								'menu' => 'primary-menu',
+								'menu_class' => 'primary-menu',
+							));
+							?>
                         </div>
                     </div>
                 </div>

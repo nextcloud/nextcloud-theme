@@ -12,27 +12,27 @@ $text = get_field('text');
             <div class="col-lg-6">
                 <div class="text-block">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h1>' . $title . '</h1>';
-                    }
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    if (have_rows('links')) {
-                        echo '<ul class="ext-links">';
-                        while (have_rows('links')) {
-                            the_row();
-                            $link = get_sub_field('link');
-                            if ($link) {
-                                $link_url = $link['url'];
-                                $link_title = $link['title'];
-                                $link_target = $link['target'] ? $link['target'] : '_self';
-                                echo '<li><a class="ext-link" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a></li>';
-                            }
-                        }
-                        echo '</ul>';
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h1>' . $title . '</h1>';
+					}
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					if (have_rows('links')) {
+						echo '<ul class="ext-links">';
+						while (have_rows('links')) {
+							the_row();
+							$link = get_sub_field('link');
+							if ($link) {
+								$link_url = $link['url'];
+								$link_title = $link['title'];
+								$link_target = $link['target'] ? $link['target'] : '_self';
+								echo '<li><a class="ext-link" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a></li>';
+							}
+						}
+						echo '</ul>';
+					}
+					?>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -75,7 +75,7 @@ $text = get_field('text');
                             </div>
                         </form>
                     </div> -->
-					<?php echo do_shortcode( '[contact-form-7 id="15865" title="Contact new hip"]' );  ?>
+					<?php echo do_shortcode('[contact-form-7 id="15865" title="Contact new hip"]');  ?>
                     <h6 class="info-text">Support questions through this form will get ignored.</h6>
                 </div>
             </div>

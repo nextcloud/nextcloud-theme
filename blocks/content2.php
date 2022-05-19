@@ -14,26 +14,26 @@ $img_text = get_field('image_subtext');
             <div class="col-lg-6">
                 <div class="text-block">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h3>' . $title . '</h3>';
-                    }
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h3>' . $title . '</h3>';
+					}
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					?>
                 </div>
             </div>
             <div class="col-lg-6">
                 <?php
-                if (!empty($image)) {
-                    echo '<div class="image-block">';
-                    echo '<img src="' . $image . '" alt=""/>';
-                    if (!empty($img_text)) {
-                        echo '<p>' . $img_text . '</p>';
-                    }
-                    echo '</div>';
-                }
-                ?>
+				if (!empty($image)) {
+					echo '<div class="image-block">';
+					echo '<img src="' . $image . '" alt=""/>';
+					if (!empty($img_text)) {
+						echo '<p>' . $img_text . '</p>';
+					}
+					echo '</div>';
+				}
+				?>
             </div>
         </div>
     </div>

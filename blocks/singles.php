@@ -11,10 +11,10 @@ $text = get_field('text');
             <div class="col-xl-6 col-lg-7">
                 <div class="text-block">
                     <?php
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    ?>
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					?>
                 </div>
             </div>
         </div>

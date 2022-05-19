@@ -13,18 +13,18 @@ $form = get_field('form_shortcode');
             <div class="col-xl-9 col-lg-11">
                 <div class="text-block">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h2>' . $title . '</h2>';
-                    }
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    if (!empty($form)) {
-                        echo '<div class="form-block">';
-                        echo do_shortcode($form);
-                        echo '</div>';
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h2>' . $title . '</h2>';
+					}
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					if (!empty($form)) {
+						echo '<div class="form-block">';
+						echo do_shortcode($form);
+						echo '</div>';
+					}
+					?>
                 </div>
             </div>
         </div>

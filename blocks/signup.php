@@ -4,7 +4,7 @@ use GeoIp2\Database\Reader;
 require_once locate_template('config.php');
 
 try {
-    $readerCity = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-City.mmdb'));
+	$readerCity = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-City.mmdb'));
 	$location = $readerCity->city(whatismyip())->location;
 } catch (\Exception $e) {
 	$location = false;
@@ -20,44 +20,44 @@ function t($string) {
 }
 
 $registerL10n = [
-    'subscribe' => t('Subscribe to our newsletter'),
-    'email' => t('Your email address'),
-    'success' => t('Success! Redirecting you to the provider'),
-    'error' => t('Error:'),
-    'processing' => t('Creating your account'),
-    'register' => t('Sign up'),
-    'change' => t('change provider'),
-    'close' => t('close'),
-    'far' => t('Far far away'),
-    'geterror' => t('Error while retrieving the providers list.'),
-    'tos' => t('Terms of service'),
-    'tosagree' => t('I agree to the %tos%'),
-    'toserror' => t('Please agree to the terms of service')
+	'subscribe' => t('Subscribe to our newsletter'),
+	'email' => t('Your email address'),
+	'success' => t('Success! Redirecting you to the provider'),
+	'error' => t('Error:'),
+	'processing' => t('Creating your account'),
+	'register' => t('Sign up'),
+	'change' => t('change provider'),
+	'close' => t('close'),
+	'far' => t('Far far away'),
+	'geterror' => t('Error while retrieving the providers list.'),
+	'tos' => t('Terms of service'),
+	'tosagree' => t('I agree to the %tos%'),
+	'toserror' => t('Please agree to the terms of service')
 ];
 
 $officialApps = [
-    'files'=> t('Files'),
-    'calendar'=> t('Calendar'),
-    'contacts'=> t('Contacts'),
-    'spreed' => t('Talk'),
-    'mail'=> t('Mail'),
-    'tasks'=> t('Tasks'),
-    'notes'=> t('Notes'),
-    'news'=> t('News'),
-    'twofactor_totp' => t('Two-factor authentication'),
-    'twofactor_u2f' => t('Two-factor U2F'),
-    'gallery' => t('Gallery'),
-    'photos' => t('Photos'),
-    'collabora' => t('Collabora Online'),
-    'onlyoffice' => t('Onlyoffice'),
-    'deck' => t('Deck'),
-    'fulltextsearch' => t('Full text search'),
-    'mindmaps' => t('Mindmaps'),
-    'passman' => t('Passman'),
-    'drawio' => t('Draw.io'),
-    'bookmarks' => t('Bookmarks'),
-    'audioplayer' => t('Audioplayer'),
-    'appointments' => t('Appointments')
+	'files' => t('Files'),
+	'calendar' => t('Calendar'),
+	'contacts' => t('Contacts'),
+	'spreed' => t('Talk'),
+	'mail' => t('Mail'),
+	'tasks' => t('Tasks'),
+	'notes' => t('Notes'),
+	'news' => t('News'),
+	'twofactor_totp' => t('Two-factor authentication'),
+	'twofactor_u2f' => t('Two-factor U2F'),
+	'gallery' => t('Gallery'),
+	'photos' => t('Photos'),
+	'collabora' => t('Collabora Online'),
+	'onlyoffice' => t('Onlyoffice'),
+	'deck' => t('Deck'),
+	'fulltextsearch' => t('Full text search'),
+	'mindmaps' => t('Mindmaps'),
+	'passman' => t('Passman'),
+	'drawio' => t('Draw.io'),
+	'bookmarks' => t('Bookmarks'),
+	'audioplayer' => t('Audioplayer'),
+	'appointments' => t('Appointments')
 ];
 
 $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'];

@@ -13,23 +13,23 @@ $img = get_field('image');
             <div class="col-lg-6">
                 <div class="text-block">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h2>' . $title . '</h2>';
-                    }
-                    if (!empty($text)) {
-                        echo $text;
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h2>' . $title . '</h2>';
+					}
+					if (!empty($text)) {
+						echo $text;
+					}
+					?>
                 </div>
             </div>
             <div class="col-lg-6">
                 <?php
-                if (!empty($img)) {
-                    echo '<div class="image-block">';
-                    echo '<img src="' . $img . '" alt=""/>';
-                    echo '</div>';
-                }
-                ?>
+				if (!empty($img)) {
+					echo '<div class="image-block">';
+					echo '<img src="' . $img . '" alt=""/>';
+					echo '</div>';
+				}
+				?>
             </div>
         </div>
     </div>

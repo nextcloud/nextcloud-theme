@@ -1,4 +1,5 @@
 <?php
+
 // Providers
 define('PROVIDERS_FILE', ABSPATH . '/preferred.json');
 define('REDIS', 'tcp://redis:6379');

@@ -9,7 +9,7 @@ $id = get_field('section_id');
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 
-				<?php echo do_shortcode( '[contact-form-7 id="16083" title="Trial form hip"]' );  ?>
+				<?php echo do_shortcode('[contact-form-7 id="16083" title="Trial form hip"]');  ?>
             </div>
         </div>
     </div>

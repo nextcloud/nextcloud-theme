@@ -13,13 +13,13 @@ $text = get_field('text');
             <div class="col-lg-10">
                 <div class="text-block">
                     <?php
-                    if (!empty($title)) {
-                        echo '<h3>' . $title . '</h3>';
-                    }
-                    if (!empty($text)) {
-                        echo wpautop($text);
-                    }
-                    ?>
+					if (!empty($title)) {
+						echo '<h3>' . $title . '</h3>';
+					}
+					if (!empty($text)) {
+						echo wpautop($text);
+					}
+					?>
                 </div>
             </div>
         </div>

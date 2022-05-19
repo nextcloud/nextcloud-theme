@@ -47,12 +47,12 @@ $id = get_field('section_id');
                             <label>Number of users, at a price of 9.50 euro per user per month.</label>
                             <select name="users" onChange="setUsers()">
                                 <?php
-                                //for ($i = 5; $i <= 200; $i++) {
-                                ?>
-                                    <option value="<?php // echo $i; ?>"><?php // echo $i; ?></option>
+								//for ($i = 5; $i <= 200; $i++) {
+								?>
+                                    <option value="<?php // echo $i;?>"><?php // echo $i;?></option>
                                 <?php
-                                //}
-                                ?>
+								//}
+								?>
                                 <option value="201">more</option>
                             </select>
                         </div>
@@ -93,7 +93,7 @@ $id = get_field('section_id');
         </div>
                             -->
                             <?php
-                            echo do_shortcode('[contact-form-7 id="16359" title="IONOS Form" html_name="orderform" html_id="orderform"]');
-                            ?>
+							echo do_shortcode('[contact-form-7 id="16359" title="IONOS Form" html_name="orderform" html_id="orderform"]');
+							?>
     </div>
 </section>
