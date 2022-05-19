@@ -5,8 +5,8 @@
 $title = get_field('title');
 ?>
 <section class="blog-section">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		echo '<div class="row justify-content-between align-items-center">';
 		if (!empty($title)) {
 			echo '<div class="col-lg-6">';
@@ -26,8 +26,8 @@ $title = get_field('title');
 		}
 		echo '</div>';
 		?>
-        <div class="row">
-            <?php
+		<div class="row">
+			<?php
 			$my_wp_query = new WP_Query();
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
@@ -54,13 +54,13 @@ $title = get_field('title');
 			}
 			wp_reset_query();
 			?>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="section-button">
-                    <button class="c-btn btn-blue" id="loadNews">Load More</button>
-                </div>
-            </div>
-        </div>
-    </div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="section-button">
+					<button class="c-btn btn-blue" id="loadNews">Load More</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

@@ -5,10 +5,10 @@
 $id = get_field('section_id');
 ?>
 <section class="documentation-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-3 col-lg-4">
-                <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-4">
+				<?php
 				if (have_rows('doc_column')) {
 					while (have_rows('doc_column')) {
 						the_row();
@@ -43,9 +43,9 @@ $id = get_field('section_id');
 					}
 				}
 				?>
-            </div>
-            <div class="col-xl-8 offset-xl-1 col-lg-8">
-                <?php
+			</div>
+			<div class="col-xl-8 offset-xl-1 col-lg-8">
+				<?php
 				if (have_rows('help_column')) {
 					echo '<div class="row">';
 					while (have_rows('help_column')) {
@@ -104,7 +104,7 @@ $id = get_field('section_id');
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

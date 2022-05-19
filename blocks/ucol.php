@@ -10,10 +10,10 @@ $bot_text = get_field('bottom_text');
 $link = get_field('link');
 ?>
 <section class="ucol-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-2">
-                <?php
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 order-lg-2">
+				<?php
 				echo '<div class="text-block">';
 				if (!empty($title)) {
 					echo '<h3>' . $title . '</h3>';
@@ -26,20 +26,20 @@ $link = get_field('link');
 				}
 				echo '</div>';
 				?>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <?php
+			</div>
+			<div class="col-lg-6 order-lg-1">
+				<?php
 				if (!empty($img)) {
 					echo '<div class="image-block">';
 					echo '<img src="' . $img . '" alt=""/>';
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <?php
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<?php
 				echo '<div class="bottom-block">';
 				if (!empty($bot_text)) {
 					echo wpautop($bot_text);
@@ -52,7 +52,7 @@ $link = get_field('link');
 				}
 				echo '</div>';
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

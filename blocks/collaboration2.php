@@ -9,11 +9,11 @@ $link = get_field('link');
 $logos = get_field('logos');
 ?>
 <section class="collaboration2-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -36,8 +36,8 @@ $logos = get_field('logos');
 						echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

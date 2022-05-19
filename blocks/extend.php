@@ -8,11 +8,11 @@ $text = get_field('text');
 $link = get_field('link');
 ?>
 <section class="extend-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -35,8 +35,8 @@ $link = get_field('link');
 						echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

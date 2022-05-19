@@ -12,11 +12,11 @@ if ($gr) {
 	echo '<section class="get-started-section started2" id="' . $id . '">';
 }
 ?>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
@@ -37,8 +37,8 @@ if ($gr) {
 						}
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

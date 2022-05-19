@@ -7,11 +7,11 @@ $title = get_field('title');
 $subtext = get_field('subtext');
 ?>
 <section class="why-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -32,9 +32,9 @@ $subtext = get_field('subtext');
 						}
 					}
 					?>
-                </div>
-            </div>
-            <?php
+				</div>
+			</div>
+			<?php
 			if (have_rows('reasons')) {
 				while (have_rows('reasons')) {
 					the_row();
@@ -57,6 +57,6 @@ $subtext = get_field('subtext');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

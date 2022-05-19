@@ -87,21 +87,21 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 </section>
 
 <section class="section--disclaimer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h3 class="section--paragraph__title"><?php echo t('Providers'); ?></h3>
-                <p class="section--paragraph"><?php echo t('While we have done our best in choosing quality providers, we can not take any responsibility for their services.'); ?><br>
-                <p class="section--paragraph"><?php echo t('If there are any issues with your account, please note that we do NOT record any of your information on our side so we can not help you. Please contact the provider you signed up with.'); ?></p>
-                <p class="section--paragraph"><?php echo t('Free services are of course paid somewhere by someone. The listed Nextcloud providers all give a free account with 2 to 5 GB storage but offer larger storage and more options like a dedicated setup for a fee, which funds the free accounts. Consider paying for your account, it helps them provide this service!'); ?></p>
-                <p><a class="button button--white button--arrow button--large" href="https://help.nextcloud.com/c/hosting" target="_blank"><?php echo t('Give feedback on providers'); ?></a></p>
-                </p>
-                <h3 class="section--paragraph__title"><?php echo t('Privacy'); ?></h3>
-                <p class="section--paragraph"><?php echo t('By proceeding, you agree with our privacy policy. In short, we only handle the minimum amount of user data for the purpose of enabling the provider to create a minimal account and do not store any personally identifiable data.'); ?></p>
-                <p><a href="<?php echo home_url('privacy') ?>" target="_blank" class="button button--white button--arrow button--large"><?php echo t('Nextcloud privacy policy'); ?></a></p>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h3 class="section--paragraph__title"><?php echo t('Providers'); ?></h3>
+				<p class="section--paragraph"><?php echo t('While we have done our best in choosing quality providers, we can not take any responsibility for their services.'); ?><br>
+				<p class="section--paragraph"><?php echo t('If there are any issues with your account, please note that we do NOT record any of your information on our side so we can not help you. Please contact the provider you signed up with.'); ?></p>
+				<p class="section--paragraph"><?php echo t('Free services are of course paid somewhere by someone. The listed Nextcloud providers all give a free account with 2 to 5 GB storage but offer larger storage and more options like a dedicated setup for a fee, which funds the free accounts. Consider paying for your account, it helps them provide this service!'); ?></p>
+				<p><a class="button button--white button--arrow button--large" href="https://help.nextcloud.com/c/hosting" target="_blank"><?php echo t('Give feedback on providers'); ?></a></p>
+				</p>
+				<h3 class="section--paragraph__title"><?php echo t('Privacy'); ?></h3>
+				<p class="section--paragraph"><?php echo t('By proceeding, you agree with our privacy policy. In short, we only handle the minimum amount of user data for the purpose of enabling the provider to create a minimal account and do not store any personally identifiable data.'); ?></p>
+				<p><a href="<?php echo home_url('privacy') ?>" target="_blank" class="button button--white button--arrow button--large"><?php echo t('Nextcloud privacy policy'); ?></a></p>
+			</div>
+		</div>
+	</div>
 </section>
 
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/dist/signup/js/nextcloud-register-main.js"></script>

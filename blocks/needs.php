@@ -7,11 +7,11 @@ $title = get_field('title');
 $text = get_field('text');
 ?>
 <section class="needs-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -19,12 +19,12 @@ $text = get_field('text');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<?php
 				if (have_rows('needs_list')) {
 					$i = 1;
 					echo '<div class="needs-slider">';
@@ -57,7 +57,7 @@ $text = get_field('text');
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

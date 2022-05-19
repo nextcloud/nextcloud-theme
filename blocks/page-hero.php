@@ -13,10 +13,10 @@ if (!empty($bg)) {
 }
 ?>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="section-title">
-                <?php
+	<div class="row">
+		<div class="col-lg-9">
+			<div class="section-title">
+				<?php
 				if (!empty($title)) {
 					echo '<h1>' . $title . '</h1>';
 				}
@@ -30,8 +30,8 @@ if (!empty($bg)) {
 					echo '<a class="c-btn" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 </section>

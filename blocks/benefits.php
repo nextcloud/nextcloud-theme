@@ -8,19 +8,19 @@ $text = get_field('text');
 $link = get_field('link');
 ?>
 <section class="benefits-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('benefits_list')) {
 			echo '<div class="row benefits-slider">';
 			while (have_rows('benefits_list')) {
@@ -45,8 +45,8 @@ $link = get_field('link');
 			echo '</div>';
 		}
 		?>
-        <div class="row justify-content-center">
-            <?php
+		<div class="row justify-content-center">
+			<?php
 			if (!empty($text)) {
 				echo '<div class="col-12">';
 				echo '<div class="line"></div>';
@@ -70,6 +70,6 @@ $link = get_field('link');
 			}
 			echo '</div>';
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

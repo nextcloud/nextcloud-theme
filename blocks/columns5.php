@@ -6,8 +6,8 @@ $id = get_field('section_id');
 $title = get_field('title');
 ?>
 <section class="columns5-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($title)) {
 			echo '<div class="row">';
 			echo '<div class="col-12">';
@@ -88,5 +88,5 @@ $title = get_field('title');
 			}
 		}
 		?>
-    </div>
+	</div>
 </section>

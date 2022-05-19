@@ -8,8 +8,8 @@ $title = get_field('title');
 $text = get_field('text');
 ?>
 <section class="industries-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($tagline)) {
 			echo '<div class="row justify-content-center">';
 			echo '<div class="col-lg-6">';
@@ -20,10 +20,10 @@ $text = get_field('text');
 			echo '</div>';
 		}
 		?>
-        <div class="row">
-            <div class="col-12">
-                <div class="text-block">
-                    <?php
+		<div class="row">
+			<div class="col-12">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -31,11 +31,11 @@ $text = get_field('text');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<?php
 			if (have_rows('industries_list')) {
 				while (have_rows('industries_list')) {
 					the_row();
@@ -58,6 +58,6 @@ $text = get_field('text');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

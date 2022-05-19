@@ -7,21 +7,21 @@ $title = get_field('title');
 $link = get_field('link');
 ?>
 <section class="muchmore-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<?php
 				if (have_rows('slides')) {
 					echo '<div class="testimonial-slider">';
 					while (have_rows('slides')) {
@@ -45,7 +45,7 @@ $link = get_field('link');
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

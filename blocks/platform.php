@@ -11,11 +11,11 @@ $img = get_field('image');
 $video = get_field('video');
 ?>
 <section class="platform-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -23,13 +23,13 @@ $video = get_field('video');
 						echo '<p>' . $subtext . '</p>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="text-block">
-                    <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="text-block">
+					<?php
 					if (!empty($text)) {
 						echo wpautop($text);
 					}
@@ -40,10 +40,10 @@ $video = get_field('video');
 						echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <?php
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<?php
 				if (!empty($img)) {
 					echo '<div class="image-block">';
 					echo '<img src="' . $img . '" alt=""/>';
@@ -54,7 +54,7 @@ $video = get_field('video');
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

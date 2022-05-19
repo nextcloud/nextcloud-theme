@@ -7,8 +7,8 @@ $title = get_field('title');
 $text = get_field('text');
 ?>
 <section class="compliance-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($title) || !empty($text)) {
 			echo '<div class="row">';
 			echo '<div class="col-lg-6">';
@@ -88,5 +88,5 @@ $text = get_field('text');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

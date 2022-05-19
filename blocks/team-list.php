@@ -6,8 +6,8 @@ $id = get_field('section_id');
 $text = get_field('text');
 ?>
 <section class="team-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($text)) {
 			echo '<div class="row">';
 			echo '<div class="col-12">';
@@ -83,5 +83,5 @@ $text = get_field('text');
 			}
 		}
 		?>
-    </div>
+	</div>
 </section>

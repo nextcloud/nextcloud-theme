@@ -6,25 +6,25 @@
 get_header();
 ?>
 <div class="wrapper">
-    <section class="single-hero-section" style="background-color: #1cafff;">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h1>
-                            <?php
+	<section class="single-hero-section" style="background-color: #1cafff;">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h1>
+							<?php
 							the_archive_title();
 							?>
-                        </h1>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <section class="blog-section">
-        <div class="container">
-            <div class="row">
-                <?php if (have_posts()) : ?>
-                <?php
+						</h1>
+					</div>
+				</div>
+			</div>
+	</section>
+	<section class="blog-section">
+		<div class="container">
+			<div class="row">
+				<?php if (have_posts()) : ?>
+				<?php
 					// Start the Loop
 					while (have_posts()) : the_post();
 						$img = wp_get_attachment_url(get_post_thumbnail_id($post->ID));
@@ -44,9 +44,9 @@ get_header();
 					endwhile;
 				endif;
 				?>
-            </div>
-        </div>
-    </section>
+			</div>
+		</div>
+	</section>
 </div>
 <?php
 get_footer();

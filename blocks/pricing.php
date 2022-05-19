@@ -11,11 +11,11 @@ $desc = get_field('description_text');
 $link = get_field('link');
 ?>
 <section class="pricing-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -26,21 +26,21 @@ $link = get_field('link');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center justify-content-between">
-            <div class="col-lg-5 order-lg-1">
-                <div class="pricing-block">
-                    <?php
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center justify-content-between">
+			<div class="col-lg-5 order-lg-1">
+				<div class="pricing-block">
+					<?php
 					if (!empty($price)) {
 						echo wpautop($price);
 					}
 					?>
-                </div>
-            </div>
-            <div class="col-lg-12 order-lg-3">
-                <?php
+				</div>
+			</div>
+			<div class="col-lg-12 order-lg-3">
+				<?php
 				if ($link) {
 					$link_url = $link['url'];
 					$link_title = $link['title'];
@@ -50,16 +50,16 @@ $link = get_field('link');
 					echo '</div>';
 				}
 				?>
-            </div>
-            <div class="col-lg-5 order-lg-2">
-                <div class="text-block">
-                    <?php
+			</div>
+			<div class="col-lg-5 order-lg-2">
+				<div class="text-block">
+					<?php
 					if (!empty($desc)) {
 						echo wpautop($desc);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

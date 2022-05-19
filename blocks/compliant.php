@@ -9,11 +9,11 @@ $link = get_field('link');
 $rows = get_field('content_boxes');
 ?>
 <section class="compliant-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-5 col-lg-6">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-5 col-lg-6">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -27,12 +27,12 @@ $rows = get_field('content_boxes');
 						echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
-                </div>
-            </div>
-            <div class="col-xl-5 offset-xl-2 col-lg-6">
-                <div class="row">
-                    <div class="col-6">
-                        <?php
+				</div>
+			</div>
+			<div class="col-xl-5 offset-xl-2 col-lg-6">
+				<div class="row">
+					<div class="col-6">
+						<?php
 						if ($rows) {
 							$first_row = $rows[0];
 							if ($first_row) {
@@ -64,9 +64,9 @@ $rows = get_field('content_boxes');
 							}
 						}
 						?>
-                    </div>
-                    <div class="col-6">
-                        <?php
+					</div>
+					<div class="col-6">
+						<?php
 						if ($rows) {
 							$third_row = $rows[2];
 							if ($third_row) {
@@ -98,9 +98,9 @@ $rows = get_field('content_boxes');
 							}
 						}
 						?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

@@ -7,11 +7,11 @@ $title = get_field('title');
 $text = get_field('text');
 ?>
 <section class="video4-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -19,11 +19,11 @@ $text = get_field('text');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <?php
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<?php
 			if (have_rows('videos')) {
 				while (have_rows('videos')) {
 					the_row();
@@ -38,6 +38,6 @@ $text = get_field('text');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

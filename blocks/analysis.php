@@ -13,8 +13,8 @@ $pos = get_field('position');
 $link = get_field('link');
 ?>
 <section class="analysis-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($toptext)) {
 			echo '<div class="row justify-content-center">';
 			echo '<div class="col-lg-6">';
@@ -25,10 +25,10 @@ $link = get_field('link');
 			echo '</div>';
 		}
 		?>
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="text-block">
-                    <?php
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -41,12 +41,12 @@ $link = get_field('link');
 						echo '</div>';
 					}
 					?>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="quote-circle">
-                    <div class="quote-inner">
-                        <?php
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="quote-circle">
+					<div class="quote-inner">
+						<?php
 						if (!empty($quote)) {
 							echo '<div class="quote-block">';
 							echo wpautop($quote);
@@ -67,9 +67,9 @@ $link = get_field('link');
 						}
 						echo '</div>';
 						?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

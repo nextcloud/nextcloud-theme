@@ -8,11 +8,11 @@ $text = get_field('text');
 $link = get_field('link');
 ?>
 <section class="events-section gr" id="' . $id . '">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -20,10 +20,10 @@ $link = get_field('link');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('events')) {
 			echo '<div class="row justify-content-center">';
 			while (have_rows('events')) {
@@ -43,7 +43,7 @@ $link = get_field('link');
 			echo '</div>';
 		}
 		?>
-        <?php
+		<?php
 		if ($link) {
 			$link_url = $link['url'];
 			$link_title = $link['title'];
@@ -57,5 +57,5 @@ $link = get_field('link');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

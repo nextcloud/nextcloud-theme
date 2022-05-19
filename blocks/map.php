@@ -6,11 +6,11 @@ $id = get_field('section_id');
 $map = get_field('map');
 ?>
 <section class="map-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="map-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="map-block">
+					<?php
 					if (!empty($map)) {
 						echo '<img src="' . $map . '" alt=""/>';
 					}
@@ -26,8 +26,8 @@ $map = get_field('map');
 						echo '</ul>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

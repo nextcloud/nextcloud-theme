@@ -6,20 +6,20 @@
 get_header();
 ?>
 <div class="wrapper">
-    <section class="single-hero-section" style="background-color: #1cafff;">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h1><?php _e('Search results for: '); ?><?php echo '<green>' . get_search_query() . '</green>'; ?></h1>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <section class="blog-section">
-        <div class="container">
-            <div class="row">
-                <?php
+	<section class="single-hero-section" style="background-color: #1cafff;">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h1><?php _e('Search results for: '); ?><?php echo '<green>' . get_search_query() . '</green>'; ?></h1>
+					</div>
+				</div>
+			</div>
+	</section>
+	<section class="blog-section">
+		<div class="container">
+			<div class="row">
+				<?php
 				if (have_posts()) {
 					while (have_posts()) {
 						the_post();
@@ -46,9 +46,9 @@ get_header();
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </section>
+			</div>
+		</div>
+	</section>
 </div>
 
 <?php get_footer(); ?>

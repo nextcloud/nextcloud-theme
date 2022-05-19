@@ -7,11 +7,11 @@ $title = get_field('title');
 $subtext = get_field('subtext');
 ?>
 <section class="price-tab-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -19,13 +19,13 @@ $subtext = get_field('subtext');
 						echo $subtext;
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="tabs-block">
-                    <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="tabs-block">
+					<?php
 					if (have_rows('plans')) {
 						$i = 1;
 						echo '<ul class="tab-buttons">';
@@ -93,8 +93,8 @@ $subtext = get_field('subtext');
 						}
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

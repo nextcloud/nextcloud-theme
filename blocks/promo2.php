@@ -8,11 +8,11 @@ $playstore = get_field('playstore_link');
 $appstore = get_field('appstore_link');
 ?>
 <section class="promo2-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -25,8 +25,8 @@ $appstore = get_field('appstore_link');
 					}
 					echo '</div>';
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

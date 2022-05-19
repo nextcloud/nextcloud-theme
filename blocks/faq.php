@@ -6,11 +6,11 @@ $id = get_field('section_id');
 $title = get_field('title');
 ?>
 <section class="faq-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="faq-block">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="faq-block">
+					<?php
 					if (have_rows('faq')):
 						echo '<div class="text-block">';
 						if (!empty($title)) {
@@ -54,8 +54,8 @@ $title = get_field('title');
 						echo '</div>';
 					endif;
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

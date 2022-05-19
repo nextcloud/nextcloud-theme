@@ -6,20 +6,20 @@ $id = get_field('section_id');
 $title = get_field('title');
 ?>
 <section class="integration-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <?php
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<?php
 			if (have_rows('integration_list')) {
 				$i = 1;
 				while (have_rows('integration_list')) {
@@ -43,6 +43,6 @@ $title = get_field('title');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

@@ -5,9 +5,9 @@
 $id = get_field('section_id');
 ?>
 <section class="boxes-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <?php
+	<div class="container">
+		<div class="row">
+			<?php
 			if (have_rows('solution_list')) {
 				$i = 1;
 				while (have_rows('solution_list')) {
@@ -45,6 +45,6 @@ $id = get_field('section_id');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

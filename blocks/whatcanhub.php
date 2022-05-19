@@ -7,11 +7,11 @@ $title = get_field('title');
 $text = get_field('text');
 ?>
 <section class="whatcanhub-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -19,10 +19,10 @@ $text = get_field('text');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('item_list')) {
 			echo '<div class="row">';
 			while (have_rows('item_list')) {
@@ -50,5 +50,5 @@ $text = get_field('text');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

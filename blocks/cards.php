@@ -5,8 +5,8 @@
 $id = get_field('section_id');
 ?>
 <section class="cards-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (have_rows('card_group')) {
 			while (have_rows('card_group')) {
 				the_row();
@@ -98,5 +98,5 @@ $id = get_field('section_id');
 			}
 		}
 		?>
-    </div>
+	</div>
 </section>

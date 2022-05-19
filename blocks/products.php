@@ -7,17 +7,17 @@ $title = get_field('title');
 $video = get_field('video');
 ?>
 <section class="products-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
 					?>
-                </div>
-                <?php
+				</div>
+				<?php
 				if (have_rows('products')) {
 					$i = 1;
 					echo '<div class="products-accordion">';
@@ -61,8 +61,8 @@ $video = get_field('video');
 					echo '</div>';
 				}
 				?>
-            </div>
-            <?php
+			</div>
+			<?php
 			if (!empty($video)) {
 				echo '<div class="col-lg-5 offset-lg-1">';
 				echo '<div class="button-block">';
@@ -71,26 +71,26 @@ $video = get_field('video');
 				echo '</div>';
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>
 <?php
 if (!empty($video)) {
 				?>
-    <div class="modal video-modal fade" id="productvideoModal" tabindex="-1" aria-labelledby="productvideoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="video-holder">
-                        <?php echo $video; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
+	<div class="modal video-modal fade" id="productvideoModal" tabindex="-1" aria-labelledby="productvideoModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="video-holder">
+						<?php echo $video; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
 			}
 ?>

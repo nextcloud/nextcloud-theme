@@ -8,11 +8,11 @@ $text = get_field('text');
 $img = get_field('image');
 ?>
 <section class="whyhub-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -20,9 +20,9 @@ $img = get_field('image');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-             <?php
+				</div>
+			</div>
+			 <?php
 			if (!empty($img)) {
 				echo '<div class="col-lg-6">';
 				echo '<div class="image-block">';
@@ -31,6 +31,6 @@ $img = get_field('image');
 				echo '</div>';
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

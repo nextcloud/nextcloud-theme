@@ -7,8 +7,8 @@ $title = get_field('title');
 $subtext = get_field('subtext');
 ?>
 <section class="whitepaper-list-section">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		echo '<div class="row">';
 		echo '<div class="col-12">';
 		echo '<div class="section-title">';
@@ -22,8 +22,8 @@ $subtext = get_field('subtext');
 		echo '</div>';
 		echo '</div>';
 		?>
-        <div class="row">
-            <?php
+		<div class="row">
+			<?php
 			$my_wp_query = new WP_Query();
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
@@ -45,7 +45,7 @@ $subtext = get_field('subtext');
 				echo '<ul class="cats">';
 				echo '<li>posted in </li>';
 				foreach ($cat as $c) {
-					//    $category_link = get_category_link($c->term_id);
+					//	$category_link = get_category_link($c->term_id);
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
 				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
@@ -60,6 +60,6 @@ $subtext = get_field('subtext');
 			}
 			wp_reset_query();
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

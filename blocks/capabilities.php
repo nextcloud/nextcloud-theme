@@ -8,11 +8,11 @@ $text = get_field('text');
 $subtext = get_field('subtext');
 ?>
 <section class="capabilities-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -20,10 +20,10 @@ $subtext = get_field('subtext');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('capabilities_list')) {
 			echo '<div class="row capabilities-slider">';
 			while (have_rows('capabilities_list')) {
@@ -69,5 +69,5 @@ $subtext = get_field('subtext');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

@@ -6,19 +6,19 @@ $id = get_field('section_id');
 $title = get_field('title');
 ?>
 <section class="hosting-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('columns')) {
 			echo '<div class="row">';
 			while (have_rows('columns')) {
@@ -43,5 +43,5 @@ $title = get_field('title');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

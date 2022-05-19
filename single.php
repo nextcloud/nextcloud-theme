@@ -6,88 +6,88 @@
 get_header();
 ?>
 <div class="wrapper">
-    <?php
+	<?php
 	while (have_posts()) : the_post();
 		$date = get_the_date('F d, Y');
 		$cat = get_the_category($the_post);
 		$id = get_the_ID();
 		$author_id = get_the_author_meta('ID');
 	?>
-        <section class="single-hero-section" style="background-color: #1cafff;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <?php
+		<section class="single-hero-section" style="background-color: #1cafff;">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<?php
 							echo '<h1>' . get_the_title() . '</h1>';
 							?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="date-block">
-                            <?php
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="date-block">
+							<?php
 							echo '<p>' . $date . '</p>';
 							?>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="cat-block">
-                            <?php
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="cat-block">
+							<?php
 							echo '<ul>';
 							foreach ($cat as $c) {
-								//    $category_link = get_category_link($c->term_id);
+								//	$category_link = get_category_link($c->term_id);
 								echo '<li>' . $c->cat_name . '</li>';
 							}
 							echo '</ul>';
 							?>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="author-block">
-                            <?php
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="author-block">
+							<?php
 							echo '<p>' . get_the_author_meta('display_name', $author_id) . '</p>';
 							?>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="share-block">
-                            <?php
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="share-block">
+							<?php
 							echo do_shortcode('[addtoany]');
 							?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="post-single-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-block">
-                        <?php
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="post-single-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="text-block">
+						<?php
 						echo do_shortcode(apply_filters('the_content', get_the_content()));
 					endwhile; // End of the loop.
 						?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="related-posts-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title">
-                            <h3>Other Posts</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="related-slider">
-                            <?php
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="related-posts-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h3>Other Posts</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="related-slider">
+							<?php
 							$my_wp_query = new WP_Query();
 							$onepost = $my_wp_query->query(array(
 								'post_type' => 'post',
@@ -115,22 +115,22 @@ get_header();
 							}
 							wp_reset_query();
 							?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <?php
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<?php
 		$forum = get_field('footer_text', 'options');
 		$link = get_field('footer_link', 'options');
 		if (!empty($forum)) {
 			?>
-            <section class="get-started-section">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="text-block">
-                                <?php
+			<section class="get-started-section">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-10">
+							<div class="text-block">
+								<?php
 								echo '<h3>' . $forum . '</h3>';
 			if ($link) {
 				$link_url = $link['url'];
@@ -138,12 +138,12 @@ get_header();
 				$link_target = $link['target'] ? $link['target'] : '_self';
 				echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 			} ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        <?php
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		<?php
 		}
 		?>
 </div>

@@ -8,8 +8,8 @@ $subtext = get_field('subtext');
 $center = get_field('center_content');
 ?>
 <section class="img-cols-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($title) || !empty($subtext)) {
 			echo '<div class="row">';
 			echo '<div class="col-12">';
@@ -25,7 +25,7 @@ $center = get_field('center_content');
 			echo '</div>';
 		}
 		?>
-        <?php
+		<?php
 		if (have_rows('column')) {
 			echo '<div class="row">';
 			$count = count(get_field('column'));
@@ -61,5 +61,5 @@ $center = get_field('center_content');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

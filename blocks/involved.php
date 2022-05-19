@@ -7,11 +7,11 @@ $title = get_field('title');
 $icon = get_field('icon');
 ?>
 <section class="involved-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($icon)) {
 						echo '<img src="' . $icon . '" alt=""/>';
 					}
@@ -19,12 +19,12 @@ $icon = get_field('icon');
 						echo '<h6>' . $title . '</h6>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <?php
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<?php
 				if (have_rows('build_column')) {
 					while (have_rows('build_column')) {
 						the_row();
@@ -62,9 +62,9 @@ $icon = get_field('icon');
 					}
 				}
 				?>
-            </div>
-            <div class="col-lg-6">
-                <?php
+			</div>
+			<div class="col-lg-6">
+				<?php
 				if (have_rows('test_clients_column')) {
 					while (have_rows('test_clients_column')) {
 						the_row();
@@ -99,7 +99,7 @@ $icon = get_field('icon');
 					}
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

@@ -5,9 +5,9 @@
 $id = get_field('section_id');
 ?>
 <section class="providers-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <?php
+	<div class="container">
+		<div class="row">
+			<?php
 			if (have_rows('providers_list')) {
 				while (have_rows('providers_list')) {
 					the_row();
@@ -41,6 +41,6 @@ $id = get_field('section_id');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

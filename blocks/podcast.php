@@ -8,99 +8,99 @@ $dir = get_stylesheet_directory_uri();
 ?>
 <script src="https://cdn.podlove.org/web-player/5.x/embed.js"></script>
 <script>
-    const RSS_URL = "<?php echo $dir; ?>/podcast-feed.rss";
-    const config_URL = "<?php echo $dir; ?>/dist/js/config.json";
-    const version = 5;
-    const show = {
-        title: "Nextcloud Podcast",
-        subtitle: "Nextcloud's own podcast",
-        summary: "Every week we will talk about a subject concerning the community, data privacy and digital sovereignty",
-        poster: "<?php echo $dir; ?>/dist/img/nextcloud-podcast-logo.png",
-        link: "<?php echo site_url(); ?>/podcast"
-    };
+	const RSS_URL = "<?php echo $dir; ?>/podcast-feed.rss";
+	const config_URL = "<?php echo $dir; ?>/dist/js/config.json";
+	const version = 5;
+	const show = {
+		title: "Nextcloud Podcast",
+		subtitle: "Nextcloud's own podcast",
+		summary: "Every week we will talk about a subject concerning the community, data privacy and digital sovereignty",
+		poster: "<?php echo $dir; ?>/dist/img/nextcloud-podcast-logo.png",
+		link: "<?php echo site_url(); ?>/podcast"
+	};
 
-    Promise.all([
-        fetch(RSS_URL)
-        .then(rss_response => rss_response.text()),
-        fetch(config_URL)
-        .then(config_response => config_response.json())
-    ]).then((response) => {
-        const rss_data = new window.DOMParser().parseFromString(response[0], "text/xml");
-        const episodes_nodes = rss_data.querySelectorAll("item");
-        let config_data = response[1];
+	Promise.all([
+		fetch(RSS_URL)
+		.then(rss_response => rss_response.text()),
+		fetch(config_URL)
+		.then(config_response => config_response.json())
+	]).then((response) => {
+		const rss_data = new window.DOMParser().parseFromString(response[0], "text/xml");
+		const episodes_nodes = rss_data.querySelectorAll("item");
+		let config_data = response[1];
 
-        let episodes_list = [];
-        let playlist = [];
-        episodes_nodes.forEach(episode => {
-            let audio_object = {
-                url: episode.querySelector("enclosure").getAttribute("url"),
-                size: episode.querySelector("enclosure").getAttribute("length"),
-                title: episode.querySelector("title").textContent,
-                mimeType: episode.querySelector("enclosure").getAttribute("type")
-            };
+		let episodes_list = [];
+		let playlist = [];
+		episodes_nodes.forEach(episode => {
+			let audio_object = {
+				url: episode.querySelector("enclosure").getAttribute("url"),
+				size: episode.querySelector("enclosure").getAttribute("length"),
+				title: episode.querySelector("title").textContent,
+				mimeType: episode.querySelector("enclosure").getAttribute("type")
+			};
 
-            /**
-             * Episode related Information
-             */
-            let episode_config = {
-                version: version,
-                show: show,
-                title: episode.querySelector("title").textContent,
-                subtitle: episode.getElementsByTagName("itunes:subtitle")[0].textContent,
-                summary: episode.getElementsByTagName("itunes:summary")[0].textContent,
-                publicationDate: episode.querySelector("pubDate").textContent,
-                poster: "<?php echo $dir; ?>/dist/img/nextcloud-podcast-logo.png",
-                duration: episode.getElementsByTagName("itunes:duration")[0].textContent,
-                link: episode.querySelector("link").textContent,
-                audio: [audio_object],
-                playlist: [],
-                contributors: [{
-                    id: "",
-                    name: "",
-                    avatar: "",
-                    group: {
-                        "id": "",
-                        "slug": "",
-                        "title": ""
-                    }
-                }]
-            };
-            episodes_list.push(episode_config);
+			/**
+			 * Episode related Information
+			 */
+			let episode_config = {
+				version: version,
+				show: show,
+				title: episode.querySelector("title").textContent,
+				subtitle: episode.getElementsByTagName("itunes:subtitle")[0].textContent,
+				summary: episode.getElementsByTagName("itunes:summary")[0].textContent,
+				publicationDate: episode.querySelector("pubDate").textContent,
+				poster: "<?php echo $dir; ?>/dist/img/nextcloud-podcast-logo.png",
+				duration: episode.getElementsByTagName("itunes:duration")[0].textContent,
+				link: episode.querySelector("link").textContent,
+				audio: [audio_object],
+				playlist: [],
+				contributors: [{
+					id: "",
+					name: "",
+					avatar: "",
+					group: {
+						"id": "",
+						"slug": "",
+						"title": ""
+					}
+				}]
+			};
+			episodes_list.push(episode_config);
 
-            let episode_object = {
-                title: episode_config.title,
-                duration: episode_config.duration,
-                href: episode_config.link,
-                image: "author.jpg",
-                config: {}
-            };
-            playlist.push(episode_object);
-        });
+			let episode_object = {
+				title: episode_config.title,
+				duration: episode_config.duration,
+				href: episode_config.link,
+				image: "author.jpg",
+				config: {}
+			};
+			playlist.push(episode_object);
+		});
 
-        // add config for each episode in playlist
-        let episode_number = 0;
-        playlist.forEach(episode => {
-            episode.config = episodes_list[episode_number];
-            episode_number++;
-        });
+		// add config for each episode in playlist
+		let episode_number = 0;
+		playlist.forEach(episode => {
+			episode.config = episodes_list[episode_number];
+			episode_number++;
+		});
 
-        // add playlist to episodes
-        episodes_list.forEach(episode => {
-            episode.playlist = playlist;
-        });
+		// add playlist to episodes
+		episodes_list.forEach(episode => {
+			episode.playlist = playlist;
+		});
 
-        config_data.playlist = playlist;
-        window.podlovePlayer("#podcast-player", episodes_list[0], config_data)
-            .then(store => {
-                store.subscribe(() => {
-                    console.log(store.getState());
-                });
-            });
-    });
+		config_data.playlist = playlist;
+		window.podlovePlayer("#podcast-player", episodes_list[0], config_data)
+			.then(store => {
+				store.subscribe(() => {
+					console.log(store.getState());
+				});
+			});
+	});
 </script>
 <section class="podcast-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($title)) {
 			echo '<div class="row justify-content-center">';
 			echo '<div class="col-lg-10">';
@@ -111,12 +111,12 @@ $dir = get_stylesheet_directory_uri();
 			echo '</div>';
 		}
 		?>
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
-                <div id="podcast-player"></div>
-            </div>
-        </div>
-        <?php
+		<div class="row justify-content-center">
+			<div class="col-lg-9">
+				<div id="podcast-player"></div>
+			</div>
+		</div>
+		<?php
 		if (have_rows('subs_links')) {
 			echo '<div class="row justify-content-center">';
 			echo '<div class="col-lg-10">';
@@ -137,11 +137,11 @@ $dir = get_stylesheet_directory_uri();
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>
 <section class="whitepaper-list-section">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		echo '<div class="row">';
 		echo '<div class="col-12">';
 		echo '<div class="section-title">';
@@ -150,8 +150,8 @@ $dir = get_stylesheet_directory_uri();
 		echo '</div>';
 		echo '</div>';
 		?>
-        <div class="row">
-            <?php
+		<div class="row">
+			<?php
 			$my_wp_query = new WP_Query();
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
@@ -173,7 +173,7 @@ $dir = get_stylesheet_directory_uri();
 				echo '<ul class="cats">';
 				echo '<li>posted in </li>';
 				foreach ($cat as $c) {
-					//    $category_link = get_category_link($c->term_id);
+					//	$category_link = get_category_link($c->term_id);
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
 				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
@@ -188,6 +188,6 @@ $dir = get_stylesheet_directory_uri();
 			}
 			wp_reset_query();
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

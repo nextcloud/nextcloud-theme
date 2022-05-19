@@ -9,11 +9,11 @@ $studies = get_field('data_sheet_selection');
 $case_form = get_field('data_sheet_form', 'options');
 ?>
 <section class="data-sheet-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -21,10 +21,10 @@ $case_form = get_field('data_sheet_form', 'options');
 						echo wpautop($subtext);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <?php
+				</div>
+			</div>
+		</div>
+		<?php
 		if ($studies) {
 			echo '<div class="row">';
 			echo '<div class="col-12">';
@@ -58,5 +58,5 @@ $case_form = get_field('data_sheet_form', 'options');
 			echo '</div>';
 		}
 		?>
-    </div>
+	</div>
 </section>

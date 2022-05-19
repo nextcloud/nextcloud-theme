@@ -5,8 +5,8 @@
 $id = get_field('section_id');
 ?>
 <section class="columns2-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (have_rows('column_content')) {
 			$i = 1;
 			while (have_rows('column_content')) {
@@ -70,5 +70,5 @@ $id = get_field('section_id');
 			}
 		}
 		?>
-    </div>
+	</div>
 </section>

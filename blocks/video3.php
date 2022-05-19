@@ -9,11 +9,11 @@ $link = get_field('link');
 $video = get_field('video');
 ?>
 <section class="video3-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -27,11 +27,11 @@ $video = get_field('video');
 						echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <?php
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<?php
 			if (!empty($video)) {
 				echo '<div class="col-lg-6">';
 				echo '<div class="video-block">';
@@ -40,6 +40,6 @@ $video = get_field('video');
 				echo '</div>';
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

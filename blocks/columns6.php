@@ -7,8 +7,8 @@ $title = get_field('title');
 $invert = get_field('invert_columns');
 ?>
 <section class="columns6-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <?php
+	<div class="container">
+		<?php
 		if (!empty($title)) {
 			echo '<div class="row">';
 			echo '<div class="col-12">';
@@ -113,5 +113,5 @@ $invert = get_field('invert_columns');
 			}
 		}
 		?>
-    </div>
+	</div>
 </section>

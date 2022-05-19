@@ -9,11 +9,11 @@ $image = get_field('image');
 $img_text = get_field('image_subtext');
 ?>
 <section class="content2-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="text-block">
-                    <?php
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<?php
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
@@ -21,10 +21,10 @@ $img_text = get_field('image_subtext');
 						echo wpautop($text);
 					}
 					?>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <?php
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<?php
 				if (!empty($image)) {
 					echo '<div class="image-block">';
 					echo '<img src="' . $image . '" alt=""/>';
@@ -34,7 +34,7 @@ $img_text = get_field('image_subtext');
 					echo '</div>';
 				}
 				?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </section>

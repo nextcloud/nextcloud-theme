@@ -8,10 +8,10 @@ $text = get_field('text');
 $center = get_field('center');
 ?>
 <section class="solution-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<?php
 				if ($center) {
 					echo '<div class="section-title text-center">';
 				} else {
@@ -25,10 +25,10 @@ $center = get_field('center');
 				}
 				echo '</div>';
 				?>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <?php
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<?php
 			if (have_rows('solution_list')) {
 				$i = 1;
 				while (have_rows('solution_list')) {
@@ -67,6 +67,6 @@ $center = get_field('center');
 				}
 			}
 			?>
-        </div>
-    </div>
+		</div>
+	</div>
 </section>

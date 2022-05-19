@@ -10,11 +10,11 @@ $subtitle = get_field('subtitle');
 $text = get_field('text');
 ?>
 <section class="content1-section" id="<?php echo $id; ?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <?php
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<?php
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -22,22 +22,22 @@ $text = get_field('text');
 						echo wpautop($subtext);
 					}
 					?>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-2">
-                <?php
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center">
+			<div class="col-lg-6 order-lg-2">
+				<?php
 				if (!empty($image)) {
 					echo '<div class="image-block">';
 					echo '<img src="' . $image . '" alt=""/>';
 					echo '</div>';
 				}
 				?>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <div class="text-block">
-                    <?php
+			</div>
+			<div class="col-lg-6 order-lg-1">
+				<div class="text-block">
+					<?php
 					if (!empty($subtitle)) {
 						echo '<h3>' . $subtitle . '</h3>';
 					}
@@ -58,8 +58,8 @@ $text = get_field('text');
 						}
 					}
 					?>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
