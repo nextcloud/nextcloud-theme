@@ -34,6 +34,8 @@ $case_form = get_field('whitepaper_form', 'options');
                 $header = get_the_title($study->ID);
                 $ex = get_the_excerpt($study->ID);
                 $custom_field = get_field('field_name', $study->ID);
+                $att = get_field('attachment', $study->ID);
+                $str = substr($att, 38);
                 echo '<div>';
                 echo '<div class="post-holder">';
                 echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
