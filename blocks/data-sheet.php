@@ -29,13 +29,15 @@ $case_form = get_field('data_sheet_form', 'options');
 			echo '<div class="row">';
 			echo '<div class="col-12">';
 			echo '<div class="case-slider">';
+			echo '<div class="row">';
 			foreach ($studies as $study) {
 				$img = wp_get_attachment_url(get_post_thumbnail_id($study->ID));
 				$header = get_the_title($study->ID);
 				$ex = get_the_excerpt($study->ID);
 				$custom_field = get_field('field_name', $study->ID);
-				echo '<div>';
-				echo '<div class="post-holder">';
+				$att = get_field('attachment', $study->ID);
+				echo '<div class="col-lg-4">';
+				echo '<div class="post-holder" data-file="' . $att . '">';
 				echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
 				echo '<div class="post-body">';
 				if (!empty($header)) {
@@ -53,6 +55,7 @@ $case_form = get_field('data_sheet_form', 'options');
 				echo '</div>';
 				echo '</div>';
 			}
+			echo '</div>';
 			echo '</div>';
 			echo '</div>';
 			echo '</div>';

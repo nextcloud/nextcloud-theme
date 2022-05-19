@@ -37,8 +37,8 @@ get_header();
 							<?php
 							echo '<ul>';
 							foreach ($cat as $c) {
-								//	$category_link = get_category_link($c->term_id);
-								echo '<li>' . $c->cat_name . '</li>';
+								$category_link = get_category_link($c->term_id);
+								echo '<a href="'.$category_link.'"> <li>' . $c->cat_name . ' </li></a> ';
 							}
 							echo '</ul>';
 							?>
