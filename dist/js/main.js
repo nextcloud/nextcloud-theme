@@ -304,31 +304,7 @@ jQuery(document).ready(function () {
         });
     }
 
-    if (jQuery('.case-slider').width() > 1) {
-        jQuery('.case-slider').slick({
-            infinite: false,
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            arrows: true,
-            dots: false,
-            responsive: [
-                {
-                    breakpoint: 992,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-    }
+    
     if (jQuery('.related-slider').width() > 1) {
         jQuery('.related-slider').slick({
             infinite: false,
