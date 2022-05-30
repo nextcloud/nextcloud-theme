@@ -63,8 +63,8 @@ get_header();
 		</section>
 		<section class="post-single-section">
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
+				<div class="row justify-content-center">
+					<div class="col-lg-8 col-md-12">
 						<div class="text-block">
 						<?php
 						echo do_shortcode(apply_filters('the_content', get_the_content()));
