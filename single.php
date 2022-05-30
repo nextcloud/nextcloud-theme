@@ -7,11 +7,15 @@ get_header();
 ?>
 <div class="wrapper">
 	<?php
+	$ids = [];
 	while (have_posts()) : the_post();
-		$date = get_the_date('F d, Y');
-		$cat = get_the_category($the_post);
+		$date = (string)get_the_date('F d, Y');
+		$cat = get_the_category();
+		$author_id = (int)get_the_author_meta('ID');
 		$id = get_the_ID();
-		$author_id = get_the_author_meta('ID');
+		if ($id !== false) {
+			$ids[] = $id;
+		}
 	?>
 		<section class="single-hero-section" style="background-color: #1cafff;">
 			<div class="container">
@@ -89,19 +93,20 @@ get_header();
 						<div class="related-slider">
 							<?php
 							$my_wp_query = new WP_Query();
+							/** @var WP_Post[] $onepost */
 							$onepost = $my_wp_query->query(array(
 								'post_type' => 'post',
-								'post__not_in' => array($id),
+								'post__not_in' => $ids,
 								'posts_per_page' => 3,
 								'post_status' => 'publish',
 								'orderby' => 'date',
 								'order' => 'DSC',
 							));
 							foreach ($onepost as $onepostsingle) {
-								$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID));
+								$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
 								$title = $onepostsingle->post_title;
 								$ex = $onepostsingle->post_excerpt;
-								$link = get_permalink($onepostsingle->ID);
+								$link = (string)get_permalink($onepostsingle->ID);
 								echo '<div>';
 								echo '<div class="post-box">';
 								echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';

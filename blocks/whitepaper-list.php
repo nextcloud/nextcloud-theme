@@ -25,6 +25,7 @@ $subtext = get_field('subtext');
 		<div class="row">
 			<?php
 			$my_wp_query = new WP_Query();
+			/** @var WP_Post[] $onepost */
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
 				'category_name' => 'whitepaper',
@@ -34,12 +35,12 @@ $subtext = get_field('subtext');
 				'order' => 'DSC',
 			));
 			foreach ($onepost as $onepostsingle) {
-				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID));
+				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
 				$title = $onepostsingle->post_title;
-				$date = get_the_date('F d, Y', $onepostsingle->ID);
+				$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
 				$cat = get_the_category($onepostsingle->ID);
-				$link = get_permalink($onepostsingle->ID);
-				$author_id = $onepostsingle->post_author;
+				$link = get_permalink($onepostsingle->ID) ?: '';
+				$author_id = (int)$onepostsingle->post_author;
 				echo '<div class="col-lg-4 col-md-6 spacer">';
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <file name="archive.php"/>
+        <file name="header.php"/>
+        <file name="footer.php"/>
+        <file name="single.php"/>
+        <file name="index.php"/>
+        <file name="search.php"/>
+        <file name="404.php"/>
+        <file name="functions.php"/>
+        <directory name="lib"/>
+        <directory name="blocks"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+    <stubs>
+        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
+        <file name="acf.functions.stub.php" />
+        <file name="config.example.php"/>
+        <file name="lib/signup.php"/>
+    </stubs>
+</psalm>

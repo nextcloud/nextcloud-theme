@@ -34,7 +34,7 @@ $text = get_field('text');
 				if ($members) {
 					echo '<div class="row">';
 					foreach ($members as $member) {
-						$img = wp_get_attachment_url(get_post_thumbnail_id($member->ID));
+						$img = wp_get_attachment_url(get_post_thumbnail_id($member->ID) ?: 0) ?: '';
 						$header = get_the_title($member->ID);
 						$bio = get_field('biography', $member->ID);
 						$pos = get_field('position', $member->ID);

@@ -158,7 +158,7 @@ function request_account($request) {
 	$redis->expire($rateId, $ttl > 0 ? $ttl : $limit['interval']);
 
 
-	if (!array_key_exists('response', $post)) {
+	if (!is_array($post) || !array_key_exists('response', $post)) {
 		error_log('Provider did not returned 201: ' . json_encode($post));
 		return new WP_Error('unknown_error', 'Something happened', array('status' => 400));
 	} elseif ($post['response']['code'] !== 201) {
@@ -256,8 +256,8 @@ function subscribe($email) {
 }
 
 function get_statistics() {
+	global $redis;
 	if (isset($_GET['key']) && $_GET['key'] === PPP_KEY) {
-		global $redis;
 		
 		// select every proper timestamp ()
 		// TODO: change the timestamp for May 18, 2033 @ 5:33:20 am 😂
@@ -278,7 +278,7 @@ function get_statistics() {
 		set_time_limit(0);
 		$data = array_reduce($keys, function ($array, $key) {
 			global $redis;
-			$array[$key] = json_decode($redis->get($key));
+			$array[$key] = json_decode($redis->get($key) ?? '');
 
 			return $array;
 		});

@@ -83,7 +83,7 @@ $icon = get_field('icon');
 								if ($clink) {
 									$link_url = $clink['url'];
 									$link_title = $clink['title'];
-									$link_target = $clink['target'] ? $slink['target'] : '_self';
+									$link_target = $clink['target'] ? $clink['target'] : '_self';
 									echo '<li><span style="background-image:url(' . $himg . ');"></span><a href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a></li>';
 								}
 							}

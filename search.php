@@ -23,10 +23,10 @@ get_header();
 				if (have_posts()) {
 					while (have_posts()) {
 						the_post();
-						$img = wp_get_attachment_url(get_post_thumbnail_id($the_post->ID));
+						$img = wp_get_attachment_url(get_post_thumbnail_id() ?: 0) ?: '';
 						$title = get_the_title();
 						$ex = get_the_excerpt();
-						$link = get_permalink($the_post->ID);
+						$link = get_permalink() ?: '';
 						echo '<div class="col-lg-4 col-md-6 spacer">';
 						echo '<div class="post-box">';
 						echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';

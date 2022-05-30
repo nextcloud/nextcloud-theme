@@ -27,10 +27,10 @@ get_header();
 				<?php
 					// Start the Loop
 					while (have_posts()) : the_post();
-						$img = wp_get_attachment_url(get_post_thumbnail_id($post->ID));
+						$img = wp_get_attachment_url(get_post_thumbnail_id() ?: 0) ?: '';
 						$title = get_the_title();
 						$ex = get_the_excerpt();
-						$link = get_permalink($post->ID);
+						$link = get_permalink() ?: '';
 						echo '<div class="col-lg-4 col-md-6 spacer">';
 						echo '<div class="post-box">';
 						echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
