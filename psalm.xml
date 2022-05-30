@@ -11,7 +11,6 @@
         <file name="header.php"/>
         <file name="footer.php"/>
         <file name="single.php"/>
-        <file name="config.example.php"/>
         <file name="index.php"/>
         <file name="search.php"/>
         <file name="404.php"/>
@@ -25,5 +24,7 @@
     <stubs>
         <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
         <file name="acf.functions.stub.php" />
+        <file name="config.example.php"/>
+        <file name="lib/signup.php"/>
     </stubs>
 </psalm>
