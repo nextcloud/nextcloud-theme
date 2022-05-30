@@ -9,7 +9,7 @@ get_header();
 	<?php
 	while (have_posts()) : the_post();
 		$date = get_the_date('F d, Y');
-		$cat = get_the_category($the_post);
+		$cat = get_the_category();
 		$id = get_the_ID();
 		$author_id = get_the_author_meta('ID');
 	?>
