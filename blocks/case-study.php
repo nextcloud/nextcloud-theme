@@ -31,7 +31,7 @@ $case_form = get_field('case_study_form', 'options');
 			echo '<div class="case-slider">';
 			echo '<div class="row">';
 			foreach ($studies as $study) {
-				$img = wp_get_attachment_url(get_post_thumbnail_id($study->ID));
+				$img = wp_get_attachment_url(get_post_thumbnail_id($study->ID) ?: 0) ?: '';
 				$header = get_the_title($study->ID);
 				$ex = get_the_excerpt($study->ID);
 				$custom_field = get_field('field_name', $study->ID);

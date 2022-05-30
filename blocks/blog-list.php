@@ -29,6 +29,7 @@ $title = get_field('title');
 		<div class="row">
 			<?php
 			$my_wp_query = new WP_Query();
+			/** @var WP_Post[] $onepost */
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
 				'posts_per_page' => -1,
@@ -37,10 +38,10 @@ $title = get_field('title');
 				'order' => 'DSC',
 			));
 			foreach ($onepost as $onepostsingle) {
-				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID));
+				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
 				$title = $onepostsingle->post_title;
 				$ex = $onepostsingle->post_excerpt;
-				$link = get_permalink($onepostsingle->ID);
+				$link = get_permalink($onepostsingle->ID) ?: '';
 				echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="display: none;">';
 				echo '<div class="post-box">';
 				echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
