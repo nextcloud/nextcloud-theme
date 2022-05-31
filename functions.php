@@ -41,8 +41,6 @@ function twentyseventeen_block_editor_styles() {
 
 add_action('enqueue_block_editor_assets', 'twentyseventeen_block_editor_styles');
 
-remove_filter('the_content', 'wpautop');
-
 add_theme_support('custom-logo', array(
 	'height' => 3000,
 	'width' => 9999,
