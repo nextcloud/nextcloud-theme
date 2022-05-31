@@ -85,6 +85,15 @@ footer {
                 }
             }
         }
+
+        @media (max-width: 1199.98px) {
+            padding: 50px 0px 40px 0px;
+
+            .footer-menu li {
+                width: 33.3333333333333333%;
+                text-align: center;
+            }
+        }
     }
 
     .social-media-holder {
