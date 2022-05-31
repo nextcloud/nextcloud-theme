@@ -8,8 +8,11 @@
 @import "./images";
 
 a {
-    transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: color 0.3s ease;
+    -webkit-transition: color 0.3s ease;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
 }
 
 a,
@@ -6073,6 +6076,8 @@ p {
             list-style: none;
             display: inline-flex;
             flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
 
             li {
                 color: #fff;
@@ -6611,6 +6616,10 @@ p {
     padding: 100px 0px 110px;
 
     .text-block {
+        a, a:active, a:visited, a:hover {
+            text-decoration: underline;
+        }
+
         h1 {
             font-size: 58px;
             color: #0c0726;
@@ -6653,7 +6662,7 @@ p {
             margin: 20px 0px 10px;
         }
 
-        p {
+        p, li {
             line-height: 1.6;
         }
 
@@ -6779,52 +6788,6 @@ p {
 @media (max-width: 1399.98px) {
     footer .menu-footer-menu-container {
         padding: 50px 0px 40px 120px;
-    }
-}
-
-@media (max-width: 1199.98px) {
-    header .header-holder .header-items .menu-primary-menu-container .primary-menu>li>.sub-menu {
-        position: relative;
-        left: 0px;
-        width: 100%;
-        max-width: 320px;
-        margin: 20px 0px 0px;
-        padding: 20px 15px 1px;
-
-        &:before {
-            left: 20px;
-            margin: 0px;
-        }
-    }
-
-    header .header-holder .header-items .menu-primary-menu-container .primary-menu {
-        justify-content: flex-start;
-        padding: 30px 0px 0px;
-        flex-direction: column;
-
-        &>li {
-            margin: 0px;
-            padding: 10px 0px;
-        }
-    }
-
-    header .header-holder .header-items {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-
-    header {
-        padding: 12px 0px;
-        overflow-y: scroll;
-    }
-
-    footer .menu-footer-menu-container .footer-menu li {
-        width: 33.3333333333333333%;
-        text-align: center;
-    }
-
-    footer .menu-footer-menu-container {
-        padding: 50px 0px 40px 0px;
     }
 }
 

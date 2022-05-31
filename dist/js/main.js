@@ -1,7 +1,6 @@
 jQuery(document).ready(function () {
 
     fixedMeni();
-    showMenu();
 
     jQuery(".phone-menu").click(function () {
         jQuery(this).toggleClass("change");
@@ -613,18 +612,6 @@ jQuery(window).scroll(function () {
         }
     });
 });
-
-function showMenu() {
-    var windowWidth = jQuery(window).innerWidth();
-    if (windowWidth < 1199) {
-        jQuery('.phone-menu').show();
-        jQuery('.header-items').hide();
-    } else {
-        jQuery('.phone-menu').hide();
-        jQuery('.header-items').show();
-    }
-}
-;
 
 function fixedMeni() {
     var windowWidth = jQuery(window).innerWidth();
