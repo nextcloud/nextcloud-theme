@@ -1,3 +1,4 @@
 vendor
 .php-cs-fixer.cache
 config.php
+node_modules/
