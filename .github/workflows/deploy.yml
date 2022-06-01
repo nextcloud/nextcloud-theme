@@ -1,0 +1,58 @@
+name: Deployment artifact
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: php-actions/composer@v6
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@v1.2
+        id: versions
+        with:
+          fallbackNode: '^12'
+          fallbackNpm: '^6'
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
+
+      - name: Install dependencies & build
+        run: |
+          npm ci
+          npm run sass --if-present
+
+      - name: Update version
+        run: |
+          sed -i 's/Version: 1.0/Version: ${{ github.sha }}/g' style.css
+
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: theme-package
+          path: |
+            dist
+            *.php
+            !acf.functions.stub.php
+            !.php-cs-fixer.dist.php
+            blocks
+            lib
+            vendor
+            nextcloud-register/
+            style.css
+            screenshot.png
