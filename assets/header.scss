@@ -16,7 +16,7 @@ header {
     -webkit-transition: all 0.3s ease;
 
     &.scrolled {
-        background-color: #30B6FF;
+        background-color: #0082c9;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
     }
@@ -95,7 +95,7 @@ header {
 
                 .primary-menu {
                     padding: 0px;
-                    margi: 0px;
+                    margin: 0px;
                     list-style: none;
                     display: flex;
                     justify-content: flex-end;
