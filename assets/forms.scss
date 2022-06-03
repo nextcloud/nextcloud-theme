@@ -22,7 +22,7 @@
     .list-select-wrap .nf-field-element > div,
     input:not([type=button]),
     textarea {
-        border-radius: 10px;
+        border-radius: 10px !important;
     }
 
     .nf-error.field-wrap .nf-field-element:after {

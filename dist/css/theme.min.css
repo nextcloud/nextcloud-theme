@@ -1048,7 +1048,7 @@ footer .social-media-holder .social-menu li a:hover {
 .nf-form-content .list-select-wrap .nf-field-element > div,
 .nf-form-content input:not([type=button]),
 .nf-form-content textarea {
-  border-radius: 10px;
+  border-radius: 10px !important;
 }
 .nf-form-content .nf-error.field-wrap .nf-field-element:after {
   border-bottom-right-radius: 9px;
