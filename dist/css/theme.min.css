@@ -1055,6 +1055,12 @@ footer .social-media-holder .social-menu li a:hover {
   border-top-right-radius: 9px;
 }
 
+.nf-response-msg {
+  display: block;
+  max-width: 800px;
+  margin: 4rem auto;
+}
+
 a {
   transition: color 0.3s ease;
   -webkit-transition: color 0.3s ease;
