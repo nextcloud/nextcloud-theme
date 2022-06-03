@@ -36,3 +36,188 @@
     max-width: 800px;
     margin: 4rem auto;
 }
+
+.post-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    -moz-box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    overflow: hidden;
+
+    .post-img {
+        width: 100%;
+        height: 0px;
+        padding-top: 55%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        margin: 0px;
+    }
+
+    .post-body {
+        margin: 0px;
+        padding: 20px 20px 25px;
+
+        h5 {
+            min-height: 60px;
+            color: #0C0726;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0px 0px 10px;
+        }
+
+        p {
+            line-height: 156%;
+            margin: 0px;
+        }
+    }
+
+    .form-body {
+        width: 100%;
+        margin: auto 0px 0px 0px;
+        padding: 0px 20px 20px;
+
+        .wpcf7 form.invalid .wpcf7-response-output,
+        .wpcf7 form.unaccepted .wpcf7-response-output,
+        .wpcf7 form.payment-required .wpcf7-response-output {
+            font-size: 14px;
+        }
+
+        .wpcf7-not-valid-tip {
+            font-size: 12px;
+        }
+
+        .nf-form-fields-required {
+            display: none;
+        }
+
+        .nf-form-content {
+            width: 100%;
+            position: relative;
+
+            .input-holder {
+                width: 100%;
+
+                &.hidden-input {
+                    display: none;
+                }
+
+                input {
+                    width: 100%;
+                    height: 48px;
+                    padding: 0px 160px 0px 20px;
+                    border: 1px solid rgba(0, 0, 0, 0.25);
+                    background-color: transparent;
+                    border-radius: 24px !important;
+                    -webkit-border-radius: 24px;
+                    color: #000;
+                    font-size: 16px;
+                }
+                .nf-field-element::after {
+                    content: '' !important;
+                    display: none;
+                }
+            }
+
+            .submit-holder {
+                position: absolute;
+                top: 4px;
+                right: 0px;
+                width: 140px;
+                height: 48px;
+
+                input {
+                    width: 100%;
+                    min-width: 140px;
+                    height: 48px;
+                    border: 1px solid #0F0833;
+                    background-color: #0F0833;
+                    border-radius: 24px;
+                    -webkit-border-radius: 24px;
+                    color: #FFF;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            .check-holder {
+                padding-top: 0px;
+                text-align: left;
+                margin-bottom: 10px;
+
+                .checkbox-wrap {
+                    display: inline;
+                }
+
+                a {
+                    color: #000;
+                    text-decoration: underline;
+                }
+
+                label {
+                    font-weight: normal;
+                    display: inline;
+                    color: #000;
+                    font-size: 14px;
+
+                    a {
+                        color: #000;
+                        text-decoration: underline;
+                    }
+                }
+
+                br {
+                    display: none;
+                }
+
+                .wpcf7-list-item {
+                    margin: 0px;
+                }
+
+                .wpcf7-checkbox label {
+                    cursor: pointer;
+                    color: #000;
+                    font-size: 14px;
+                }
+
+                .wpcf7-checkbox input[type=checkbox] {
+                    display: none;
+                }
+
+                .wpcf7-checkbox input[type=checkbox]+span {
+                    display: block;
+                    position: relative;
+                    padding-left: 25px;
+                }
+
+                .wpcf7-checkbox input[type=checkbox]+span:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    border: 1px solid rgba(0, 0, 0, 0.25);
+                    border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    height: 20px;
+                    width: 20px;
+                    top: 0px;
+                    left: 0px;
+                    background-color: #FFF;
+                    background-image: url('../img/check-square.png');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;
+                }
+
+                .wpcf7-checkbox input[type=checkbox]:checked+span:before {
+                    background-color: #000;
+                }
+            }
+        }
+    }
+}
