@@ -7,7 +7,7 @@ $title = get_field('title');
 $subtext = get_field('subtext');
 $studies = get_field('whitepaper_selection');
 $case_form = get_field('whitepaper_form', 'options');
-$playground = str_contains('playground', get_permalink() ?: 'not');
+$playground = str_contains(get_permalink() ?: '', 'playground');
 ?>
 <section class="whitepaper-section" id="<?php echo $id; ?>">
 	<div class="container">

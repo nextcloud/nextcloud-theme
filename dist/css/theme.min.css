@@ -1111,6 +1111,9 @@ footer .social-media-holder .social-menu li a:hover {
 .post-holder .form-body .wpcf7-not-valid-tip {
   font-size: 12px;
 }
+.post-holder .form-body .nf-form-title {
+  margin: 0 !important;
+}
 .post-holder .form-body .nf-form-fields-required {
   display: none;
 }
