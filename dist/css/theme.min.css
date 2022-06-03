@@ -13,7 +13,7 @@ header {
   -webkit-transition: all 0.3s ease;
 }
 header.scrolled {
-  background-color: #30B6FF;
+  background-color: #0082c9;
   box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
   -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
 }
@@ -80,7 +80,7 @@ header .header-holder .header-items .menu-primary-menu-container {
 }
 header .header-holder .header-items .menu-primary-menu-container .primary-menu {
   padding: 0px;
-  margi: 0px;
+  margin: 0px;
   list-style: none;
   display: flex;
   justify-content: flex-end;
@@ -1026,6 +1026,33 @@ footer .social-media-holder .social-menu li a:hover {
 }
 .more-about-section .box .box-body p {
   line-height: 210.2%;
+}
+
+.nf-before-form-content, .nf-form-title, .nf-after-form-content, .nf-form-content {
+  max-width: 800px !important;
+  margin: 0 auto;
+  display: block;
+  padding: 5px;
+}
+
+.nf-after-form-content {
+  margin-bottom: 2rem;
+}
+
+.nf-form-title {
+  text-align: center;
+  max-width: 600px !important;
+  margin: 3rem 0 1rem 0;
+}
+
+.nf-form-content .list-select-wrap .nf-field-element > div,
+.nf-form-content input:not([type=button]),
+.nf-form-content textarea {
+  border-radius: 10px;
+}
+.nf-form-content .nf-error.field-wrap .nf-field-element:after {
+  border-bottom-right-radius: 9px;
+  border-top-right-radius: 9px;
 }
 
 a {
