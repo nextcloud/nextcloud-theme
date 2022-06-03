@@ -40,6 +40,9 @@ jobs:
         run: |
           sed -i 's/Version: 1.0/Version: ${{ github.sha }}/g' style.css
 
+      - name: Copy sample config
+        run: |
+          cp config.sample.php config.php
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
