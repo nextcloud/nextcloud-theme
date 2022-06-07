@@ -48,6 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: theme-package
+          retention-days: 1
           path: |
             dist
             *.php
