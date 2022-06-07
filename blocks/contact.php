@@ -5,6 +5,7 @@
 $id = get_field('section_id');
 $title = get_field('title');
 $text = get_field('text');
+$playground = str_contains(get_permalink() ?: '', 'playground');
 ?>
 <section class="contact-section gr" id="<?php echo $id; ?>">
 	<div class="container">
@@ -38,7 +39,13 @@ $text = get_field('text');
 			<div class="col-lg-6">
 				<div class="form-block">
 					<h4>Contact form</h4>
-					<?php echo do_shortcode('[contact-form-7 id="15865" title="Contact new hip"]');  ?>
+					<?php
+						if ($playground) {
+							echo do_shortcode("[ninja_form id='1']");
+						} else {
+							echo do_shortcode('[contact-form-7 id="15865" title="Contact new hip"]');
+						}
+					?>
 					<h6 class="info-text">Support questions through this form will get ignored.</h6>
 				</div>
 			</div>
