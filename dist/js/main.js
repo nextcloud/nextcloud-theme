@@ -81,7 +81,7 @@ jQuery(document).ready(function () {
     document.querySelectorAll('.post-holder').forEach((postHolder) => {
         const what = postHolder.querySelector('.head').innerText
         const file = postHolder.dataset.file
-        const fields = document.querySelectorAll('nf-field')
+        const fields = postHolder.querySelectorAll('nf-field')
         if (fields.length > 4) {
             fields[3].querySelector('input').value = file
             fields[4].querySelector('input').value = what
