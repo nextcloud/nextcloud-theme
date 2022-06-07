@@ -82,8 +82,10 @@ jQuery(document).ready(function () {
         const what = postHolder.querySelector('.head').innerText
         const file = postHolder.dataset.file
         const fields = document.querySelectorAll('nf-field')
-        fields[3].querySelector('input').value = file
-        fields[4].querySelector('input').value = what
+        if (fields.length > 4) {
+            fields[3].querySelector('input').value = file
+            fields[4].querySelector('input').value = what
+        }
     })
 
     // Todo remove when fully ported to ninja forms
