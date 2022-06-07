@@ -78,15 +78,14 @@ jQuery(document).ready(function () {
         }
     });
 
-    document.querySelectorAll('.post-holder').forEach((postHolder) => {
-        const what = postHolder.querySelector('.head').innerText
-        const file = postHolder.dataset.file
-        const fields = postHolder.querySelectorAll('nf-field')
-        if (fields.length > 4) {
-            fields[3].querySelector('input').value = file
-            fields[4].querySelector('input').value = what
-        }
-    })
+    setTimeout(function() {
+        jQuery('.post-holder').each(function() {
+            var what = jQuery(this).find('.head').text()
+            var file = jQuery(this).attr('data-file')
+            jQuery(this).find('nf-field:nth-child(4) input').val(file).trigger('change')
+            jQuery(this).find('nf-field:nth-child(5) input').val(what).trigger('change')
+        });
+    }, 1000);
 
     // Todo remove when fully ported to ninja forms
     jQuery('.post-holder').each(function(){
