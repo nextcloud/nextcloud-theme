@@ -123,14 +123,6 @@ jQuery(document).ready(function () {
         });
     }, 1000);
 
-    // Todo remove when fully ported to ninja forms
-    jQuery('.post-holder').each(function(){
-        var what = jQuery(this).find('.head').text();
-        var file = jQuery(this).attr('data-file');
-        jQuery(this).find('.thecase').val(what);
-        jQuery(this).find('.thefile').val(file);
-    });
-    
     jQuery('a[href*="#"]')
         // Remove links that don't actually link to anything
         .not('[href="#"]')
