@@ -2,6 +2,42 @@ jQuery(document).ready(function () {
 
     fixedMeni();
 
+    document.querySelectorAll('.menu-footer .menu-item-has-children > a').forEach(menuSection => {
+        menuSection.setAttribute('role', 'heading')
+        menuSection.setAttribute('aria-level', '2')
+        menuSection.removeAttribute('tab-index')
+    })
+
+    const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children')
+
+    Array.prototype.forEach.call(menuItems, function (el, i) {
+        el.setAttribute('aria-haspopup', 'true')
+        let timer;
+        el.addEventListener("mouseover", (event) => {
+            document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
+            el.classList.add('open')
+            clearTimeout(timer)
+        })
+        el.addEventListener("mouseout", (event) => {
+            timer = setTimeout((event) => {
+                document.querySelector(".menu-item-has-children.open").classList.remove('open')
+            }, 1000)
+        })
+        el.querySelector('a').addEventListener("click", function(event) {
+            if (this.parentNode.className.includes('menu-item-has-children')) {
+                document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
+                this.parentNode.classList.add('open')
+                el.setAttribute('aria-expanded', 'true')
+            } else {
+                this.parentNode.classList.remove('open')
+                el.setAttribute('aria-expanded', 'false')
+            }
+            event.preventDefault()
+            return false
+        });
+    })
+
+
     jQuery(".phone-menu").click(function () {
         jQuery(this).toggleClass("change");
         jQuery('header').toggleClass('active');

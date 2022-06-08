@@ -101,11 +101,16 @@ p {
         text-decoration: none;
     }
 
+    &:focus {
+        border: 2px solid white;
+        outline: none;
+    }
+
     &.btn-blue {
         background-color: #30B6FF;
         border-color: #30B6FF;
 
-        &:hover {
+        &:hover, &:focus {
             color: #30B6FF;
             background-color: #fff;
         }
@@ -116,7 +121,7 @@ p {
         background-color: #fff;
         border-color: #30B6FF;
 
-        &:hover {
+        &:hover, &:focus {
             color: #fff;
             background-color: #30B6FF;
         }
@@ -127,7 +132,7 @@ p {
         background-color: #0F0833;
         border-color: #0F0833;
 
-        &:hover {
+        &:hover, &:focus {
             color: #0F0833;
             background-color: #fff;
         }
@@ -4009,7 +4014,7 @@ p {
         }
 
         .info-text {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(0, 0, 0, 0.67);
             font-size: 14px;
             font-weight: 700;
             margin: 10px 0px 0px;
