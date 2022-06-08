@@ -37,7 +37,7 @@ $case_form = get_field('case_study_form', 'options');
 				$custom_field = get_field('field_name', $study->ID);
 				$att = get_field('attachment', $study->ID);
 				$str = substr($att, 38);
-				echo '<div class="col-lg-4">';
+				echo '<div class="col-lg-4 mb-3">';
 				echo '<div class="post-holder" data-file="' . $att . '">';
 				echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
 				echo '<div class="post-body">';
