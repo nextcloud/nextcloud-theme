@@ -7138,6 +7138,12 @@ p {
   flex-wrap: wrap;
   justify-content: center;
 }
+.single-hero-section .cat-block ul a:focus, .single-hero-section .cat-block ul a:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-decoration-thickness: 2px;
+  outline: none;
+}
 .single-hero-section .cat-block ul li {
   color: #fff;
   font-size: 18px;
@@ -7176,9 +7182,23 @@ p {
 .single-hero-section .share-block {
   padding: 40px 0px 0px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .single-hero-section .share-block a {
   margin: 0px 15px;
+  background-repeat: no-repeat;
+  display: block;
+  overflow: hidden;
+  height: 40px;
+  line-height: 32px;
+  padding: 4px;
+  width: 40px;
+}
+.single-hero-section .share-block a:focus {
+  box-shadow: 0 0 0 2px white;
+  outline: none;
+  border-radius: 50%;
 }
 
 .related-posts-section {
