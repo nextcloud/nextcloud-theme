@@ -125,11 +125,22 @@ header {
                                 padding: 16px 20px;
                                 border-radius: 27px;
                                 -webkit-border-radius: 27px;
+
+                                &:focus {
+                                    border: 2px solid black;
+                                    padding: 14px 18px;
+                                    outline: none;
+                                }
                             }
                         }
 
                         &.menu-item-has-children {
                             &:hover {
+                                .sub-menu {
+                                    display: block;
+                                }
+                            }
+                            &.menu-item-has-children.open {
                                 .sub-menu {
                                     display: block;
                                 }
@@ -150,7 +161,7 @@ header {
 
                         >.sub-menu {
                             display: none;
-                            padding: 30px 15px 10px;
+                            padding: 10px;
                             margin: 0px;
                             list-style: none;
                             position: absolute;
@@ -181,10 +192,15 @@ header {
 
                             >li {
                                 padding: 0px;
-                                margin: 0px 0px 20px;
+                                margin: 0px 0px 10px;
+
+                                &:last-child {
+                                    margin: 0;
+                                }
 
                                 a {
-                                    padding: 0px;
+                                    padding: 5px;
+                                    width: 100%;
                                     display: inline-flex;
                                     flex-direction: row;
                                     align-items: center;
@@ -194,6 +210,11 @@ header {
 
                                     &:hover {
                                         color: #0082c9;
+                                    }
+
+                                    &:focus {
+                                        box-shadow: 0 0 0 2px #0082c9;
+                                        border-radius: 2px;
                                     }
 
                                     img {

@@ -80,6 +80,9 @@ footer {
 
                         a {
                             font-weight: 400;
+                            &:focus, &:hover {
+                                text-decoration: underline;
+                            }
                         }
                     }
                 }

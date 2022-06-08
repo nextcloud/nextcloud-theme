@@ -12,7 +12,7 @@ $flogo = get_field('footer_logo', 'options');
 					<?php
 					if (!empty($flogo)) {
 						echo '<a href="' . get_site_url() . '">';
-						echo '<img src="' . $flogo . '" alt=""/>';
+						echo '<img src="' . $flogo . '" alt="Homepage" />';
 						echo '</a>';
 					}
 					?>
