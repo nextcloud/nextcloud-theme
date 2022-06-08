@@ -4003,7 +4003,6 @@ p {
         }
 
         h4 {
-            color: #fff;
             font-size: 32px;
             font-weight: 700;
             margin: 0px 0px 30px;
@@ -4026,6 +4025,14 @@ p {
                 background-position: center center;
                 vertical-align: middle;
             }
+        }
+
+        .nf-form-title, .nf-before-form-content {
+            display: none;
+        }
+
+        .nf-form-content {
+            padding: 0;
         }
     }
 }

@@ -5017,7 +5017,6 @@ p {
   opacity: 1;
 }
 .contact-section .form-block h4 {
-  color: #fff;
   font-size: 32px;
   font-weight: 700;
   margin: 0px 0px 30px;
@@ -5038,6 +5037,12 @@ p {
   background-repeat: no-repeat;
   background-position: center center;
   vertical-align: middle;
+}
+.contact-section .form-block .nf-form-title, .contact-section .form-block .nf-before-form-content {
+  display: none;
+}
+.contact-section .form-block .nf-form-content {
+  padding: 0;
 }
 
 .form-holder {
