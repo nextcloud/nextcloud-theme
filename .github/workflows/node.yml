@@ -41,13 +41,3 @@ jobs:
         run: |
           npm ci
           npm run sass --if-present
-
-      - name: Check webpack build changes
-        run: |
-          bash -c "[[ ! \"`git status --porcelain `\" ]] || exit 1"
-
-      - name: Show changes on failure
-        if: failure()
-        run: |
-          git status
-          git --no-pager diff

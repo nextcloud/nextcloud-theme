@@ -1,7 +1,6 @@
 name: Deployment artifact
 
 on:
-  pull_request:
   push:
     branches:
       - main
