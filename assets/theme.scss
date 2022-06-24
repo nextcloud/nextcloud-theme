@@ -1811,7 +1811,7 @@ p {
         position: relative;
         width: 100%;
         text-align: center;
-        z-index: 6;
+        z-index: 5;
 
         &:before {
             content: '';
@@ -1844,7 +1844,7 @@ p {
     .text-block {
         position: relative;
         width: 100%;
-        z-index: 5;
+        z-index: 6;
 
         .quote-block {
             background-image: url('../img/quote-open.svg'), url('../img/quote-close.svg');
