@@ -37,7 +37,7 @@ $link = get_field('link');
 					?>
 				</div>
 			</div>
-			<div class="col-lg-6 order-lg-1">
+			<div class="order-lg-1 <?php echo empty($img) ? 'offset-lg-4 col-lg-2' : 'col-lg-6 ' ?>">
 				<div class="image-block">
 					<?php
 					if (!empty($img)) {
