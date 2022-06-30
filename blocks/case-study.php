@@ -47,11 +47,9 @@ $studies = get_field('case_study_selection');
 					echo '<p>' . $ex . '</p>';
 				}
 				echo '</div>';
-				if (!empty($case_form)) {
-					echo '<div class="form-body">';
-					echo do_shortcode("[ninja_form id='4']");
-					echo '</div>';
-				}
+				echo '<div class="form-body">';
+				echo do_shortcode("[ninja_form id='4']");
+				echo '</div>';
 				echo '</div>';
 				echo '</div>';
 			}

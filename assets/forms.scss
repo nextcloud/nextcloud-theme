@@ -12,6 +12,13 @@
     margin-bottom: 2rem;
 }
 
+.data-sheet-section, .whitepaper-section, .case-study-section {
+    .nf-after-form-content {
+        margin-bottom: 0rem;
+        padding: 0;
+    }
+}
+
 .nf-form-title {
     text-align: center;
     max-width: 600px !important;
