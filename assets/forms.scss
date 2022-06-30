@@ -37,6 +37,10 @@
     margin: 4rem auto;
 }
 
+.nf-form-fields-required {
+    display: none;
+}
+
 .post-holder {
     display: flex;
     flex-direction: column;
@@ -103,10 +107,6 @@
 
         .nf-form-title {
             margin: 0 !important;
-        }
-
-        .nf-form-fields-required {
-            display: none;
         }
 
         .nf-form-content {

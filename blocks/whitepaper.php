@@ -6,8 +6,6 @@ $id = get_field('section_id');
 $title = get_field('title');
 $subtext = get_field('subtext');
 $studies = get_field('whitepaper_selection');
-$case_form = get_field('whitepaper_form', 'options');
-$playground = str_contains(get_permalink() ?: '', 'playground');
 ?>
 <section class="whitepaper-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -50,11 +48,7 @@ $playground = str_contains(get_permalink() ?: '', 'playground');
 				echo '</div>';
 				if (!empty($case_form)) {
 					echo '<div class="form-body">';
-					if ($playground) {
-						echo do_shortcode("[ninja_form id='4']");
-					} else {
-						echo do_shortcode($case_form);
-					}
+					echo do_shortcode("[ninja_form id='4']");
 					echo '</div>';
 				}
 				echo '</div>';

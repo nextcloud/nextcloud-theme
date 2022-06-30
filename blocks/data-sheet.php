@@ -6,7 +6,6 @@ $id = get_field('section_id');
 $title = get_field('title');
 $subtext = get_field('subtext');
 $studies = get_field('data_sheet_selection');
-$case_form = get_field('data_sheet_form', 'options');
 ?>
 <section class="data-sheet-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -47,11 +46,9 @@ $case_form = get_field('data_sheet_form', 'options');
 					echo '<p>' . $ex . '</p>';
 				}
 				echo '</div>';
-				if (!empty($case_form)) {
-					echo '<div class="form-body">';
-					echo do_shortcode($case_form);
-					echo '</div>';
-				}
+				echo '<div class="form-body">';
+				echo do_shortcode("[ninja_form id='4']");
+				echo '</div>';
 				echo '</div>';
 				echo '</div>';
 			}
