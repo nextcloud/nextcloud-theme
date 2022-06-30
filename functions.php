@@ -824,6 +824,17 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('ionos', 'content'),
 	));
+	// register a Ionos Form Block
+	acf_register_block_type(array(
+		'name' => 'ionos-form-block',
+		'title' => __('Ionos Form Block New'),
+		'description' => __('Ionos Form Block Ninja Forms'),
+		'render_template' => 'blocks/ionos-form.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('ionos', 'content'),
+	));
 	// register a Sign Up Form Block
 	acf_register_block_type(array(
 		'name' => 'signup-block',
