@@ -26,6 +26,7 @@ $flogo = get_field('footer_logo', 'options');
 					'theme_location' => 'footer',
 					'menu' => 'footer-menu',
 					'menu_class' => 'footer-menu',
+					'container_id' => 'menu-footer-menu-container',
 				));
 				?>
 			</div>
