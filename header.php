@@ -44,6 +44,7 @@ if (!defined('WPINC')) {
 								'theme_location' => 'primary',
 								'menu' => 'primary-menu',
 								'menu_class' => 'primary-menu',
+								'container_id' => 'menu-primary-menu-container',
 							));
 							?>
 						</div>
