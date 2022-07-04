@@ -120,6 +120,17 @@ function register_acf_block_types() {
 		'icon' => 'desktop',
 		'keywords' => array('page', 'hero'),
 	));
+	// register a Page Hero Block Background
+	acf_register_block_type(array(
+		'name' => 'page-hero-block-background',
+		'title' => __('Page Hero Block Background'),
+		'description' => __('Page Hero Block Background'),
+		'render_template' => 'blocks/page-hero-background.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'desktop',
+		'keywords' => array('page', 'hero-background'),
+	));
 	// register a Collaboration Block
 	acf_register_block_type(array(
 		'name' => 'collaboration-block',

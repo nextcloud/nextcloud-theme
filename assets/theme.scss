@@ -351,6 +351,24 @@ p {
     }
 }
 
+.page-hero-top-section {
+    padding: 195px 0px 105px;
+}
+
+.page-hero-bottom-section {
+    height: 300px;
+    background-position: bottom;
+    margin-top: -300px;
+    background-size: auto 300px;
+    position: relative;
+    h2 {
+        position: absolute;
+        bottom: 3rem;
+        color: white;
+        font-size: 1.7rem;
+    }
+}
+
 .video-section {
     padding: 100px 0px 65px;
 
