@@ -8456,3 +8456,35 @@ p {
         }
     }
 }
+
+.wpml-floating-language-switcher .wpml-ls-statics-shortcode_actions {
+  margin-bottom: 0;
+}
+  
+.wpml-floating-language-switcher  .wpml-ls-statics-shortcode_actions a {
+  background-color: transparent !important;
+}
+  
+.wpml-floating-language-switcher .wpml-ls-legacy-list-horizontal a {
+  padding: 5px;
+}
+
+.wpml-ls-item:not(.wpml-ls-item-en):not(.wpml-ls-item-de):not(.wpml-ls-item-fr) {
+    display: none;
+}
+
+/*Customize this if you want*/
+.wpml-floating-language-switcher {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: #f8f8f8; /*background color*/
+  border: 1px solid #eee;
+  padding: 0;
+  border-radius: 6px;
+  z-index: 9999999;
+  /*Box Shadow*/
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+}
