@@ -137,6 +137,30 @@ p {
             background-color: #fff;
         }
     }
+
+
+    &.btn-top {
+        min-width: auto;
+        padding: 0px 17px;
+        font-weight: 700;
+        border: 2px solid #0082c9;
+        background-color: #0082c9;
+        line-height: 27px;
+        height: auto !important;
+        font-size: 13px;
+
+        &:hover {
+            color: #0082c9;
+            background-color: #fff;
+        }
+    }
+
+    &.btn-with-icon{
+        i {
+            margin-right: 6px;
+        }
+    }
+
 }
 
 

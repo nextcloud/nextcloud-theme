@@ -15,10 +15,110 @@ header {
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 
+    .top-banner-vote{
+        height: 50px;
+        background: #fff;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+
+        .container, .row {
+            height: 100%;
+        }
+
+        .nc-awards-banner{
+            display: flex;
+            height: 100%;
+
+            background: url("../img/confetti-background.svg");
+
+            background-size: 320px auto;
+            background-position: right 13% top 42%;
+            background-repeat: no-repeat;
+
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+
+            .cloudcomputing-logo {
+                img {
+                    height: 45px;
+                    max-height: 45px;  
+                }
+            }
+
+            .awards-text{
+                font-size: 1.2em;
+
+                a{
+                    color: #0C0726 !important;
+                }
+                
+            }
+
+            .btn-awards {
+                a {
+                    white-space:nowrap;
+                }
+            }
+
+        }
+
+
+        @media screen and (max-width:991px) {
+            &{
+                .awards-text {
+                    font-size: 1em !important;
+                    b{
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: $md-breakpoint) {
+            &{
+                .awards-text{
+                    display: none;
+                }
+            }
+        }
+
+        @media screen and (max-width:400px) {
+            &{
+
+                .nc-awards-banner{
+                    gap: 1rem !important;
+
+                    background-size: 279px auto !important;
+                    background-position: right -117% top 41% !important;
+                    
+                }
+                
+
+                .cloudcomputing-logo {
+                    img {
+                        height: 10vw !important;
+                    }
+                }
+            }
+        }
+        
+
+
+    }
+
     &.scrolled {
         background-color: #0082c9;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
+
+        .top-banner-vote{
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+
     }
 
     &.active {
@@ -321,6 +421,10 @@ header {
     @media (max-width: $xl-breakpoint) {
         padding: 12px 0px;
         overflow-y: scroll;
+
+        &.with-vote-banner {
+            padding-top: 0 !important;
+        }
 
         .header-holder .header-items {
             flex: 0 0 100%;
