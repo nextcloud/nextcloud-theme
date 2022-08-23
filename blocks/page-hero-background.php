@@ -35,8 +35,8 @@ if (!empty($bg_top)) {
 </section>
 <?php
 if (!empty($bg_bottom)) {
-	echo '<section class="page-hero-bottom-section" style="background-image: url(' . $bg_bottom . ');">';
-	if (!empty($text)) { ?>
+					echo '<section class="page-hero-bottom-section" style="background-image: url(' . $bg_bottom . ');">';
+					if (!empty($text)) { ?>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-9">
@@ -48,5 +48,5 @@ if (!empty($bg_bottom)) {
 		</div>
 	<?php
 	}
-	echo '</section>';
-}
+					echo '</section>';
+				}

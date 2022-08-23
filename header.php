@@ -23,7 +23,7 @@ if (!defined('WPINC')) {
 	?>
 	<header class="with-vote-banner">
 
-		<?php get_template_part("inc/banner-vote"); // when removing, remove also class from header ?>
+		<?php get_template_part("inc/banner-vote"); // when removing, remove also class from header?>
 
 		<div class="container">
 			<div class="row">

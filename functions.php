@@ -1142,4 +1142,4 @@ function disable_wp_emojicons() {
   add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
 }
 add_action( 'init', 'disable_wp_emojicons' );
-remove_action('wp_head', 'wp_resource_hints', 2)
+remove_action('wp_head', 'wp_resource_hints', 2);
