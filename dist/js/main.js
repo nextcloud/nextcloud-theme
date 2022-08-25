@@ -1,3 +1,89 @@
+jQuery(document).ready(function ($) {
+
+
+    $('.links_carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                autoWidth:true,
+                stagePadding: 50,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:5
+                    }
+                }
+    });
+
+
+    $('.popup-video a').magnificPopup({
+        //disableOn: 700,
+        type: 'iframe',
+        mainClass: 'mfp-fade',
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false
+    });
+
+
+
+    if ($(window).width() > 990) {
+        
+        $('#advantages-left-sticky').stickySidebar({
+            topSpacing: 60,
+            bottomSpacing: 60
+        });
+    
+    
+        $('#thead_advantages').stickySidebar({
+            topSpacing: 90,
+            bottomSpacing: 60,
+            innerWrapperSelector: "tr"
+        });
+
+     }
+
+
+    
+    
+
+
+/*
+    //fix element when scrolling in the advantages section
+    var distance1 = $('#advantages-left-sticky').offset().top;
+    $(window).scroll(function () {
+        
+        if ($(window).scrollTop()+89 >= distance1) {
+            $('#advantages-left-sticky').addClass("fixedtoTop_col");
+
+        } else {
+            $('#advantages-left-sticky').removeClass("fixedtoTop_col");
+        }
+    });
+
+
+    //fix element when scrolling in the advantages section
+    var distance2 = $('table.advantages thead').offset().top;
+    $(window).scroll(function () {
+        
+        if ($(window).scrollTop()+89 >= distance2) {
+            $('table.advantages thead').addClass("fixedtoTop_thead");
+
+        } else {
+            $('table.advantages thead').removeClass("fixedtoTop_thead");
+        }
+    });
+    */
+
+});
+
+
+
 jQuery(document).ready(function () {
 
     fixedMeni();
