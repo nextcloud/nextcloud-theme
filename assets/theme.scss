@@ -7818,12 +7818,6 @@ p {
     color: #fff !important;
 }
 
-@media (max-width: 1399.98px) {
-    footer #menu-footer-menu-container {
-        padding: 50px 0px 40px 120px;
-    }
-}
-
 @media (max-width: 991.98px) {
     .squote2-section .round-block {
         padding: 40px;
@@ -8820,15 +8814,21 @@ p {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
 
-    background: url(/wp-content/uploads/2022/08/nc-screenshot-mobileDesktop.png) !important;
-    background-size: 51% !important;
+    background: url(/wp-content/uploads/2022/08/nextcloud.png) !important;
+    background-size: 47% auto !important;
     background-repeat: no-repeat !important;
-    background-position: bottom right !important;
+    background-position: bottom -115px right !important;
 
     @media screen and (max-width:$md-breakpoint) {
         &{
-            background-size: 93% !important;
-            padding-bottom: 18rem !important;
+            background-size: 83% !important;
+            padding-bottom: 60% !important;
+        }
+    }
+
+    @media screen and (min-width: 1460px) {
+        &{
+            background-size: contain !important;
         }
     }
 
