@@ -16,8 +16,8 @@ $flogo = get_field('footer_logo', 'options');
 			<div class="col-lg-4">
 
 			<div class="footer-logo">
-			<?php if ( is_active_sidebar( 'footer-widget-area' ) ) : ?>
-					<?php dynamic_sidebar( 'footer-widget-area' ); ?>
+			<?php if (is_active_sidebar('footer-widget-area')) : ?>
+					<?php dynamic_sidebar('footer-widget-area'); ?>
 			<?php endif; ?>
 			</div>
 

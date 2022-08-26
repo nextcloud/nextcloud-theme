@@ -73,16 +73,15 @@ function arphabet_widgets_init() {
 
 	register_sidebar(
 		array(
-		'id' => 'footer-widget-area',
-		'name' => esc_html__( 'Footer widget area', 'theme-domain' ),
-		'description' => esc_html__( 'A new widget area made for the footer', 'theme-domain' ),
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-		'before_title' => '<div class="widget-title-holder"><h3 class="widget-title">',
-		'after_title' => '</h3></div>'
+			'id' => 'footer-widget-area',
+			'name' => esc_html__('Footer widget area', 'theme-domain'),
+			'description' => esc_html__('A new widget area made for the footer', 'theme-domain'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget' => '</div>',
+			'before_title' => '<div class="widget-title-holder"><h3 class="widget-title">',
+			'after_title' => '</h3></div>'
 		)
 	);
-
 }
 add_action('widgets_init', 'arphabet_widgets_init');
 
