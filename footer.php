@@ -8,19 +8,36 @@ $flogo = get_field('footer_logo', 'options');
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
+				
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="col-lg-4">
+
+			<div class="footer-logo">
+			<?php if (is_active_sidebar('footer-widget-area')) : ?>
+					<?php dynamic_sidebar('footer-widget-area'); ?>
+			<?php endif; ?>
+			</div>
+
+				<!--	
 				<div class="footer-logo">
 					<?php
+					/*
 					if (!empty($flogo)) {
 						echo '<a href="' . get_site_url() . '">';
 						echo '<img src="' . $flogo . '" alt="Homepage" />';
 						echo '</a>';
 					}
+					*/
 					?>
 				</div>
+				-->
+
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
+
+			<div class="col-lg-8">
 				<?php
 				wp_nav_menu(array(
 					'theme_location' => 'footer',

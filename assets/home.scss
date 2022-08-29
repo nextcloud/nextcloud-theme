@@ -23,6 +23,11 @@
             font-size: 24px;
             font-weight: 600;
             margin: 0px 0px 30px;
+
+            a.c-btn{
+                margin-top: 20px;
+            }
+            
         }
     }
 }
@@ -370,6 +375,7 @@
             .card-box {
                 display: none;
                 padding: 25px 0px 0px;
+                color: #fff;
 
                 p {
                     color: #fff;
