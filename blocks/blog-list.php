@@ -29,7 +29,7 @@ $title = get_field('title');
 		<div class="row row-list-blog">
 			<?php
 
-			$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 			// The Query
 			$args = array(
 				'post_type' => 'post',
@@ -40,15 +40,14 @@ $title = get_field('title');
 				'paged=' . $paged
 			);
 			
-			$the_query = new WP_Query( $args );
+			$the_query = new WP_Query($args);
 			
 			// The Loop
-			if ( $the_query->have_posts() ) {
-				while ( $the_query->have_posts() ) {
+			if ($the_query->have_posts()) {
+				while ($the_query->have_posts()) {
 					$the_query->the_post();
 					
 					get_template_part('inc/blog_loop_single');
-
 				}
 			} else {
 				// no posts found
