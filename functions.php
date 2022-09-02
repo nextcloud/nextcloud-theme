@@ -1,4 +1,5 @@
 <?php
+
 if (!empty($_SERVER['SCRIPT_FILENAME']) && 'functions.php' == basename($_SERVER['SCRIPT_FILENAME'])) {
 	die('Error!');
 }
@@ -11,7 +12,7 @@ require_once(get_stylesheet_directory() . '/inc/loadmore.php');
 
 
 add_theme_support('post-thumbnails');
-add_image_size( 'large', 1024, 576 );
+add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
 
 /*

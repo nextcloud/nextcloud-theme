@@ -105,13 +105,12 @@ get_header();
 								'order' => 'DSC',
 							));
 							foreach ($onepost as $onepostsingle) {
-	
 								$post_id = $onepostsingle->ID;
 								//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
 								$title = $onepostsingle->post_title;
 								$ex = $onepostsingle->post_excerpt;
 								$link = (string)get_permalink($post_id);
-								$featured_image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'feat_img' ) );
+								$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
 
 								echo '<div>';
 								echo '<div class="post-box">';
@@ -124,7 +123,6 @@ get_header();
 								echo '</div>';
 								echo '</div>';
 								echo '</div>';
-
 							}
 							wp_reset_query();
 							?>
