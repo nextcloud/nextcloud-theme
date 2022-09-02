@@ -53,6 +53,7 @@ footer {
             display: flex;
             //flex-direction: row;
             justify-content: flex-end;
+            margin-bottom: 2rem;
 
             @media (max-width: $xs-breakpoint) {
                 flex-wrap: wrap;
@@ -74,7 +75,7 @@ footer {
 
                 @media (min-width: $tablet-breakpoint) {
                     & {
-                        padding: 0 3rem;
+                        padding: 0 4rem;
                     }
                 }
 
@@ -156,6 +157,23 @@ footer {
         }
     }
 }
+
+.scroll_up {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 4px 10px;
+    
+    border-radius: 5px;
+    background-color: #fff;
+    color: $mainColor;
+    border: 1px solid $mainColor;
+
+    &:hover {
+        background-color: $mainColor;
+        color: #fff;
+    }
+  }
 
 @media (max-width: 1399.98px) {
     footer #menu-footer-menu-container {

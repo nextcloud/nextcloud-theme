@@ -1,6 +1,36 @@
 jQuery(document).ready(function ($) {
 
 
+    $('.scroll_up').hide();
+    //.scroll_up show
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) { // Wenn 100 Pixel gescrolled wurde
+        $('.scroll_up').fadeIn();
+        } else {
+        $('.scroll_up').fadeOut();
+        }
+    });
+
+    //smooth scroll
+  	$(document).on('click', 'a.scroll_up', function(e) {
+	    // target element id
+	    //var id = $(this).attr('href');
+        var id = "#hidden_header_anchor";
+	    // target element
+	    var $id = $(id);
+	    if ($id.length === 0) {
+	        return;
+	    }
+	    // prevent standard hash navigation (avoid blinking in IE)
+	    e.preventDefault();
+	    // top position relative to the document
+	    var pos = $id.offset().top;
+	    // animated top scrolling
+	    $('body, html').animate({scrollTop: pos}, 800);
+	});
+    
+
+
     $('.links_carousel').owlCarousel({
                 loop:true,
                 margin:10,
@@ -49,36 +79,6 @@ jQuery(document).ready(function ($) {
      }
 
 
-    
-    
-
-
-/*
-    //fix element when scrolling in the advantages section
-    var distance1 = $('#advantages-left-sticky').offset().top;
-    $(window).scroll(function () {
-        
-        if ($(window).scrollTop()+89 >= distance1) {
-            $('#advantages-left-sticky').addClass("fixedtoTop_col");
-
-        } else {
-            $('#advantages-left-sticky').removeClass("fixedtoTop_col");
-        }
-    });
-
-
-    //fix element when scrolling in the advantages section
-    var distance2 = $('table.advantages thead').offset().top;
-    $(window).scroll(function () {
-        
-        if ($(window).scrollTop()+89 >= distance2) {
-            $('table.advantages thead').addClass("fixedtoTop_thead");
-
-        } else {
-            $('table.advantages thead').removeClass("fixedtoTop_thead");
-        }
-    });
-    */
 
 });
 
@@ -188,6 +188,8 @@ jQuery(document).ready(function () {
         jQuery(this).toggleClass('active');
     });
 
+
+    /*
     jQuery(".news-container").slice(0, 9).show();
     if (jQuery(".news-item:hidden").length != 0) {
         jQuery("#loadNews").show();
@@ -199,6 +201,7 @@ jQuery(document).ready(function () {
             jQuery("#loadNews").fadeOut('slow');
         }
     });
+    */
 
     setTimeout(function() {
         jQuery('.post-holder').each(function() {
@@ -214,6 +217,7 @@ jQuery(document).ready(function () {
         .not('[href="#"]')
         .not('[href="#trialModal"]')
         .not('[href="#0"]')
+        .not('[href="#hidden_header_anchor"]')
         .click(function (event) {
             // On-page links
             if (
@@ -724,9 +728,10 @@ jQuery(document).ready(function () {
 
 });
 
+
+
 jQuery(window).scroll(function () {
     var cutoff = jQuery(window).scrollTop();
-
     jQuery('section').each(function () {
         if (jQuery(this).offset().top + jQuery(this).height() > cutoff) {
             var targetSection = jQuery(this).attr('id');
@@ -736,6 +741,9 @@ jQuery(window).scroll(function () {
         }
     });
 });
+
+
+
 
 function fixedMeni() {
     var windowWidth = jQuery(window).innerWidth();

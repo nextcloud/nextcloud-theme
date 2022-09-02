@@ -86,6 +86,8 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 	<div id="register-details" class="container"><p></p></div>
 </section>
 
+
+<!--
 <section class="section--disclaimer">
 	<div class="container">
 		<div class="row">
@@ -103,5 +105,6 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 		</div>
 	</div>
 </section>
+-->
 
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/dist/signup/js/nextcloud-register-main.js"></script>

@@ -105,20 +105,26 @@ get_header();
 								'order' => 'DSC',
 							));
 							foreach ($onepost as $onepostsingle) {
-								$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
+	
+								$post_id = $onepostsingle->ID;
+								//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
 								$title = $onepostsingle->post_title;
 								$ex = $onepostsingle->post_excerpt;
-								$link = (string)get_permalink($onepostsingle->ID);
+								$link = (string)get_permalink($post_id);
+								$featured_image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'feat_img' ) );
+
 								echo '<div>';
 								echo '<div class="post-box">';
-								echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
+								//echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
+								echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
 								echo '<div class="post-body">';
-								echo '<h4>' . $title . '</h4>';
+								echo '<h4><a href="'.$link.'" title="'.$title.'">' . $title . '</a></h4>';
 								echo '<p>' . $ex . '</p>';
 								echo '<a class="c-btn" href="' . $link . '">Read More</a>';
 								echo '</div>';
 								echo '</div>';
 								echo '</div>';
+
 							}
 							wp_reset_query();
 							?>

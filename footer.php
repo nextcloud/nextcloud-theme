@@ -145,5 +145,7 @@ if (have_rows('popup_items', 'options')) {
 <noscript><p><img src="https://stats.nextcloud.com/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Matomo Code -->
 
+<a href="" title="Scroll Up" class="scroll_up" style=""><i class="fa fa-angle-up"></i></a>
+
 </body>
 </html>
