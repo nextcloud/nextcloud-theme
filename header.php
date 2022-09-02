@@ -21,11 +21,12 @@ if (!defined('WPINC')) {
 	<?php
 	wp_body_open();
 	?>
-	<header class="with-vote-banner">
+	<div id="hidden_header_anchor"></div>
+	<header class="" id="header"><?php //class with-vote-banner ?>
 
-		<?php get_template_part("inc/banner-vote"); // when removing, remove also class from header?>
+		<?php //get_template_part("inc/banner-vote"); // when removing, remove also class from header ?>
 
-		<div class="container">
+		<div class="container" id="">
 			<div class="row">
 				<div class="col-12">
 					<div class="header-holder">

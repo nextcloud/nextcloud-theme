@@ -1,5 +1,4 @@
 <?php
-
 if (!empty($_SERVER['SCRIPT_FILENAME']) && 'functions.php' == basename($_SERVER['SCRIPT_FILENAME'])) {
 	die('Error!');
 }
@@ -7,9 +6,12 @@ if (!empty($_SERVER['SCRIPT_FILENAME']) && 'functions.php' == basename($_SERVER[
 require_once locate_template('vendor/autoload.php');
 require_once locate_template('lib/signup.php');
 require_once(get_stylesheet_directory() . '/inc/shortcodes.php');
+require_once(get_stylesheet_directory() . '/inc/loadmore.php');
+
 
 
 add_theme_support('post-thumbnails');
+add_image_size( 'large', 1024, 576 );
 //add_filter('show_admin_bar', '__return_false');
 
 /*
@@ -31,6 +33,8 @@ function file_scripts() {
 	wp_enqueue_script('magnific-js', get_template_directory_uri() . '/dist/js/jquery.magnific-popup.min.js', [], true);
 	wp_enqueue_script('sticky-sidebar-js', get_template_directory_uri() . '/dist/js/jquery.sticky-sidebar.min.js', [], true);
 	wp_enqueue_script('owl-carousel-js', get_template_directory_uri() . '/dist/js/owl.carousel.min.js', [], true);
+
+	wp_enqueue_script('nc_loadmore-js', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
 
 	wp_enqueue_script('main', get_template_directory_uri() . '/dist/js/main.js', [], true);
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -404,6 +408,19 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('solution', 'content'),
 	));
+
+	// register a Solution Block
+	acf_register_block_type(array(
+		'name' => 'solution-4columns-block',
+		'title' => __('Solution Block 4 Columns'),
+		'description' => __('Solution 4 Columns Block'),
+		'render_template' => 'blocks/solution-4columns.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('solution', 'content'),
+	));
+
 	// register a Integration Block
 	acf_register_block_type(array(
 		'name' => 'integration-block',
@@ -1138,8 +1155,8 @@ function my_wp_nav_menu_objects($items, $args) {
 	return $items;
 }
 
-add_action('wp_footer', 'wpml_floating_language_switcher');
 
+//add_action('wp_footer', 'wpml_floating_language_switcher');
 function wpml_floating_language_switcher() {
 	echo '<div class="wpml-floating-language-switcher">';
 	//PHP action to display the language switcher (see https://wpml.org/documentation/getting-started-guide/language-setup/language-switcher-options/#using-php-actions)
@@ -1159,7 +1176,7 @@ function disable_wp_emojicons() {
 	remove_filter('comment_text_rss', 'wp_staticize_emoji');
 
 	// filter to remove TinyMCE emojis
-	add_filter('tiny_mce_plugins', 'disable_emojicons_tinymce');
+	//add_filter('tiny_mce_plugins', 'disable_emojicons_tinymce');
 }
-add_action('init', 'disable_wp_emojicons');
-remove_action('wp_head', 'wp_resource_hints', 2);
+//add_action('init', 'disable_wp_emojicons');
+//remove_action('wp_head', 'wp_resource_hints', 2);

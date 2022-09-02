@@ -2,6 +2,21 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+body.admin-bar {
+    //margin-top: 32px;
+
+    header {
+        top: 32px !important;
+    }
+}
+
+.page-id-46558 {
+    .header-holder, #menu-footer-menu-container, .get-started-section, footer {
+        display: none;
+    }
+}
+
+
 header {
     position: fixed;
     width: 100%;
@@ -108,18 +123,7 @@ header {
 
     }
 
-    &.scrolled {
-        background-color: #0082c9;
-        box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
-        -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
-
-        .top-banner-vote{
-            opacity: 0;
-            height: 0;
-            margin: 0;
-        }
-
-    }
+    
 
     &.active {
         background-color: #30B6FF;
@@ -143,6 +147,7 @@ header {
             max-width: 88px;
 
             img {
+                transition: max-height 0.3s ease;
                 max-width: 88px;
                 max-height: 58px;
                 width: auto;
@@ -202,6 +207,8 @@ header {
                     flex-direction: row;
 
                     &>li {
+                        transition: all 0.3s ease;
+
                         position: relative;
                         padding: 16px 0px;
                         margin: 0px 8px;
@@ -354,6 +361,62 @@ header {
                             }
                         }
 
+                        &.wpml-ls-item {
+                            & > a {
+
+                                img.wpml-ls-flag {
+                                    max-width: 23px;
+                                    height: 23px;
+                                    border-radius: 50%;
+                                }
+
+                                @media screen and (min-width: $xl-breakpoint) {
+                                    .wpml-ls-native {
+                                        display: none;
+                                    }
+                                }
+                                
+
+                                @media screen and (max-width: $xl-breakpoint) {
+                                    & {
+                                        display: flex;
+                                    }
+                                }
+
+                            }
+
+                            .sub-menu {
+
+                                @media screen and (min-width: $xl-breakpoint) {
+                                    &{
+                                        width: fit-content !important;
+                                        left: 50% !important;
+                                        transform: translateX(-50%);
+                                        margin-left: 0 !important;
+                                    }
+                                }
+
+                                
+
+                                .menu-item{
+                                        a{
+                                            &:after {
+                                                height: 0 !important;
+                                            }
+
+                                            img.wpml-ls-flag {
+                                                max-width: 23px;
+                                                height: 23px;
+                                                border-radius: 50%;
+                                            }
+                                        }
+
+                                }
+                            }
+
+
+                        }
+
                         
 
                         >.sub-menu {
@@ -405,6 +468,8 @@ header {
                                     font-size: 16px;
                                     font-weight: 400;
 
+                                
+
                                     &:hover {
                                         color: #0082c9;
                                     }
@@ -431,6 +496,14 @@ header {
                                         }
                                     }
                                 }
+
+
+                                &.current_page_item {
+                                    a {
+                                        color: #0082c9;
+                                    }
+                                }
+
 
                                 >.sub-menu {
                                     padding: 20px 0px 0px 30px;
@@ -515,6 +588,41 @@ header {
             }
         }
     }
+
+    &.scrolled {
+        background-color: #0082c9;
+        box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
+        -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
+
+        .top-banner-vote{
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+
+        .logo-holder {
+            img {
+                max-height: 38px;
+            }
+        }
+
+        #menu-primary-menu-container {
+            .primary-menu {
+                &>li {
+                    padding: 2px 0px !important;
+
+                    &.nav-btn {
+                        & > a {
+                            padding: 7px 20px !important;
+                            margin-top: 9px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     @media (max-width: $xl-breakpoint) {
         padding: 12px 0px;
         overflow-y: scroll;

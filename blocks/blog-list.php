@@ -26,10 +26,40 @@ $title = get_field('title');
 		}
 		echo '</div>';
 		?>
-		<div class="row">
+		<div class="row row-list-blog">
 			<?php
+
+			$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+			// The Query
+			$args = array(
+				'post_type' => 'post',
+				//'posts_per_page' => -1,
+				'post_status' => 'publish',
+				'orderby' => 'date',
+				'order' => 'DESC',
+				'paged=' . $paged
+			);
+			
+			$the_query = new WP_Query( $args );
+			
+			// The Loop
+			if ( $the_query->have_posts() ) {
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+					
+					get_template_part('inc/blog_loop_single');
+
+				}
+			} else {
+				// no posts found
+			}
+			/* Restore original Post Data */
+			wp_reset_postdata();
+
+
+
+			/*
 			$my_wp_query = new WP_Query();
-			/** @var WP_Post[] $onepost */
 			$onepost = $my_wp_query->query(array(
 				'post_type' => 'post',
 				'posts_per_page' => -1,
@@ -37,23 +67,30 @@ $title = get_field('title');
 				'orderby' => 'date',
 				'order' => 'DSC',
 			));
+
 			foreach ($onepost as $onepostsingle) {
-				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
+				$post_id = $onepostsingle->ID;
+				$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
 				$title = $onepostsingle->post_title;
-				$ex = $onepostsingle->post_excerpt;
-				$link = get_permalink($onepostsingle->ID) ?: '';
+				$post_excerpt = $onepostsingle->post_excerpt;
+				$link = get_permalink($post_id) ?: '';
+				$featured_image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'feat_img' ) );
+
 				echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="display: none;">';
 				echo '<div class="post-box">';
-				echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
+				//echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
+				echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
 				echo '<div class="post-body">';
-				echo '<h4>' . $title . '</h4>';
-				echo '<p>' . $ex . '</p>';
+				echo '<h4><a href="'.$link.'" title="'.$title.'">' . $title . '</a></h4>';
+				echo '<p>' . $post_excerpt . '</p>';
 				echo '<a class="c-btn" href="' . $link . '">Read More</a>';
 				echo '</div>';
 				echo '</div>';
 				echo '</div>';
 			}
 			wp_reset_query();
+			*/
+
 			?>
 		</div>
 		<div class="row">
