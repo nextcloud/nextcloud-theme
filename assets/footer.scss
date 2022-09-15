@@ -10,14 +10,61 @@ footer {
 
     .footer-logo {
         width: 100%;
-        max-width: 105px;
+        //max-width: 105px;
         margin: 0px auto;
         padding-top: 2rem;
+        color: white;
 
-        img {
-            max-width: 100%;
-            height: auto;
+        .widget_media_image {
+            max-width: 105px;
+            margin-bottom: 3rem;
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
         }
+
+        .textwidget {
+            margin-bottom: 3rem;
+        }
+
+
+        .searchform { //form
+            opacity: 0.7;
+            transition: all 0.3s ease;
+
+            &:focus, &:hover {
+                opacity: 1;
+            }
+
+            & > div {
+                position: relative;
+                width: 80%;
+
+                input#s {
+                    padding: 8px 21px;
+                    border-radius: 25px;
+                    border: 0;
+                    width: 100%;
+                }
+
+                #searchsubmit {
+                    border: 0;
+                    position: absolute;
+                    right: 13px;
+                    height: 100%;
+                    background-color: transparent;
+                    color: $textColor;
+                }
+
+            }
+
+            
+
+        }
+        
 
         @media (max-width: $tablet-breakpoint) {
             & {

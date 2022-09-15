@@ -71,7 +71,7 @@ $flogo = get_field('footer_logo', 'options');
 			</div>
 			<div class="col-lg-6 order-lg-1">
 				<div class="foot-text">
-					<p>© <?php echo get_the_date('Y'); ?> Nextcloud GmbH</p>
+					<p>© <?php echo get_the_date('Y')." - ".date("Y"); ?> Nextcloud GmbH</p>
 				</div>
 			</div>
 		</div>
