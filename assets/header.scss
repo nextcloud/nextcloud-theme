@@ -232,11 +232,11 @@ header {
                             & > a {
                                 background-color: #fff;
                                 color: $textColor;
-                                padding: 16px 20px;
+                                padding: 10px 20px;
                                 border-radius: 27px;
                                 -webkit-border-radius: 27px;
                                 transition: all 0.3s ease;
-
+                                margin: 6px auto;
 
                                 /*
                                 &:focus {
@@ -322,8 +322,8 @@ header {
                             position: relative;
                         }
 
-                        &:not(.nav-btn) {
-                            a {
+                        &:not(.nav-btn):not(.wpml-ls-item) {
+                            & > a {
                                 color: #ffffff;
                                 font-size: 16px;
                                 font-weight: 600;
@@ -364,15 +364,41 @@ header {
                         &.wpml-ls-item {
                             & > a {
 
+
+                                &:before {
+                                    content: "\f0ac";
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-weight: 900;
+                                    position: absolute;
+                                    //top: 17px;
+                                    left: 0;
+                                }
+
+                                padding-left: 16px;
+                                text-transform: uppercase;
+
+                                /*
+                                &:after {
+                                    content: "\f107";
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-weight: 900;
+                                    position: absolute;
+                                    top: 17px;
+                                    right: -7px;
+                                    left: auto;
+                                }
+                                */
+
                                 img.wpml-ls-flag {
                                     max-width: 23px;
                                     height: 23px;
                                     border-radius: 50%;
+                                    display: none;
                                 }
 
                                 @media screen and (min-width: $xl-breakpoint) {
                                     .wpml-ls-native {
-                                        display: none;
+                                        //display: none;
                                     }
                                 }
                                 

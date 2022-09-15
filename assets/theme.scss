@@ -53,11 +53,13 @@ html :where(img) {
 body {
     position: relative;
     width: 100%;
-    color: rgba(12, 7, 38, 0.7);
+    //color: rgba(12, 7, 38, 0.7);
+    color: $textColor;
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    line-height: normal;
+    //line-height: normal;
+    line-height: 1.6;
 }
 
 .wrapper {
@@ -66,18 +68,27 @@ body {
     overflow-x: hidden;
 }
 
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
 h2 {
-    color: #0C0726;
-    font-size: 72px;
+    //color: #0C0726;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0px;
 }
 
 h3 {
-    color: #0C0726;
-    font-size: 48px;
-    font-weight: 700;
+    //color: #0C0726;
+    font-size: 2rem;
+    font-weight: 600;
     margin: 0px;
+}
+h4, h5, h6 {
+    font-size: 1.7rem;
+    font-weight: 500;
 }
 
 p {
@@ -7262,6 +7273,11 @@ p {
             line-height: 1.6;
         }
 
+
+        .wp-caption {
+            max-width: 100%;
+        }
+
         img {
             display: block;
             max-width: 100%;
@@ -8700,6 +8716,14 @@ p {
     h1, h2, h3, h4, h5, h6, p {
         color: #fff !important;
     }
+
+    ul.nc-list {
+        li{
+            &:before {
+                color: #fff;
+            }
+        }
+    }
 }
 
 
@@ -8775,7 +8799,7 @@ p {
         border-color: $mainColor;
         color: #fff;
         font-size: 16px;
-        font-weight: 600;
+        //font-weight: 600;
         border-radius: 25px;
         padding: 12px 2rem;
         border-width: 2px;
@@ -8815,7 +8839,7 @@ p {
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
     {
         font-size: 16px;
-        font-weight: 600;
+        //font-weight: 600;
         border-radius: 25px;
         padding: 12px 2rem;
         color: $textColor;
@@ -8880,6 +8904,14 @@ p {
 .nc-sep-logo {
     img {
         width: 50px;
+    }
+
+    &.hub-logo {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: -58px;
     }
 }
 
@@ -9062,6 +9094,27 @@ ul.nc-list {
     }   
 }
 
+.btn-no-bg {
+    button, a {
+        background-color: transparent !important;
+        background: none !important;
+        background-image: none !important;
+    }
+}
+
+.btn_learn_more {
+    button, a {
+        color: $mainColor !important;
+        font-weight: bold;
+        padding: 0 !important;
+
+        i{
+            right: -19px !important;
+            top: 55% !important;
+        }
+    }
+}
+
 
 .nc-section-gradient-bg {
     background: linear-gradient(45deg, $mainColor , $lightColor );
@@ -9114,6 +9167,10 @@ ul.nc-list {
             }
         }
 
+        &.vc_col-md-6 {
+            margin-bottom: 4rem;
+        }
+
         .vc_column-inner {
             background-color: $lightBG;
             border-radius: 15px;
@@ -9161,6 +9218,14 @@ ul.nc-list {
                 padding-left: 4rem;
                 position: relative;
                 min-height: 57px;
+                margin-bottom: 35px !important;
+                line-height: normal;
+
+                @media screen and (min-width: $xl-breakpoint) and (max-width: 1400px) {
+                    &{
+                        min-height: 82px !important;
+                    }
+                }
 
                 .wpb_wrapper {
                     position: absolute;
@@ -9191,7 +9256,7 @@ ul.nc-list {
     
             .quote {
                 font-size: 15px;
-                line-height: 1.4;
+                //line-height: 1.4;
             }
 
             .vc_btn3-container {
@@ -9215,8 +9280,6 @@ ul.nc-list {
 .links_carousel {
 
     position: relative;
-
-
     .item {    
         transition: all 0.3s ease;
 
@@ -9280,8 +9343,60 @@ ul.nc-list {
 }
 
 
+.wpb_content_element {
+    margin-bottom: 15px !important;
+}
+
+.owl-carousel{
+    .owl-item  {
+        img {
+            height: auto;
+        }
+    }
+}
+
+.nc_default_section {
+    margin-top: 5rem ;
+    margin-bottom: 5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.nc_text_as_separator {
+    font-size: 14px;
+    font-weight: bold;
+    color: $mainColor;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0 !important;
+}
+
+.section_short_desc {
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.hidden {
+    display: none;
+}
+
 @media screen and (max-width: $md-breakpoint) {
-        .nc-sep-logo, .nc-section-title, .vc_btn3-left {
+
+        .mobileColTop {
+            
+        }
+
+        .vc_sep_pos_align_left {
+            margin-left: auto !important;
+        }
+
+        .nc-sep-logo, .nc-section-title, .vc_btn3-left, .centerMobile {
             text-align: center !important;
+        }
+
+        .nextcloud-hub-accordion{
+            .vc_btn3-left {
+                text-align: left !important;
+            }
         }
 }

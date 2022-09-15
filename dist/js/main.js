@@ -1,6 +1,55 @@
 jQuery(document).ready(function ($) {
 
 
+    //set language switcher short lang as text
+    var curr_lang_a = $('.menu-primary-menu-container .wpml-ls-current-language > a');
+    var curr_lang = curr_lang_a.find('.wpml-ls-native').attr('lang');
+    console.log(curr_lang);
+    curr_lang_a.find('.wpml-ls-native').html(curr_lang);
+
+
+    $('.nextcloud-hub-accordion .product_tab').click(function(){
+        var id = $(this).attr('id');
+        var relative_preview_id = id + "_preview";  
+        
+        //console.log(relative_preview_id);
+        $("#"+relative_preview_id).show();
+        $("#"+relative_preview_id).siblings('.vc_row ').hide();
+        
+    });
+
+    $('.clients_carousel').owlCarousel({
+            loop:true,
+            autoplay: true,
+            margin:30,
+            dots: false,
+            nav:true,
+            //autoWidth:true,
+            stagePadding: 15,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:6
+                }
+            }
+    });
+
+
+    $('.wp-block-gallery').each(function() { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+              enabled:true
+            }
+        });
+    });
+
     $('.scroll_up').hide();
     //.scroll_up show
     $(window).scroll(function () {
@@ -218,6 +267,10 @@ jQuery(document).ready(function () {
         .not('[href="#trialModal"]')
         .not('[href="#0"]')
         .not('[href="#hidden_header_anchor"]')
+        .not('[href="#nextcloud_files_tab"]')
+        .not('[href="#nextcloud_talk_tab"]')
+        .not('[href="#nextcloud_groupware_tab"]')
+        .not('[href="#nextcloud_office_tab"]')
         .click(function (event) {
             // On-page links
             if (
