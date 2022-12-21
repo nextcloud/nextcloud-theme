@@ -4,10 +4,12 @@ use GeoIp2\Database\Reader;
 require_once locate_template('config.php');
 
 try {
+	$ip = whatismyip();
 	$readerCity = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-City.mmdb'));
-	$location = $readerCity->city(whatismyip())->location;
+	$location = $readerCity->city($ip)->location;
 } catch (\Exception $e) {
 	$location = false;
+	$ip = null;
 }
 
 /**
@@ -77,6 +79,7 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 
 <section class="section--providers">
 	<div id="register" class="container"
+		data-ip="<?php echo htmlspecialchars($ip) ?>"
 		data-ll="<?php echo htmlspecialchars(json_encode($location)) ?>"
 		data-ocsapi="<?php echo array_key_exists('HTTP_OCS_APIREQUEST', $_SERVER) ?>"
 		data-l10n="<?php echo htmlspecialchars(json_encode($registerL10n)) ?>"
