@@ -67,7 +67,7 @@ $text = get_field('text');
 								$icon = $sm['social_media_icon'];
 								$link = $sm['social_media_link'];
 								echo '<li>';
-								echo '<a href="' . $link . '">';
+								echo '<a target="_blank" href="' . $link . '">';
 								echo '<img src="' . $icon . '" alt=""/>';
 								echo '</a>';
 								echo '</li>';

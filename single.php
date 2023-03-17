@@ -12,12 +12,9 @@ get_header();
 		$date = (string)get_the_date('F d, Y');
 		$cat = get_the_category();
 		$author_id = (int)get_the_author_meta('ID');
-		$id = get_the_ID();
-		if ($id !== false) {
-			$ids[] = $id;
-		}
+		$custom_header_image = get_field('custom_header_image');
 	?>
-		<section class="single-hero-section" style="background-color: #1cafff;">
+		<section class="single-hero-section <?php if($custom_header_image) echo "custom_header_image"; ?>" style="<?php if($custom_header_image) echo "background: url(".$custom_header_image.");"; ?>">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
@@ -41,8 +38,10 @@ get_header();
 							<?php
 							echo '<ul>';
 							foreach ($cat as $c) {
-								$category_link = get_category_link($c->term_id);
-								echo '<a href="'.$category_link.'"> <li>' . $c->cat_name . ' </li></a> ';
+								if(  $c->term_id != 243 && $c->term_id != 241 && $c->term_id != 60 && $c->term_id != 1 ) { // exclude Uncategorized, sin categoria and Sin categorizar
+									$category_link = get_category_link($c->term_id);
+									echo '<a href="'.$category_link.'"> <li>' . $c->name . ' </li></a> ';
+								}
 							}
 							echo '</ul>';
 							?>
@@ -74,54 +73,51 @@ get_header();
 						<div class="text-block">
 						<?php
 						echo do_shortcode(apply_filters('the_content', get_the_content()));
-					endwhile; // End of the loop.
+						endwhile; // End of the loop.
 						?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
+
+
+		<?php				
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) :
+		?>
+		<section class="comments-section">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-12">
+						<div class="single_post_comments">
+							<?php
+								global $post;
+								comments_template();
+							?>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<?php endif; ?>
+
+
 		<section class="related-posts-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h3>Other Posts</h3>
+							<h3><?php echo __('Other posts','nextcloud'); ?></h3>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<div class="related-slider">
-							<?php
-							$my_wp_query = new WP_Query();
-							/** @var WP_Post[] $onepost */
-							$onepost = $my_wp_query->query(array(
-								'post_type' => 'post',
-								'post__not_in' => $ids,
-								'posts_per_page' => 3,
-								'post_status' => 'publish',
-								'orderby' => 'date',
-								'order' => 'DSC',
-							));
-							foreach ($onepost as $onepostsingle) {
-								$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
-								$title = $onepostsingle->post_title;
-								$ex = $onepostsingle->post_excerpt;
-								$link = (string)get_permalink($onepostsingle->ID);
-								echo '<div>';
-								echo '<div class="post-box">';
-								echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
-								echo '<div class="post-body">';
-								echo '<h4>' . $title . '</h4>';
-								echo '<p>' . $ex . '</p>';
-								echo '<a class="c-btn" href="' . $link . '">Read More</a>';
-								echo '</div>';
-								echo '</div>';
-								echo '</div>';
-							}
-							wp_reset_query();
-							?>
+							<?php get_template_part('inc/related_posts'); ?>
 						</div>
 					</div>
 				</div>

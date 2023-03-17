@@ -54,7 +54,7 @@ $subtext = get_field('subtext');
 				echo '<h4>' . $title . '</h4>';
 				echo '<ul class="info">';
 				echo '<li>' . $date . '</li>';
-				echo '<li><a class="c-btn" href="' . $link . '">Read More</a></li>';
+				echo '<li><a class="c-btn" href="' . $link . '">'.__('Download', 'nextcloud').'</a></li>';
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';

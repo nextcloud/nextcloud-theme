@@ -13,7 +13,7 @@
       "alt": "#fff"
     }
   },
-  "playlist": "../wp-content/themes/next/assets/podcast/playlist.json",
+  
   "subscribe-button": {
     "feed": "https://nextcloud.com/podcast-feed.rss",
     "clients": [

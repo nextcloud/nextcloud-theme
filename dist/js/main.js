@@ -1,5 +1,412 @@
 jQuery(document).ready(function ($) {
 
+    var isUriImage = function(uri) {
+
+        var uri, uri_splitted;
+
+        if(uri) {
+            //make sure we remove any nasty GET params
+            var uri_splitted = uri.split('?')[0];
+
+            //moving on now
+            var parts = uri_splitted.split('.');
+            var extension = parts[parts.length-1];
+            var imageTypes = ['jpg','jpeg','tiff','png','gif','bmp']
+            if(imageTypes.indexOf(extension) !== -1) {
+                return true;   
+            }
+        }
+    }
+
+    //add functionality to select continents and countries
+    $('.region_select_list .continent.parent').each(function(){
+        $(this).append('<div class="opener fa fa-angle-down"></div>');
+    });
+
+    $('.region_select_list li.parent .opener').click(function(){
+        //$(this).toggleClass('fa-angle-up');
+        $(this).siblings('ul').slideToggle();
+        $(this).parents('li').toggleClass('opened');
+    });
+
+    $('.region_select_list li.parent > input[type="checkbox"]').change(function(){
+        if(this.checked) {
+            $(this).siblings('.children_countries').find('input[type="checkbox"]').prop( "checked", true );
+        } else {
+            $(this).siblings('.children_countries').find('input[type="checkbox"]').prop( "checked", false );
+        }
+    });
+
+
+    //force download of images
+    $('.image_download a').each(function(){
+        $(this).attr('download','');
+    });
+
+    $('.wpb_video_wrapper').each(function(){
+        if($(this).children('.video-wall').length > 0){
+            $(this).addClass('with-iframe-blocker');
+        }
+    });
+
+
+    $('.copy_color').click(function(){
+        // Select the text field
+        $(this).select();
+        //$(this).setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText( $(this).text() );
+
+        // Alert the copied text
+        //alert("Copied the text: " +  $(this).text() );
+
+        $(this).append("<div class='copied'>Copied!</div>");
+
+        setTimeout(function() {
+            $('.copied').remove();
+        }, 2000);
+
+    });
+
+
+    /*
+    $('.wpb_video_wrapper .video-wall button').click(function(){
+        $(this).parents('.wpb_video_wrapper').removeClass('with-iframe-blocker');
+    });
+    */
+
+
+    //show buttons left right for moving the table when is not fully visible
+    if( $('.comparison_table').width() > $('.comparison_table_container_inner').width() ) {
+        $('.comparison_table_container_inner').addClass('innerShadow');
+
+        $('.table_move_arrows').show();
+    }
+
+
+    //left right move animation of the table
+    var box = $(".comparison_table_container_inner"), x;
+    $(".arrow").click(function() {
+        if ($(this).hasClass("arrow-right")) {
+            x = ((box.width() / 2)) + box.scrollLeft();
+            box.animate({
+            scrollLeft: x,
+            })
+        } else {
+            x = ((box.width() / 2)) - box.scrollLeft();
+            box.animate({
+            scrollLeft: -x,
+            })
+        }
+    });
+
+
+
+    //add dynamic css width to the td of the table header
+    $(".platform_logos th").each(function(){
+        //var padding = $(this).css('padding');
+        //console.log("padding: "+parseFloat(padding));
+        var width = $(this).width();
+        //width += parseFloat(padding);
+        console.log("width: "+width);
+        $(this).css("width", width );
+    });
+
+
+    //add class to the tds where the th has been checked to be compared
+    $(".platform_logos .check").click(function(){
+        $('button.filter').attr('disabled', false);
+
+        $(this).parent('th').toggleClass('td_selected');
+        $(this).toggleClass('selected');
+        //always select Nextcloud to compare with
+        $('.comparison_table .platform_logos').find('th').eq(1).find('.check').addClass('selected');
+        $('.comparison_table .platform_logos').find('th').eq(1).addClass('td_selected');
+        
+
+        var number_td = $(this).parent('th').index();
+        console.log(number_td);
+        $(this).parents('.comparison_table').children('tbody').find('tr:not(.colspan10)').each(function(item){
+            $(this).find('td').eq(number_td).toggleClass("hightlighted td_selected");
+
+            //always select the nextcloud column = column nr. 2
+            $(this).find('td').eq(1).addClass("hightlighted td_selected");
+
+        });
+    });
+
+
+    //add class filtered to the table on button click
+    $("button.filter").click(function(){
+        $('.comparison_table').addClass('filtered');
+    });
+
+    //reset table comparison on button click
+    $("button.reset").click(function(){
+        $('button.filter').attr('disabled', true);
+        $('.comparison_table').removeClass('filtered');
+        $('.check').removeClass("selected");
+        $('.hightlighted').removeClass("hightlighted");
+        $('.td_selected').removeClass("td_selected");
+    });
+
+    var animate_iconboxes = function(){
+
+        $('.animated_iconboxes').each(function(list_index){
+            
+            var elementTop = $(this).offset().top;
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+
+            if(elementBottom > viewportTop && elementTop < viewportBottom) {
+                //$(this).children('li').addClass('show');
+
+                $(this).find('.nc_iconbox').each(function(index){
+                    $(this).addClass('show');
+                    $(this).css({
+                        'transition-delay' : (list_index + index * 0.2) + 's'
+                    });
+                });
+
+            }
+        });
+
+    };
+    animate_iconboxes();
+
+
+    //animate list on scroll and when element is visible in the viewport
+    $(window).scroll(function(){
+        $('.animated_list').each(function(list_index){
+            var elementTop = $(this).offset().top;
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+
+            if(elementBottom > viewportTop && elementTop < viewportBottom) {
+                //$(this).children('li').addClass('show');
+
+                $(this).children('li').each(function(index){
+                    $(this).addClass('show');
+                    $(this).css({
+                        'transition-delay' : (list_index + index * 0.2) + 's'
+                    });
+                });
+
+            }
+        });
+
+
+        //animated_iconboxes > nc_iconbox animated when visible in the viewport
+        animate_iconboxes();
+
+    });
+
+    //set language switcher short lang as text
+    var curr_lang_a = $('.wpml-ls-current-language > a');
+    var curr_lang = curr_lang_a.find('.wpml-ls-native').attr('lang');
+    console.log(curr_lang);
+    curr_lang_a.find('.wpml-ls-native').html(curr_lang);
+
+
+
+    $('.nextcloud-hub-accordion .product_tab').click(function(){
+        var id = $(this).attr('id');
+        var relative_preview_id = id + "_preview";  
+        //console.log(relative_preview_id);
+        $("#"+relative_preview_id).show();
+        $("#"+relative_preview_id).siblings('.vc_row ').hide();
+        
+    });
+
+
+    //.features_carousel product pages
+    $('.features_carousel').owlCarousel({
+        loop:false,
+        autoplay: false,
+        margin:30,
+        dots: false,
+        nav:true,
+        //autoWidth:true,
+        //stagePadding: 150,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
+
+    //.quotes_carousel product pages
+    $('.quotes_carousel').owlCarousel({
+        loop:false,
+        autoplay: false,
+        margin:15,
+        dots: false,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            800:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
+
+
+
+    //testimonials_carousel
+    $('.testimonials_carousel').owlCarousel({
+        loop:false,
+        autoplay: true,
+        margin:30,
+        dots: false,
+        nav:false,
+        //autoHeight: true,
+        //autoWidth:true,
+        //stagePadding: 150,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            800:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
+
+    //clients carousel
+    $('.clients_carousel').owlCarousel({
+            loop:true,
+            autoplay: true,
+            margin:30,
+            dots: false,
+            nav:true,
+            //autoWidth:true,
+            lazyLoad:true,
+            stagePadding: 15,
+            responsive:{
+                0:{
+                    items:1
+                },
+                300:{
+                    items:2
+                },
+                600:{
+                    items:3
+                },
+                800:{
+                    items:5
+                },
+                1000:{
+                    items:6
+                }
+            }
+    });
+
+    //add popup for single image
+    $('.popup-screenshot').magnificPopup({
+        type: 'image'
+        // other options
+    });
+
+    //click on gallery items will open a popup
+    $('.wp-block-gallery:not(.no_popup)').each(function() { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+              enabled:true
+            }
+        });
+    });
+
+    //click on gallery items will open a popup
+    $('.wp-block-image').each(function() { // the containers for all your galleries
+        if(  isUriImage($(this).find('a').attr('href')) ) {
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                  enabled:true
+                }
+            });
+        } else {
+            //console.log('not an image');
+        }
+        
+    });
+
+
+    //click on gallery items will open a popup
+    $('.wp-block-media-text .wp-block-media-text__media').each(function() { // the containers for all your galleries 
+        //console.log($(this).find('a').attr('href'));
+        
+        if(  isUriImage($(this).find('a').attr('href')) ) {
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                  enabled:true
+                }
+            });
+        } else {
+            //console.log('not an image');
+        }
+        
+        
+    });
+
+
+    $('.scroll_up').hide();
+    //.scroll_up show
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) { // Wenn 100 Pixel gescrolled wurde
+        $('.scroll_up').fadeIn();
+        } else {
+        $('.scroll_up').fadeOut();
+        }
+    });
+
+
+
+    //smooth scroll
+  	$(document).on('click', 'a.scroll_up', function(e) {
+	    // target element id
+	    //var id = $(this).attr('href');
+        var id = "#hidden_header_anchor";
+	    // target element
+	    var $id = $(id);
+	    if ($id.length === 0) {
+	        return;
+	    }
+	    // prevent standard hash navigation (avoid blinking in IE)
+	    e.preventDefault();
+	    // top position relative to the document
+	    var pos = $id.offset().top;
+	    // animated top scrolling
+	    $('body, html').animate({scrollTop: pos}, 800);
+	});
+    
+
 
     $('.links_carousel').owlCarousel({
                 loop:true,
@@ -21,9 +428,267 @@ jQuery(document).ready(function ($) {
     });
 
 
-    $('.popup-video a').magnificPopup({
+
+    //if(!Cookies.get('nc_cookie_banner')){
+
+
+    var iframe_blocker_text = {};
+
+   var iframe_blocker_text_en = {
+    youtube: '<div class="text_overlay"><strong>Embedded YouTube Video</strong>By loading the video, you agree to Youtube\'s privacy policy. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Learn more</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Link to the video: https://youtu.be/%id%</a><button title="Watch video on this page" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Play video</button><p class="unblock_all">By playing this video, all Youtube videos will be unblocked</p></div>',
+    
+    vimeo: '<div class="text_overlay"><strong>Embedded Vimeo Video</strong>By loading the video, you agree to Vimeo\'s privacy policy. <a href="https://vimeo.com/privacy" target="_blank">Learn more</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Watch video on Vimeo">Link to the video: https://vimeo.com/%id%</a><button title="Watch video on this page" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Play video</button><p class="unblock_all">By playing this video, all Vimeo videos will be unblocked</p></div>'
+   };
+
+
+   var iframe_blocker_text_de = {
+    youtube: '<div class="text_overlay"><strong>Eingebettetes Youtube Video</strong>Durch das Laden des Videos stimmst du der Datenschutzbestimmung von Youtube zu. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Mehr erfahren</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Link zum Video: https://youtu.be/%id%</a><button title="Video auf dieser Seite gucken" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Video abspielen</button><p class="unblock_all">Durch das Abspielen dieses Videos werden alle Youtube Videos freigeschaltet.</p></div>',
+    
+    vimeo: '<div class="text_overlay"><strong>Eingebettetes Vimeo Video</strong>Durch das Laden des Videos stimmst du der Datenschutzbestimmung von Vimeo zu. <a href="https://vimeo.com/privacy" target="_blank">Mehr erfahren</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Watch video on Vimeo">Link zum Video: https://vimeo.com/%id%</a><button title="Video auf dieser Seite gucken" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Video abspielen</button><p class="unblock_all">Durch das Abspielen dieses Videos werden alle Vimeo Videos freigeschaltet.</p></div>'
+   };
+
+
+   var iframe_blocker_text_fr = {
+    youtube: '<div class="text_overlay"><strong>Vidéo Youtube intégrée</strong>En chargeant la vidéo, vous acceptez la politique de confidentialité de Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">En savoir plus</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Lien vers la vidéo: https://youtu.be/%id%</a><button title="Regarder la vidéo sur cette page" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Lire la vidéo</button><p class="unblock_all">En regardant cette vidéo, toutes les vidéos Youtube seront débloquées.</p></div>',
+    
+    vimeo: '<div class="text_overlay"><strong>Vidéo Vimeo intégrée</strong>En chargeant la vidéo, vous acceptez la politique de confidentialité de Vimeo. <a href="https://vimeo.com/privacy" target="_blank">En savoir plus</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Regardez la vidéo sur Vimeo">Lien vers la vidéo: https://vimeo.com/%id%</a><button title="Regarder la vidéo sur cette page" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Lire la vidéo</button><p class="unblock_all">En regardant cette vidéo, toutes les vidéos Vimeo seront débloquées.</p></div>'
+   };
+
+
+   var iframe_blocker_text_es = {
+    youtube: '<div class="text_overlay"><strong>Vídeo Youtube incrustado</strong>Al cargar el video, aceptas la política de privacidad de Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Más información</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Ver video en youtube">Enlace al vídeo: https://youtu.be/%id%</a><button title="Ver video en esta página" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Reproducir vídeo</button><p class="unblock_all">Al reproducir este video, se desbloquearán todos los videos de Youtube</p></div>',
+    
+    vimeo: '<div class="text_overlay"><strong>Vídeo Vimeo incrustado</strong>Al cargar el video, aceptas la política de privacidad de Vimeo. <a href="https://vimeo.com/privacy" target="_blank">Más información</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Ver video en Vimeo">Enlace al vídeo: https://vimeo.com/%id%</a><button title="Ver video en esta página" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Reproducir vídeo</button><p class="unblock_all">Al reproducir este video, se desbloquearán todos los videos de Vimeo</p></div>'
+   };
+
+
+   var iframe_blocker_text_it = {
+    youtube: '<div class="text_overlay"><strong>Videmo YouTube incorporato</strong>Caricando il video, accetti l\'informativa sulla privacy di Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Per saperne di più</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Guarda video su YouTube">Link al video: https://youtu.be/%id%</a><button title="Guarda video su questa pagina" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Riproduci video</button><p class="unblock_all">Riproducendo questo video, tutti i video di Youtube verranno sbloccati</p></div>',
+    
+    vimeo: '<div class="text_overlay"><strong>Video Vimeo incorporato</strong>Caricando il video, accetti l\'informativa sulla privacy di Vimeo. <a href="https://vimeo.com/privacy" target="_blank">Per saperne di più</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Guarda video su Vimeo">Link al video: https://vimeo.com/%id%</a><button title="Guarda video su questa pagina" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Riproduci video</button><p class="unblock_all">Riproducendo questo video, tutti i video di Vimeo verranno sbloccati</p></div>'
+   };
+
+
+   var curr_lang_cookie = Cookies.get('wp-wpml_current_language');
+   if(curr_lang_cookie == 'en') {
+    iframe_blocker_text = iframe_blocker_text_en;
+   } 
+   else if (curr_lang_cookie == 'de') {
+    iframe_blocker_text = iframe_blocker_text_de;
+   }
+   else if (curr_lang_cookie == 'it') {
+    iframe_blocker_text = iframe_blocker_text_it;
+   }
+   else if (curr_lang_cookie == 'fr') {
+    iframe_blocker_text = iframe_blocker_text_fr;
+   }
+   else if (curr_lang_cookie == 'es') {
+    iframe_blocker_text = iframe_blocker_text_es;
+   }
+   else {
+    iframe_blocker_text = iframe_blocker_text_en;
+   }
+
+    var replace_this_iframe = function(element_item, popup_element){
+        //console.log("function parsing..");
+        var video_frame, wall, video_platform, video_src, video_id, video_w, video_h;
+
+        var video_iframes_youtube = [];
+        var video_iframes_vimeo = [];
+        var frames = document.getElementsByTagName("iframe");
+        //console.log("frames length inside popup: "+frames.length);
+
+        for (i = 0; i < frames.length; ++i) {
+            var video_frame, video_platform, video_src;
+            video_frame = frames[i];
+            video_src = video_frame.src;
+            // Only process video iframes [youtube|vimeo]
+            if (video_src.match(/youtube|vimeo/) == null) {
+                continue;
+            }
+            
+
+            
+
+
+            video_platform = video_src.match(/vimeo/) == null ? 'youtube' : 'vimeo';
+            //console.log("video_platform: "+video_platform);
+            video_frame.parentNode.classList.add(video_platform+"_container");
+            //add iframes to the arrays
+            //video_iframes.push(video_frame);
+
+            if(video_platform == 'youtube') {
+                video_iframes_youtube.push(video_frame);
+            }
+            if(video_platform == 'vimeo') {
+                video_iframes_vimeo.push(video_frame);
+            }
+
+
+        } //end for
+
+        //console.log("youtube videos on the page 2: "+video_iframes_youtube.length);
+        //console.log("vimeo videos on the page 2: "+video_iframes_vimeo.length);
+
+
+
+
+        //video_frame = document.getElementsByTagName('iframe')[0];
+        video_frame = element_item;
+        var this_video_iframe = element_item;
+        video_src = video_frame.src;
+
+        // Only process video iframes [youtube|vimeo]
+        if (video_src.match(/youtube|vimeo/) == null) {
+            //continue;
+        } else {
+
+            //video_iframes.push(video_frame);
+            video_w = video_frame.getAttribute('width');
+            video_h = video_frame.getAttribute('height');
+            wall = document.createElement('article');
+
+            video_platform = video_src.match(/vimeo/) == null ? 'youtube' : 'vimeo';
+            video_id = video_src.match(/(embed|video)\/([^?\s]*)/)[2];
+            wall.setAttribute('class', 'video-wall');
+            //wall.setAttribute('data-index', i);
+            //wall.setAttribute('data-platform', video_platform);
+            
+
+
+            //set thumbnail image as background
+            if( video_platform == 'youtube' ) {
+                var thumb_url = 'https://i1.ytimg.com/vi/'+ video_id +'/maxresdefault.jpg';
+            }
+
+            if( video_platform == 'vimeo') {
+                var thumb_url = 'https://vumbnail.com/'+video_id+'.jpg';
+            }
+
+
+            wall.setAttribute('style', 'width:'+video_w+'px;height:'+video_h+'px; background: url('+thumb_url+'); ');
+            wall.innerHTML = iframe_blocker_text[video_platform].replace(/\%id\%/g, video_id);
+
+            //this is where replacement happens
+            if( video_platform == 'youtube' ) {
+                if(!getCookie('nc_youtube_unblocked')){
+                    video_frame.parentNode.replaceChild(wall, video_frame);
+                    //Cookies.set('nc_youtube_unblocked', 1, { expires: 30 });
+
+                    //unblock all the youtube videos on the page
+                    
+                    /*
+                    var all_video_walls = document.querySelectorAll('.video-wall.youtube');
+                        all_video_walls.forEach(function(item){
+                            var video_frame = item,
+                            index = video_frame.getAttribute('data-index');
+                            video_iframes_youtube[index].src = video_iframes_youtube[index].src.replace(/www\.youtube\.com/, 'www.youtube-nocookie.com');
+                            video_frame.parentNode.replaceChild(video_iframes_youtube[index], video_frame);
+                    });
+                    */
+                    
+
+                }
+            }
+
+            if( video_platform == 'vimeo' ) {
+                if(!getCookie('nc_vimeo_unblocked')){
+                    video_frame.parentNode.replaceChild(wall, video_frame);
+                    //Cookies.set('nc_vimeo_unblocked', 1, { expires: 30 });
+                }
+            }
+
+
+            $(popup_element).find('.video-wall button').click(function(){
+                var video_frame = this.parentNode;
+                this_video_iframe.src = this_video_iframe.src.replace(/www\.youtube\.com/, 'www.youtube-nocookie.com');
+                video_frame.parentNode.replaceChild(this_video_iframe, video_frame);
+
+
+                if( video_platform == 'youtube' ) {
+                    if(!getCookie('nc_youtube_unblocked')){
+                        Cookies.set('nc_youtube_unblocked', 1, { expires: 30 });
+                    }
+                }
+
+
+                if( video_platform == 'vimeo' ) {
+                    if(!getCookie('nc_vimeo_unblocked')){
+                        Cookies.set('nc_vimeo_unblocked', 1, { expires: 30 });
+                    }
+                }
+
+
+            });
+
+
+
+
+        }
+    
+    };
+
+    //}
+
+    
+    
+
+
+
+    $('.popup-video a, a.popup-video').magnificPopup({
         //disableOn: 700,
         type: 'iframe',
+
+        
+        
+        callbacks: {
+
+            open: function() {
+                var iframe_content = $.magnificPopup.instance.content[0].childNodes[1];
+                var popup_element = $.magnificPopup.instance.content[0];
+                //console.log('Popup is opened');
+
+                //if(!Cookies.get('nc_cookie_banner')){
+                    replace_this_iframe(iframe_content, popup_element);
+                //}
+            },
+
+        },
+
+        
+        iframe: {
+            markup: '<div class="mfp-iframe-scaler">'+
+            '<div class="mfp-close"></div>'+
+            '<iframe id="" class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+            '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+            
+            patterns: {
+              youtube: {
+                index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+          
+                id: 'v=', // String that splits URL in a two parts, second part should be %id%
+                // Or null - full URL will be returned
+                // Or a function that should return %id%, for example:
+                // id: function(url) { return 'parsed id'; }
+          
+                src: '//www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe.
+              },
+              vimeo: {
+                index: 'vimeo.com/',
+                id: '/',
+                src: '//player.vimeo.com/video/%id%?autoplay=1'
+              },
+              gmaps: {
+                index: '//maps.google.',
+                src: '%id%&output=embed'
+              }
+          
+              // you may add here more sources
+            },
+            srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+        },
+        
+
         mainClass: 'mfp-fade',
         removalDelay: 160,
         preloader: false,
@@ -32,53 +697,32 @@ jQuery(document).ready(function ($) {
 
 
 
+    //sticky sidebar
     if ($(window).width() > 990) {
-        
+
+        $('#pricing_plans_head').stickySidebar({
+            topSpacing: 94,
+            bottomSpacing: 60
+        });
+
+
+        $('#request_quote_left_sidebar').stickySidebar({
+            topSpacing: 115,
+            bottomSpacing: 60
+        });
+
+
         $('#advantages-left-sticky').stickySidebar({
             topSpacing: 60,
             bottomSpacing: 60
         });
-    
-    
+
         $('#thead_advantages').stickySidebar({
             topSpacing: 90,
             bottomSpacing: 60,
             innerWrapperSelector: "tr"
         });
-
      }
-
-
-    
-    
-
-
-/*
-    //fix element when scrolling in the advantages section
-    var distance1 = $('#advantages-left-sticky').offset().top;
-    $(window).scroll(function () {
-        
-        if ($(window).scrollTop()+89 >= distance1) {
-            $('#advantages-left-sticky').addClass("fixedtoTop_col");
-
-        } else {
-            $('#advantages-left-sticky').removeClass("fixedtoTop_col");
-        }
-    });
-
-
-    //fix element when scrolling in the advantages section
-    var distance2 = $('table.advantages thead').offset().top;
-    $(window).scroll(function () {
-        
-        if ($(window).scrollTop()+89 >= distance2) {
-            $('table.advantages thead').addClass("fixedtoTop_thead");
-
-        } else {
-            $('table.advantages thead').removeClass("fixedtoTop_thead");
-        }
-    });
-    */
 
 });
 
@@ -106,7 +750,7 @@ jQuery(document).ready(function () {
         })
         el.addEventListener("mouseout", (event) => {
             timer = setTimeout((event) => {
-                document.querySelector(".menu-item-has-children.open").classList.remove('open')
+                document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
             }, 1000)
         })
         el.querySelector('a').addEventListener("click", function(event) {
@@ -188,6 +832,8 @@ jQuery(document).ready(function () {
         jQuery(this).toggleClass('active');
     });
 
+
+    /*
     jQuery(".news-container").slice(0, 9).show();
     if (jQuery(".news-item:hidden").length != 0) {
         jQuery("#loadNews").show();
@@ -199,6 +845,7 @@ jQuery(document).ready(function () {
             jQuery("#loadNews").fadeOut('slow');
         }
     });
+    */
 
     setTimeout(function() {
         jQuery('.post-holder').each(function() {
@@ -212,10 +859,34 @@ jQuery(document).ready(function () {
     jQuery('a[href*="#"]')
         // Remove links that don't actually link to anything
         .not('[href="#"]')
+        .not('[href="#no_scroll"]')
         .not('[href="#trialModal"]')
         .not('[href="#0"]')
+        .not('[href="#hidden_header_anchor"]')
+        .not('[href="#nextcloud_files_tab"]')
+        .not('[href="#nextcloud_talk_tab"]')
+        .not('[href="#nextcloud_groupware_tab"]')
+        .not('[href="#nextcloud_office_tab"]')
+        .not('.no_scroll')
+        .not('[href="#nextcloud_outlook_integration_tab"]')
+        .not('[href="#nextcloud_ad_integration_tab"]')
+        .not('[href="#nextcloud_sharepoint_integration_tab"]')
+        .not('[href="#nextcloud_teams_integration_tab"]')  
+        .not('[href="#nextcloud_mail_tab"]')
+        .not('[href="#nextcloud_calendar_tab"]')
+        .not('[href="#nextcloud_contacts_tab"]')
+        .not('[href="#nextcloud_deck_tab"]')
+        .not('[href="#nextcloud_tab1"]')
+        .not('[href="#nextcloud_tab2"]')
+        .not('[href="#nextcloud_tab3"]')
+        .not('[href="#nextcloud_tab4"]')
+        .not('[data-vc-accordion]')
+        
+
         .click(function (event) {
             // On-page links
+            //event.preventDefault();
+
             if (
                 location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
                 &&
@@ -559,9 +1230,11 @@ jQuery(document).ready(function () {
     jQuery('#services').val('All services');
     jQuery('#certificates').val('All levels');
     jQuery('#country').val('All');
+
     jQuery('input[type="checkbox"]').each(function () {
         jQuery(this).prop('checked', false);
     });
+
     jQuery('#filtersearch').val('');
 
     jQuery('.tab-link').click(function () {
@@ -586,6 +1259,7 @@ jQuery(document).ready(function () {
         var select = jQuery(this).next('.select-list');
         jQuery('.select-list').not(select).slideUp();
         select.slideToggle();
+        select.focus();
     });
 
     jQuery('input[name="servi"]').change(function () {
@@ -593,21 +1267,90 @@ jQuery(document).ready(function () {
         var valArray = [];
         var count = jQuery('input[name="servi"]:checked').length;
         var i = 1;
-        jQuery('input[name="servi"]:checked').each(function () {
-            var labeltext = jQuery(this).next('label').text();
-            var valuefilter = jQuery(this).val();
-            valArray.push(valuefilter);
-            if (count == i) {
-                textArray += labeltext;
-            } else {
-                textArray += labeltext + ', ';
-            }
-            i++;
-        });
+
+
+        var selected_cb = jQuery(this).val();
+        if(selected_cb == 'all-dev') {
+            textArray = 'All services';
+            valArray.push(selected_cb);
+
+            jQuery('input[name="servi"]').prop('checked', false);
+            jQuery('input[name="servi"][id="shk00"]').prop('checked', true);
+            
+
+        } else {
+
+            //deselect All option when everything else is checked
+            jQuery('input[name="servi"][id="shk00"]').prop('checked', false);
+
+            jQuery('input[name="servi"]:checked').each(function () {
+                var labeltext = jQuery(this).next('label').text();
+                var labeltext2 = jQuery.trim( labeltext );
+                var valuefilter = jQuery(this).val();
+                
+                
+
+                valArray.push(valuefilter);
+
+                if (count == i) {
+                    textArray += labeltext2;
+                } else {
+                    textArray += labeltext2 + ', ';
+                }
+                i++;
+
+                console.log("textArray: "+textArray);
+
+            });
+
+        }
+
         jQuery('#services').val(textArray);
         jQuery('#services').data('value', valArray);
+
         iniFilter();
+
+
+        //close select menu when changing service input checkboxes
+        jQuery(this).closest('.selection').toggleClass('active');
+        jQuery(this).closest('.select-list').slideUp();
+        //jQuery(this).closest('.select-list').focus();
+
     });
+
+
+    //close menu selection when clicked outside
+    jQuery('ul.select-list').blur(function() {
+        console.log('select list blurred');
+        //if(jQuery(this).css('display') == 'block') {
+            jQuery(this).slideUp();
+        //}
+    });
+
+
+    //close country select div when clicked outside of it
+    var country_select = jQuery('#country_select');
+    var region_select_list = country_select.find('.region_select_list');
+    jQuery(document).click(function (event) {
+        if (!country_select.is(event.target) && country_select.has(event.target).length === 0) {      
+            //console.log('clicking outside the div');
+            jQuery('.selection.active').removeClass('active');
+            region_select_list.slideUp();
+        }
+    });
+
+
+    //service_select
+    var service_select = jQuery('#service_select');
+    var service_select_list = service_select.find('.select-list');
+    jQuery(document).click(function (event) {
+        if (!service_select.is(event.target) && service_select.has(event.target).length === 0) {      
+            //console.log('clicking outside the div');
+            jQuery('.selection.active').removeClass('active');
+            service_select_list.slideUp();
+        }
+    });
+    
 
 
     jQuery('.cert-list li').click(function () {
@@ -623,23 +1366,67 @@ jQuery(document).ready(function () {
     jQuery('input[name="country"]').change(function () {
         var textArray = '';
         var valArray = '';
+        var valArray2 = [];
         var count = jQuery('input[name="country"]:checked').length;
         var i = 1;
-        jQuery('input[name="country"]:checked').each(function () {
-            var labeltext = jQuery(this).next('label').text();
-            var valuefilter = jQuery(this).val();
-            valArray += valuefilter + ' ';
-            if (count == i) {
-                textArray += labeltext;
-            } else {
-                textArray += labeltext + ', ';
-            }
-            i++;
-        });
+
+        var selected_cb = jQuery(this).val();
+        if(selected_cb == 'all-comp') {
+            textArray = 'All';
+            valArray = selected_cb;
+            //valArray2.push(selected_cb);
+
+            jQuery('#country').data('country_value_test', 'all-comp');
+
+            jQuery('input[name="country"]').prop('checked', false);
+            jQuery('input[name="country"][id="chk01"]').prop('checked', true);
+
+        } else {
+
+            //deselect All option when everything else is checked
+            jQuery('input[name="country"][id="chk01"]').prop('checked', false);
+
+            jQuery('input[name="country"]:checked').each(function () {
+                var labeltext = jQuery(this).next('label').text();
+                var valuefilter = jQuery(this).val();
+
+                //console.log("valuefilter: "+valuefilter);
+    
+                    valArray += valuefilter + ',';
+                    //valArray.push(valuefilter);
+
+                    if (count == i) {
+                            textArray += labeltext;
+                    } else {
+                            textArray += labeltext + ',';
+                    }
+
+                    valArray2.push(valuefilter);
+    
+                i++;
+            });
+
+            jQuery('#country').data('country_value_test', valArray2);
+
+        }
+
+
         jQuery('#country').val(textArray);
         jQuery('#country').data('value', valArray);
+        
+
         iniFilter();
+
+
+        //close select menu when changing service input checkboxes
+        /*
+        jQuery(this).closest('.selection').toggleClass('active');
+        jQuery(this).closest('.select-list').slideUp();
+        */
+
     });
+     
+
 
     jQuery.extend(jQuery.expr[":"], {
         "containsIN": function (elem, i, match, array) {
@@ -648,11 +1435,11 @@ jQuery(document).ready(function () {
     });
 
     jQuery('#filtersearch').keyup(function () {
-        resetFilter();
-        jQuery('.partner-col').hide();
-        var value = jQuery(this).val();
-        jQuery('.partner-col:containsIN("' + value + '")').show();
+        iniFilter();
+
+        //resetFilter();
     });
+
 
     jQuery('#fieldname').change( function (){
         doCalculation2();
@@ -724,9 +1511,10 @@ jQuery(document).ready(function () {
 
 });
 
+
+
 jQuery(window).scroll(function () {
     var cutoff = jQuery(window).scrollTop();
-
     jQuery('section').each(function () {
         if (jQuery(this).offset().top + jQuery(this).height() > cutoff) {
             var targetSection = jQuery(this).attr('id');
@@ -736,6 +1524,9 @@ jQuery(window).scroll(function () {
         }
     });
 });
+
+
+
 
 function fixedMeni() {
     var windowWidth = jQuery(window).innerWidth();
@@ -753,12 +1544,50 @@ function fixedMeni() {
         });
     }
 }
-;
+
+
+// Function definition with passing two arrays
+// Function definition with passing two arrays
+function findCommonElement(array1, array2) {
+    // Loop for array1
+    for(let i = 0; i < array1.length; i++) {
+        
+        // Loop for array2
+        for(let j = 0; j < array2.length; j++) {
+            
+            // Compare the element of each and
+            // every element from both of the
+            // arrays
+            if(array1[i] === array2[j]) {
+            
+                // Return if common element found
+                return true;
+            }
+        }
+    }
+    // Return if no common element exist
+    return false;
+}
+
+
 
 function iniFilter() {
     var filter1 = jQuery('#services').data('value');
     var filter2 = jQuery('#certificates').data('value');
-    var filter3 = jQuery('#country').data('value');
+    //var filter3 = jQuery('#country').data('value');
+    //var filter3_array = filter3.split(',');
+    //console.log("Countries searched: "+filter3_array);
+
+
+    if(jQuery('#country').data('country_value_test')) {
+        var filter3 = jQuery('#country').data('country_value_test');
+    } else {
+        var filter3 = 'all-comp';
+    }
+
+
+    var filter4 = jQuery('#filtersearch').val();
+
     if (jQuery.inArray("all-dev", filter1) !== -1 || filter1.length === 0) {
         var allDev = 1;
     }
@@ -766,29 +1595,74 @@ function iniFilter() {
         filter2 = '';
     }
     if (filter3.includes('all-comp') || filter3 == '') {
-        filter3 = 'x';
+        filter3 = '';
+        //countries_included = true;
     }
+    if(filter4 != '') {
+        //jQuery('.partner-col:containsIN("' + filter4 + '")').show();
+        //jQuery(this).containsIN(filter4);
+        //console.log(filter4);
+    }
+
+    //console.log("test findCommonElement: "+findCommonElement(['south korea', 'Japan', 'China'], ['south korea', 'brazil'] ));
+
     jQuery('.partner-col').each(function () {
+        var countries_included = false;
+
+        var partner_id = jQuery(this).attr('id');
         var values = jQuery(this).data('type');
-        if (filter3 == 'x') {
-            var country = 'x';
-        } else {
-            var country = jQuery(this).data('country');
+        var country = jQuery(this).data('country');
+
+        var countries_of_this_partner_array = country.split(",");
+        //console.log("countries_of_this_partner: "+countries_of_this_partner);
+
+
+        /*
+        if(partner_id == 'partner-46694') {
+            console.log("ID partner: "+partner_id);
+            console.log("countries_of_this_partner_array: "+countries_of_this_partner_array);
+            console.log("filter3: "+filter3);
+
+            console.log("findCommonElement: "+findCommonElement(countries_of_this_partner_array, filter3));
         }
-        if (allDev == 1) {
-            if (values.includes(filter2) && filter3.includes(country)) {
+        */
+        
+
+
+        if(filter3 != '') {
+            if(findCommonElement(countries_of_this_partner_array, filter3)){
+                countries_included = true;
+           }
+        } else {
+            countries_included = true;
+        }
+       
+
+        /*
+        if(partner_id == 'partner-46694') {
+            console.log('countries_included: '+countries_included);
+        }
+        */
+
+
+        if (allDev == 1) { // if selected all services
+            if (values.includes(filter2) && countries_included && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4) ) {
                 jQuery(this).show();
+
             } else {
                 jQuery(this).hide();
             }
-        } else {
-            if (filter1.every(item => values.includes(item)) && values.includes(filter2) && filter3.includes(country)) {
+        } else { // if selected specific serivce
+            if (filter1.every(item => values.includes(item)) && values.includes(filter2) && countries_included && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4) ) {
                 jQuery(this).show();
             } else {
                 jQuery(this).hide();
             }
         }
     });
+
+
+
 }
 function resetFilter() {
     jQuery('#services').val('All services');
@@ -1115,7 +1989,7 @@ function checkSubscription() {
             yourName.classList.remove('error');
             yourNameError.html('');
         } else {
-            var message = '<?php echo $l->t("The name you entered does not appear to be valid.");?>';
+            var message = 'The name you entered does not appear to be valid.';
             yourNameError.html('<br />' + message);
             yourName.classList.add('error');
             enableSubmitButton = false;
@@ -1133,7 +2007,7 @@ function checkSubscription() {
             email.classList.remove('error');
             emailError.html('');
         } else {
-            var message = '<?php echo $l->t("The email address you entered does not appear to be valid.");?>';
+            var message = 'The email address you entered does not appear to be valid.';
             emailError.html('<br />' + message);
             email.classList.add('error');
             enableSubmitButton = false;
@@ -1454,7 +2328,7 @@ function checkSubscription2() {
             yourName.classList.remove('error');
             yourNameError.html('');
         } else {
-            var message = '<?php echo $l->t("The name you entered does not appear to be valid. Please only use characters a-z and A-Z.");?>';
+            var message = 'The name you entered does not appear to be valid. Please only use characters a-z and A-Z.';
             yourNameError.html('<br />' + message);
             yourName.classList.add('error');
             enableSubmitButton = false;
@@ -1472,7 +2346,7 @@ function checkSubscription2() {
             email.classList.remove('error');
             emailError.html('');
         } else {
-            var message = '<?php echo $l->t("The email address you entered does not appear to be valid. Please only use characters a-z and A-Z and numbers.");?>';
+            var message = 'The email address you entered does not appear to be valid. Please only use characters a-z and A-Z and numbers.';
             emailError.html('<br />' + message);
             email.classList.add('error');
             enableSubmitButton = false;

@@ -39,6 +39,23 @@
     <atom:link href="https://nextcloud.com/podcast-feed.rss" rel="self" type="application/rss+xml" />
     <link>https://nextcloud.com/podcast/</link>
       
+
+    <item>
+      <title>E17: Insights from CEO and Founder Frank Karlitschek</title>
+      <itunes:subtitle>In this 17th episode, our host Marius talked with Frank Karlitschek, the Founder and CEO of Nextcloud.</itunes:subtitle>
+      <itunes:summary>Nextcloud had a busy year to say the least. From events like the Nextcloud Conference to the Nextcloud Hub 3 release and more, 2022 holds many milestones and experiences for our users. In this exciting new episode, Marius talked with Frank about a variety of Nextcloud topics.</itunes:summary>
+      <itunes:duration>01:02:54</itunes:duration>
+      <description>In this 17th episode, our host Marius talked with Frank Karlitschek, the Founder and CEO of Nextcloud.</description>
+      <pubDate>Thu, 19 Jan 2023 15:00:00 GMT</pubDate>
+      <enclosure url="https://download.nextcloud.com/.podcasts/Nextcloud_Podcast_017.mp3"
+                 type="audio/mpeg" length="45365521"/>
+      <itunes:author>Nextcloud</itunes:author>
+      <itunes:explicit>no</itunes:explicit>
+      <guid>https://download.nextcloud.com/.podcasts/Nextcloud_Podcast_017.mp3</guid>  
+      <link>https://nextcloud.com/blog/nextcloud-podcast-n-17-insights-from-ceo-and-founder-frank-karlitschek/</link>      
+    </item>
+
+      
    <item>
       <title>Episode 16: Interview with Daphne Muller, Support lead at Nextcloud</title>
       <itunes:subtitle>In this 16th episode, our host Ingo talked with Daphne Muller, the Support lead at Nextcloud.</itunes:subtitle>
@@ -53,7 +70,8 @@
       <guid>https://download.nextcloud.com/.podcasts/Nextcloud_Podcast_016.mp3</guid>
       <link>https://nextcloud.com/blog/episode-16-interview-with-daphne-muller-support-lead-at-nextcloud/</link>
     </item>
-      
+
+
    <item>
       <title>Nextcloud podcast 15: Interview about Collectives app and Prototype Fund</title>
       <itunes:subtitle>In this 15th episode, our host Ingo talked with Marie Gutbub from Prototype Fund and Max and Jonas, developers at Nextcloud about Collectives app and Prototype Fund.</itunes:subtitle>

@@ -86,16 +86,21 @@ if (! empty($flex_row)) {
 	$css_classes[] = 'vc_section-flex';
 }
 
-$has_video_bg = (! empty($video_bg) && ! empty($video_bg_url) && vc_extract_youtube_id($video_bg_url));
 
+
+//$has_video_bg = (! empty($video_bg) && ! empty($video_bg_url) && vc_extract_youtube_id($video_bg_url));
+$has_video_bg = (! empty($video_bg) && ! empty($video_bg_url));
 $parallax_speed = $parallax_speed_bg;
 if ($has_video_bg) {
 	$parallax = $video_bg_parallax;
 	$parallax_speed = $parallax_speed_video;
 	$parallax_image = $video_bg_url;
 	$css_classes[] = 'vc_video-bg-container';
-	wp_enqueue_script('vc_youtube_iframe_api_js');
+	//wp_enqueue_script('vc_youtube_iframe_api_js');
 }
+
+
+
 
 if (! empty($parallax)) {
 	wp_enqueue_script('vc_jquery_skrollr_js');
@@ -109,6 +114,7 @@ if (! empty($parallax)) {
 	}
 }
 
+/*
 if (! empty($parallax_image)) {
 	if ($has_video_bg) {
 		$parallax_image_src = $parallax_image;
@@ -121,17 +127,34 @@ if (! empty($parallax_image)) {
 	}
 	$wrapper_attributes[] = 'data-vc-parallax-image="' . esc_attr($parallax_image_src) . '"';
 }
+*/
+
+
+
+/*
 if (! $parallax && $has_video_bg) {
 	$wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr($video_bg_url) . '"';
 }
+*/
+
 $css_class = preg_replace('/\s+/', ' ', apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode(' ', array_filter(array_unique($css_classes))), $this->settings['base'], $atts));
 $wrapper_attributes[] = 'class="' . esc_attr(trim($css_class)) . '"';
 
-$output .= '<section ' . implode(' ', $wrapper_attributes) . '>
-<div class="overlay-gradient"></div>
-<div class="container">';
-$output .= wpb_js_remove_wpautop($content);
-$output .= '</div></section>';
-$output .= $after_output;
+$output .= '<section ' . implode(' ', $wrapper_attributes) . '>';
 
+if ($has_video_bg) {
+	$output .= '<video preload="metadata" loop autoplay="" muted="" playsinline="" poster="'.get_the_post_thumbnail_url(get_the_ID(),'full').'" style="visibility: visible;" width="1280" height="720"><source src="'.$video_bg_url.'" type="video/mp4"></video>';
+}
+
+$output .= '<div class="overlay-gradient"></div>';
+if (empty($full_width)) {
+	$output .= '<div class="container">';
+}
+$output .= wpb_js_remove_wpautop($content);
+if (empty($full_width)) {
+	$output .= '</div>';
+}
+$output .= '</section>';
+
+$output .= $after_output;
 return $output;

@@ -10,10 +10,14 @@ $id = get_field('section_id');
 		if (have_rows('card_group')) {
 			while (have_rows('card_group')) {
 				the_row();
+
+				#instructions-server
+				$gid = get_sub_field('card_id');
 				$gicon = get_sub_field('group_icon');
 				$gtitle = get_sub_field('group_title');
 				$gtext = get_sub_field('group_text');
-				echo '<div class="row spacer">';
+
+				echo '<div class="row spacer" id="'.$gid.'">';
 				echo '<div class="col-lg-3">';
 				echo '<div class="group-block">';
 				if (!empty($gicon)) {

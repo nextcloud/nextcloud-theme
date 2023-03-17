@@ -6,6 +6,19 @@ $id = get_field('section_id');
 $tagline = get_field('tagline');
 $title = get_field('title');
 $text = get_field('text');
+$columns = get_field('no_of_columns');
+$col_class = '';
+if ($columns == 4) {
+	$col_class = 'col-lg-3';
+} else if ($columns == 3) {
+	$col_class = 'col-lg-4';
+} else {
+	$col_class = 'col-lg-4';
+}
+
+if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
+    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+else : /* rendering in editor body */
 ?>
 <section class="industries-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -42,7 +55,7 @@ $text = get_field('text');
 					$icon = get_sub_field('icon');
 					$header = get_sub_field('the_title');
 					$desc = get_sub_field('the_text');
-					echo '<div class="col-lg-4 col-md-6 spacer">';
+					echo '<div class="'.$col_class.' col-md-6 spacer">';
 					echo '<div class="item-box">';
 					if (!empty($icon)) {
 						echo '<img src="' . $icon . '" alt=""/>';
@@ -61,3 +74,4 @@ $text = get_field('text');
 		</div>
 	</div>
 </section>
+<?php endif; ?>
