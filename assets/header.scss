@@ -69,19 +69,96 @@ header {
         transition: all 0.3s ease;
         overflow: hidden;
 
-        .container, .row {
+        .container, .row, .col-12 {
             height: 100%;
+        }
+
+        .row {
+            background: url("../img/confetti-background.svg");
+            background-size: 320px auto;
+            background-position: right 13% top 42%;
+            background-repeat: no-repeat;
+        }
+
+        .promo_banner_carousel {
+            height: 100%;
+            max-width: 800px;
+            margin: auto;
+
+
+            .owl-stage-outer {
+                height: 100%;
+
+                .owl-stage {
+                    height: 100%;
+
+                    .owl-item {
+                        height: 100%;
+
+                        .item {
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+
+
+            .owl-nav {
+                /*
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                */
+                height: 100%;
+                display: block;
+                margin: auto;
+                font-size: 1.7rem;
+                opacity: 0.4;
+                width: 100%;
+                //z-index: -1;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                button {
+                    height: 100%;
+                    position: absolute;
+                    z-index: 2;
+                    top: 0;
+
+                    &.owl-prev {
+                        left: 2rem;
+                    }
+
+                    &.owl-next {
+                        right: 2rem;
+                    }
+
+                    @media screen and (max-width: $md-breakpoint) {
+                        &.owl-prev {
+                            left: 1rem;
+                        }
+    
+                        &.owl-next {
+                            right: 1rem;
+                        }
+                    }
+                }
+            }
+
         }
 
         .nc-awards-banner{
             display: flex;
             height: 100%;
 
+            /*
             background: url("../img/confetti-background.svg");
-
             background-size: 320px auto;
             background-position: right 13% top 42%;
             background-repeat: no-repeat;
+            */
 
             gap: 2rem;
             justify-content: center;
@@ -99,7 +176,8 @@ header {
 
                     img {
                         height: 45px;
-                        max-height: 45px;  
+                        max-height: 45px;
+                        width: auto !important;
                     }
 
                 }

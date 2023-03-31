@@ -18,6 +18,19 @@ jQuery(document).ready(function ($) {
         }
     }
 
+
+    if(window.location.hash) {
+        // Fragment exists
+        var hash = window.location.hash;
+        if($(hash).hasClass('vc_toggle')){
+            $(hash).addClass('vc_toggle_active');
+        }
+    } else {
+        // Fragment doesn't exist
+    }
+
+
+
     //add functionality to select continents and countries
     $('.region_select_list .continent.parent').each(function(){
         $(this).append('<div class="opener fa fa-angle-down"></div>');
@@ -292,6 +305,13 @@ jQuery(document).ready(function ($) {
         }
     });
 
+
+    $('.simple_slider_slideshow a').magnificPopup({
+        gallery: {
+          enabled: true
+        },
+        type: 'image' // this is default type
+    });
 
     //clients carousel
     $('.clients_carousel').owlCarousel({

@@ -18,6 +18,17 @@ require_once(get_stylesheet_directory() . '/inc/custom_columns.php');
 
 
 add_theme_support('post-thumbnails');
+
+//Adding Post Feeds to the Header
+add_theme_support( 'automatic-feed-links' );
+
+//add custom code to the header based on the post meta of that specific page/post
+add_action('wp_head', 'add_custom_code_header');
+function add_custom_code_header(){
+	echo get_post_meta(get_the_ID(), 'custom_header_code', true);
+};
+
+
 add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
 
@@ -26,6 +37,7 @@ add_image_size('large', 1024, 576);
  */
 
 function file_scripts() {
+	global $post;
 
 	// Load our main stylesheet.
 	wp_enqueue_style('style-bootstrap', get_stylesheet_directory_uri() . '/dist/css/bootstrap.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/bootstrap.min.css'), 'all');
@@ -53,10 +65,13 @@ function file_scripts() {
 	wp_enqueue_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', [], true);
 	//select searchable
 	wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', [], true);
-	wp_enqueue_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end'], true);
+	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end'], true);
 
 	
-
+    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form') ) {
+        wp_enqueue_script('custom-nf-code');
+    }
+	
 
 	wp_enqueue_script('main', get_template_directory_uri() . '/dist/js/main.js', [], true);
 

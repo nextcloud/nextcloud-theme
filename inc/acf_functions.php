@@ -583,6 +583,8 @@ function register_acf_block_types() {
 		'icon' => 'admin-site-alt2',
 		'keywords' => array('collaboration', 'content'),
 	));
+
+
 	// register a Collaboration Slider Block
 	acf_register_block_type(array(
 		'name' => 'collaboration3-block',
@@ -594,6 +596,29 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('collaboration', 'slider', 'content'),
 	));
+
+
+	// register a Simple Slider Block
+	acf_register_block_type(array(
+		'name' => 'simple-slider-block',
+		'title' => __('Simple Slider Block'),
+		'description' => __('Simple Slider Block'),
+		'render_template' => 'blocks/simple_slider.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('simple', 'slider', 'content', 'slideshow'),
+		'example'  => array(
+			'attributes' => array(
+				'mode' => 'preview',
+				'data' => array(
+					'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/simple-slider-block-preview.png',
+				)
+			)
+		)
+	));
+
+
 	// register a What Can Hub Block
 	acf_register_block_type(array(
 		'name' => 'whatcanhub-block',

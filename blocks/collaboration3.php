@@ -36,13 +36,22 @@ $title = get_field('title');
 				$col_title = get_sub_field('slide_title');
 				$col_text = get_sub_field('slide_text');
 				$link = get_sub_field('slide_link');
+
+
 				echo '<div>';
 				echo '<div class="row align-items-center">';
-				if ($invert) {
-					echo '<div class="col-lg-6 order-lg-1">';
+
+				if (!empty($col_text)) {
+					if ($invert) {
+						echo '<div class="col-lg-6 order-lg-1">';
+					} else {
+						echo '<div class="col-lg-6 order-lg-0">';
+					}
 				} else {
-					echo '<div class="col-lg-6 order-lg-0">';
+					echo '<div class="col-lg-12">';
 				}
+
+
 				if (!empty($col_vid)) {
 					echo '<div class="video-block">';
 					echo $col_vid;
@@ -53,15 +62,25 @@ $title = get_field('title');
 					echo '</div>';
 				}
 				echo '</div>';
-				if ($invert) {
-					echo '<div class="col-lg-6 order-lg-0">';
+
+
+				if (!empty($col_text)) {
+					if ($invert) {
+						echo '<div class="col-lg-6 order-lg-0">';
+					} else {
+						echo '<div class="col-lg-6 order-lg-1">';
+					}
 				} else {
-					echo '<div class="col-lg-6 order-lg-1">';
+					echo '<div class="col-lg-12">';
 				}
+
+				
+
 				echo '<div class="text-block">';
 				if (!empty($col_title)) {
 					echo '<h3>' . $col_title . '</h3>';
 				}
+
 				if (!empty($col_vid)) {
 					echo '<div class="mobile-media">';
 					echo '<div class="video-block">';

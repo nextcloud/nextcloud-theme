@@ -90,17 +90,24 @@ function nc_change_nf_default_value( $default_value, $field_type, $field_setting
 
     //if( 'name_1668605056527' == $field_settings['key'] ){
     if( str_contains($field_settings['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){
-        $default_value = $_COOKIE["nc_form_name"];
+        if(isset($_COOKIE["nc_form_name"])) {
+            $default_value = $_COOKIE["nc_form_name"];
+        }
     }
 
     //if( 'email_1654182135502' == $field_settings['key'] ){
     if( str_contains($field_settings['key'], 'email') ){
-        $default_value = $_COOKIE['nc_form_email'];
+        if(isset($_COOKIE["nc_form_email"])) {
+            $default_value = $_COOKIE['nc_form_email'];
+        }
     }
 
     //if( 'phone_1668696834776' == $field_settings['key'] ){
     if( str_contains($field_settings['key'], 'phone') ){
-        $default_value = $_COOKIE['nc_form_phone'];
+        if(isset($_COOKIE["nc_form_phone"])) {
+            $default_value = $_COOKIE['nc_form_phone'];
+        }
+        
     }
 
   return $default_value;
