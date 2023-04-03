@@ -1,0 +1,31 @@
+/* m-plus-1-regular - japanese */
+@font-face {
+    font-family: 'M PLUS 1';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/m-plus-1-v6-japanese-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/m-plus-1-v6-japanese-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/m-plus-1-v6-japanese-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/m-plus-1-v6-japanese-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/m-plus-1-v6-japanese-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/m-plus-1-v6-japanese-regular.svg#MPLUS1') format('svg'); /* Legacy iOS */
+
+    unicode-range: U+4e00-9fbf, U+3040-309f, U+30a0-30ff;
+  }
+  
+  /* m-plus-1-700 - japanese */
+  @font-face {
+    font-family: 'M PLUS 1';
+    font-style: bold;
+    font-weight: 700;
+    src: url('../fonts/m-plus-1-v6-japanese-700.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/m-plus-1-v6-japanese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/m-plus-1-v6-japanese-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/m-plus-1-v6-japanese-700.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/m-plus-1-v6-japanese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/m-plus-1-v6-japanese-700.svg#MPLUS1') format('svg'); /* Legacy iOS */
+
+    unicode-range: U+4e00-9fbf, U+3040-309f, U+30a0-30ff;     
+  }

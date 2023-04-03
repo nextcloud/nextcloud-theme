@@ -21,20 +21,6 @@ $flogo = get_field('footer_logo', 'options');
 			<?php endif; ?>
 			</div>
 
-				<!--	
-				<div class="footer-logo">
-					<?php
-					/*
-					if (!empty($flogo)) {
-						echo '<a href="' . get_site_url() . '">';
-						echo '<img src="' . $flogo . '" alt="Homepage" />';
-						echo '</a>';
-					}
-					*/
-					?>
-				</div>
-				-->
-
 			</div>
 
 			<div class="col-lg-8">
@@ -62,7 +48,13 @@ $flogo = get_field('footer_logo', 'options');
 						while (have_rows('social_media', 'options')): the_row();
 							$socialicon = get_sub_field('social_media_icon');
 							$sociallink = get_sub_field('social_media_link');
-							echo '<li><a href="' . $sociallink . '" target="_blank"><img src="' . $socialicon . '" alt=""/></a></li>';
+							$social_title = get_sub_field('social_media_title');
+							$rel = '';
+							if($social_title == 'Mastodon') {
+								$rel = ' rel="me" ';
+							}
+
+							echo '<li><a '.$rel.' title="'.$social_title.'" href="' . $sociallink . '" target="_blank"><img src="' . $socialicon . '" alt="'.$social_title.'"/></a></li>';
 						endwhile;
 						echo '</ul>';
 					endif;
@@ -71,13 +63,14 @@ $flogo = get_field('footer_logo', 'options');
 			</div>
 			<div class="col-lg-6 order-lg-1">
 				<div class="foot-text">
-					<p>© <?php echo get_the_date('Y'); ?> Nextcloud GmbH</p>
+					<p>© <?php echo get_the_date('Y')." - ".date("Y"); ?> Nextcloud GmbH</p>
 				</div>
 			</div>
 		</div>
 	</div>
 </footer>
 <?php
+/*
 if (have_rows('popup_items', 'options')) {
 						echo '<div class="modal custom-modal fade" id="trialModal" tabindex="-1" aria-labelledby="trialModalLabel" aria-hidden="true">';
 						echo '<div class="modal-dialog modal-xl">';
@@ -121,29 +114,14 @@ if (have_rows('popup_items', 'options')) {
 						echo '</div>';
 						echo '</div>';
 						echo '</div>';
-					}
+	}
+*/
 ?>
 <?php wp_footer(); ?>
 
-<!-- Matomo -->
-<script type="text/javascript">
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-  _paq.push(["setCookieDomain", "*.nextcloud.com"]);
-  _paq.push(["setDomains", ["*.nextcloud.com"]]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-	var u="https://stats.nextcloud.com/";
-	_paq.push(['setTrackerUrl', u+'matomo.php']);
-	_paq.push(['setSiteId', '1']);
-	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-	g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="https://stats.nextcloud.com/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
-<!-- End Matomo Code -->
+<?php get_template_part('inc/matomo'); //comment when done with cookie banner ?>
+
+<a href="" title="Scroll Up" class="scroll_up" style=""><i class="fa fa-angle-up"></i></a>
 
 </body>
 </html>

@@ -1,0 +1,10 @@
+@media print {
+  /* All your print styles go here */
+  header {
+    display: none;
+  }
+  .case_studies .case_study .vc_column-inner .vc_btn3-container {
+    position: relative !important;
+    bottom: 0 !important;
+  }
+}/*# sourceMappingURL=print.css.map */

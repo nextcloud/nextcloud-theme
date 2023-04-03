@@ -21,18 +21,28 @@ if (!defined('WPINC')) {
 	<?php
 	wp_body_open();
 	?>
-	<header class="with-vote-banner">
+	<div id="hidden_header_anchor"></div>
+	<header class="<?php if (get_field('header_promo_activation', 'option') ) { echo "with-promo-banner"; }?>" id="header"><?php //class with-promo-banner ?>
 
-		<?php get_template_part("inc/banner-vote"); // when removing, remove also class from header?>
+		<?php
+		if (get_field('header_promo_activation', 'option') ) {
+			get_template_part("inc/header-promo-banner");
+		}
+		?>
 
-		<div class="container">
+		<div class="container" id="">
 			<div class="row">
 				<div class="col-12">
 					<div class="header-holder">
 						<div class="logo-holder">
 							<?php
-							if (get_custom_logo()) {
-								the_custom_logo();
+							$custom_header_logo_svg = get_field('custom_header_logo_svg', 'option');
+							if($custom_header_logo_svg){
+								echo $custom_header_logo_svg;
+							}else {
+								if (get_custom_logo()) {
+									the_custom_logo();
+								}
 							}
 							?>
 						</div>

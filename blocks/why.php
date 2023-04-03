@@ -27,7 +27,7 @@ $subtext = get_field('subtext');
 								$link_url = $link['url'];
 								$link_title = $link['title'];
 								$link_target = $link['target'] ? $link['target'] : '_self';
-								echo '<a class="c-btn ' . $type . '" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+								echo '<a class="c-btn btn-main ' . $type . '" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 							}
 						}
 					}

@@ -23,20 +23,10 @@ get_header();
 				if (have_posts()) {
 					while (have_posts()) {
 						the_post();
-						$img = wp_get_attachment_url(get_post_thumbnail_id() ?: 0) ?: '';
-						$title = get_the_title();
-						$ex = get_the_excerpt();
-						$link = get_permalink() ?: '';
-						echo '<div class="col-lg-4 col-md-6 spacer">';
-						echo '<div class="post-box">';
-						echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
-						echo '<div class="post-body">';
-						echo '<h4>' . $title . '</h4>';
-						echo '<p>' . $ex . '</p>';
-						echo '<a class="c-btn" href="' . $link . '">Read More</a>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
+
+						get_template_part('inc/blog_loop_single');
+
+
 					}
 				} else {
 					echo '<div class="col-12">';

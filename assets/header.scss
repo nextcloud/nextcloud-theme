@@ -2,6 +2,21 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+body.admin-bar {
+    //margin-top: 32px;
+
+    header {
+        top: 32px !important;
+    }
+}
+
+.page-id-46558 {
+    .header-holder, #menu-footer-menu-container, .get-started-section, footer {
+        display: none;
+    }
+}
+
+
 header {
     position: fixed;
     width: 100%;
@@ -15,36 +30,158 @@ header {
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 
+
+    &.with-promo-banner {
+
+        .header-holder {
+            @media screen and (max-width: $menu-custom-breakpoint) {
+                &{
+                    padding-top: 10px;
+                }
+            }
+        }
+
+
+        & + .wrapper {
+            & > section.titlebar {
+            
+                padding-top: 14rem !important;
+
+            }
+
+            & > section.home-hero-section {
+                padding-top: 7rem !important;
+                @media screen and (max-width: $md-breakpoint) {
+                    &{
+                        padding-top: 11rem !important;
+                    }
+                }
+            }
+        }
+    }
+
+
+
     .top-banner-vote{
         height: 50px;
         background: #fff;
-        margin-bottom: 10px;
+        //margin-bottom: 10px;
         transition: all 0.3s ease;
         overflow: hidden;
 
-        .container, .row {
+        .container, .row, .col-12 {
             height: 100%;
+        }
+
+        .row {
+            background: url("../img/confetti-background.svg");
+            background-size: 320px auto;
+            background-position: right 13% top 42%;
+            background-repeat: no-repeat;
+        }
+
+        .promo_banner_carousel {
+            height: 100%;
+            max-width: 800px;
+            margin: auto;
+
+
+            .owl-stage-outer {
+                height: 100%;
+
+                .owl-stage {
+                    height: 100%;
+
+                    .owl-item {
+                        height: 100%;
+
+                        .item {
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+
+
+            .owl-nav {
+                /*
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                */
+                height: 100%;
+                display: block;
+                margin: auto;
+                font-size: 1.7rem;
+                opacity: 0.4;
+                width: 100%;
+                //z-index: -1;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                button {
+                    height: 100%;
+                    position: absolute;
+                    z-index: 2;
+                    top: 0;
+
+                    &.owl-prev {
+                        left: 2rem;
+                    }
+
+                    &.owl-next {
+                        right: 2rem;
+                    }
+
+                    @media screen and (max-width: $md-breakpoint) {
+                        &.owl-prev {
+                            left: 1rem;
+                        }
+    
+                        &.owl-next {
+                            right: 1rem;
+                        }
+                    }
+                }
+            }
+
         }
 
         .nc-awards-banner{
             display: flex;
             height: 100%;
 
+            /*
             background: url("../img/confetti-background.svg");
-
             background-size: 320px auto;
             background-position: right 13% top 42%;
             background-repeat: no-repeat;
+            */
 
             gap: 2rem;
             justify-content: center;
             align-items: center;
 
             .cloudcomputing-logo {
-                img {
-                    height: 45px;
-                    max-height: 45px;  
+
+                a {
+                    display: block;
+                    height: 100%;
+
+                    &:focus {
+                        border: 1px solid $mainColor;
+                    }
+
+                    img {
+                        height: 45px;
+                        max-height: 45px;
+                        width: auto !important;
+                    }
+
                 }
+                
             }
 
             .awards-text{
@@ -52,6 +189,10 @@ header {
 
                 a{
                     color: #0C0726 !important;
+
+                    p {
+                        margin: 0 !important;
+                    }
                 }
                 
             }
@@ -59,6 +200,11 @@ header {
             .btn-awards {
                 a {
                     white-space:nowrap;
+
+                    i.right {
+                        margin-left: 6px;
+                        margin-right: 0 !important;
+                    }
                 }
             }
 
@@ -108,22 +254,15 @@ header {
 
     }
 
-    &.scrolled {
-        background-color: #0082c9;
-        box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
-        -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
-
-        .top-banner-vote{
-            opacity: 0;
-            height: 0;
-            margin: 0;
-        }
-
-    }
+    
 
     &.active {
-        background-color: #30B6FF;
+        background: linear-gradient(45deg, $mainColor , $lightColor );
         bottom: 0px;
+
+        .top-banner-vote{
+            //height: 0;
+        }
 
         .container {
             height: 100vh;
@@ -142,12 +281,26 @@ header {
             flex: 0 0 88px;
             max-width: 88px;
 
-            img {
-                max-width: 88px;
-                max-height: 58px;
-                width: auto;
-                height: auto;
+
+            a.custom-logo-link {
+                display: block;
+                height: 100%;
+
+                &:focus {
+                    //border: 1px solid #fff;
+                }
+
+                img {
+                    transition: max-height 0.3s ease;
+                    max-width: 88px;
+                    max-height: 58px;
+                    width: auto;
+                    height: auto;
+                }
+
             }
+
+            
         }
 
         .phone-menu {
@@ -202,6 +355,8 @@ header {
                     flex-direction: row;
 
                     &>li {
+                        transition: all 0.3s ease;
+
                         position: relative;
                         padding: 16px 0px;
                         margin: 0px 8px;
@@ -225,11 +380,12 @@ header {
                             & > a {
                                 background-color: #fff;
                                 color: $textColor;
-                                padding: 16px 20px;
+                                padding: 10px 20px;
                                 border-radius: 27px;
                                 -webkit-border-radius: 27px;
                                 transition: all 0.3s ease;
-
+                                margin: 6px auto;
+                                white-space: nowrap;
 
                                 /*
                                 &:focus {
@@ -294,14 +450,28 @@ header {
                         }
 
                         &.menu-item-has-children {
+
+                            /*
+                            .sub-menu {
+                                opacity: 0;
+                                top: -50%;
+                                transition: 0.3s all ease;
+                            }
+                            */
+
                             &:hover {
                                 .sub-menu {
                                     display: block;
+                                    //opacity: 1;
+                                    //top: 100%;
                                 }
                             }
+
                             &.menu-item-has-children.open {
                                 .sub-menu {
                                     display: block;
+                                    //opacity: 1;
+                                    //top: 100%;
                                 }
                             }
                         }
@@ -315,8 +485,8 @@ header {
                             position: relative;
                         }
 
-                        &:not(.nav-btn) {
-                            a {
+                        &:not(.nav-btn):not(.wpml-ls-item) {
+                            & > a {
                                 color: #ffffff;
                                 font-size: 16px;
                                 font-weight: 600;
@@ -345,13 +515,95 @@ header {
                                 }
                             }
 
-                            &.current-menu-parent {
+                            &.current-menu-parent, &.current-menu-ancestor {
                                 a {
                                     &:after {
                                         width: 24px;
                                     }
                                 }
                             }
+                        }
+
+                        &.wpml-ls-item {
+                            & > a {
+
+
+                                &:before {
+                                    content: "\f0ac";
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-weight: 900;
+                                    position: absolute;
+                                    //top: 17px;
+                                    left: 0;
+                                }
+
+                                padding-left: 16px;
+                                text-transform: uppercase;
+
+                                /*
+                                &:after {
+                                    content: "\f107";
+                                    font-family: 'Font Awesome 5 Free';
+                                    font-weight: 900;
+                                    position: absolute;
+                                    top: 17px;
+                                    right: -7px;
+                                    left: auto;
+                                }
+                                */
+
+                                img.wpml-ls-flag {
+                                    max-width: 23px;
+                                    height: 23px;
+                                    border-radius: 50%;
+                                    display: none;
+                                }
+
+                                @media screen and (min-width: $xl-breakpoint) {
+                                    .wpml-ls-native {
+                                        //display: none;
+                                    }
+                                }
+                                
+
+                                @media screen and (max-width: $xl-breakpoint) {
+                                    & {
+                                        display: flex;
+                                    }
+                                }
+
+                            }
+
+                            .sub-menu {
+
+                                @media screen and (min-width: $xl-breakpoint) {
+                                    &{
+                                        width: fit-content !important;
+                                        left: 50% !important;
+                                        transform: translateX(-50%);
+                                        margin-left: 0 !important;
+                                    }
+                                }
+
+                                
+
+                                .menu-item{
+                                        a{
+                                            &:after {
+                                                height: 0 !important;
+                                            }
+
+                                            img.wpml-ls-flag {
+                                                max-width: 23px;
+                                                height: 23px;
+                                                border-radius: 50%;
+                                            }
+                                        }
+
+                                }
+                            }
+
+
                         }
 
                         
@@ -401,16 +653,18 @@ header {
                                     display: inline-flex;
                                     flex-direction: row;
                                     align-items: center;
-                                    color: rgba(12, 7, 38, 0.7);
+                                    color: $textColor;
                                     font-size: 16px;
                                     font-weight: 400;
 
+                                
+
                                     &:hover {
-                                        color: #0082c9;
+                                        color: $mainColor;
                                     }
 
                                     &:focus {
-                                        box-shadow: 0 0 0 2px #0082c9;
+                                        box-shadow: 0 0 0 2px $mainColor;
                                         border-radius: 2px;
                                     }
 
@@ -424,13 +678,23 @@ header {
                                     span {
                                         flex: 1;
                                         display: block;
+                                        //font-weight: 600;
 
                                         small {
                                             display: block;
                                             font-size: 12px;
+                                            //font-weight: normal;
                                         }
                                     }
                                 }
+
+
+                                &.current_page_item, .current-menu-item {
+                                    a {
+                                        color: $mainColor;
+                                    }
+                                }
+
 
                                 >.sub-menu {
                                     padding: 20px 0px 0px 30px;
@@ -445,12 +709,12 @@ header {
                                             display: inline-flex;
                                             flex-direction: row;
                                             align-items: center;
-                                            color: rgba(12, 7, 38, 0.7);
+                                            color: $textColor;
                                             font-size: 14px;
                                             font-weight: 400;
 
                                             &:hover {
-                                                color: #0082c9;
+                                                color: $mainColor;
                                             }
 
                                             img {
@@ -463,20 +727,36 @@ header {
                                             span {
                                                 flex: 1;
                                                 display: block;
+                                                //font-weight: 600;
 
                                                 small {
                                                     display: block;
                                                     font-size: 12px;
+                                                   //font-weight: normal;
                                                 }
                                             }
                                         }
+
+
+                                        &.current_page_item, .current-menu-item {
+                                            a {
+                                                color: $mainColor;
+                                            }
+                                        }
+
+
                                     }
+
+                                    
+
                                 }
                             }
                         }
                     }
 
-                    @media (max-width: $xl-breakpoint) {
+
+                    //mobile menu
+                    @media (max-width: $menu-custom-breakpoint) {
                         justify-content: flex-start;
                         padding: 30px 0px 0px;
                         flex-direction: column;
@@ -489,8 +769,9 @@ header {
                             margin: 0px 8px;
                             display: inline-block;
 
-                            &:not(.nav-btn) > a {
+                            &:not(.nav-btn):not(.wpml-ls-item) > a {
                                 padding: 6px 6px;
+
                                 &:focus {
                                     padding: 4px 4px;
                                 }
@@ -511,26 +792,70 @@ header {
                             }
                         }
                     }
+                    
+
+
+
                 }
             }
         }
     }
-    @media (max-width: $xl-breakpoint) {
+
+    &.scrolled {
+        background-color: #0082c9;
+        box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
+        -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
+
+        .top-banner-vote{
+            opacity: 0;
+            height: 0;
+            margin: 0;
+        }
+
+        .logo-holder {
+            img {
+                max-height: 38px !important;
+                
+            }
+        }
+
+        #menu-primary-menu-container {
+            .primary-menu {
+                &>li {
+                    padding: 2px 0px !important;
+
+                    &.nav-btn {
+                        & > a {
+                            padding: 7px 20px !important;
+                            margin-top: 9px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    @media (max-width: $menu-custom-breakpoint) {
         padding: 12px 0px;
         overflow-y: scroll;
 
-        &.with-vote-banner {
+        &.with-promo-banner {
             padding-top: 0 !important;
         }
 
+        
         .header-holder .header-items {
             flex: 0 0 100%;
             max-width: 100%;
             display: none;
         }
+        
+
     }
 
-    @media (min-width: $xl-breakpoint) {
+    @media (min-width: $menu-custom-breakpoint) {
+
         .phone-menu {
             display: none;
         }
@@ -538,5 +863,6 @@ header {
         .header-holder .header-items {
             display: block;
         }
+
     }
 }

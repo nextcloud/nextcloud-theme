@@ -28,6 +28,7 @@
 .nf-form-content {
     .list-select-wrap .nf-field-element > div,
     input:not([type=button]),
+    input:not([type=submit]),
     textarea {
         border-radius: 10px !important;
     }

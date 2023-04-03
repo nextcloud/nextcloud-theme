@@ -7,7 +7,7 @@ $title = get_field('title');
 $text = get_field('text');
 $link = get_field('link');
 ?>
-<section class="events-section gr" id="' . $id . '">
+<section class="events-section gr" id="<?php echo $id; ?>">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">

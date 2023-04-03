@@ -10,18 +10,82 @@ footer {
 
     .footer-logo {
         width: 100%;
-        max-width: 105px;
+        //max-width: 105px;
         margin: 0px auto;
         padding-top: 2rem;
+        color: white;
 
-        img {
-            max-width: 100%;
-            height: auto;
+        .widget_media_image {
+            max-width: 105px;
+            margin-bottom: 3rem;
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
         }
+
+        .textwidget {
+            margin-bottom: 3rem;
+        }
+
+
+        .widget_search {
+            h3.widget-title {
+                display: none;
+            }
+        }
+
+
+        .searchform { //form
+            opacity: 0.7;
+            transition: all 0.3s ease;
+
+            &:focus, &:hover {
+                opacity: 1;
+            }
+
+            & > div {
+                position: relative;
+                width: 80%;
+
+                input#s {
+                    padding: 8px 21px;
+                    border-radius: 25px;
+                    border: 0;
+                    width: 100%;
+                }
+
+                #searchsubmit {
+                    border: 0;
+                    position: absolute;
+                    right: 13px;
+                    height: 100%;
+                    background-color: transparent;
+                    color: $textColor;
+                }
+
+            }
+
+            
+
+        }
+        
 
         @media (max-width: $tablet-breakpoint) {
             & {
                 margin-bottom: 2rem;
+                text-align: center;
+
+                .widget_media_image {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .searchform > div{
+                    margin: auto;
+                }
             }
         }
     }
@@ -53,6 +117,7 @@ footer {
             display: flex;
             //flex-direction: row;
             justify-content: flex-end;
+            margin-bottom: 2rem;
 
             @media (max-width: $xs-breakpoint) {
                 flex-wrap: wrap;
@@ -72,7 +137,7 @@ footer {
                 //padding: 1rem 2rem;
                 
 
-                @media (min-width: $tablet-breakpoint) {
+                @media (min-width: $xl-breakpoint) {
                     & {
                         padding: 0 3rem;
                     }
@@ -145,10 +210,11 @@ footer {
                     }
 
                     img {
-                        max-width: 20px;
-                        max-height: 20px;
-                        width: auto;
+                        width: 20px;
+                        //max-height: 20px;
+                        //width: auto;
                         height: auto;
+                        
                     }
 
                 }
@@ -156,6 +222,23 @@ footer {
         }
     }
 }
+
+.scroll_up {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 4px 10px;
+    
+    border-radius: 5px;
+    background-color: #fff;
+    color: $mainColor;
+    border: 1px solid $mainColor;
+
+    &:hover {
+        background-color: $mainColor;
+        color: #fff;
+    }
+  }
 
 @media (max-width: 1399.98px) {
     footer #menu-footer-menu-container {
