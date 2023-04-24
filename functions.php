@@ -213,12 +213,14 @@ function nc_load_cookie_banner() {
 add_action('wp_footer', 'nc_load_cookie_banner', 0);
 
 
+//add custom field containing custom header code in the wp_head
 function nc_custom_header_code(){
 	if(get_field('custom_header_code', 'option')) {
 		echo get_field('custom_header_code', 'option');
 	}
 };
 add_action('wp_head', 'nc_custom_header_code');
+
 
 //.htaccess is rewritten with language folder - https://wpml.org/errata/htaccess-is-rewritten-with-language-folder/
 add_filter('mod_rewrite_rules', 'fix_rewritebase');
@@ -242,3 +244,34 @@ function fix_rewritebase($rules){
  
     return $rules;
 }
+
+
+//WP Rocket - preload feed immediately after purge - https://gist.github.com/DahmaniAdame/f6e3558f6628b51c6692b6dd6360d61b
+function rocket_preload_page($pages_to_preload, $args)
+{
+    foreach ($pages_to_preload as $page_to_preload) {
+        wp_remote_get(esc_url_raw($page_to_preload), $args);
+        sleep(3); // 3 seconds
+    }
+}
+
+add_action('after_rocket_clean_home_feeds', function ($urls) {
+    if (1 == get_rocket_option('manual_preload')) {
+        $args = array();
+        rocket_preload_page($urls, $args);
+        if (1 == get_rocket_option('do_caching_mobile_files')) {
+            $args['headers']['user-agent']     = 'Mozilla/5.0 (Linux; Android 8.0.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Mobile Safari/537.36';
+            // Preload mobile pages/posts.
+            rocket_preload_page($urls, $args);
+        }
+    }
+});
+
+
+//add automatically the featured image as twitter:image meta tag in the wp_head
+function nc_show_feat_image_as_twitter_image_tag(){
+	if(  has_post_thumbnail() ) {
+		echo '<meta name="twitter:image" content="'.wp_get_attachment_url( get_post_thumbnail_id() ).'" />';
+	}
+};
+add_action('wp_head', 'nc_show_feat_image_as_twitter_image_tag');

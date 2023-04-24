@@ -75,13 +75,12 @@ html :where(img) {
 body {
     position: relative;
     width: 100%;
-    //color: rgba(12, 7, 38, 0.7);
     color: $textColor;
     font-size: 16px;
-    //font-family: 'Open Sans', sans-serif;
     font-family: "M PLUS 1", 'Open Sans', sans-serif;
+    /*font-family: "M PLUS 1", 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Cantarell, Ubuntu, 'Helvetica Neue', Arial, sans-serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    */
     font-weight: 400;
-    //line-height: normal;
     line-height: 1.6;
 }
 
@@ -14673,6 +14672,163 @@ blockquote.wp-block-quote {
 }
 
 
+
+.nc_version {
+    padding: 1.5rem;
+    background: $communityColor;
+    border-radius: $borderRadius;
+    margin: 4rem auto;
+    position: relative;
+
+    .nc_version_column {
+        position: relative;
+    }
+
+    .version-infos {
+        will-change: min-height;
+
+        .version_info__inner{
+            transform: translate(0, 0); /* For browsers don't support translate3d. */
+            transform: translate3d(0, 0, 0);
+            will-change: position, transform;
+        }
+
+
+        .version_date {
+            display: inline-block;
+            background: white;
+            padding: 3px 11px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+
+            i {
+                margin-right: 4px;
+            }
+        }
+
+        .version_name {
+
+        }
+
+        .download {
+            margin-bottom: 2rem;
+
+            a {
+                padding: 5px 15px;
+                border-radius: 25px;
+                background: white;
+                white-space: nowrap;
+                display: inline-block;
+                margin: 4px 0;
+                transition: all 0.3s ease;
+                font-weight: bold;
+
+                &:hover {
+                    background: $mainColor;
+                    color: #fff;
+                }
+            }
+
+            .download_links {
+                margin: 2rem 0;
+            }
+
+
+            .integrity_links {
+                //margin-bottom: 1.5rem;
+
+                .integrity_block {
+                    margin-bottom: 0.7rem;
+
+                    .integrity_name {
+                        display: block;
+                        font-weight: bold;
+
+                        a {
+                            margin: 0;
+                            background: none !important;
+                            padding: 0;
+
+                            &:hover {
+                                color: $mainColor;
+                                text-decoration: underline;
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+
+    }
+
+    .changelog_list {
+
+        ul {
+            padding: 0;
+
+            li{
+                position: relative;
+                list-style-type: none;
+                padding-left: 24px !important;
+                padding: 9px 0;
+                animation-duration: 0.3s;
+                animation-fill-mode: both;
+                
+                &:before {
+                    position: absolute;
+                    content: "\f058";
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                    margin-right: 10px;
+                    color: $mainColor;
+                    left: 0;
+                }
+
+
+                a {
+                    display: inline-block;
+                    color: $textColor;
+
+                    &:hover {
+                        color: $mainColor;
+                    }
+                }
+        
+            }
+        }
+
+    }
+}
+
+
+.hub_release_features {
+    margin: 2rem 0 !important;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 1rem;
+        //align-content: center;
+        flex-wrap: wrap;
+
+
+        li {
+            background: #fff;
+            padding: 1rem;
+            //margin: 1rem;
+            text-align: center;
+            border-radius: $borderRadius;
+
+        }
+    }
+}
 
 
 

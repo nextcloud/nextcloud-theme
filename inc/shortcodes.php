@@ -4398,3 +4398,216 @@ function previous_episodes_podcast_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
+
+
+// shortcode to get all the tags associated with the current post/page
+function nc_get_post_tags(){
+	//global $post;
+	$tags = '';
+	$posttags = get_the_tags();
+	if ($posttags) {
+		foreach($posttags as $tag) {
+			//$tags .= $tag->name.',';
+			$tag_names[] = $tag->name;
+		}
+		$tags = implode( ',', $tag_names );
+	}
+	return $tags;
+}
+add_shortcode('nc_tags', 'nc_get_post_tags');
+
+
+
+
+//New version of Nextcloud Section - used mostly on Changelog page
+add_action('vc_before_init', 'wpb_nc_version_funct');
+function wpb_nc_version_funct() {
+	vc_map(
+		  array(
+		  	"name" => __("Nextcloud Version section", "nextcloud"), // Element name
+		  	"base" => "nc_version_section", // Element shortcode
+		  	"class" => "nc_version_section",
+		  	"category" => __('Content', 'nextcloud'),
+		  	'params' => array(
+
+				array(
+					"type" => "textfield",
+					"holder" => "version",
+					"class" => "",
+					"admin_label" => true,
+					"heading" => __("Version", "nextcloud"),
+					"param_name" => "version",
+					"value" => __("", "nextcloud"),
+				),
+
+				array(
+					"type" => "datetime",
+					"heading" => esc_html__("Version date", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "date",
+					"value" => "",
+				),
+
+				array(
+					"type" => "textarea_html",
+					"holder" => "div",
+					"class" => "",
+					"heading" => esc_html__("Changelog list", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "content",
+					"value" => "",
+				),
+
+				array(
+					"type" => "vc_link",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => true,
+					"heading" => __("Blog post link", "nextcloud"),
+					"param_name" => "link",
+					"value" => __("", "nextcloud"),
+				),
+
+			)
+		  )
+	  );
+}
+
+add_shortcode('nc_version_section', 'nc_version_section_funct');
+function nc_version_section_funct($atts,  $content = null) {
+	ob_start();
+	$a = shortcode_atts(array(
+		'version' => '',
+		//'title' => '',
+		'date' => '',
+		'content' => '',
+		'link' => ''
+	), $atts);
+
+	$version = $a['version'];
+	$id = str_replace(".", "-", $version);
+	//$title = $a['title'];
+	$date = $a['date'];
+	$content = wpb_js_remove_wpautop($content, true);
+	$changelog_list = $a['changelog_list'];
+
+	$link = vc_build_link($a['link']);
+	?>
+	<div class="nc_version">
+		
+		<div class="row">
+
+			<div class="col-lg-6 nc_version_column">
+				<div class="version-infos" id="version-fixed-<?php echo $id; ?>">
+					
+					<?php
+					
+					if ($content) { ?>
+					<script>
+					jQuery(document).ready(function ($) {
+						//sticky sidebar
+						//if ($(window).width() > 990) {
+							$('#version-fixed-<?php echo $id; ?>').stickySidebar({
+								containerSelector: '.nc_version_column',
+								innerWrapperSelector: '.version_info__inner',
+								topSpacing: 95,
+								bottomSpacing: 150,
+								minWidth: 990
+							});
+						//}
+					});
+					</script>
+					<?php }
+					
+					?>
+
+					
+					<div class="version_info__inner">
+
+
+					<p class="version_date"><i class="fas fa-calendar-alt"></i> <?php 
+					$originalDate = str_replace("/", "-", $date);
+					echo date("F j, Y", strtotime($originalDate));
+					?></p>
+
+					<h3 class="version_name" id="<?php echo $id; ?>">
+					<?php echo __('Version','nextcloud')." ".$version; ?>
+					</h3>
+
+					<div class="download">
+						<div class="download_links">
+							<h4><?php echo __('Download:','nextcloud'); ?></h4>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2">nextcloud-<?php echo $version; ?>.tar.bz2</a>
+							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip">nextcloud-<?php echo $version; ?>.zip</a>
+							</div>
+
+
+							<div class="integrity_links">
+							<h5 class="check_integrity_title">
+							<?php echo __('Check the file integrity with:','nextcloud'); ?>
+							</h5>
+
+							<div class="integrity_block">
+							<span class="integrity_name">MD5:</span>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.md5">nextcloud-<?php echo $version; ?>.tar.bz2.md5</a>
+							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.md5">nextcloud-<?php echo $version; ?>.zip.md5</a>
+							</div>
+
+							<div class="integrity_block">
+							<span class="integrity_name">SHA256:</span>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.sha256">nextcloud-<?php echo $version; ?>.tar.bz2.sha256</a>
+							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha256">nextcloud-<?php echo $version; ?>.zip.sha256</a>
+							</div>
+
+
+							<div class="integrity_block">
+							<span class="integrity_name">SHA512:</span>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.sha512">nextcloud-<?php echo $version; ?>.tar.bz2.sha512</a>
+							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha512">nextcloud-<?php echo $version; ?>.zip.sha512</a>
+							</div>
+							
+
+							<div class="integrity_block">
+							<span class="integrity_name">PGP (<a target="_blank" href="https://nextcloud.com/nextcloud.asc">Key</a>):</span>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.asc">nextcloud-25.0.5.tar.bz2.asc</a>
+							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.asc">nextcloud-<?php echo $version; ?>.zip.asc</a>
+							</div>
+
+						</div>
+					</div>
+
+							<?php if($link['url']) {
+								?>
+								<div class="vc_btn3-container  btn-main btn-small vc_btn3-inline"><a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" title="<?php echo __('Read our announcement blog for all the the details', 'nextcloud'); ?>" target="_blank">
+								<?php echo __('Read our announcement blog for all the the details', 'nextcloud'); ?> <i class="vc_btn3-icon fas fa-angle-right"></i></a>
+								</div>
+								<?php
+							}?>
+					
+					</div>
+
+
+				</div>
+
+			</div>
+
+			<div class="col-lg-6">
+				<?php 
+				if ($content) { ?>
+				<h4><?php echo __('Changes:','nextcloud'); ?></h4>
+				<?php	
+					echo '<div class="changelog_list">'.$content.'</div>';
+				}
+				?>
+			</div>
+
+		</div>
+		
+
+		
+
+	</div>
+	<?php
+	$result = ob_get_clean();
+	return $result;
+}

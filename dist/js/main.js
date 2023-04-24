@@ -31,6 +31,10 @@ jQuery(document).ready(function ($) {
 
 
 
+    $('.changelog_list li a').each(function(){
+        $(this).attr('target', '_blank');
+    });
+
     //add functionality to select continents and countries
     $('.region_select_list .continent.parent').each(function(){
         $(this).append('<div class="opener fa fa-angle-down"></div>');

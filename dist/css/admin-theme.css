@@ -1,3 +1,7 @@
 .wpb_nc_iconbox .iconbox_link {
     display: none;
 }
+
+.nc_version_section .textarea_html {
+    display: none;
+}
