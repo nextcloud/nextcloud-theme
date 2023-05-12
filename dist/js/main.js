@@ -30,9 +30,24 @@ jQuery(document).ready(function ($) {
     }
 
 
-
     $('.changelog_list li a').each(function(){
         $(this).attr('target', '_blank');
+    });
+
+
+    $('.nc_version .version_name span.copy_id').click(function(){
+        var version_id = '';
+        var url = window.location.href;
+        var my_url = url.split("#"); // remove any hashtags
+        version_id = $(this).parent('.version_name').attr('id');
+        navigator.clipboard.writeText(my_url[0]+'#'+version_id);
+
+        $(this).append("<div class='copied'>Copied!</div>");
+
+        setTimeout(function() {
+            $('.copied').hide();
+        }, 1500);
+
     });
 
     //add functionality to select continents and countries

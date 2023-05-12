@@ -4,16 +4,12 @@ $title = get_the_title();
 $post_excerpt = get_the_excerpt();
 $link = get_permalink();
 $featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
-$date = (string)get_the_date('F d, Y');
+
+$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
+$date = (string)get_the_date($date_format);
 
 if ( 'event' == get_post_type() ) {
-	
-	/*$cat = get_terms( array(
-		'taxonomy' => 'event_categories'
-	) );
-	*/
 	$cat = wp_get_object_terms( $post_id, 'event_categories', array() );
-
 } else {
 	$cat = get_the_category($post_id);
 }
@@ -26,6 +22,8 @@ if($cat) {
 			$cats .= '<a href="'.$category_link.'">' . $c->name . ' </a>';
 		}
 	}
+} else {
+	$cats = '<a href="https://nextcloud.com/events/">' . __('Events','nextcloud') . ' </a>';
 }
 
 					echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="">';

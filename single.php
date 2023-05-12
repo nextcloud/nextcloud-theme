@@ -9,7 +9,10 @@ get_header();
 	<?php
 	$ids = [];
 	while (have_posts()) : the_post();
-		$date = (string)get_the_date('F d, Y');
+
+		$date_format = get_option( 'date_format' );
+		$date = (string)get_the_date($date_format);
+
 		$cat = get_the_category();
 		$author_id = (int)get_the_author_meta('ID');
 		$custom_header_image = get_field('custom_header_image');
@@ -28,6 +31,9 @@ get_header();
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="date-block">
+							<span class="date_label">
+								<?php echo __('Post date','nextcloud'); ?>
+							</span>
 							<?php
 							echo '<p>' . $date . '</p>';
 							?>
@@ -35,6 +41,11 @@ get_header();
 					</div>
 					<div class="col-lg-4">
 						<div class="cat-block">
+
+							<span class="cat_label">
+							<?php echo __('Categories','nextcloud'); ?>	
+							</span>
+
 							<?php
 							echo '<ul>';
 							foreach ($cat as $c) {
@@ -49,6 +60,11 @@ get_header();
 					</div>
 					<div class="col-lg-4">
 						<div class="author-block">
+
+							<span class="author_label">
+								<?php echo __('Author','nextcloud'); ?>	
+							</span>
+
 							<?php
 							echo '<p>' . get_the_author_meta('display_name', $author_id) . '</p>';
 							?>

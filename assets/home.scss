@@ -686,10 +686,18 @@
 
 .promo-section {
     padding: 55px 0px;
-    background-image: url('../img/bg05.jpg');
+    //background-image: url('../img/bg05.jpg');
+    background-image: url("https://nextcloud.com/wp-content/uploads/2022/12/nc-people-microsoft-integrations-titlebar.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    position: relative;
+    
+
+    &:not(.full-width) {
+        border-radius: $borderRadiusLarger;
+        overflow: hidden;
+    }
 
     .text-block {
         text-align: center;
@@ -777,7 +785,7 @@
             content: '';
             height: 100%;
             width: 100%;
-            background-color: rgba(0, 130, 201, 0.55);
+            background-color: rgba(0, 130, 201, 0.75);
         }
 
         .container {

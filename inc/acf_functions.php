@@ -1,9 +1,10 @@
 <?php
-//enable shortcod
+//enable shortcode to be used inside textareas
 add_filter('acf/format_value/type=textarea', 'do_shortcode');
 
-function get_countries($continent) {
 
+//get countries function to append on the region field for partners
+function get_countries($continent) {
     $continents = [
         "Europe" => array("Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Iceland","Ireland","Italy","Kazakhstan","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Ukraine","United Kingdom","Vatican City"),
 
@@ -21,7 +22,6 @@ function get_countries($continent) {
     ];
 
     if($continent != 'all') {
-
         $countries = $continents[$continent];
         $countries_new = array();
         foreach($countries as $country) {
@@ -37,9 +37,10 @@ function get_countries($continent) {
     
 }
 
-// Apply to field with key "field_123abcf".
-add_filter('acf/load_field/key=field_6266caac1a171', 'my_acf_load_field');
-function my_acf_load_field( $field ) {
+
+// Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
+add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
+function nc_populate_countries_field( $field ) {
     //$field['required'] = true;
 
     $field['choices'] = array(
@@ -375,6 +376,14 @@ function register_acf_block_types() {
 		'mode' => 'edit',
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('promo', 'content'),
+		'example'  => array(
+			'attributes' => array(
+				'mode' => 'preview',
+				'data' => array(
+					'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/promo_block_preview.png',
+				)
+			)
+		)
 	));
 
 	// register a Webinar Promo Block

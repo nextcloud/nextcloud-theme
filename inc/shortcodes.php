@@ -1,4 +1,35 @@
 <?php
+function formatLanguage(DateTime $dt,string $format,string $language = 'en') : string {
+    $curTz = $dt->getTimezone();
+    if($curTz->getName() === 'Z'){
+      //INTL don't know Z
+      $curTz = new DateTimeZone('UTC');
+    }
+
+    $formatPattern = strtr($format,array(
+        'D' => '{#1}',
+        'l' => '{#2}',
+        'M' => '{#3}',
+        'F' => '{#4}',
+      ));
+      $strDate = $dt->format($formatPattern);
+      $regEx = '~\{#\d\}~';
+      while(preg_match($regEx,$strDate,$match)) {
+        $IntlFormat = strtr($match[0],array(
+          '{#1}' => 'E',
+          '{#2}' => 'EEEE',
+          '{#3}' => 'MMM',
+          '{#4}' => 'MMMM',
+        ));
+        $fmt = datefmt_create( $language ,IntlDateFormatter::FULL, IntlDateFormatter::FULL,
+        $curTz, IntlDateFormatter::GREGORIAN, $IntlFormat);
+        $replace = $fmt ? datefmt_format( $fmt ,$dt) : "???";
+        $strDate = str_replace($match[0], $replace, $strDate);
+      }
+
+    return $strDate;
+}
+
 function nc_links_carousel_func($atts) {
 	$a = shortcode_atts(array(
 		'ids' => ''
@@ -145,7 +176,12 @@ function box_repeater_funct($atts) {
 	), $atts, 'box_repeater');
 
 	$heading = $atts['box_repeater_heading'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+
+	if(function_exists('vc_param_group_parse_atts')){
+	$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	?>
+
       <div class="box-repeater">
 
           <?php if ($items) { ?>
@@ -370,12 +406,12 @@ function nc_iconbox_function($atts, $content) {
 			'title' => '',
 			'description' => '',
 			'css_classes' => '',
-			'see_more_label' => __('See more', 'nextcloud'),
+			'see_more_label' => '',
 		), $atts);
 
 	$link = vc_build_link($attributes['link']);
 	
-	
+	$see_more_label = __('See more', 'nextcloud');
 
 	$return = '<div class="nc_iconbox '.$attributes['css_classes'].' ">';
 
@@ -417,7 +453,7 @@ function nc_iconbox_function($atts, $content) {
 	}
 
 	if($attributes['link'] && $link['url'] != '#no_scroll' ){
-		$return .= '<span class="see_more">'.$attributes['see_more_label'].' <i class="fas fa-angle-right"></i></span>';
+		$return .= '<span class="see_more">'.$see_more_label.' <i class="fas fa-angle-right"></i></span>';
 	}
 	$return .= '</div>';
 
@@ -649,8 +685,6 @@ function features_repeater_items_funct() {
 							"param_name" => "no_overlay",
 							"value" => "",
 						),
-						
-
 
 		  			)
 		  		),
@@ -667,24 +701,23 @@ function features_carousel_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	//$heading = $atts['box_repeater_heading'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	
+	?>
       <div class="box-repeater">
 
           <?php if ($items) { ?>
               <div class="features_carousel owl-carousel owl-theme">
                   <?php  foreach ($items as  $item) {
-					
-					//print_r($item['box_repeater_items_link']);
+				
 					if (isset($item['link'])) {
 						$link = vc_build_link($item['link']);
 					}
-
-					$custom_css = $item['custom_css'];
-					$no_overlay = $item['no_overlay'];
-
 					?>
-                      <div class="feature_item <?php echo $custom_css; ?>">
+                      <div class="feature_item <?php if(isset($item['custom_css'])) { echo $item['custom_css']; }; ?>">
 
 					  	<?php if ( isset($item['link']) && !isset($item['video_url']) ) { ?>
 					  	<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
@@ -692,17 +725,17 @@ function features_carousel_funct($atts) {
 
 
 						<div class="feature_image">
-							<?php if ( isset($item['video_url']) && !isset($no_overlay) ) { ?>
+							<?php if ( isset($item['video_url']) && !isset($item['no_overlay']) ) { ?>
 								<a href="<?php echo $item['video_url']; ?>" title="<?php echo $item['title']; ?>" class="popup-video">
 							<?php } ?>
 
-							<?php if ( isset($item['video_url']) && !isset($no_overlay) ) { ?>
+							<?php if ( isset($item['video_url']) && !isset($item['no_overlay']) ) { ?>
 								<div class="play-icon"><i class="fas fa-play-circle"></i></div>
 								<div class="overlay"></div>
 							<?php } ?>
 
 							<?php //if no video url nor Link
-								if ( !isset($item['video_url']) && !isset($item['link']) && !isset($no_overlay)  ) { ?>
+								if ( !isset($item['video_url']) && !isset($item['link']) && !isset($item['no_overlay'])  ) { ?>
 								<a href="<?php echo wp_get_attachment_image_url($item['feature_image'], 'full'); ?>" title="<?php echo $item['title']; ?>" class="popup-screenshot">
 								<div class="screenshot-icon"><i class="fas fa-expand-arrows-alt"></i></div>
 								<div class="overlay-screenshot"></div>
@@ -765,8 +798,7 @@ function features_carousel_funct($atts) {
 
 
                       	</div>
-                  <?php
-	} ?>
+                  <?php } ?>
               </div>
           <?php } ?>
 
@@ -840,9 +872,13 @@ function hub_circle_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	//$heading = $atts['box_repeater_heading'];
 	$image = wp_get_attachment_image($atts['static_image'], 'large');
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	
+	?>
       <div class="hub_circle">
 
           <?php if ($items) { ?>
@@ -962,8 +998,10 @@ function testimonials_carousel_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	//$heading = $atts['box_repeater_heading'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	?>
       <div class="box-repeater">
 
           <?php if ($items) { ?>
@@ -971,25 +1009,27 @@ function testimonials_carousel_funct($atts) {
               <div class="testimonials_carousel owl-carousel owl-theme">
                   <?php  foreach ($items as  $item) {
 					
-					//print_r($item['box_repeater_items_link']);
-					if ($item['link']) {
+					$item_link = false;
+
+					if ( isset($item['link']) ) {
+						$item_link = true;
 						$link = vc_build_link($item['link']);
 					}
 					?>
                       <div class="case_study testimonial">
-						<div class="vc_column-inner <?php if ( !$item['link']  ) { echo "no_button"; } ?>">
+						<div class="vc_column-inner <?php if ( !$item_link  ) { echo "no_button"; } ?>">
 							<div class="wpb_wrapper">
 								
 							
 								<div class="wpb_single_image wpb_content_element vc_align_left image_top">
 									<figure class="wpb_wrapper vc_figure">
-										<?php if ($item['link'] ) { ?>
+										<?php if ( $item_link ) { ?>
 										<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="vc_single_image-wrapper   vc_box_border_grey">
 										<?php } ?>
 
 											<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
 
-										<?php if ($item['link'] ) { ?>
+										<?php if ( $item_link ) { ?>
 										</a>
 										<?php } ?>
 
@@ -1002,18 +1042,17 @@ function testimonials_carousel_funct($atts) {
 									</div>
 								</div>
 								
-								<?php if($item['quote']) { ?>
+								<?php if( isset($item['quote']) ) { ?>
 								<div class="wpb_text_column wpb_content_element quote">
 									<div class="wpb_wrapper">
 										<p><?php echo $item['quote']; ?></p>
 									</div>
 								</div>
-								<?php } ?>
-
-
-								<?php if ( $item['link']  ) { ?>
+								<?php }
+								
+								if ( $item_link  ) { ?>
 								<div class="vc_btn3-container  btn-main btn-small vc_btn3-center">
-									<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">Learn more <i class="vc_btn3-icon fas fa-angle-right"></i>
+									<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>"><?php echo __('Learn more','nextcloud'); ?> <i class="vc_btn3-icon fas fa-angle-right"></i>
 									</a>
 								</div>
 								<?php } ?>
@@ -1097,8 +1136,10 @@ function history_timeline_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	//$heading = $atts['box_repeater_heading'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	?>
       <div class="box-repeater">
 
           <?php if ($items) { ?>
@@ -1195,12 +1236,19 @@ function media_coverage_funct($atts) {
 		'css_classes' => 'vc_col-sm-6 vc_col-lg-3 vc_col-md-3',
 		//'columns' => ''
 	), $atts, 'box_repeater');
-
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	
+	?>
           <?php if ($items) { ?>
 			<div class="vc_row wpb_row vc_row-fluid vc_column-gap-20 vc_row-o-equal-height vc_row-flex media_coverage_posts">
                   <?php  foreach ($items as  $item) {
-					if ($item['link']) {
+
+					$item_link = false;
+					if ( isset($item['link']) ) {
+						$item_link = true;
 						$link = vc_build_link($item['link']);
 					}
 					?>
@@ -1209,11 +1257,11 @@ function media_coverage_funct($atts) {
 
 								<div class="wpb_single_image wpb_content_element vc_align_left image">
 									<figure class="wpb_wrapper vc_figure">
-										<?php if ($item['link'] ) { ?>
+										<?php if ( $item_link ) { ?>
 										<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="">
 										<?php } ?>
 											<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
-										<?php if ($item['link'] ) { ?>
+										<?php if ( $item_link ) { ?>
 										</a>
 										<?php } ?>
 									</figure>
@@ -1222,11 +1270,11 @@ function media_coverage_funct($atts) {
 								<?php if($item['title']) { ?>
 								<div class="link">
 								<?php } ?>
-								<?php if ($item['link'] ) { ?>
+								<?php if ( $item_link ) { ?>
 								<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="">
 								<?php } ?>
 								<?php echo $item['title']; ?>
-								<?php if ($item['link'] ) { ?>
+								<?php if ( $item_link ) { ?>
 								</a>
 								<?php } ?>
 								<?php if($item['title']) { ?>
@@ -1363,8 +1411,11 @@ function logo_resources_funct($atts) {
 		'css_classes' => 'vc_col-sm-6 vc_col-lg-3 vc_col-md-3',
 		//'columns' => ''
 	), $atts, 'box_repeater');
-
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	?>
           <?php if ($items) { ?>
 			<div class="vc_row wpb_row vc_row-fluid vc_column-gap-20 vc_row-o-equal-height vc_row-flex logo_resources">
                   <?php  foreach ($items as  $item) {
@@ -1375,7 +1426,7 @@ function logo_resources_funct($atts) {
 						
 						<div class="vc_column-inner">
 									
-								<div class="image_preview <?php if ($item['custom_class']) echo $item['custom_class']; ?>">
+								<div class="image_preview <?php if ( isset($item['custom_class'])) echo $item['custom_class']; ?>">
 									<?php echo wp_get_attachment_image($item['image_svg'], 'full'); ?>
 								</div>
 				  				
@@ -1961,10 +2012,9 @@ function webinars_list_func($atts){
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
 
-			//echo get_field('event_start_date_and_time');
-
 			$event_start_datetime = get_field('event_start_date_and_time', false, false);
 			$date = date_create($event_start_datetime);
+			
 
 			$event_end_datetime = get_field('event_end_date_and_time', false, false);
 			if($event_end_datetime){
@@ -1982,7 +2032,12 @@ function webinars_list_func($atts){
 			<td>
 			<?php 
 			$date_format = get_option('date_format');
-			echo date_format($date, $date_format);
+			$date_formatted = date_format($date, $date_format);
+			//echo $date_formatted;
+
+			$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+
+			echo formatLanguage($date, $date_format, $my_current_lang);
 			?>
 			</td>
 			<td>
@@ -2101,21 +2156,13 @@ function events_list_func($atts){
 
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
-			//$post_type = get_post_type();
 
 			$event_start_datetime = get_field('event_start_date_and_time', false, false);
 			$date = date_create($event_start_datetime);
 
-			/*
-			$event_start_datetime = get_field('event_start_date_and_time');
-			$date = DateTime::createFromFormat('d/m/Y H:i', $event_start_datetime);
-			$time = DateTime::createFromFormat('d/m/Y H:i', $event_start_datetime);
-			*/
-
 
 			$event_end_datetime = get_field('event_end_date_and_time', false, false);
 			if($event_end_datetime){
-				//$date_end = DateTime::createFromFormat('d/m/Y H:i', $event_end_datetime);
 				$date_end = date_create($event_end_datetime);
 			}
 			
@@ -2129,20 +2176,32 @@ function events_list_func($atts){
 			} else {
 				the_permalink();
 			}
-			?> " target="_blank" rel="noopener"><?php the_title(); ?></a></td>
+			?> " target="_blank" rel="noopener">
+			<?php 
+			if(get_field('event_short_title')) {
+				echo get_field('event_short_title');
+			} else {
+				the_title();
+			}
+			?></a></td>
 			
 			<td>
 				<?php echo get_field('location'); ?>
 			</td>
 
 			<td>
-			<?php 
+			<?php
 			$date_format = get_option('date_format');
-			echo date_format($date,$date_format);
+			$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+
+			//echo date_format($date,$date_format);
+			echo formatLanguage($date, $date_format, $my_current_lang);
+
 			if($event_end_datetime){
-				echo " - ".date_format($date_end,$date_format);
+				echo "TEST - ".date_format($date_end,$date_format);
 			}
-			//echo $date->format('F j, Y'); ?>
+
+			?>
 			</td>
 			</tr>
 			<?php
@@ -2169,14 +2228,16 @@ add_shortcode('events', 'events_list_func');
 function webinar_details_func($atts){
 	ob_start();
 	$post_id = get_the_ID();
+	$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
 
 	$event_start_datetime = get_field('event_start_date_and_time', $post_id, false);
-	$test_date = get_field('event_start_date_and_time');
+	//$test_date = get_field('event_start_date_and_time');
 
 
 	$date_start = date_create($event_start_datetime);
 
-	$date_start_format = date_i18n("l, F j, Y", strtotime($event_start_datetime));
+	$date_start_dayName = date_i18n("l", strtotime($event_start_datetime));
+	$date_start_format = date_i18n($date_format, strtotime($event_start_datetime));
 
 	$time_start_format = date_format($date_start,"g:i a");
 	$start_datetime = strtotime($event_start_datetime);
@@ -2191,15 +2252,49 @@ function webinar_details_func($atts){
 ?>
 	<ul class="">
 	<?php if($event_start_datetime) { ?>
-		<li><?php echo __('Date:','nextcloud')." ".$date_start_format;
+		<li><?php echo __('Date:','nextcloud')." ".$date_start_dayName." ".$date_start_format;
 		?></li>
 		<li><?php echo __('Time:','nextcloud')." ".$time_start_format; ?> (CET)</li>
 
 		<?php if($event_end_datetime){ ?>
 			<li><?php echo __('Duration:','nextcloud'); ?><?php 
-				$diff = ($end_datetime - $start_datetime) / 60;
-				echo " ".$diff." ".__('Minutes', 'nextcloud');
-				 ?>
+				$diff = ($end_datetime - $start_datetime) / 60; // divided by 60 seconds, get minutes
+				
+				$diff_days = $date_end->diff($date_start)->format("%a");
+
+
+				if($diff <= 60) {
+					echo " ".$diff." ".__('minutes', 'nextcloud');
+				} else {
+					$diff_hours = ($end_datetime - $start_datetime) / 3600;
+
+					if($diff_hours >= 24) {
+
+						$diff_hours_day = $diff_hours -  ($diff_days * 24);
+						
+
+						if($diff_days == 1) {
+							echo " ".$diff_days." ".__('day', 'nextcloud');
+						} else if ($diff_days > 1) {
+							echo " ".$diff_days." ".__('days', 'nextcloud');
+						}
+
+						if($diff_hours_day > 0) {
+							if($diff_hours_day == 1) {
+								$hours = __('hour', 'nextcloud');
+							}else {
+								$hours = __('hours', 'nextcloud');
+							}
+
+							echo " ".__('and','nextcloud')." ".$diff_hours_day." ".$hours;
+						}
+						
+					} else {
+						echo " ".$diff_hours." ".__('hours', 'nextcloud');
+					}
+					
+				}
+				?>
 		</li>
 		<?php } ?>
 
@@ -2212,21 +2307,22 @@ add_shortcode('webinar_details', 'webinar_details_func');
 
 
 //create custom date time field for the wp bakery custom shortcods
-vc_add_shortcode_param( 'datetime', 'nc_wpb_datetime_settings_field', get_template_directory_uri().'/vc_extend/datetime.js' );
-function nc_wpb_datetime_settings_field( $settings, $value ) {
-	$js = '<script>!function($) {
-		$( ".datepicker" ).datepicker({
-			dateFormat : "dd/mm/yy"
-		});
-	}(window.jQuery);</script>';
+if(function_exists('vc_add_shortcode_param')) {
+	vc_add_shortcode_param( 'datetime', 'nc_wpb_datetime_settings_field', get_template_directory_uri().'/vc_extend/datetime.js' );
+	function nc_wpb_datetime_settings_field( $settings, $value ) {
+		$js = '<script>!function($) {
+			$( ".datepicker" ).datepicker({
+				dateFormat : "dd/mm/yy"
+			});
+		}(window.jQuery);</script>';
 
- return $js.'<div class="datetime_field">'
- .'<input name="' . esc_attr( $settings['param_name'] ) . '" class="datepicker wpb_vc_param_value wpb-textinput ' .
- esc_attr( $settings['param_name'] ) . ' ' .
- esc_attr( $settings['type'] ) . '_field" type="text" value="' . esc_attr( $value ) . '" />' .
- '</div>'; // This is html markup that will be outputted in content elements edit form
+	return $js.'<div class="datetime_field">'
+	.'<input name="' . esc_attr( $settings['param_name'] ) . '" class="datepicker wpb_vc_param_value wpb-textinput ' .
+	esc_attr( $settings['param_name'] ) . ' ' .
+	esc_attr( $settings['type'] ) . '_field" type="text" value="' . esc_attr( $value ) . '" />' .
+	'</div>'; // This is html markup that will be outputted in content elements edit form
+	}
 }
-
 
 //Event list repeater
 add_action('vc_before_init', 'events_list_repeater_items_funct');
@@ -2312,7 +2408,10 @@ function events_list_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+
 	$year = $atts['year'];
 
 	$events = array();
@@ -2341,7 +2440,7 @@ function events_list_funct($atts) {
 					}
 
 					$events[] = array(
-						'title' => $item['title'],
+						'title' => isset($item['title']) ? $item['title'] : '',
 						'location' => isset($item['location']) ? $item['location'] : '',
 						'date_start' => $date_start_timestamp,
 						'date_end' => $date_end_timestamp,
@@ -2402,6 +2501,7 @@ function events_list_funct($atts) {
 
 				$events[] = array(
 					'title' => get_the_title(),
+					'short_title' => get_field('event_short_title'),
 					'location' => get_field('location'),
 					'date_start' => $date_start_timestamp,
 					'date_end' => $date_end_timestamp,
@@ -2433,19 +2533,10 @@ function events_list_funct($atts) {
 			$orderby = "date_start"; //change this to whatever key you want from the array 
 			//change this to whatever key you want from the array
 
-			array_multisort($sortArray[$orderby],SORT_DESC,$events);
+			array_multisort($sortArray[$orderby],SORT_ASC,$events);
 		}
 
 
-
-
-		
-		/*
-		echo "<pre>";
-		print_r($events);
-		echo "</pre>";
-		*/
-		
 
 		if($events) {
 			echo '<table class="table events_table events table-striped">';
@@ -2461,47 +2552,80 @@ function events_list_funct($atts) {
 			foreach ($events as  $event) {
 				?>
 				<tr>
-						<td><a href="<?php echo $event['link']; ?>" title="<?php echo $event['title']; ?>" target="<?php echo $event['target']; ?>" class="">
-							<?php echo $event['title']; ?>
-						</a></td>
+						<td>
+							<a href="<?php if( $event['link'] ) { echo $event['link']; } else { echo "#"; } ?>" title="<?php echo $event['title']; ?>" target="<?php 
+							if($event['target']) {
+								echo $event['target'];
+							} ?>" class="">
+
+							<?php if(isset($event['short_title'])) {
+								echo $event['short_title'];
+							} else {
+								echo $event['title'];
+							} ?>
+							</a>
+						</td>
 						<td><?php echo $event['location']; ?></td>
 						<td><?php 
 						if($event['date_start']) {
 
-							$start_month = gmdate("F", $event['date_start']);
+							$start_day = gmdate("d", $event['date_start']);
+							$start_datetime = new DateTime('@' . $event['date_start']);
+							
 
-							if($event['date_end']) {
+							// echo "date start: ".$event['date_start']."<br>";
+							// echo "date end: ".$event['date_end']."<br>";
+							// echo "start day: ".$start_day."<br>";
+							// echo "end day: ".$end_day."<br>";
+
+
+							$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+							$date_format = get_option('date_format');
+
+							
+							$start_month = gmdate("F", $event['date_start']);
+							$start_month_intl = formatLanguage($start_datetime, 'F', $my_current_lang);
+
+							if( $event['date_end'] && ( $start_day != gmdate("d", $event['date_end'])) ) {
+								$end_day = gmdate("d", $event['date_end']);
+
+								$end_datetime = new DateTime('@' . $event['date_end']);
 
 								$end_month = gmdate("F", $event['date_end']);
+								$end_month_intl = formatLanguage($end_datetime, 'F', $my_current_lang);
+
 								$start_day = gmdate("j", $event['date_start']);
 								$end_day = gmdate("j", $event['date_end']);
+								
+
 
 								if($start_month == $end_month){ //if is the same month
 
-									echo $start_month." ".$start_day."-".$end_day.", ";
-									echo gmdate("Y", $event['date_start']);
+									if($my_current_lang == 'en') {
+										echo $start_month_intl." ".$start_day."-".$end_day.", ";
+									} else {
+										echo $start_day."-".$end_day." ".$start_month_intl." ";
+									}
 
-								} else {
-									//different months
+									echo gmdate("Y", $event['date_end']);
 
-									echo $start_month." ".$start_day."-".$end_month." ".$end_day.", ";
-									echo gmdate("Y", $event['date_start']);
+								} else { //different months
 
+									if($my_current_lang == 'en') {
+										echo $start_month_intl." ".$start_day."-".$end_month_intl." ".$end_day.", ";
+									}else {
+										echo $start_day." ".$start_month_intl."-".$end_day." ".$end_month_intl." ";
+									}
+									
+									echo gmdate("Y", $event['date_end']);
 								}
 
 
 							} else {
-								echo gmdate("F j, Y", $event['date_start']);
+								echo formatLanguage($start_datetime, $date_format, $my_current_lang);
 							}
 							
 						}
-						?>
-						<?php
-						/*
-						if($event['date_end']) {
-							echo gmdate("F j, Y", $event['date_end']);
-						}
-						*/
 						?>
 					</td>
 				</tr>
@@ -2903,8 +3027,11 @@ function quotes_carousel_funct($atts) {
 		'box_repeater_items' => '',
 	), $atts, 'box_repeater');
 
-	//$heading = $atts['box_repeater_heading'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); ?>
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	
+	?>
       <div class="case_studies">
 
           <?php if ($items) { ?>
@@ -3386,7 +3513,7 @@ function blog_list_shortcode_funct($atts) {
 				'post_status' => 'publish',
 				'orderby' => 'date',
 				//'order' => 'DESC',
-				'paged=' . $paged,
+				'paged=' => $paged,
 				'tag__not_in' => array(269), // exclude unlisted tag
 				'category__not_in'=> array(225, 226) //exclude Private category
 			);
@@ -3449,7 +3576,7 @@ function blog_list_shortcode_funct($atts) {
 
 			}
 			else {
-				$args['post_type'] = array('post', 'event');
+				$args['post_type'] = array('post' /*,'event'*/ );
 				$args['order'] = 'DESC';
 			}
 
@@ -3626,7 +3753,11 @@ function partners_search_shortcode_funct($atts) {
 	), $atts);
 
 	$title = $atts['title'];
-	$items = vc_param_group_parse_atts($atts['box_repeater_items']); // logos
+
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+
 	$link = vc_build_link($atts['link']);
 	$subtext = $atts['subtext'];
 	$cert = $atts['cert_text'];
@@ -4374,9 +4505,8 @@ function previous_episodes_podcast_funct($atts) {
 
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
-				echo '<li>'._('Posten in','nextcloud').' </li>';
+				echo '<li>'.__('Posten in','nextcloud').' </li>';
 				foreach ($cat as $c) {
-					//	$category_link = get_category_link($c->term_id);
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
 				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
@@ -4384,7 +4514,7 @@ function previous_episodes_podcast_funct($atts) {
 				echo '<h4><a href="' . $link . '">' . $title . '</a></h4>';
 				echo '<ul class="info">';
 				echo '<li>' . $date . '</li>';
-				echo '<li><a class="c-btn" href="' . $link . '">Read More</a></li>';
+				echo '<li><a class="c-btn" href="' . $link . '">'.__('Read more','nextcloud').'</a></li>';
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';
@@ -4531,6 +4661,7 @@ function nc_version_section_funct($atts,  $content = null) {
 					?></p>
 
 					<h3 class="version_name" id="<?php echo $id; ?>">
+					<span class="copy_id" style="" title="Copy URL of this version">#</span>
 					<?php echo __('Version','nextcloud')." ".$version; ?>
 					</h3>
 
@@ -4602,12 +4733,546 @@ function nc_version_section_funct($atts,  $content = null) {
 			</div>
 
 		</div>
-		
-
-		
 
 	</div>
 	<?php
+	$result = ob_get_clean();
+	return $result;
+}
+
+
+add_shortcode('nc_filter_features', 'nc_filter_features_funct');
+function nc_filter_features_funct($atts,  $content = null) {
+	ob_start();
+?>
+<div class="features-filters-holder-inner">
+	<div class="search-holder">
+		<input type="text" placeholder="Quick search.." id="features_filter">
+	</div>
+</div>
+<div class="list_tags" id="list_tags">
+</div>
+<script>
+	jQuery(document).ready(function ($) {
+		$.expr[":"].contains = $.expr.createPseudo(function(arg) {
+			return function( elem ) {
+				return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+			};
+		});
+
+		function unique(list) {
+			var result = [];
+			$.each(list, function(i, e) {
+				if ($.inArray(e, result) == -1) result.push(e);
+			});
+			return result;
+		}
+
+
+		var tags = '';
+		var tags_array;
+		var tags_array_total = [];
+
+		$('.nc_feature').each(function(){
+			if( $(this).find('.feature_tags').text()!='' ) {
+				var tag = $(this).find('.feature_tags').text().trim().replace(/ /g, ''); //Searching,UX,Integrations
+				tags_array = tag.split(",");
+				//console.log("tags_array: "+tags_array);
+
+				//add it to the main array
+				tags_array_total.push(tag);
+			
+				
+			}
+		});
+
+		if(tags_array_total) {
+			console.log(tags_array_total);
+
+			tags_array_total = unique(tags_array_total);
+
+			var i;
+			for (i = 0; i < tags_array_total.length; ++i) {
+				$('#list_tags').append('<a href="#" class="link_tag" data-tag="'+tags_array_total[i]+'">'+tags_array_total[i]+'</a>');
+			}
+
+			
+		}
+		
+
+		$('#features_filter').keyup(function() {
+			var searched_term = $('#features_filter').val();
+
+			$('.nc_feature').each(function(){
+				var contains_search_term = false;
+
+				if(searched_term != '') {
+					if ($(this).children(':contains("'+searched_term+'")').length > 0) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				} else {
+					$(this).show();
+				}
+
+			});
+
+		});
+	});
+</script>
+<?php
+	$result = ob_get_clean();
+	return $result;
+}
+
+
+//Feature section
+add_action('vc_before_init', 'wpb_nc_feature_funct');
+function wpb_nc_feature_funct() {
+	vc_map(
+		  array(
+		  	"name" => __("Nextcloud Feature", "nextcloud"), // Element name
+		  	"base" => "nc_feature", // Element shortcode
+		  	"class" => "nc_version_section",
+		  	"category" => __('Content', 'nextcloud'),
+		  	'params' => array(
+
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => false,
+					"heading" => __("ID", "nextcloud"),
+					"param_name" => "id",
+					"value" => __("", "nextcloud"),
+				),
+
+
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => false,
+					"heading" => __("Tags", "nextcloud"),
+					"param_name" => "group",
+					"value" => __("", "nextcloud"),
+				),
+
+
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => false,
+					"heading" => __("Title", "nextcloud"),
+					"param_name" => "title",
+					"value" => __("", "nextcloud"),
+				),
+
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => false,
+					"heading" => __("Subtitle", "nextcloud"),
+					"param_name" => "subtitle",
+					"value" => __("", "nextcloud"),
+				),
+
+
+				array(
+					"type" => "attach_image",
+					"holder" => "img",
+					"class" => "",
+					"heading" => __("Image", "nextcloud"),
+					"param_name" => "image",
+					"value" => __("", "nextcloud"),
+					"admin_label" => false
+				),
+
+
+				array(
+					"type" => "textarea",
+					"holder" => "div",
+					"class" => "",
+					"heading" => esc_html__("Video Embed URL", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "video_url",
+					"value" => "",
+				),
+
+				array(
+					"type" => "textarea",
+					"holder" => "div",
+					"class" => "",
+					"heading" => esc_html__("Description", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "description",
+					"value" => "",
+				),
+
+				array(
+					"type" => "vc_link",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => false,
+					"heading" => __("Feature link", "nextcloud"),
+					"param_name" => "link",
+					"value" => __("", "nextcloud"),
+				),
+
+
+				array(
+					'type' => 'param_group',
+					'param_name' => 'box_repeater_items',
+					'params' => array(
+						array(
+							"type" => "attach_image",
+							"holder" => "img",
+							"class" => "",
+							"heading" => __("Feature Image", "nextcloud"),
+							"param_name" => "feature_image",
+							"value" => __("", "nextcloud"),
+						),
+						array(
+							"type" => "textfield",
+							"holder" => "div",
+							"class" => "",
+							"admin_label" => true,
+							"heading" => __("Feature Title", "nextcloud"),
+							"param_name" => "title",
+							"value" => __("", "nextcloud"),
+						),
+
+					  array(
+						  "type" => "textarea",
+						  "heading" => esc_html__("Description", "nextcloud"),
+						  "description" => esc_html__("", "nextcloud"),
+						  "param_name" => "description",
+						  "value" => "",
+					  ),
+
+						array(
+							"type" => "vc_link",
+							"holder" => "div",
+							"class" => "client_link",
+							"admin_label" => true,
+							"heading" => __("Link", "nextcloud"),
+							"param_name" => "link",
+							"value" => __("", "nextcloud"),
+						),
+
+					  array(
+						  "type" => "textfield",
+						  "heading" => esc_html__("Video URL", "nextcloud"),
+						  "description" => esc_html__("", "nextcloud"),
+						  "param_name" => "video_url",
+						  "value" => "",
+					  ),
+
+					  array(
+						  "type" => "textfield",
+						  "heading" => esc_html__("Custom CSS Classes", "nextcloud"),
+						  "description" => esc_html__("", "nextcloud"),
+						  "param_name" => "custom_css",
+						  "value" => "",
+					  ),
+
+					  array(
+						  "type" => "checkbox",
+						  "heading" => esc_html__("No Overlay", "nextcloud"),
+						  "description" => esc_html__("", "nextcloud"),
+						  "param_name" => "no_overlay",
+						  "value" => "",
+					  ),
+
+					)
+				),
+
+				array(
+					"type" => "textarea_html",
+					"holder" => "div",
+					"class" => "",
+					"heading" => esc_html__("Other features", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "content",
+					"value" => "",
+				),
+
+			)
+		  )
+	  );
+}
+add_shortcode('nc_feature', 'nc_feature_funct');
+function nc_feature_funct($atts,  $content = null) {
+	ob_start();
+	$a = shortcode_atts(array(
+		'id' => '',
+		'group' => '',
+		'title' => '',
+		'subtitle' => '',
+		'description' => '',
+		'image' => '',
+		'video_url' => '',
+		'link' => '',
+		'box_repeater_items'=> '',
+		'content' => ''
+	), $atts);
+
+	$id = $a['id'];
+	$title = $a['title'];
+	$subtitle = $a['subtitle'];
+	$group = $a['group'];
+	$description = $a['description'];
+	$image = wp_get_attachment_image($a['image'], 'large');
+	$video_url = $a['video_url'];
+	$image_url= wp_get_attachment_image_url($a['image'], 'full');
+	$content = wpb_js_remove_wpautop($content, true);
+
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($a['box_repeater_items']);
+		$link = vc_build_link($a['link']);
+	}
+
+?>
+<section class="nc_feature" id="<?php echo $id; ?>">
+<div class="container">
+<div class="vc_row wpb_row vc_row-fluid vc_column-gap-30 vc_row-o-content-middle vc_row-flex row-feature">
+
+	<div class="wpb_column vc_column_container vc_col-sm-4">
+			<div class="vc_column-inner">
+				<div class="wpb_wrapper">
+
+					<?php if( $a['video_url']!='' && !$image_url ) { 
+						?>
+						<div class="video-block vimeo_container">
+							<iframe src="<?php echo $video_url; ?>" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" title="" frameborder="0"></iframe>
+						</div>
+						<?php
+					} else if ( $a['video_url']!='' && $image_url ) { ?>
+						
+						<div class="wpb_single_image wpb_content_element vc_align_center feature_main_image">
+							<figure class="wpb_wrapper vc_figure">
+								<div class="vc_single_image-wrapper vc_box_border_grey">
+									<a class="popup-video" href="<?php echo $video_url; ?>" title="<?php echo $link['title']; ?>">
+										<div class="play-icon"><i class="fas fa-play-circle"></i></div>
+										<div class="overlay"></div>
+										<?php echo $image; ?>
+									</a>
+								</div>
+							</figure>
+						</div>
+
+					<?php } else { ?>
+						<div class="wpb_single_image wpb_content_element vc_align_center feature_main_image">
+							<figure class="wpb_wrapper vc_figure">
+								<div class="vc_single_image-wrapper vc_box_border_grey">
+									<?php if ($link['url']) { ?>
+										<a href="<?php echo $link['url']; ?>" title="<?php echo $link['title']; ?>">
+									<?php } else { ?>
+										<a class="popup-screenshot" href="<?php echo $image_url; ?>" title="<?php echo $link['title']; ?>">
+									<?php } ?>
+										<?php echo $image; ?>
+									</a>
+								</div>
+							</figure>
+						</div>
+					<?php } ?>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="wpb_column vc_column_container vc_col-sm-8">
+		<div class="vc_column-inner">
+			<div class="wpb_wrapper">
+		
+				<div class="wpb_text_column wpb_content_element nc_text_as_separator feature_tags">
+					<div class="wpb_wrapper">
+						<p><i class="fas fa-tags"></i> <?php echo $group; ?></p>
+					</div>
+				</div>
+
+				<div class="wpb_text_column wpb_content_element nc-section-title">
+					<div class="wpb_wrapper">
+						<h2><?php echo $title; ?></h2>
+					</div>
+				</div>
+
+				<?php if( $subtitle) { ?>
+				<div class="wpb_text_column wpb_content_element nc-section-subtitle">
+					<div class="wpb_wrapper">
+						<h5><?php echo $subtitle; ?></h5>
+					</div>
+				</div>
+				<?php } ?>
+
+				<div class="wpb_text_column wpb_content_element">
+					<div class="wpb_wrapper">
+						<?php echo $description; ?>
+					</div>
+				</div>
+
+				<?php if ($link['url']) { ?>
+					<div class="vc_btn3-container btn-main btn-small vc_btn3-inline">
+						<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?> <i class="vc_btn3-icon fas fa-angle-right"></i></a>
+					</div>
+				<?php } ?>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+	<?php if ($items && isset($items[0]['title']) ) { ?>
+			<div class="vc_row wpb_row vc_row-fluid vc_column-gap-30 vc_row-o-content-middle vc_row-flex carousel-features row_features_carousel">
+
+				<h4 class="features_carousel_title"><?php echo __('Other related features:','nextcloud'); ?></h4>
+
+              	<div id="features_carousel_<?php echo $id; ?>" class="features_carousel_page owl-carousel owl-theme">
+            	<?php  foreach ($items as $item) {
+				if(isset($item['title'])) {
+
+					if (isset($item['link'])) {
+						$link = vc_build_link($item['link']);
+					}
+					?>
+                      <div class="feature_item <?php if(isset($item['custom_css'])) { echo $item['custom_css']; }; ?>">
+
+					  	<?php if ( isset($item['link']) && !isset($item['video_url']) ) { ?>
+					  	<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
+						<?php } ?>
+
+
+						<div class="feature_image">
+							<?php if ( isset($item['video_url']) && !isset($item['no_overlay']) ) { ?>
+								<a href="<?php echo $item['video_url']; ?>" title="<?php echo $item['title']; ?>" class="popup-video">
+							<?php } ?>
+
+							<?php if ( isset($item['video_url']) && !isset($item['no_overlay']) ) { ?>
+								<div class="play-icon"><i class="fas fa-play-circle"></i></div>
+								<div class="overlay"></div>
+							<?php } ?>
+
+							<?php //if no video url nor Link
+								if ( !isset($item['video_url']) && !isset($item['link']) && !isset($item['no_overlay'])  ) { ?>
+								<a href="<?php echo wp_get_attachment_image_url($item['feature_image'], 'full'); ?>" title="<?php echo $item['title']; ?>" class="popup-screenshot">
+								<div class="screenshot-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+								<div class="overlay-screenshot"></div>
+								<?php 
+								}
+							?>
+							
+							<?php if(isset($item['feature_image'])) {
+								echo wp_get_attachment_image($item['feature_image'], 'large');
+							} ?>
+
+							<?php //if no video url nor Link
+								if ( !isset($item['video_url']) && !isset($item['link']) ) { ?>
+								</a>
+							<?php } ?>
+
+
+							<?php if (isset($item['video_url']) && !isset($no_overlay) ) { ?>
+							</a>
+							<?php } ?>
+
+						</div>
+						
+
+						<div class="feature_inner <?php if (isset($item['link'])) { echo " with_link"; } ?>">
+							
+							<h5 class="title">
+							<?php if (isset($item['link'])) { ?>
+								<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" class="">
+							<?php } ?>
+							<?php echo $item['title']; ?>
+							<?php if (isset($item['link'])) { ?>
+								</a>
+							<?php } ?>
+							</h5>
+
+							<?php if(isset($item['description'])) { ?>
+							<div class="description"><?php echo $item['description']; ?></div>
+							<?php } ?>
+
+							<?php if (isset($item['link'])) { ?>
+							<span class="read_more">
+							<?php if (isset($item['link'])) { ?>
+									<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>" class="">
+								<?php } ?>
+								<?php 
+								if(isset($link['title'])){
+									echo $link['title'];
+								}
+								else {
+									echo __('Read more', 'nextcloud'); 
+								}
+								?> <i class="fas fa-angle-right"></i>
+								<?php if ($item['link']) { ?>
+									</a>
+								<?php } ?>
+							</span>
+							<?php } ?>
+
+						</div>
+
+
+						<?php if (isset($item['link']) && !isset($item['video_url']) ) { ?>
+				  		</a>
+						<?php } ?>
+
+
+                      	</div>
+                  <?php 
+				  }
+				} ?>
+              </div>
+			  </div>
+
+			  <script>
+				jQuery(document).ready(function ($) {
+					$('.features_carousel_page').owlCarousel({
+						loop:false,
+						autoplay: false,
+						margin:30,
+						dots: false,
+						nav:true,
+						responsive:{
+							0:{
+								items:1
+							},
+							600:{
+								items:2
+							},
+							1000:{
+								items:3
+							}
+						}
+					});
+				});
+			  </script>
+    <?php } ?>
+	
+
+	<?php if($content) { ?>
+	<div class="vc_row wpb_row vc_row-fluid vc_column-gap-30 vc_row-o-content-middle vc_row-flex other-features-list">
+		<div class="wpb_column vc_column_container vc_col-sm-12">
+			<div class="vc_column-inner">
+				<div class="wpb_wrapper">
+					<?php echo $content; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+
+</div>
+</section>
+<?php
 	$result = ob_get_clean();
 	return $result;
 }
