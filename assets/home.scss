@@ -961,12 +961,20 @@
 
 
 
-.clients_carousel {
+.clients_carousel, .post_clients_carousel {
     margin: 2rem auto !important;
     
-    .owl-stage-outer{
+    //temporary until JS kicks in
+    overflow: visible !important;
+    display: flex;
+    align-items: stretch;
 
+        
+    .owl-stage {
+        display: flex;
+        align-items: stretch;
     }
+
 
     .client_item {
         margin-top: 10px;
@@ -976,6 +984,7 @@
         background: #fff;
         border-radius: 15px;
         
+        flex: 1;
 
 
             .client_item_inner {
@@ -1008,7 +1017,7 @@
                     max-width: 100%;
                     align-self: center;
                     max-height: 100px;
-    
+                    min-width: 100px;
                 }
             }
             

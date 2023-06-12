@@ -461,6 +461,20 @@ function register_acf_block_types() {
 		'icon' => 'email-alt2',
 		'keywords' => array('subscribe', 'content'),
 	));
+
+
+	// register a Video Block
+	acf_register_block_type(array(
+		'name' => 'video-block-embed',
+		'title' => __('NC Video Embed Block'),
+		'description' => __('Video Block embedded'),
+		'render_template' => 'blocks/nc-video-embed.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'video-alt3',
+		'keywords' => array('video', 'content'),
+	));
+
 	// register a Video Block
 	acf_register_block_type(array(
 		'name' => 'video-block',
@@ -628,6 +642,30 @@ function register_acf_block_types() {
 	));
 
 
+
+	// register a Carousel Slider Block
+	acf_register_block_type(array(
+		'name' => 'carousel-slider-block',
+		'title' => __('Carousel Slider Block'),
+		'description' => __('Carousel Slider Block'),
+		'render_template' => 'blocks/carousel_slider.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('carousel', 'slider', 'content', 'slideshow', 'partners', 'clients'),
+		'example'  => array(
+			'attributes' => array(
+				'mode' => 'preview',
+				'data' => array(
+					'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/carousel_block_preview.png',
+				)
+			)
+		)
+	));
+
+
+
+
 	// register a What Can Hub Block
 	acf_register_block_type(array(
 		'name' => 'whatcanhub-block',
@@ -771,6 +809,28 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('quote', 'content'),
 	));
+
+	// register a Single Quote Block
+	acf_register_block_type(array(
+		'name' => 'squote3-block',
+		'title' => __('Single Quote 3 Block'),
+		'description' => __('Single Quote 3 Block'),
+		'render_template' => 'blocks/squote3.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('quote', 'content'),
+		'example'  => array(
+			'attributes' => array(
+				'mode' => 'preview',
+				'data' => array(
+					'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/single-quote-3-preview.png',
+				)
+			)
+		)
+	));
+
+
 	// register a Platform Block
 	acf_register_block_type(array(
 		'name' => 'platform-block',
@@ -1241,6 +1301,20 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('footnote', 'content'),
 	));
+
+	// register a Note Block
+	acf_register_block_type(array(
+		'name' => 'note-block',
+		'title' => __('Nextcloud Note Block'),
+		'description' => __('Footnote Block'),
+		'render_template' => 'blocks/nc_note.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('note', 'content'),
+	));
+
+
 	// register a Testimonial Block
 	acf_register_block_type(array(
 		'name' => 'testimonial-block',

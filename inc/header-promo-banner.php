@@ -65,7 +65,7 @@
                 <?php
                 // The Query
                 $args_top_banner = array(
-                    'post_type' => 'post',
+                    'post_type' => array('post', 'page'),
                     'post_status' => 'publish',
                     'posts_per_page' => -1,
                     'meta_key' => 'top_banner_image'

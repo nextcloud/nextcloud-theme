@@ -27,6 +27,13 @@ jQuery(function($){
         data.post_type = $(this).data('post-type');
     }
 
+
+    if($(this).data('post-type') == 'past_webinars') {
+        action = 'nc_past_webinars_load_more';
+        data.post_type = 'event';
+    }
+
+
     data.action = action;
 
     $.ajax({

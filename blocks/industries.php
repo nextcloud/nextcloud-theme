@@ -7,12 +7,18 @@ $tagline = get_field('tagline');
 $title = get_field('title');
 $text = get_field('text');
 $columns = get_field('no_of_columns');
+$css = get_field('custom_css_classes');
+
 $col_class = '';
 if ($columns == 4) {
 	$col_class = 'col-lg-3';
 } else if ($columns == 3) {
 	$col_class = 'col-lg-4';
-} else {
+} 
+else if ($columns == 2) {
+	$col_class = 'col-lg-6';
+} 
+else {
 	$col_class = 'col-lg-4';
 }
 
@@ -20,7 +26,7 @@ if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in insert
     echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 else : /* rendering in editor body */
 ?>
-<section class="industries-section" id="<?php echo $id; ?>">
+<section class="industries-section <?php echo $css; ?>" id="<?php echo $id; ?>">
 	<div class="container">
 		<?php
 		if (!empty($tagline)) {

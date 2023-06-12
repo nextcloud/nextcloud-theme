@@ -3,9 +3,11 @@
  * Simple Slider block template
  */
 $id = get_field('section_id');
+$custom_class = get_field('custom_css_classes');
 $autoplay_options = get_field_object('autoplay');
-$autoplay = $autoplay_options['value'];
-if (!$autoplay) $autoplay = 'false';
+if(isset($autoplay_options)) {
+    $autoplay = $autoplay_options['value'];
+}
 
 
 if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
@@ -13,7 +15,7 @@ if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in insert
 
 else : /* rendering in editor body */
 ?>
-<section class="simple-slider-section" id="<?php echo $id; ?>">
+<section class="simple-slider-section <?php echo $custom_class; ?>" id="<?php echo $id; ?>">
 	<div class="">
         <?php 
         $images = get_field('gallery_images');
@@ -40,8 +42,14 @@ else : /* rendering in editor body */
         $('.simple_slider_slideshow').owlCarousel({
             loop:true,
             stagePadding: 50,
-
-            autoplay: <?php echo $autoplay; ?>,
+            //autoWidth:true,
+            autoplay: <?php 
+            if (count($autoplay) === 0) {
+                echo "false";
+            } else {
+                echo "true";
+            }
+            ?>,
             margin:10,
             dots: false,
             nav:true,

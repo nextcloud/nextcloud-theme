@@ -20,8 +20,8 @@ function nc_custom_ninja_forms_submit_data($form_data)
     $form_id = $form_data['id'];
 
     foreach( $form_data[ 'fields' ] as $field_id => $field ) {
-        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 ) {
-            // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form
+        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 && $form_id != 68 ) {
+            // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form
 
             if( str_contains($field[ 'key' ], 'email') ) {
                 // email, corporate_email_1656608192369, email_1666338754229, business_email_1654165444607  - the other keys
@@ -160,12 +160,12 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     //$uid = 'Test123';
 
 
-    if(  /* $form_id == 4 || */ $form_id == 27 ) { // newsletter form ID = 27
+    if(  $form_id == 27  ||  $form_id == 68  /* ||  $form_id == 57 - staging test */  ) {
         $subscribed = true;
 
         foreach( $form_fields as $field ){
 
-            if( 'name_1668605056527' == $field[ 'key' ] ){
+            if( str_contains($field['key'], 'name') ){
                 $name = $field[ 'value' ];
             }
 
@@ -179,26 +179,15 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                 $phone = $field[ 'value' ];
             }
 
-            /*
             if( 
-                ('subscribe_me_to_the_monthly_nextcloud_newsletter_1654266588004' == $field[ 'key' ] && $field[ 'value' ] == 1 )
-                || 
-                $form_id == 27
+                str_contains($field['key'], 'mailing_list_id')
             ){
-                $subscribed = true;
-            }
-            */
-
-
-            if( 'mailing_list_id' == $field[ 'key' ] ){
                 $mailing_list_ids[] = $field[ 'value' ];
             }
 
 
             if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
-
                 $mailing_list_ids = $field[ 'value' ];
-
             }
 
         }
@@ -206,10 +195,10 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     //$select_mailing_lists_checkboxes_str = implode(",", $select_mailing_lists_checkboxes);
     //setcookie("nc_subscribed", $subscribed , time() + (86400 * 30), "/" );
     //setcookie("select_mailing_lists_checkboxes_str", $select_mailing_lists_checkboxes_str , time() + (86400 * 30), "/" );
+    //setcookie("subscribed", $subscribed , time() + (86400 * 30), "/" );
 
 
     if($subscribed) {
-
         $url = 'https://odoo.nextcloud.com';
         $db = 'nextcloud-crm-odoo-main-4730113';
         $username = "jos.poortvliet@nextcloud.com";
@@ -231,10 +220,8 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                         'name'=> $name,
                         'email'=> $email,
                         //'phone' => $phone,
-                        //'list_ids' => array($mailing_list_id) // list TEST DROP ME
                         'list_ids' => $mailing_list_ids
-                        //'list_ids' => array(7642) // list TEST DROP ME
-                        //https://odoo.nextcloud.com/web?debug=1#id=7642 - id = mailing list id is 7642
+                        //'list_ids' => array(7597) // list Events
                     )
                 )
             );

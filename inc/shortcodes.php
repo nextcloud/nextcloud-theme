@@ -2558,7 +2558,7 @@ function events_list_funct($atts) {
 								echo $event['target'];
 							} ?>" class="">
 
-							<?php if(isset($event['short_title'])) {
+							<?php if(isset($event['short_title']) && $event['short_title']!='') {
 								echo $event['short_title'];
 							} else {
 								echo $event['title'];
@@ -3613,7 +3613,7 @@ function blog_list_shortcode_funct($atts) {
 		<div class="row">
 			<div class="col-12">
 				<div class="section-button">
-					<button class="c-btn btn-main" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
+					<button class="c-btn btn-main" <?php if ( strip_tags($_GET['webinars']) == 'past') { echo 'data-post-type="past_webinars"'; }?> id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -4700,7 +4700,7 @@ function nc_version_section_funct($atts,  $content = null) {
 
 							<div class="integrity_block">
 							<span class="integrity_name">PGP (<a target="_blank" href="https://nextcloud.com/nextcloud.asc">Key</a>):</span>
-							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.asc">nextcloud-25.0.5.tar.bz2.asc</a>
+							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.asc">nextcloud-<?php echo $version; ?>.tar.bz2.asc</a>
 							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.asc">nextcloud-<?php echo $version; ?>.zip.asc</a>
 							</div>
 

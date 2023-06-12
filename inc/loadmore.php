@@ -106,3 +106,51 @@ function nc_blog_terms_load_more() {
 }
 add_action('wp_ajax_nc_term_load_more', 'nc_blog_terms_load_more');
 add_action('wp_ajax_nopriv_nc_term_load_more', 'nc_blog_terms_load_more');
+
+
+//action for loading past webinars
+function nc_past_webinars_load_more() {
+	$current_date_time = date('Y-m-d H:i:s', time());
+
+	$ajaxposts = new WP_Query([
+		'post_type' => 'event',
+
+		
+		'meta_query' => array(
+			'relation' => 'AND',
+			array(
+				'key' => 'event_start_date_and_time',
+				'value'   => $current_date_time,
+				'compare' => '<',
+				'type'	=> 'DATETIME'
+			),
+			array(
+				'key'     => 'download_available',
+				'value'	  => '',
+				'compare' => '!=',
+			),
+		),
+		
+
+		'tag__not_in' => array(269),
+		'post_status' => 'publish',
+		'orderby' => 'meta_value',
+		'order' => 'DESC',
+		'paged' => max( 1, $_POST['paged'] )
+	]);
+  
+
+	$response = '';
+	if ($ajaxposts->have_posts()) {
+		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
+			$response .= get_template_part('inc/blog_loop_single');
+		endwhile;
+	} else {
+		$response = '';
+	}
+  
+	echo $response;
+	exit;
+}
+add_action('wp_ajax_nc_past_webinars_load_more', 'nc_past_webinars_load_more');
+add_action('wp_ajax_nopriv_nc_past_webinars_load_more', 'nc_past_webinars_load_more');

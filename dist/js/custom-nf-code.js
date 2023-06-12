@@ -158,7 +158,8 @@ if(typeof Marionette !== 'undefined') {
         
             //console.log(layoutView.model.id);
             var form_id = layoutView.model.id;
-            if(form_id != 1 && form_id != 30 && form_id != 27 && form_id != 33 ) { // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form
+            if(form_id != 1 && form_id != 30 && form_id != 27 && form_id != 33 && form_id != 68 ) {
+                // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form
                 new myCustomFieldController();
             }
             

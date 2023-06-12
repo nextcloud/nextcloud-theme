@@ -802,7 +802,7 @@ header {
     }
 
     &.scrolled {
-        background-color: #0082c9;
+        background-color: $mainColor;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
 
@@ -854,7 +854,7 @@ header {
 
     }
 
-    @media (min-width: $menu-custom-breakpoint) {
+    @media (min-width: $menu-custom-breakpoint-min) {
 
         .phone-menu {
             display: none;
