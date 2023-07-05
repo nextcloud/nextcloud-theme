@@ -20,8 +20,8 @@ function nc_custom_ninja_forms_submit_data($form_data)
     $form_id = $form_data['id'];
 
     foreach( $form_data[ 'fields' ] as $field_id => $field ) {
-        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 && $form_id != 68 ) {
-            // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form
+        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 && $form_id != 68 && $form_id != 72 ) {
+            // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
 
             if( str_contains($field[ 'key' ], 'email') ) {
                 // email, corporate_email_1656608192369, email_1666338754229, business_email_1654165444607  - the other keys
@@ -157,13 +157,29 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     $subscribed = false;
 
     $select_mailing_lists_checkboxes = array();
-    //$uid = 'Test123';
 
+    if(     $form_id == 27 // Newsletter form
+            ||  $form_id == 68  // Events newsletter form
+            ||  $form_id == 4 // whitepapers and case studies
+            ||  $form_id == 49 // Case study Meiji university
+            ||  $form_id == 66 // Get more information about event
+            
+        )
+    {
+        $subscribed = true; // automatically set as accepted for these forms
 
-    if(  $form_id == 27  ||  $form_id == 68  /* ||  $form_id == 57 - staging test */  ) {
-        $subscribed = true;
+        if($form_id == 66){ // for the events form, subscribe to the newsletters only if checkbox is selected
+            $subscribed = false;
+        }    
 
         foreach( $form_fields as $field ){
+
+            if( str_contains($field['key'], 'keep_me_informed') ){
+                // means users selected the newsletters checkbox
+                if($field[ 'value' ] != 0){
+                    $subscribed = true;
+                }
+            }
 
             if( str_contains($field['key'], 'name') ){
                 $name = $field[ 'value' ];
@@ -173,10 +189,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                 str_contains($field['key'], 'email')
             ){
                 $email = $field[ 'value' ];
-            }
-
-            if( 'phone_1668696834776' == $field[ 'key' ] ){
-                $phone = $field[ 'value' ];
             }
 
             if( 
@@ -192,19 +204,13 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
 
         }
     }
-    //$select_mailing_lists_checkboxes_str = implode(",", $select_mailing_lists_checkboxes);
-    //setcookie("nc_subscribed", $subscribed , time() + (86400 * 30), "/" );
-    //setcookie("select_mailing_lists_checkboxes_str", $select_mailing_lists_checkboxes_str , time() + (86400 * 30), "/" );
-    //setcookie("subscribed", $subscribed , time() + (86400 * 30), "/" );
-
 
     if($subscribed) {
         $url = 'https://odoo.nextcloud.com';
         $db = 'nextcloud-crm-odoo-main-4730113';
         $username = "jos.poortvliet@nextcloud.com";
-        $password = '3995d2189b74c4ab3d29919f54803e584fee1eab'; // api key
+        $password = ODOO_API_KEY; // api key
         //$password = ''; // password
-        //$sub_id = 'test sub';
 
         //logging in
         $common = ripcord::client("$url/xmlrpc/2/common");
@@ -219,16 +225,14 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                     array(
                         'name'=> $name,
                         'email'=> $email,
-                        //'phone' => $phone,
                         'list_ids' => $mailing_list_ids
-                        //'list_ids' => array(7597) // list Events
                     )
                 )
             );
 
          //debug
-         
          //setcookie("nc_sub_id", $sub_id , time() + (86400 * 30), "/" );
+
     }
     
     
