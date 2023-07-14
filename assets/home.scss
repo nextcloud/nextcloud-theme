@@ -1183,10 +1183,7 @@
             background-color: transparent !important;
             border: none !important;
             background-image: none !important;
-            
-            &:not(.opened){
-                //margin-bottom: 27px !important;
-            }
+        
 
             .vc_tta-controls-icon {
                 &::before {
@@ -1207,13 +1204,6 @@
                     color: $textColor !important;
                     padding-left: 65px !important;
 
-
-                    /*
-                    &:focus {
-                        outline: 1px solid #000;
-                        border-radius: 10px;
-                    }
-                    */
                 }
 
                 &:before {
@@ -1288,7 +1278,7 @@
         &.nc_product_mail {
             .vc_tta-panel-title {
                 &:before {
-                    background-image: url('/wp-content/uploads/2022/09/nc-icon-email-white.svg');
+                    background-image: url("/wp-content/uploads/2023/06/nc-mail-icon-white.svg");
                 }
             }
         }

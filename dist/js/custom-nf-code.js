@@ -30,7 +30,7 @@ jQuery(document).ready(function () {
                 },
                 
                 preferredCountries: ['de', 'fr', 'uk', 'ch', 'at'],
-                utilsScript: "/wp-content/themes/nextcloud-theme/dist/js/utils.js",
+                utilsScript: "https://nextcloud.com/wp-content/themes/nextcloud-theme/dist/js/utils.js",
             });
             
             /*
@@ -80,8 +80,8 @@ if(typeof Marionette !== 'undefined') {
             var email = model.get( 'value' );
             
 
-            var file = "/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist.txt";
-            var file2 = "/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
+            var file = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist.txt";
+            var file2 = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
             //const blocked_domains = [];
             //var blocked_domains_string = '';
             var isDisposable = false;
@@ -109,11 +109,11 @@ if(typeof Marionette !== 'undefined') {
 
                 if(isDisposable){
                     // Add Error to Model
-                    console.log('add error');
+                    //console.log('add error');
                     Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
                     
                 } else {
-                    console.log('remove error');
+                    //console.log('remove error');
                     Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
                 }
 
@@ -125,7 +125,7 @@ if(typeof Marionette !== 'undefined') {
                 var lines = txt.split("\n");
                 for (var i = 0, len = lines.length; i < len; i++) {
                     if(domain == lines[i]){
-                        console.log('checkpoint 2');
+                        //console.log('checkpoint 2');
                         isDisposable = true;
                         break;
                     }
@@ -137,11 +137,11 @@ if(typeof Marionette !== 'undefined') {
 
                 if(isDisposable){
                     // Add Error to Model
-                    console.log('add error');
+                    //console.log('add error');
                     Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
                     
                 } else {
-                    console.log('remove error');
+                    //console.log('remove error');
                     Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
                 }
 
@@ -158,8 +158,14 @@ if(typeof Marionette !== 'undefined') {
         
             //console.log(layoutView.model.id);
             var form_id = layoutView.model.id;
-            if(form_id != 1 && form_id != 30 && form_id != 27 && form_id != 33 && form_id != 68 ) {
-                // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form
+            if(form_id != 1 
+                && form_id != 30 
+                && form_id != 27 
+                && form_id != 33 
+                && form_id != 68 
+                && form_id != 72
+                ) {
+                // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
                 new myCustomFieldController();
             }
             

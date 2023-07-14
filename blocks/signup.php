@@ -17,49 +17,51 @@ try {
  * !TODO Replace with proper translation methods
  */
 // $l = new L10N('signup');
-function t($string) {
+/*
+function __($string) {
 	return $string;
 }
+*/
 
 $registerL10n = [
-	'subscribe' => t('Subscribe to our newsletter'),
-	'email' => t('Your email address'),
-	'success' => t('Success! Redirecting you to the provider'),
-	'error' => t('Error:'),
-	'processing' => t('Creating your account'),
-	'register' => t('Sign up'),
-	'change' => t('change provider'),
-	'close' => t('close'),
-	'far' => t('Far far away'),
-	'geterror' => t('Error while retrieving the providers list.'),
-	'tos' => t('Terms of service'),
-	'tosagree' => t('I agree to the %tos%'),
-	'toserror' => t('Please agree to the terms of service')
+	'subscribe' => __('Subscribe to our newsletter', 'nextcloud'),
+	'email' => __('Your email address', 'nextcloud'),
+	'success' => __('Success! Redirecting you to the provider', 'nextcloud'),
+	'error' => __('Error:', 'nextcloud'),
+	'processing' => __('Creating your account', 'nextcloud'),
+	'register' => __('Sign up', 'nextcloud'),
+	'change' => __('change provider', 'nextcloud'),
+	'close' => __('close', 'nextcloud'),
+	'far' => __('Far far away', 'nextcloud'),
+	'geterror' => __('Error while retrieving the providers list.', 'nextcloud'),
+	'tos' => __('Terms of service', 'nextcloud'),
+	'tosagree' => __('I agree to the %tos%', 'nextcloud'),
+	'toserror' => __('Please agree to the terms of service', 'nextcloud')
 ];
 
 $officialApps = [
-	'files' => t('Files'),
-	'calendar' => t('Calendar'),
-	'contacts' => t('Contacts'),
-	'spreed' => t('Talk'),
-	'mail' => t('Mail'),
-	'tasks' => t('Tasks'),
-	'notes' => t('Notes'),
-	'news' => t('News'),
-	'twofactor_totp' => t('Two-factor authentication'),
-	'twofactor_u2f' => t('Two-factor U2F'),
-	'gallery' => t('Gallery'),
-	'photos' => t('Photos'),
-	'collabora' => t('Collabora Online'),
-	'onlyoffice' => t('Onlyoffice'),
-	'deck' => t('Deck'),
-	'fulltextsearch' => t('Full text search'),
-	'mindmaps' => t('Mindmaps'),
-	'passman' => t('Passman'),
-	'drawio' => t('Draw.io'),
-	'bookmarks' => t('Bookmarks'),
-	'audioplayer' => t('Audioplayer'),
-	'appointments' => t('Appointments')
+	'files' => __('Files', 'nextcloud'),
+	'calendar' => __('Calendar', 'nextcloud'),
+	'contacts' => __('Contacts', 'nextcloud'),
+	'spreed' => __('Talk' , 'nextcloud'),
+	'mail' => __('Mail', 'nextcloud'),
+	'tasks' => __('Tasks', 'nextcloud'),
+	'notes' => __('Notes', 'nextcloud'),
+	'news' => __('News', 'nextcloud'),
+	'twofactor_totp' => __('Two-factor authentication', 'nextcloud'),
+	'twofactor_u2f' => __('Two-factor U2F', 'nextcloud'),
+	'gallery' => __('Gallery','nextcloud'),
+	'photos' => __('Photos','nextcloud'),
+	'collabora' => __('Collabora Online', 'nextcloud'),
+	'onlyoffice' => __('Onlyoffice', 'nextcloud'),
+	'deck' => __('Deck', 'nextcloud'),
+	'fulltextsearch' => __('Full text search', 'nextcloud'),
+	'mindmaps' => __('Mindmaps', 'nextcloud'),
+	'passman' => __('Passman', 'nextcloud'),
+	'drawio' => __('Draw.io', 'nextcloud'),
+	'bookmarks' => __('Bookmarks', 'nextcloud'),
+	'audioplayer' => __('Audioplayer', 'nextcloud'),
+	'appointments' => __('Appointments', 'nextcloud')
 ];
 
 $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'];
@@ -70,8 +72,8 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<h2><?php echo t('Simple sign up');?></h2>
-				<h3><?php echo t('Sign up now with a Nextcloud provider to get a free account!');?></h3>
+				<h2><?php echo __('Simple sign up', 'nextcloud');?></h2>
+				<h3><?php echo __('Sign up now with a Nextcloud provider to get a free account!', 'nextcloud');?></h3>
 			</div>
 		</div>
 	</div>

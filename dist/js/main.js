@@ -1,9 +1,7 @@
 jQuery(document).ready(function ($) {
 
     var isUriImage = function(uri) {
-
         var uri, uri_splitted;
-
         if(uri) {
             //make sure we remove any nasty GET params
             var uri_splitted = uri.split('?')[0];
@@ -17,6 +15,28 @@ jQuery(document).ready(function ($) {
             }
         }
     }
+
+
+    //restrict list to max 12 items
+    $('ul.list_load_more li').hide().slice(0, 12).show();
+
+    //add button load more
+    $('ul.list_load_more').each(function(item){
+        var listItems = $(this).children();
+        if(listItems.length > 12) {
+            $(this).parent().find('.list_load_more_btn').show();
+        }
+    });
+
+    $('.list_load_more_btn').on('click',function(e){
+        e.preventDefault();
+        //console.log('test click');
+        $(this).parents('.wpb_wrapper').find('ul.list_load_more li').each(function(index){
+            $(this).css("display", "inline-block");
+        });
+
+        $(this).hide();
+    });
 
 
     if(window.location.hash) {
@@ -234,11 +254,14 @@ jQuery(document).ready(function ($) {
 
     });
 
+
     //set language switcher short lang as text
+    /*
     var curr_lang_a = $('.wpml-ls-current-language > a');
     var curr_lang = curr_lang_a.find('.wpml-ls-native').attr('lang');
     console.log(curr_lang);
     curr_lang_a.find('.wpml-ls-native').html(curr_lang);
+    */
 
 
 
@@ -367,6 +390,14 @@ jQuery(document).ready(function ($) {
         // other options
     });
 
+    //add popup for gallery
+    $('.popup-screenshot-gal').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled:true
+        }
+    });
+
     //click on gallery items will open a popup
     $('.wp-block-gallery:not(.no_popup)').each(function() { // the containers for all your galleries
         $(this).magnificPopup({
@@ -468,220 +499,12 @@ jQuery(document).ready(function ($) {
 
 
 
-    //if(!Cookies.get('nc_cookie_banner')){
-
-
-    var iframe_blocker_text = {};
-
-   var iframe_blocker_text_en = {
-    youtube: '<div class="text_overlay"><strong>Embedded YouTube Video</strong>By loading the video, you agree to Youtube\'s privacy policy. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Learn more</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Link to the video: https://youtu.be/%id%</a><button title="Watch video on this page" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Play video</button><p class="unblock_all">By playing this video, all Youtube videos will be unblocked</p></div>',
-    
-    vimeo: '<div class="text_overlay"><strong>Embedded Vimeo Video</strong>By loading the video, you agree to Vimeo\'s privacy policy. <a href="https://vimeo.com/privacy" target="_blank">Learn more</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Watch video on Vimeo">Link to the video: https://vimeo.com/%id%</a><button title="Watch video on this page" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Play video</button><p class="unblock_all">By playing this video, all Vimeo videos will be unblocked</p></div>'
-   };
-
-
-   var iframe_blocker_text_de = {
-    youtube: '<div class="text_overlay"><strong>Eingebettetes Youtube Video</strong>Durch das Laden des Videos stimmst du der Datenschutzbestimmung von Youtube zu. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Mehr erfahren</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Link zum Video: https://youtu.be/%id%</a><button title="Video auf dieser Seite gucken" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Video abspielen</button><p class="unblock_all">Durch das Abspielen dieses Videos werden alle Youtube Videos freigeschaltet.</p></div>',
-    
-    vimeo: '<div class="text_overlay"><strong>Eingebettetes Vimeo Video</strong>Durch das Laden des Videos stimmst du der Datenschutzbestimmung von Vimeo zu. <a href="https://vimeo.com/privacy" target="_blank">Mehr erfahren</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Watch video on Vimeo">Link zum Video: https://vimeo.com/%id%</a><button title="Video auf dieser Seite gucken" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Video abspielen</button><p class="unblock_all">Durch das Abspielen dieses Videos werden alle Vimeo Videos freigeschaltet.</p></div>'
-   };
-
-
-   var iframe_blocker_text_fr = {
-    youtube: '<div class="text_overlay"><strong>Vidéo Youtube intégrée</strong>En chargeant la vidéo, vous acceptez la politique de confidentialité de Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">En savoir plus</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Watch video on YouTube">Lien vers la vidéo: https://youtu.be/%id%</a><button title="Regarder la vidéo sur cette page" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Lire la vidéo</button><p class="unblock_all">En regardant cette vidéo, toutes les vidéos Youtube seront débloquées.</p></div>',
-    
-    vimeo: '<div class="text_overlay"><strong>Vidéo Vimeo intégrée</strong>En chargeant la vidéo, vous acceptez la politique de confidentialité de Vimeo. <a href="https://vimeo.com/privacy" target="_blank">En savoir plus</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Regardez la vidéo sur Vimeo">Lien vers la vidéo: https://vimeo.com/%id%</a><button title="Regarder la vidéo sur cette page" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Lire la vidéo</button><p class="unblock_all">En regardant cette vidéo, toutes les vidéos Vimeo seront débloquées.</p></div>'
-   };
-
-
-   var iframe_blocker_text_es = {
-    youtube: '<div class="text_overlay"><strong>Vídeo Youtube incrustado</strong>Al cargar el video, aceptas la política de privacidad de Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Más información</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Ver video en youtube">Enlace al vídeo: https://youtu.be/%id%</a><button title="Ver video en esta página" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Reproducir vídeo</button><p class="unblock_all">Al reproducir este video, se desbloquearán todos los videos de Youtube</p></div>',
-    
-    vimeo: '<div class="text_overlay"><strong>Vídeo Vimeo incrustado</strong>Al cargar el video, aceptas la política de privacidad de Vimeo. <a href="https://vimeo.com/privacy" target="_blank">Más información</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Ver video en Vimeo">Enlace al vídeo: https://vimeo.com/%id%</a><button title="Ver video en esta página" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Reproducir vídeo</button><p class="unblock_all">Al reproducir este video, se desbloquearán todos los videos de Vimeo</p></div>'
-   };
-
-
-   var iframe_blocker_text_it = {
-    youtube: '<div class="text_overlay"><strong>Videmo YouTube incorporato</strong>Caricando il video, accetti l\'informativa sulla privacy di Youtube. <a href="https://www.google.de/intl/de/policies/privacy/" target="_blank">Per saperne di più</a><a class="video-link" href="https://youtu.be/%id%" rel="noopener" target="_blank" title="Guarda video su YouTube">Link al video: https://youtu.be/%id%</a><button title="Guarda video su questa pagina" class="youtube_btn unblock_youtube"><i class="fas fa-play"></i> Riproduci video</button><p class="unblock_all">Riproducendo questo video, tutti i video di Youtube verranno sbloccati</p></div>',
-    
-    vimeo: '<div class="text_overlay"><strong>Video Vimeo incorporato</strong>Caricando il video, accetti l\'informativa sulla privacy di Vimeo. <a href="https://vimeo.com/privacy" target="_blank">Per saperne di più</a><a class="video-link" href="https://vimeo.com/%id%" rel="noopener" target="_blank" title="Guarda video su Vimeo">Link al video: https://vimeo.com/%id%</a><button title="Guarda video su questa pagina" class="vimeo_btn unblock_vimeo"><i class="fas fa-play"></i> Riproduci video</button><p class="unblock_all">Riproducendo questo video, tutti i video di Vimeo verranno sbloccati</p></div>'
-   };
-
-
-   var curr_lang_cookie = Cookies.get('wp-wpml_current_language');
-   if(curr_lang_cookie == 'en') {
-    iframe_blocker_text = iframe_blocker_text_en;
-   } 
-   else if (curr_lang_cookie == 'de') {
-    iframe_blocker_text = iframe_blocker_text_de;
-   }
-   else if (curr_lang_cookie == 'it') {
-    iframe_blocker_text = iframe_blocker_text_it;
-   }
-   else if (curr_lang_cookie == 'fr') {
-    iframe_blocker_text = iframe_blocker_text_fr;
-   }
-   else if (curr_lang_cookie == 'es') {
-    iframe_blocker_text = iframe_blocker_text_es;
-   }
-   else {
-    iframe_blocker_text = iframe_blocker_text_en;
-   }
-
-    var replace_this_iframe = function(element_item, popup_element){
-        //console.log("function parsing..");
-        var video_frame, wall, video_platform, video_src, video_id, video_w, video_h;
-
-        var video_iframes_youtube = [];
-        var video_iframes_vimeo = [];
-        var frames = document.getElementsByTagName("iframe");
-        //console.log("frames length inside popup: "+frames.length);
-
-        for (i = 0; i < frames.length; ++i) {
-            var video_frame, video_platform, video_src;
-            video_frame = frames[i];
-            video_src = video_frame.src;
-            // Only process video iframes [youtube|vimeo]
-            if (video_src.match(/youtube|vimeo/) == null) {
-                continue;
-            }
-            
-
-            
-
-
-            video_platform = video_src.match(/vimeo/) == null ? 'youtube' : 'vimeo';
-            //console.log("video_platform: "+video_platform);
-            video_frame.parentNode.classList.add(video_platform+"_container");
-            //add iframes to the arrays
-            //video_iframes.push(video_frame);
-
-            if(video_platform == 'youtube') {
-                video_iframes_youtube.push(video_frame);
-            }
-            if(video_platform == 'vimeo') {
-                video_iframes_vimeo.push(video_frame);
-            }
-
-
-        } //end for
-
-        //console.log("youtube videos on the page 2: "+video_iframes_youtube.length);
-        //console.log("vimeo videos on the page 2: "+video_iframes_vimeo.length);
-
-
-
-
-        //video_frame = document.getElementsByTagName('iframe')[0];
-        video_frame = element_item;
-        var this_video_iframe = element_item;
-        video_src = video_frame.src;
-
-        // Only process video iframes [youtube|vimeo]
-        if (video_src.match(/youtube|vimeo/) == null) {
-            //continue;
-        } else {
-
-            //video_iframes.push(video_frame);
-            video_w = video_frame.getAttribute('width');
-            video_h = video_frame.getAttribute('height');
-            wall = document.createElement('article');
-
-            video_platform = video_src.match(/vimeo/) == null ? 'youtube' : 'vimeo';
-            video_id = video_src.match(/(embed|video)\/([^?\s]*)/)[2];
-            wall.setAttribute('class', 'video-wall');
-            //wall.setAttribute('data-index', i);
-            //wall.setAttribute('data-platform', video_platform);
-            
-
-
-            //set thumbnail image as background
-            if( video_platform == 'youtube' ) {
-                var thumb_url = 'https://i1.ytimg.com/vi/'+ video_id +'/maxresdefault.jpg';
-            }
-
-            if( video_platform == 'vimeo') {
-                var thumb_url = 'https://vumbnail.com/'+video_id+'.jpg';
-            }
-
-
-            wall.setAttribute('style', 'width:'+video_w+'px;height:'+video_h+'px; background: url('+thumb_url+'); ');
-            wall.innerHTML = iframe_blocker_text[video_platform].replace(/\%id\%/g, video_id);
-
-            //this is where replacement happens
-            if( video_platform == 'youtube' ) {
-                if(!getCookie('nc_youtube_unblocked')){
-                    video_frame.parentNode.replaceChild(wall, video_frame);
-                    //Cookies.set('nc_youtube_unblocked', 1, { expires: 30 });
-
-                    //unblock all the youtube videos on the page
-                    
-                    /*
-                    var all_video_walls = document.querySelectorAll('.video-wall.youtube');
-                        all_video_walls.forEach(function(item){
-                            var video_frame = item,
-                            index = video_frame.getAttribute('data-index');
-                            video_iframes_youtube[index].src = video_iframes_youtube[index].src.replace(/www\.youtube\.com/, 'www.youtube-nocookie.com');
-                            video_frame.parentNode.replaceChild(video_iframes_youtube[index], video_frame);
-                    });
-                    */
-                    
-
-                }
-            }
-
-            if( video_platform == 'vimeo' ) {
-                if(!getCookie('nc_vimeo_unblocked')){
-                    video_frame.parentNode.replaceChild(wall, video_frame);
-                    //Cookies.set('nc_vimeo_unblocked', 1, { expires: 30 });
-                }
-            }
-
-
-            $(popup_element).find('.video-wall button').click(function(){
-                var video_frame = this.parentNode;
-                this_video_iframe.src = this_video_iframe.src.replace(/www\.youtube\.com/, 'www.youtube-nocookie.com');
-                video_frame.parentNode.replaceChild(this_video_iframe, video_frame);
-
-
-                if( video_platform == 'youtube' ) {
-                    if(!getCookie('nc_youtube_unblocked')){
-                        Cookies.set('nc_youtube_unblocked', 1, { expires: 30 });
-                    }
-                }
-
-
-                if( video_platform == 'vimeo' ) {
-                    if(!getCookie('nc_vimeo_unblocked')){
-                        Cookies.set('nc_vimeo_unblocked', 1, { expires: 30 });
-                    }
-                }
-
-
-            });
-
-
-
-
-        }
-    
-    };
-
-    //}
-
-    
-    
-
 
 
     $('.popup-video a, a.popup-video').magnificPopup({
         //disableOn: 700,
         type: 'iframe',
-
-        
-        
         callbacks: {
-
             open: function() {
                 var iframe_content = $.magnificPopup.instance.content[0].childNodes[1];
                 var popup_element = $.magnificPopup.instance.content[0];
@@ -691,10 +514,7 @@ jQuery(document).ready(function ($) {
                     replace_this_iframe(iframe_content, popup_element);
                 //}
             },
-
         },
-
-        
         iframe: {
             markup: '<div class="mfp-iframe-scaler">'+
             '<div class="mfp-close"></div>'+
@@ -706,10 +526,6 @@ jQuery(document).ready(function ($) {
                 index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
           
                 id: 'v=', // String that splits URL in a two parts, second part should be %id%
-                // Or null - full URL will be returned
-                // Or a function that should return %id%, for example:
-                // id: function(url) { return 'parsed id'; }
-          
                 src: '//www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe.
               },
               vimeo: {
@@ -721,7 +537,6 @@ jQuery(document).ready(function ($) {
                 index: '//maps.google.',
                 src: '%id%&output=embed'
               }
-          
               // you may add here more sources
             },
             srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
@@ -744,12 +559,10 @@ jQuery(document).ready(function ($) {
             bottomSpacing: 60
         });
 
-
         $('#request_quote_left_sidebar').stickySidebar({
             topSpacing: 115,
             bottomSpacing: 60
         });
-
 
         $('#advantages-left-sticky').stickySidebar({
             topSpacing: 60,
@@ -1262,6 +1075,21 @@ jQuery(document).ready(function () {
         });
     }
 
+    /*
+
+    function resetFilter() {
+    jQuery('#services').val('All services');
+    jQuery('#services').data('value', 'all-dev');
+    jQuery('#certificates').val('All levels');
+    jQuery('#certificates').data('value', 'all-cert');
+    jQuery('#country').val('All');
+    jQuery('#country').data('value', 'all-comp');
+    jQuery('input[type="checkbox"]').each(function () {
+        jQuery(this).prop('checked', false);
+    });
+}
+
+
     var filter1 = 'all-dev';
     var filter2 = 'all-cert';
     var filter3 = 'all-comp';
@@ -1455,17 +1283,7 @@ jQuery(document).ready(function () {
         
 
         iniFilter();
-
-
-        //close select menu when changing service input checkboxes
-        /*
-        jQuery(this).closest('.selection').toggleClass('active');
-        jQuery(this).closest('.select-list').slideUp();
-        */
-
     });
-     
-
 
     jQuery.extend(jQuery.expr[":"], {
         "containsIN": function (elem, i, match, array) {
@@ -1475,9 +1293,12 @@ jQuery(document).ready(function () {
 
     jQuery('#filtersearch').keyup(function () {
         iniFilter();
-
-        //resetFilter();
     });
+    */
+
+
+
+
 
 
     jQuery('#fieldname').change( function (){
@@ -1703,17 +1524,7 @@ function iniFilter() {
 
 
 }
-function resetFilter() {
-    jQuery('#services').val('All services');
-    jQuery('#services').data('value', 'all-dev');
-    jQuery('#certificates').val('All levels');
-    jQuery('#certificates').data('value', 'all-cert');
-    jQuery('#country').val('All');
-    jQuery('#country').data('value', 'all-comp');
-    jQuery('input[type="checkbox"]').each(function () {
-        jQuery(this).prop('checked', false);
-    });
-}
+
 
 
 // if we need to do something when the user number is changed...

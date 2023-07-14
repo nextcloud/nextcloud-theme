@@ -5,3 +5,7 @@
 .nc_version_section .textarea_html {
     display: none;
 }
+
+.acf-field-649e8ad38b604 ul > li {
+    width: 22%;
+}

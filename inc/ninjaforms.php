@@ -1,4 +1,13 @@
 <?php
+function get_string_between($string, $start, $end){
+    $string = ' ' . $string;
+    $ini = strpos($string, $start);
+    if ($ini == 0) return '';
+    $ini += strlen($start);
+    $len = strpos($string, $end, $ini) - $ini;
+    return substr($string, $ini, $len);
+}
+
 //ninja forms filter emails - don't allow private or spam emails
 function isDisposableEmail($email, $blocklist_path = null) {
     if (!$blocklist_path) $blocklist_path = __DIR__ . '/disposable_email_blocklist.txt';
@@ -49,34 +58,49 @@ add_filter('ninja_forms_submit_data', 'nc_ninja_custom_save_cookies');
 function nc_ninja_custom_save_cookies($form_data){   
     $form_id       = $form_data[ 'form_id' ];
 
+    $convenience_cookie_set = get_string_between($_COOKIE['nc_cookie_banner'], 'convenience\":', ',\"statistics');
 
-    foreach( $form_data[ 'fields' ] as $field_id => $field ) {
+    if($convenience_cookie_set) {
 
-            //if( $field[ 'key' ] == 'name_1668605056527' ) {
+        //$form_fields = new stdClass();
+        $form_fields = array();
+
+        foreach( $form_data[ 'fields' ] as $field_id => $field ) {
+        
             if( str_contains($field['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){    
                 //name
-                    setcookie("nc_form_name", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //setcookie("nc_form_name", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //$form_fields->nc_form_name = $field[ 'value' ];
+                $form_fields['nc_form_name'] = $field[ 'value' ];
             }
 
             //if( $field[ 'key' ] == 'email_1654182135502' ) {
             if( str_contains($field['key'], 'email') ){
                 //email
-                    setcookie("nc_form_email", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //setcookie("nc_form_email", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //$form_fields->nc_form_email = $field[ 'value' ];
+                $form_fields['nc_form_email'] = $field[ 'value' ];
             }
 
             //if( $field[ 'key' ] == 'language_1668605172479' ) {
             if(str_contains($field['key'], 'language')) {
                 //language 
-                    setcookie("nc_form_lang", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //setcookie("nc_form_lang", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //$form_fields->nc_form_lang = $field[ 'value' ];
+                $form_fields['nc_form_lang'] = $field[ 'value' ];
             }
 
             //if( $field[ 'key' ] == 'phone_1668696834776' ) {
             if( str_contains($field['key'], 'phone') ){
-                setcookie("nc_form_phone", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //setcookie("nc_form_phone", $field[ 'value' ], time() + (86400 * 30), "/" );
+                //$form_fields->nc_form_phone = $field[ 'value' ];
+                $form_fields['nc_form_phone'] = $field[ 'value' ];
             }
-        
+        }
 
+        setcookie ('nc_form_fields', base64_encode(serialize($form_fields)), time() + (86400 * 30), "/");
     }
+
 
     return $form_data;
 }
@@ -86,28 +110,21 @@ function nc_ninja_custom_save_cookies($form_data){
 add_filter( 'ninja_forms_render_default_value', 'nc_change_nf_default_value', 10, 3 );
 function nc_change_nf_default_value( $default_value, $field_type, $field_settings ) {
     
-    //print_r($field_settings['key']);
+    if(isset($_COOKIE['nc_form_fields'])){
+        $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
 
-    //if( 'name_1668605056527' == $field_settings['key'] ){
-    if( str_contains($field_settings['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){
-        if(isset($_COOKIE["nc_form_name"])) {
-            $default_value = $_COOKIE["nc_form_name"];
+        if( str_contains($field_settings['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){
+                //$default_value = $_COOKIE["nc_form_name"];
+                $default_value = $nc_form_fields['nc_form_name'];
         }
-    }
-
-    //if( 'email_1654182135502' == $field_settings['key'] ){
-    if( str_contains($field_settings['key'], 'email') ){
-        if(isset($_COOKIE["nc_form_email"])) {
-            $default_value = $_COOKIE['nc_form_email'];
+        if( str_contains($field_settings['key'], 'email') ){
+                //$default_value = $_COOKIE['nc_form_email'];
+                $default_value = $nc_form_fields['nc_form_email'];
         }
-    }
-
-    //if( 'phone_1668696834776' == $field_settings['key'] ){
-    if( str_contains($field_settings['key'], 'phone') ){
-        if(isset($_COOKIE["nc_form_phone"])) {
-            $default_value = $_COOKIE['nc_form_phone'];
+        if( str_contains($field_settings['key'], 'phone') ){
+                //$default_value = $_COOKIE['nc_form_phone'];
+                $default_value = $nc_form_fields['nc_form_phone'];
         }
-        
     }
 
   return $default_value;
@@ -409,8 +426,9 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
             
             $selected = false;
 
-            if(isset($_COOKIE['nc_form_lang'])){
-                if( $_COOKIE['nc_form_lang'] == $code ){
+            if(isset($_COOKIE['nc_form_fields'])){
+                $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
+                if($nc_form_fields['nc_form_lang'] == $code){
                     $selected = true;
                 }
             }

@@ -59,14 +59,15 @@ function file_scripts() {
 	wp_enqueue_script('owl-carousel-js', get_template_directory_uri() . '/dist/js/owl.carousel.min.js', [], true);
 	wp_enqueue_script('nc_loadmore-js', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
 	//enqueue js cookie
-	wp_enqueue_script('js_cookie', get_template_directory_uri() . '/dist/js/js.cookie.min.js', [], true);
+	//wp_enqueue_script('js_cookie', get_template_directory_uri() . '/dist/js/js.cookie.min.js', [], true);
 	wp_enqueue_script('typed', get_template_directory_uri() . '/dist/js/typed.min.js', [], true);
 	//wp_enqueue_script('dsgvo-video-embed', get_template_directory_uri() . '/dist/js/dsgvo-video-embed.min.js', [], true);
 	wp_enqueue_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', [], true);
 	//select searchable
 	wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', [], true);
 	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end'], true);
-
+	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
+	
 	
     if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form') ) {
         wp_enqueue_script('custom-nf-code');

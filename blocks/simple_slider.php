@@ -2,7 +2,7 @@
 /*
  * Simple Slider block template
  */
-$id = get_field('section_id');
+$id = get_field('id');
 $custom_class = get_field('custom_css_classes');
 $autoplay_options = get_field_object('autoplay');
 if(isset($autoplay_options)) {
@@ -28,7 +28,7 @@ else : /* rendering in editor body */
                             <?php echo wp_get_attachment_image( $image_id, $size ); ?>
                         </a>
                         <?php if(wp_get_attachment_caption($image_id)) {
-                                echo '<div class="caption">'.wp_get_attachment_caption($image_id).'</div>';
+                            echo '<div class="caption">'.wp_get_attachment_caption($image_id).'</div>';
                         }?>
                     </div>
                 <?php endforeach; ?>
@@ -39,7 +39,8 @@ else : /* rendering in editor body */
 
 <script>
     jQuery(document).ready(function ($) {
-        $('.simple_slider_slideshow').owlCarousel({
+        var owl_simple_slider = $('.simple_slider_slideshow');
+        owl_simple_slider.owlCarousel({
             loop:true,
             stagePadding: 50,
             //autoWidth:true,
@@ -66,8 +67,22 @@ else : /* rendering in editor body */
                 1000:{
                     items:1
                 }
-            }
+            },
+            onDragged: owl_stop_autoplay,
+            autoplayHoverPause:true
         });
+
+
+        owl_simple_slider.on('click', function(e) {
+            owl_stop_autoplay();
+            //owl_simple_slider.trigger('stop.owl.autoplay');
+        });
+
+        function owl_stop_autoplay() {
+            //console.log('autoplay stopped.');
+            owl_simple_slider.trigger('stop.owl.autoplay');
+        }
+
     });
 </script>
 <?php endif; ?>

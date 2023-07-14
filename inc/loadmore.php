@@ -2,14 +2,23 @@
 function nc_blog_articles_load_more() {
 	$paged = (isset($_POST['paged'])) ? $_POST['paged'] : 1;
 
+	if(isset($_POST['post_type'])) {
+		$post_type = $_POST['post_type'];
+	} else {
+		$post_type = 'post';
+	}
+
 	$ajaxposts = new WP_Query([
-		'post_type' => array('post'),
+		//'post_type' => array($post_type),
+		'post_type' => array('post','event'),
 		'posts_per_page' => 9,
 		'post_status' => array('publish'),
 		'orderby' => 'date',
 		'tag__not_in' => array(269),
 		'order' => 'DESC',
 		'paged' => $paged,
+		'ignore_sticky_posts' => 1,
+		//'post__not_in' => get_option( 'sticky_posts' ), // ignore sticky posts
 		'category__not_in' => array(226) //exclude Private category
 	]);
   
@@ -31,6 +40,46 @@ function nc_blog_articles_load_more() {
 }
 add_action('wp_ajax_nc_load_more', 'nc_blog_articles_load_more');
 add_action('wp_ajax_nopriv_nc_load_more', 'nc_blog_articles_load_more');
+
+
+
+function nc_blog_search_load_more() {
+	$paged = (isset($_POST['paged'])) ? $_POST['paged'] : 1;
+
+	if(isset($_POST['post_type'])) {
+		$post_type = $_POST['post_type'];
+	} else {
+		$post_type = 'post';
+	}
+
+	$ajaxposts = new WP_Query([
+		'post_type' => array($post_type),
+		'posts_per_page' => 9,
+		's' => get_search_query(), //$_GET['s'],
+		'post_status' => array('publish'),
+		'tag__not_in' => array(269),
+		'orderby' => 'date',
+		'order' => 'DESC',
+		'paged' => $paged,
+		//'post__not_in' => get_option( 'sticky_posts' ), // ignore sticky posts
+		'category__not_in' => array(226) //exclude Private category
+	]);
+  
+	$response = '';
+	if ($ajaxposts->have_posts()) {
+		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
+		$response .= get_template_part('inc/blog_loop_single');
+		endwhile;
+	} else {
+		$response = '';
+	}
+
+	wp_reset_postdata();
+	die($response);
+}
+add_action('wp_ajax_nc_search_load_more', 'nc_blog_search_load_more');
+add_action('wp_ajax_nopriv_nc_search_load_more', 'nc_blog_search_load_more');
+
 
 
 
@@ -92,10 +141,7 @@ function nc_blog_terms_load_more() {
   
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
-		//$response .= get_template_part('parts/card', 'publication');
-		//$response .= get_the_title();
 		$response .= get_template_part('inc/blog_loop_single');
-
 		endwhile;
 	} else {
 		$response = '';
@@ -115,6 +161,14 @@ function nc_past_webinars_load_more() {
 	$ajaxposts = new WP_Query([
 		'post_type' => 'event',
 
+		//load only webinars
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'event_categories',
+				'field'    => 'slug',
+				'terms'    => 'webinars',
+			),
+		),
 		
 		'meta_query' => array(
 			'relation' => 'AND',

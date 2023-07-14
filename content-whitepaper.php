@@ -86,14 +86,14 @@
 
 					<div class="col-lg-4 col-md-12 download_whitepaper_col">
 						
-						<h3><?php echo __('Download','nextcloud'); ?> 
+						<h3>
                         <?php
                             if(get_post_type()=='whitepapers'){
-                                echo __('Whitepaper', 'nextcloud');
+                                echo __('Download whitepaper', 'nextcloud');
                             }else if(get_post_type()=='case_studies') {
-                                echo __('Case study', 'nextcloud');
+                                echo __('Download case study', 'nextcloud');
                             } else if(get_post_type()=='data_sheets'){
-                                echo __('Data sheet', 'nextcloud');
+                                echo __('Download data sheet', 'nextcloud');
                             }
                         ?>
 
@@ -123,17 +123,17 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h3>Other 
+							<h3> 
                             <?php
                                 if(get_post_type()=='whitepapers'){
-                                    echo __('whitepapers', 'nextcloud');
+                                    echo __('Other whitepapers', 'nextcloud');
                                 }else if(get_post_type()=='case_studies') {
-                                    echo __('case studies', 'nextcloud');
+                                    echo __('Other case studies', 'nextcloud');
                                 } else if(get_post_type()=='data_sheets'){
-                                    echo __('data sheets', 'nextcloud');
+                                    echo __('Other data sheets', 'nextcloud');
                                 }
                             ?>
-                            <?php //echo __('Other Whitepapers','nextcloud'); ?>
+                           
                             </h3>
 						</div>
 					</div>

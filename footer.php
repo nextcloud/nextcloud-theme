@@ -45,6 +45,10 @@ $flogo = get_field('footer_logo', 'options');
 					<?php
 					if (have_rows('social_media', 'options')):
 						echo '<ul class="social-menu">';
+
+
+						echo '<li><a id="cookies_preferences" title="'.__('Cookies preferences','nextcloud').'" href="#">'.__('Cookies preferences','nextcloud').'</a></li>';
+						
 						while (have_rows('social_media', 'options')): the_row();
 							$socialicon = get_sub_field('social_media_icon');
 							$sociallink = get_sub_field('social_media_link');
@@ -119,7 +123,7 @@ if (have_rows('popup_items', 'options')) {
 ?>
 <?php wp_footer(); ?>
 
-<?php get_template_part('inc/matomo'); //comment when done with cookie banner ?>
+<?php //get_template_part('inc/matomo'); //comment when done with cookie banner ?>
 
 <a href="" title="Scroll Up" class="scroll_up" style=""><i class="fa fa-angle-up"></i></a>
 
