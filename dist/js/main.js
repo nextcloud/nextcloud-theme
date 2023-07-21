@@ -582,7 +582,7 @@ jQuery(document).ready(function ($) {
 
 jQuery(document).ready(function () {
 
-    fixedMeni();
+    fixedMenu();
 
     document.querySelectorAll('.menu-footer .menu-item-has-children > a').forEach(menuSection => {
         menuSection.setAttribute('role', 'heading')
@@ -1388,9 +1388,17 @@ jQuery(window).scroll(function () {
 
 
 
-function fixedMeni() {
+function fixedMenu() {
     var windowWidth = jQuery(window).innerWidth();
     if (windowWidth > 111) {
+
+        if (jQuery(document).scrollTop() > 1) {
+            jQuery("header").addClass('scrolled');
+        } else {
+            jQuery("header").removeClass('scrolled');
+        }
+
+
         jQuery(window).on('load scroll resize orientationchange', function () {
             if (jQuery(document).scrollTop() > 1) {
                 jQuery("header").addClass('scrolled');

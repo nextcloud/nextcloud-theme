@@ -13,11 +13,17 @@
     max-width: 90%;
     width: 900px;
 
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: calc(95vh);
+
+        /*
     @media screen and (max-width: $sm-breakpoint) {
         overflow-y: scroll;
         overflow-x: hidden;
         max-height: calc(95vh);
     }
+    */
     
 
 

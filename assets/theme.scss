@@ -23,6 +23,16 @@
     .size-full {
         width: fit-content !important;
     }
+
+    &.with-caption {
+        img {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    figcaption {
+        text-align: center;
+    }
 }
 
 
@@ -8062,7 +8072,7 @@ p {
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 0.5rem 0px 20px;
+            margin: 0.5rem 0px 20px; 
 
             &.aligncenter {
                 margin: 0.5rem auto;
@@ -10851,6 +10861,11 @@ ul.upgrade_path_list {
 
 
         tbody {
+
+            td:first-child {
+                font-weight: bold;
+                color: $mainColor;
+            }
 
             td:nth-child(2) {
                 border-left: 1px solid #DFDFDF !important;
@@ -14717,31 +14732,6 @@ blockquote.wp-block-quote {
 
 }
 
-.top-banner-vote {
-    .countdown {
-        gap: 7px;
-        min-height: auto !important;
-
-        & > div {
-            font-size: 23px;
-            font-weight: bold;
-            border-radius: 7px;
-            background: $mainColor;
-            padding: 1px 9px;
-            color: #fff;
-            line-height: 100%;
-
-            & > span {
-                font-size: 0.6rem;
-                line-height: 17px;
-                margin-top: 0;
-            } 
-
-        }
-        
-    }
-}
-
 
 .wp-block-video {
     &.portrait {
@@ -15373,8 +15363,6 @@ blockquote.wp-block-quote {
 
 
 .features-filters-holder {
-    
-
 
     .features-filters-holder-inner {
         max-width: 600px;
@@ -15422,15 +15410,26 @@ blockquote.wp-block-quote {
                 color: $mainColor;
                 border: 1px solid $mainColor;
             }
+
+            &.active {
+                background: #fff;
+                border: 1px solid $mainColor;
+            }
+
         }
     }
     
 }
 
 
-
 section.all_features {
     
+    /*
+    section:not([style*="display: none"]):nth-child(even) {
+        background: $communityColor;
+    }
+    */
+
     section:nth-child(even) {
         background: $communityColor;
     }
@@ -15438,6 +15437,8 @@ section.all_features {
     section.nc_feature {
         padding-top:2.5rem;
         padding-bottom: 2.5rem;
+        position: relative;
+        z-index: 1;
     
         .row-feature {
             padding: 0 20px;
@@ -15449,46 +15450,53 @@ section.all_features {
                 box-shadow: $boxShadow;
                 overflow: hidden;
 
-
-                a.popup-video {
-                    position: relative;
+                a {
                     display: block;
 
-                    .play-icon{
-                        i {
-                            font-size: 2.5rem;
+                    &.popup-video {
+                            position: relative;
                             display: block;
-                            position: absolute;
-                            left: 0;
-                            right: 0;
-                            top: 0;
-                            bottom: 0;
-                            margin: auto;
-                            z-index: 2;
-                            color: #fff;
-                            width: fit-content;
-                            height: fit-content;
-                        }
-                    }
-
-                    .overlay {
-                        display: block;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        height: 100%;
-                        width: 100%;
-                        background-color: rgba(0, 130, 201, 0.5);
-                        z-index: 1;
-
-                        transition: all 0.3s ease;
-
-                        &:hover {
-                            background-color: rgba(0,130,201,0.7);
-                        }
-
+        
+                            .play-icon{
+                                i {
+                                    font-size: 2.5rem;
+                                    display: block;
+                                    position: absolute;
+                                    left: 0;
+                                    right: 0;
+                                    top: 0;
+                                    bottom: 0;
+                                    margin: auto;
+                                    z-index: 2;
+                                    color: #fff;
+                                    width: fit-content;
+                                    height: fit-content;
+                                }
+                            }
+        
+                            .overlay {
+                                display: block;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                height: 100%;
+                                width: 100%;
+                                background-color: rgba(0, 130, 201, 0.5);
+                                z-index: 1;
+                                transition: all 0.3s ease;  
+                            }
+        
+        
+                            &:hover {
+                                .overlay {
+                                    background-color: rgba(0,130,201,0.7);
+                                }
+                                
+                            }
                     }
                 }
+
+
 
                 
             }
@@ -15735,6 +15743,14 @@ section.all_features {
 
         }
 
+
+        .nc-section-subtitle{
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+
         .other-features-list {
             padding: 0 20px;
 
@@ -15745,7 +15761,7 @@ section.all_features {
                 li{
                     position: relative;
                     list-style-type: none;
-                    padding-left: 24px !important;
+                    padding-left: 24px;
                     padding: 9px 0;
                     display: inline-block;
                     margin: 0 5px;
@@ -15786,9 +15802,40 @@ section.all_features {
     
     }
 
+
+    &.flex {
+        .other-features-list {
+
+            ul {
+                list-style: none;
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                align-content: center;
+
+                li{
+                    position: relative;
+                    list-style-type: none;
+                    padding: 13px !important;
+                    display: initial;
+                    margin: 0;
+                    width: 32%;
+                    background: #fff;
+                    border-radius: 13px;
+
+                    &:before {
+                        position: relative !important;
+                        margin-right: 6px !important;
+                    }
+
+                }
+
+
+            }
+        }
+    }
 }
-
-
 
 
 //style for the Table of Contents
@@ -15921,11 +15968,16 @@ section.all_features {
             margin-right: auto !important;
         }
 
-        .nc-sep-logo, .nc-section-title, .vc_btn3-left, .vc_btn3-right, .centerMobile, .nc_text_as_separator, .page-subtitle, 
+        .nc-sep-logo, .nc-section-title, .vc_btn3-left, .vc_btn3-right, .vc_btn3-inline, .centerMobile, .nc_text_as_separator, .page-subtitle, 
         .vc_icon_element-align-left, .vc_icon_element-align-right, .wpb_single_image.vc_align_left
         {
             text-align: center !important;
         }
+
+        .vc_btn3-inline{
+            display: block;
+        }
+        
 
         .centerMobile {
             .iconbox_container {

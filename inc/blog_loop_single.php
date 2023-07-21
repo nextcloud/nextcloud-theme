@@ -26,7 +26,7 @@ if($cat) {
 	$cats = '<a href="https://nextcloud.com/events/">' . __('Events','nextcloud') . ' </a>';
 }
 
-					echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
+					echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" id="'.$post_id.'" style="">';
 					echo '<div class="post-box">';
 					echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
 					echo '<div class="post-body">';

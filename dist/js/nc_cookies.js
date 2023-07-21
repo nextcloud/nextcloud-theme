@@ -388,8 +388,11 @@ var block_all_iframes = function(platform = 'all') {
                      var video_frame = video_iframes_vimeo[iv];
                      var video_src = video_frame.src;
                      var video_platform = 'vimeo';
+                     wall = document.createElement('article');
      
-     
+                     var elem_video_w = video_frame.parentNode.offsetWidth;
+                     //console.log("elem width: "+elem_video_w);
+                
                      if(video_frame.getAttribute('width')) {
                          video_w = video_frame.getAttribute('width');
                      }else {
@@ -400,13 +403,15 @@ var block_all_iframes = function(platform = 'all') {
                      if(video_frame.getAttribute('height')){
                          video_h = video_frame.getAttribute('height');
                      }else {
-                         video_h = "720";
+                         //video_h = "720";
+                         video_h = (elem_video_w * 9) / 16;
+                         //console.log("video_h: "+video_h);
                          //video_frame.offsetHeight;
                      }
                      
      
      
-                     wall = document.createElement('article');
+                     
                      video_id = video_src.match(/(embed|video)\/([^?\s]*)/)[2];
                      //get vimeo video hash from URL, useful for external link preview
 

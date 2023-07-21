@@ -5227,6 +5227,118 @@ function nc_version_section_funct($atts,  $content = null) {
 	return $result;
 }
 
+function nc_simple_slider() {
+	// Title
+	vc_map(
+		array(
+			'name' => __('Simple slider'),
+			'base' => 'nc_simple_slider_content',
+			'category' => __('Carousel'),
+			'params' => array(
+
+
+				array(
+					"type" => "attach_images",
+					"heading" => esc_html__("Add Images", "appcastle-core"),
+					"description" => esc_html__("Add Images", "appcastle-core"),
+					"param_name" => "screenshots",
+					"value" => "",
+				),
+
+				array(
+					"type" => "checkbox",
+					"heading" => esc_html__("Autoplay", "appcastle-core"),
+					"description" => esc_html__("Autoplay", "appcastle-core"),
+					"param_name" => "autoplay",
+					"value" => "",
+				)
+
+			)
+		)
+	);
+}
+add_action('vc_before_init', 'nc_simple_slider');
+
+function nc_simple_slider_content_function($atts, $content) {
+	ob_start();
+	$gallery = shortcode_atts(
+		array(
+			'screenshots' => 'screenshots',
+			'autoplay' => 'false'
+		), $atts);
+	
+	$image_ids = explode(',', $gallery['screenshots']);
+	$autoplay = $gallery['autoplay'];
+	$size='full';
+
+	?>
+	<div class="owl-carousel simple_slider_slideshow" id="">
+	<?php
+		foreach ($image_ids as $image_id) {
+		$image = wp_get_attachment_image($image_id, 'full');
+		echo '<div class="item gallery_item">';
+		//echo $image;
+		$image_title = get_the_title($image_id);
+		?>
+			<a href="<?php echo wp_get_attachment_image_url( $image_id, $size ); ?>" class="simple_slider_slideshow_link" title="<?php echo $image_title; ?>">
+                <?php echo wp_get_attachment_image( $image_id, $size ); ?>
+            </a>
+            <?php if(wp_get_attachment_caption($image_id)) {
+                echo '<div class="caption">'.wp_get_attachment_caption($image_id).'</div>';
+            }
+		echo '</div>';
+		}
+	?>
+	</div>
+	<script>
+    jQuery(document).ready(function ($) {
+		
+		var owl_simple_slider = $('.simple_slider_slideshow');
+        owl_simple_slider.owlCarousel({
+            loop:true,
+            stagePadding: 50,
+            //autoWidth:true,
+            autoplay: <?php echo $autoplay; ?>,
+            margin:10,
+            dots: false,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:1
+                },
+                800:{
+                    items:1
+                },
+                1000:{
+                    items:1
+                }
+            },
+			onDragged: owl_stop_autoplay,
+            autoplayHoverPause:true
+        });
+
+		owl_simple_slider.on('click', function(e) {
+            owl_stop_autoplay();
+            //owl_simple_slider.trigger('stop.owl.autoplay');
+        });
+
+        function owl_stop_autoplay() {
+            //console.log('autoplay stopped.');
+            owl_simple_slider.trigger('stop.owl.autoplay');
+        }
+
+    });
+	</script>
+	<?php
+	$result = ob_get_clean();
+	return $result;
+}
+add_shortcode('nc_simple_slider_content', 'nc_simple_slider_content_function');
+
+
 
 add_shortcode('nc_filter_features', 'nc_filter_features_funct');
 function nc_filter_features_funct($atts,  $content = null) {
@@ -5255,41 +5367,8 @@ function nc_filter_features_funct($atts,  $content = null) {
 			return result;
 		}
 
-
-		var tags = '';
-		var tags_array;
-		var tags_array_total = [];
-
-		$('.nc_feature').each(function(){
-			if( $(this).find('.feature_tags').text()!='' ) {
-				var tag = $(this).find('.feature_tags').text().trim().replace(/ /g, ''); //Searching,UX,Integrations
-				tags_array = tag.split(",");
-				//console.log("tags_array: "+tags_array);
-
-				//add it to the main array
-				tags_array_total.push(tag);
-			
-				
-			}
-		});
-
-		if(tags_array_total) {
-			console.log(tags_array_total);
-
-			tags_array_total = unique(tags_array_total);
-
-			var i;
-			for (i = 0; i < tags_array_total.length; ++i) {
-				$('#list_tags').append('<a href="#" class="link_tag" data-tag="'+tags_array_total[i]+'">'+tags_array_total[i]+'</a>');
-			}
-
-			
-		}
-		
-
-		$('#features_filter').keyup(function() {
+		function filterFeatures() {
 			var searched_term = $('#features_filter').val();
-
 			$('.nc_feature').each(function(){
 				var contains_search_term = false;
 
@@ -5304,8 +5383,204 @@ function nc_filter_features_funct($atts,  $content = null) {
 				}
 
 			});
+		}
 
+
+
+
+		function dynamicSort(property) {
+			var sortOrder = 1;
+
+			if(property[0] === "-") {
+				sortOrder = -1;
+				property = property.substr(1);
+			}
+
+			return function (a,b) {
+				if(sortOrder == -1){
+					return b[property].localeCompare(a[property]);
+				}else{
+					return a[property].localeCompare(b[property]);
+				}        
+			}
+		}
+
+
+		function filterTags(array_tags){
+			//console.log("filterTags function called");
+
+			$('.nc_feature').each(function(){
+					var contains_search_term = false;
+					var this_section = $(this);
+					var show_this_section = true;
+
+					if(array_tags) {
+						//console.log("if test");
+						$.each( array_tags, function( key, value ) {
+							//alert( key + ": " + value );
+							//console.log("value: "+value);
+
+							var feat_tags_text = this_section.find('.feature_tags').text();
+							//console.log("this section feat_tags: "+feat_tags_text);
+
+							var feat_tags = this_section.find('.feature_tags');
+							if (feat_tags.children(':contains("'+value+'")').length > 0) {
+								//console.log("it contains the value!")
+								//this_section.show();
+							} else {
+								//console.log("it does not contain the value!")
+								//this_section.hide();
+								show_this_section = false;
+							}
+						});
+
+
+						if(show_this_section) {
+							this_section.show();
+						} else {
+							this_section.hide();
+						}
+
+					} else {
+						//console.log("else: show section");
+						this_section.show();
+					}
+
+				});
+		}
+
+
+		var tags = '';
+		var tags_array;
+		var tags_array_total = [];
+
+		$('.nc_feature').each(function(){
+			if( $(this).find('.feature_tags').text()!='' ) {
+				var tag = $(this).find('.feature_tags').text().trim();
+				//console.log("tag:"+tag);
+
+				if (tag.indexOf(',') > -1) {
+					tags_array = tag.split(",");
+					//add it to the main array
+					for (var i = 0; i < tags_array.length; ++i) {
+						//
+						if(tags_array[i] != ''){
+							var tag_trimmed = tags_array[i].replace(/^\s+/, "");
+							tags_array_total.push(tag_trimmed);
+						}
+						
+					}
+				} else {
+					if(tag != ''){
+						var tag_trimmed = tag.replace(/^\s+/, "");
+						tags_array_total.push(tag_trimmed);
+					}
+					
+				}
+
+				
+			
+				
+			}
 		});
+
+		if(tags_array_total) {
+			console.log(tags_array_total);
+
+			tags_array_total = unique(tags_array_total); //remove duplicates
+			tags_array_total = tags_array_total.sort(); //sort alphabetically
+
+			var i;
+			for (i = 0; i < tags_array_total.length; ++i) {
+				if(tags_array_total[i]!=''){
+					$('#list_tags').append('<a href="#" class="link_tag" title="Filter '+tags_array_total[i]+' tag" data-tag="'+tags_array_total[i]+'">'+tags_array_total[i]+'</a>');
+				}
+				
+			}	
+		}
+		
+
+		var searched_tags_text = '';
+		var array_tags = [];
+
+		$('.list_tags a').on('click', function(e){
+			e.preventDefault();	
+
+			if($(this).hasClass( "active" )){
+				//remove this tag
+				//console.log("searched_tags_text: "+searched_tags_text);
+
+				//$(this).siblings().removeClass('active');
+				$(this).removeClass('active');	
+
+				//filterFeatures();
+				//console.log("deactivate this button and re-do search");
+				var this_tag = $(this).html();
+
+				//remove this tag from the array_tags
+				array_tags = $.grep(array_tags, function(value) {
+					return value != this_tag;
+				});
+
+				//remove this text from searched_tags_text
+				/*
+				var searched_tags_text_new = '';
+				if (array_tags.length === 0) {
+					searched_tags_text_new = '';
+				} else {
+					searched_tags_text_new = searched_tags_text.replace($(this).html(),'');
+					//console.log("searched_tags_text_new: "+searched_tags_text_new);
+				}
+				*/
+
+				searched_tags_text = array_tags.join(", ");
+
+
+				$('#features_filter').val(searched_tags_text);
+				
+
+				//console.log(JSON.stringify(array_tags));
+				filterTags(array_tags);
+
+
+			}else {
+				//add this tag
+
+				//$(this).siblings().removeClass('active');
+				array_tags.push($(this).html());
+				searched_tags_text = array_tags.join(", ");
+
+
+				/*
+				if(array_tags.length > 1) {
+					searched_tags_text =  ", " + searched_tags_text+ $(this).html();
+				} else {
+					searched_tags_text = $(this).html();
+				}
+				*/
+				
+
+				$(this).addClass('active');
+				
+				$('#features_filter').val(searched_tags_text);
+
+				//var searched_term = $(this).html();
+				//var searched_term = array_tags;
+
+				//console.log(JSON.stringify(array_tags));
+				filterTags(array_tags);
+				
+			}
+
+
+			
+
+
+		})
+
+
+
+		$('#features_filter').keyup(filterFeatures);
 	});
 </script>
 <?php
@@ -5321,14 +5596,14 @@ function wpb_nc_feature_funct() {
 		  array(
 		  	"name" => __("Nextcloud Feature", "nextcloud"), // Element name
 		  	"base" => "nc_feature", // Element shortcode
-		  	"class" => "nc_version_section",
+		  	"class" => "nc_single_feature",
 		  	"category" => __('Content', 'nextcloud'),
 		  	'params' => array(
 
 				array(
 					"type" => "textfield",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_id",
 					"admin_label" => false,
 					"heading" => __("ID", "nextcloud"),
 					"param_name" => "id",
@@ -5339,7 +5614,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "textfield",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_tags",
 					"admin_label" => false,
 					"heading" => __("Tags", "nextcloud"),
 					"param_name" => "group",
@@ -5350,7 +5625,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "textfield",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_title",
 					"admin_label" => false,
 					"heading" => __("Title", "nextcloud"),
 					"param_name" => "title",
@@ -5360,7 +5635,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "textfield",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_subtitle",
 					"admin_label" => false,
 					"heading" => __("Subtitle", "nextcloud"),
 					"param_name" => "subtitle",
@@ -5371,7 +5646,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "attach_image",
 					"holder" => "img",
-					"class" => "",
+					"class" => "feature_img",
 					"heading" => __("Image", "nextcloud"),
 					"param_name" => "image",
 					"value" => __("", "nextcloud"),
@@ -5382,7 +5657,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "textarea",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_video",
 					"heading" => esc_html__("Video Embed URL", "nextcloud"),
 					"description" => esc_html__("", "nextcloud"),
 					"param_name" => "video_url",
@@ -5392,7 +5667,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "textarea",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_desc",
 					"heading" => esc_html__("Description", "nextcloud"),
 					"description" => esc_html__("", "nextcloud"),
 					"param_name" => "description",
@@ -5402,7 +5677,7 @@ function wpb_nc_feature_funct() {
 				array(
 					"type" => "vc_link",
 					"holder" => "div",
-					"class" => "",
+					"class" => "feature_link",
 					"admin_label" => false,
 					"heading" => __("Feature link", "nextcloud"),
 					"param_name" => "link",
@@ -5512,10 +5787,17 @@ function nc_feature_funct($atts,  $content = null) {
 	$subtitle = $a['subtitle'];
 	$group = $a['group'];
 	$description = $a['description'];
-	$image = wp_get_attachment_image($a['image'], 'large');
 	$video_url = $a['video_url'];
-	$image_url= wp_get_attachment_image_url($a['image'], 'full');
 	$content = wpb_js_remove_wpautop($content, true);
+
+	if($a['image']) {
+		$image = wp_get_attachment_image($a['image'], 'large');
+		$image_url= wp_get_attachment_image_url($a['image'], 'full');
+	} else {
+		//$image = "https://nextcloud.com/wp-content/uploads/2023/07/nc-feature-default-bg.jpg";
+		$image = wp_get_attachment_image(131599, 'large');
+		$image_url= wp_get_attachment_image_url(131599, 'full');
+	}
 
 	if(function_exists('vc_param_group_parse_atts')){
 		$items = vc_param_group_parse_atts($a['box_repeater_items']);
@@ -5591,7 +5873,7 @@ function nc_feature_funct($atts,  $content = null) {
 				<?php if( $subtitle) { ?>
 				<div class="wpb_text_column wpb_content_element nc-section-subtitle">
 					<div class="wpb_wrapper">
-						<h5><?php echo $subtitle; ?></h5>
+						<h3><?php echo $subtitle; ?></h3>
 					</div>
 				</div>
 				<?php } ?>
@@ -5763,320 +6045,3 @@ function nc_feature_funct($atts,  $content = null) {
 	$result = ob_get_clean();
 	return $result;
 }
-
-
-
-
-
-
-/*
-//blog list shortcode
-add_action('vc_before_init', 'nc_blog_list_funct_fixed');
-function nc_blog_list_funct_fixed() {
-	vc_map(
-		  array(
-		  	"name" => __("Blog List fixed", "nextcloud"), // Element name
-		  	"base" => "blog_post_fixed", // Element shortcode
-		  	"class" => "",
-			"category" => __('Content', 'nextcloud'),
-		  	'params' => array(
-					array(
-						"type" => "textfield",
-						"heading" => esc_html__("Title", "nextcloud"),
-						"description" => esc_html__("", "nextcloud"),
-						"param_name" => "title",
-						"value" => "",
-					),
-					array(
-						"type" => "textfield",
-						"heading" => esc_html__("Type", "nextcloud"),
-						"description" => esc_html__("", "nextcloud"),
-						"param_name" => "type",
-						"value" => "",
-					)
-			)
-		  )
-	  );
-}
-add_shortcode( 'blog_post_fixed', 'blog_post_fixed_func' );
-
-function blog_post_fixed_func($atts) {
-	ob_start();
-	$atts = shortcode_atts(array(
-		'title' => '',
-		'type' => '',
-	), $atts);
-	$title = $atts['title'];
-	$type = $atts['type'];
-?>
-
-<section class="blog-section">
-	<div class="container">
-		<?php
-		echo '<div class="row justify-content-between align-items-center">';
-		if (!empty($title)) {
-			echo '<div class="col-lg-6">';
-			echo '<div class="section-title">';
-			echo '<h3>';
-
-			if(isset($_GET['webinars'])) {
-
-				if( strip_tags($_GET['webinars']) == 'upcoming') {
-					echo __('Upcoming webinars','nextcloud');
-				} else {
-					echo __('Webinar recordings','nextcloud');
-				}
-				
-			} else {
-				echo $title;
-			}
-			
-			echo '</h3>';
-			echo '</div>';
-			echo '</div>';
-		}
-		if (function_exists('wpes_search_form')) {
-			echo '<div class="col-lg-4">';
-			echo '<div class="form-holder">';
-			wpes_search_form(array(
-				'wpessid' => 1612
-			));
-			echo '</div>';
-			echo '</div>';
-		}
-		echo '</div>';
-		?>
-		<div class="row row-list-blog">
-			<?php
-			$default_posts_per_page = get_option( 'posts_per_page' );
-
-			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-			// The Query
-			$args = array(
-				'posts_per_page' => $default_posts_per_page,
-				'post_status' => 'publish',
-				'orderby' => 'date',
-				'paged=' => $paged,
-				//'suppress_filters' => 0,
-				'tag__not_in' => array(269), // exclude unlisted tag
-				'category__not_in'=> array(225, 226) //exclude Private category
-			);
-			date_default_timezone_set('Europe/Berlin');
-			$current_date_time = date('Y-m-d H:i:s', time());
-
-
-			if( isset($_GET['webinars'])) {
-				$args['post_type'] = array('event');
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'event_categories',
-						'field'    => 'slug',
-						'terms'    => 'webinars',
-					)
-				);
-
-				if( strip_tags($_GET['webinars']) == 'upcoming'){
-					
-					$args['meta_query'] = array(
-						array(
-							'key' => 'event_start_date_and_time',
-							'value'   => $current_date_time,
-							'compare' => '>=',
-							'type'	=> 'DATETIME'
-						),
-					);
-					//$args['order'] = 'ASC';
-
-					$args['orderby'] = 'meta_value';
-					$args['order'] = 'ASC';
-
-				} else if ( strip_tags($_GET['webinars']) == 'past') {
-
-					$args['meta_query'] = array(
-						'relation' => 'AND',
-						
-						array(
-							'key' => 'event_start_date_and_time',
-							'value'   => $current_date_time,
-							'compare' => '<',
-							'type'	=> 'DATETIME'
-						),
-						
-			
-						array(
-							'key'     => 'download_available',
-							'value'	  => '',
-							'compare' => '!=',
-						),
-						
-						
-					);
-					$args['orderby'] = 'meta_value';
-					$args['order'] = 'DESC';
-
-				}
-
-
-			}
-			else {
-				$args['post_type'] = array( $type );
-				$args['order'] = 'DESC';
-			}
-
-			
-			$the_query = new WP_Query($args);
-			$count = $the_query->found_posts;
-
-			// The Loop
-			if ($the_query->have_posts()) {
-				while ($the_query->have_posts()) {
-					$the_query->the_post();
-					get_template_part('inc/blog_loop_single');
-				}
-			} else {
-				// no posts found
-			?>
-
-			<div class="col-12">
-				<div class="section-button">
-					<h3><?php echo __('No posts found.','nextcloud'); ?></h3>
-				</div>
-			</div>
-
-			<?php
-			}
-			wp_reset_postdata();
-			?>
-		</div>
-
-		<?php if($count > $default_posts_per_page) { ?>
-		<div class="row">
-			<div class="col-12">
-				<div class="section-button">
-					<button class="c-btn btn-main" <?php if ( isset($_GET['webinars']) && strip_tags($_GET['webinars']) == 'past') { echo 'data-post-type="past_webinars"'; }?> id="loadNews"><?php echo __('Load more','nextcloud'); ?></button>
-				</div>
-			</div>
-		</div>
-		<?php } ?>
-
-	</div>
-</section>
-<?php
-	$result = ob_get_clean();
-	return $result;
-}
-*/
-
-
-
-function nc_simple_slider() {
-	// Title
-	vc_map(
-		array(
-			'name' => __('Simple slider'),
-			'base' => 'nc_simple_slider_content',
-			'category' => __('Carousel'),
-			'params' => array(
-
-
-				array(
-					"type" => "attach_images",
-					"heading" => esc_html__("Add Images", "appcastle-core"),
-					"description" => esc_html__("Add Images", "appcastle-core"),
-					"param_name" => "screenshots",
-					"value" => "",
-				),
-
-				array(
-					"type" => "checkbox",
-					"heading" => esc_html__("Autoplay", "appcastle-core"),
-					"description" => esc_html__("Autoplay", "appcastle-core"),
-					"param_name" => "autoplay",
-					"value" => "",
-				)
-
-			)
-		)
-	);
-}
-add_action('vc_before_init', 'nc_simple_slider');
-
-function nc_simple_slider_content_function($atts, $content) {
-	ob_start();
-	$gallery = shortcode_atts(
-		array(
-			'screenshots' => 'screenshots',
-			'autoplay' => 'false'
-		), $atts);
-	
-	$image_ids = explode(',', $gallery['screenshots']);
-	$autoplay = $gallery['autoplay'];
-	$size='full';
-
-	?>
-	<div class="owl-carousel simple_slider_slideshow" id="">
-	<?php
-		foreach ($image_ids as $image_id) {
-		$image = wp_get_attachment_image($image_id, 'full');
-		echo '<div class="item gallery_item">';
-		//echo $image;
-		$image_title = get_the_title($image_id);
-		?>
-			<a href="<?php echo wp_get_attachment_image_url( $image_id, $size ); ?>" class="simple_slider_slideshow_link" title="<?php echo $image_title; ?>">
-                <?php echo wp_get_attachment_image( $image_id, $size ); ?>
-            </a>
-            <?php if(wp_get_attachment_caption($image_id)) {
-                echo '<div class="caption">'.wp_get_attachment_caption($image_id).'</div>';
-            }
-		echo '</div>';
-		}
-	?>
-	</div>
-	<script>
-    jQuery(document).ready(function ($) {
-		
-		var owl_simple_slider = $('.simple_slider_slideshow');
-        owl_simple_slider.owlCarousel({
-            loop:true,
-            stagePadding: 50,
-            //autoWidth:true,
-            autoplay: <?php echo $autoplay; ?>,
-            margin:10,
-            dots: false,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:1
-                },
-                800:{
-                    items:1
-                },
-                1000:{
-                    items:1
-                }
-            },
-			onDragged: owl_stop_autoplay,
-            autoplayHoverPause:true
-        });
-
-		owl_simple_slider.on('click', function(e) {
-            owl_stop_autoplay();
-            //owl_simple_slider.trigger('stop.owl.autoplay');
-        });
-
-        function owl_stop_autoplay() {
-            //console.log('autoplay stopped.');
-            owl_simple_slider.trigger('stop.owl.autoplay');
-        }
-
-    });
-	</script>
-	<?php
-	$result = ob_get_clean();
-	return $result;
-}
-add_shortcode('nc_simple_slider_content', 'nc_simple_slider_content_function');

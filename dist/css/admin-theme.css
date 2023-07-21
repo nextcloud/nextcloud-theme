@@ -9,3 +9,13 @@
 .acf-field-649e8ad38b604 ul > li {
     width: 22%;
 }
+
+
+.nc_single_feature .feature_id,
+.nc_single_feature .feature_tags,
+.nc_single_feature .video_url ,
+.nc_single_feature .feature_desc,
+.nc_single_feature .textarea_html
+{
+    display: none;
+}

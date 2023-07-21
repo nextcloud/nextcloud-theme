@@ -117,7 +117,9 @@
             </div>
             <script>
                 jQuery(document).ready(function ($) {
-                    $('.promo_banner_carousel').owlCarousel({
+                    var promo_banner_carousel = $('.promo_banner_carousel');
+
+                    promo_banner_carousel.owlCarousel({
                         loop:true,
                         autoplay: true,
                         margin:10,
@@ -136,8 +138,19 @@
                             1000:{
                                 items:1
                             }
-                        }
+                        },
+                        onDragged: owl_stop_autoplay,
+                        autoplayHoverPause:true
                     });
+
+
+                    promo_banner_carousel.on('click', function(e) {
+                        owl_stop_autoplay();
+                    });
+
+                    function owl_stop_autoplay() {
+                        promo_banner_carousel.trigger('stop.owl.autoplay');
+                    }
                 });
             </script>
 

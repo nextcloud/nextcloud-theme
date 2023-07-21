@@ -65,9 +65,33 @@ header {
     .top-banner-vote{
         height: 50px;
         background: #fff;
-        //margin-bottom: 10px;
         transition: all 0.3s ease;
         overflow: hidden;
+
+
+        .countdown {
+            gap: 7px;
+            min-height: auto !important;
+    
+            & > div {
+                font-size: 23px;
+                font-weight: bold;
+                border-radius: 7px;
+                background: $mainColor;
+                padding: 1px 9px;
+                color: #fff;
+                line-height: 100%;
+    
+                & > span {
+                    font-size: 0.6rem;
+                    line-height: 17px;
+                    margin-top: 0;
+                } 
+    
+            }
+            
+        }
+        
 
         .container, .row, .col-12 {
             height: 100%;
@@ -78,6 +102,13 @@ header {
             background-size: 320px auto;
             background-position: right 13% top 42%;
             background-repeat: no-repeat;
+
+            @media screen and (max-width: $sm-breakpoint) {
+                & {
+                    background-size: 207px auto;
+                    background-position: right -46% top 36%;
+                }
+            }
         }
 
         .promo_banner_carousel {
@@ -104,18 +135,12 @@ header {
 
 
             .owl-nav {
-                /*
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                */
                 height: 100%;
                 display: block;
                 margin: auto;
                 font-size: 1.7rem;
                 opacity: 0.4;
                 width: 100%;
-                //z-index: -1;
 
                 &:hover {
                     opacity: 1;
@@ -152,14 +177,6 @@ header {
         .nc-awards-banner{
             display: flex;
             height: 100%;
-
-            /*
-            background: url("../img/confetti-background.svg");
-            background-size: 320px auto;
-            background-position: right 13% top 42%;
-            background-repeat: no-repeat;
-            */
-
             gap: 2rem;
             justify-content: center;
             align-items: center;
@@ -215,6 +232,7 @@ header {
             &{
                 .awards-text {
                     font-size: 1em !important;
+
                     b{
                         display: inline-block;
                     }
@@ -225,6 +243,9 @@ header {
         @media screen and (max-width: $md-breakpoint) {
             &{
                 .awards-text{
+                    //display: none;
+                }
+                .btn-awards {
                     display: none;
                 }
             }
@@ -259,10 +280,6 @@ header {
     &.active {
         background: linear-gradient(45deg, $mainColor , $lightColor );
         bottom: 0px;
-
-        .top-banner-vote{
-            //height: 0;
-        }
 
         .container {
             height: 100vh;
