@@ -6,8 +6,9 @@ $id = get_field('section_id');
 $title = get_field('title');
 $subtext = get_field('subtext');
 $center = get_field('center_content');
+$custom_css = get_field('custom_css_classes');
 ?>
-<section class="img-cols-section" id="<?php echo $id; ?>">
+<section class="img-cols-section <?php if(isset($custom_css)) echo $custom_css; ?>" id="<?php echo $id; ?>">
 	<div class="container">
 		<?php
 		if (!empty($title) || !empty($subtext)) {
@@ -31,7 +32,9 @@ $center = get_field('center_content');
 			$count = count(get_field('column'));
 			while (have_rows('column')) {
 				the_row();
-				$img = get_sub_field('column_image');
+				$img_id = get_sub_field('column_image');
+				$img2 = wp_get_attachment_image( $img_id, 'full', "", array( "class" => "img-responsive" ) );
+				$img_url = wp_get_attachment_image_url( $img_id, 'full' );
 				$text = get_sub_field('column_text');
 				if ($count == '1') {
 					echo '<div class="col-lg-12 spacer">';
@@ -47,9 +50,9 @@ $center = get_field('center_content');
 				} else {
 					echo '<div class="img-col-block">';
 				}
-				if (!empty($img)) {
-					echo '<div class="the-img">';
-					echo '<img src="' . $img . '" alt=""/>';
+				if (!empty($img_id)) {
+					echo '<div class="the-img imageRoundShadow">';
+					echo '<a href="'.$img_url.'" class="popup-screenshot-gal" title="">'.$img2.'</a>';
 					echo '</div>';
 				}
 				if (!empty($text)) {

@@ -17,6 +17,16 @@
 @import "./cookie-banner";
 
 
+@keyframes pulse-animation {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 130, 201, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(0, 130, 201, 0);
+    }
+}
+
+
 .wp-block-image {
     max-width: 100%;
 
@@ -4137,6 +4147,11 @@ p {
                 font-size: 18px;
                 font-weight: 600;
                 vertical-align: top;
+                transition: all 0.3s ease;
+
+                i {
+                    margin-right: 10px;
+                }
 
                 img {
                     max-height: 18px;
@@ -4152,13 +4167,12 @@ p {
                     background-color: $mainColor;
                     color: #fff;
 
-
-                    /*
+                    
                     &:hover {
                         background-color: #fff;
                         color: $mainColor;
                     }
-                    */
+                    
                 }
 
                 &.btn-dark {
@@ -4168,27 +4182,63 @@ p {
                 }
 
                 &.btn-docx {
-                    border-color: #30B6FF;
+                    border-color: $mainColor;
                     background-color: #FFF;
-                    color: #30B6FF;
+                    color: $mainColor;
+
+                    &:hover {
+                        background-color: $mainColor;
+                        color: #fff;
+                    }
                 }
 
                 &.btn-source {
-                    border-color: #0F0833;
+                    border-color: $mainColor;
                     background-color: #FFF;
-                    color: #0F0833;
+                    color: $mainColor;
+
+                    &:hover {
+                        background-color: $mainColor;
+                        color: #fff;
+                    }
                 }
 
                 &.btn-android {
-                    border-color: #30B6FF;
+                    border-color: $mainColor;;
                     background-color: #FFF;
-                    color: #30B6FF;
+                    color: $mainColor;
+
+                    &:hover {
+                        background-color: $mainColor;
+                        color: #fff;
+                    }
                 }
 
                 &.btn-ios {
-                    border-color: #0F0833;
+                    border-color: $mainColor;
                     background-color: #FFF;
-                    color: #0F0833;
+                    color: $mainColor;
+
+                    &:hover {
+                        background-color: $mainColor;
+                        color: #fff;
+                    }
+                }
+
+                &.highlight {
+                    animation: pulse-animation 2s infinite;
+                }
+
+                &.outline {
+                    border-color: $mainColor !important;
+                    background-color: #FFF !important;
+                    color: $mainColor !important;
+
+                    &:hover {
+                        background-color: $mainColor !important;
+                        color: #fff !important;
+                    }
+
                 }
             }
         }

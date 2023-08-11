@@ -30,6 +30,115 @@ function formatLanguage(DateTime $dt,string $format,string $language = 'en') : s
     return $strDate;
 }
 
+function get_event_date($date_start_timestamp, $date_end_timestamp = null){
+	
+	if($date_start_timestamp) {
+
+		$start_day = gmdate("d", $date_start_timestamp);
+		$start_datetime = new DateTime('@' . $date_start_timestamp);
+
+
+		$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+		$date_format = get_option('date_format');
+
+		
+		$start_month = gmdate("F", $date_start_timestamp);
+		$start_month_intl = formatLanguage($start_datetime, 'F', $my_current_lang);
+
+		if( $date_end_timestamp && ( $start_day != gmdate("d", $date_end_timestamp)) ) {
+			$end_day = gmdate("d", $date_end_timestamp);
+
+			$end_datetime = new DateTime('@' . $date_end_timestamp);
+
+			$end_month = gmdate("F", $date_end_timestamp);
+			$end_month_intl = formatLanguage($end_datetime, 'F', $my_current_lang);
+
+			$start_day = gmdate("j", $date_start_timestamp);
+			$end_day = gmdate("j", $date_end_timestamp);
+			
+			if($start_month == $end_month){ //if is the same month
+
+				if($my_current_lang == 'en') {
+					echo $start_month_intl." ".$start_day."-".$end_day.", ";
+				} else {
+					echo $start_day."-".$end_day." ".$start_month_intl." ";
+				}
+
+				echo gmdate("Y", $date_end_timestamp);
+
+			} else { //different months
+
+				if($my_current_lang == 'en') {
+					echo $start_month_intl." ".$start_day."-".$end_month_intl." ".$end_day.", ";
+				}else {
+					echo $start_day." ".$start_month_intl."-".$end_day." ".$end_month_intl." ";
+				}
+				
+				echo gmdate("Y", $date_end_timestamp);
+			}
+
+
+		} else {
+			echo formatLanguage($start_datetime, $date_format, $my_current_lang);
+		}
+		
+	}
+
+	/*
+	if($event['date_start']) {
+
+		$start_day = gmdate("d", $event['date_start']);
+		$start_datetime = new DateTime('@' . $event['date_start']);
+
+
+		$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+		$date_format = get_option('date_format');
+
+		
+		$start_month = gmdate("F", $event['date_start']);
+		$start_month_intl = formatLanguage($start_datetime, 'F', $my_current_lang);
+
+		if( $event['date_end'] && ( $start_day != gmdate("d", $event['date_end'])) ) {
+			$end_day = gmdate("d", $event['date_end']);
+
+			$end_datetime = new DateTime('@' . $event['date_end']);
+
+			$end_month = gmdate("F", $event['date_end']);
+			$end_month_intl = formatLanguage($end_datetime, 'F', $my_current_lang);
+
+			$start_day = gmdate("j", $event['date_start']);
+			$end_day = gmdate("j", $event['date_end']);
+			
+			if($start_month == $end_month){ //if is the same month
+
+				if($my_current_lang == 'en') {
+					echo $start_month_intl." ".$start_day."-".$end_day.", ";
+				} else {
+					echo $start_day."-".$end_day." ".$start_month_intl." ";
+				}
+
+				echo gmdate("Y", $event['date_end']);
+
+			} else { //different months
+
+				if($my_current_lang == 'en') {
+					echo $start_month_intl." ".$start_day."-".$end_month_intl." ".$end_day.", ";
+				}else {
+					echo $start_day." ".$start_month_intl."-".$end_day." ".$end_month_intl." ";
+				}
+				
+				echo gmdate("Y", $event['date_end']);
+			}
+
+
+		} else {
+			echo formatLanguage($start_datetime, $date_format, $my_current_lang);
+		}
+		
+	}
+	*/
+}
+
 function nc_links_carousel_func($atts) {
 	$a = shortcode_atts(array(
 		'ids' => ''
@@ -2137,14 +2246,26 @@ function events_list_func($atts){
 		'post_type' => 'event',
 		'post_status' => 'publish',
 		'posts_per_page' => '-1',
+		
 
 		'tax_query' => array(
+			//'relation' => 'AND',
+
 			array(
 				'taxonomy' => 'event_categories',
 				'field'    => 'slug',
 				'terms'    => array('webinars'),
 				'operator' => 'NOT IN'
-			),
+			)
+
+			/*
+			array(
+				'taxonomy' => 'post_tag',
+				'terms'    => 269,
+				'operator' => 'NOT IN'
+			)
+			*/
+
 		),
 
 		'meta_query' => array(
@@ -2156,6 +2277,7 @@ function events_list_func($atts){
 				'compare' => 'BETWEEN',
 			),
 		),
+		
 
 	);
 	
@@ -2249,37 +2371,83 @@ function webinar_details_func($atts){
 	ob_start();
 	$post_id = get_the_ID();
 	date_default_timezone_set('Europe/Berlin');
-
+	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
 	$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
+	$diff_days = 0;
+	
 	$event_start_datetime = get_field('event_start_date_and_time', $post_id, false);
+	if($event_start_datetime) {
+		$date_start = date_create($event_start_datetime);
+		$date_start_dayName = date_i18n("l", strtotime($event_start_datetime));
+		$date_start_format = date_i18n($date_format, strtotime($event_start_datetime));
 
-	$date_start = date_create($event_start_datetime);
+		$time_start_format = date_format($date_start,"g:i a");
+		$start_datetime = strtotime($event_start_datetime);
+		$start_datetime2 = new DateTime('@' . $start_datetime);
+		$start_day = gmdate("d", $start_datetime);
+		$start_month = gmdate("F", $start_datetime);
+		$start_month_intl = formatLanguage($start_datetime2, 'F', $my_current_lang);
 
-	$date_start_dayName = date_i18n("l", strtotime($event_start_datetime));
-	$date_start_format = date_i18n($date_format, strtotime($event_start_datetime));
-
-	$time_start_format = date_format($date_start,"g:i a");
-	$start_datetime = strtotime($event_start_datetime);
+		$date_start_utc = date_format($date_start,"Z");
+		$utc_offset = $date_start_utc / 3600;
+		$cet_cest = "(CET)";
+		if($utc_offset>1) // 2 = CEST, 1 = CET
+		{
+			$cet_cest = "(CEST)";
+		}
+	}
+	
 
 	$event_end_datetime = get_field('event_end_date_and_time', $post_id, false);
 	if($event_end_datetime){
 		$date_end = date_create($event_end_datetime);
 		$date_end_format = date_format($date_end,"F j, Y");
 		$end_datetime = strtotime($event_end_datetime);
+		$end_datetime2 = new DateTime('@' . $end_datetime);
+
+		$end_day = gmdate("d", $end_datetime);
+		$end_month = gmdate("F", $end_datetime);
+		$end_month_intl = formatLanguage($end_datetime2, 'F', $my_current_lang);
+
+		$diff_days = $date_end->diff($date_start)->format("%a");
 	}
 
 
-	$date_start_utc = date_format($date_start,"Z");
-	$utc_offset = $date_start_utc / 3600;
-	$cet_cest = "(CET)";
-	if($utc_offset>1) // 2 = CEST, 1 = CET
-	{
-		$cet_cest = "(CEST)";
-	}
+	
 ?>
-	<ul class="">
+	<ul class="webinar_details" data-test="">
 	<?php if($event_start_datetime) { ?>
-		<li><?php echo __('Date:','nextcloud')." ".$date_start_dayName." ".$date_start_format;
+		<li><?php 
+
+		if( $diff_days > 0 ) {
+			//multiple days
+			
+			if($my_current_lang == 'en') {
+
+				if($start_month != $end_month) {
+					//different months
+					echo __('Date:','nextcloud')." ".$start_month_intl." ".$start_day." - ".$end_month_intl." ".$end_day.", ".gmdate("Y", $start_datetime);
+				} else {
+					echo __('Date:','nextcloud')." ".$start_month_intl." ".$start_day." - ".$end_day.", ".gmdate("Y", $start_datetime);
+				}
+				
+
+			} else {
+				//other languages
+				if($start_month != $end_month) {
+					echo __('Date:','nextcloud')." ".$start_day." ".$start_month_intl." - ".$end_day." ".$end_month_intl.", ".gmdate("Y", $start_datetime);
+				}else {
+					echo __('Date:','nextcloud')." ".$start_day." - ".$end_day." ".$start_month_intl.", ".gmdate("Y", $start_datetime);
+				}
+				
+			}
+
+			
+		} else {
+			//single day
+			echo __('Date:','nextcloud')." ".$date_start_dayName." ".$date_start_format;
+		}
+
 		?></li>
 		<li><?php echo __('Time:','nextcloud')." ".$time_start_format." ".$cet_cest; ?></li>
 
@@ -2287,7 +2455,7 @@ function webinar_details_func($atts){
 			<li><?php echo __('Duration:','nextcloud'); ?><?php 
 				$diff = ($end_datetime - $start_datetime) / 60; // divided by 60 seconds, get minutes
 				
-				$diff_days = $date_end->diff($date_start)->format("%a");
+				
 
 
 				if($diff <= 60) {
@@ -2306,6 +2474,8 @@ function webinar_details_func($atts){
 							echo " ".$diff_days." ".__('days', 'nextcloud');
 						}
 
+
+						/*
 						if($diff_hours_day > 0) {
 							if($diff_hours_day == 1) {
 								$hours = __('hour', 'nextcloud');
@@ -2315,6 +2485,7 @@ function webinar_details_func($atts){
 
 							echo " ".__('and','nextcloud')." ".$diff_hours_day." ".$hours;
 						}
+						*/
 						
 					} else {
 						echo " ".$diff_hours." ".__('hours', 'nextcloud');
@@ -2501,6 +2672,7 @@ function events_list_funct($atts) {
 					'compare' => 'BETWEEN',
 				),
 			),
+			'tag__not_in' => array(269) // exclude unlisted tag
 		);
 		
 		$the_query = new WP_Query($args);
@@ -2547,6 +2719,7 @@ function events_list_funct($atts) {
 
 		//order by date
 		if($events) {
+
 			$sortArray = array(); 
 			foreach($events as $event){
 				foreach($event as $key=>$value){
@@ -2556,17 +2729,79 @@ function events_list_funct($atts) {
 					$sortArray[$key][] = $value;
 				}
 			}
-			
 			$orderby = "date_start"; //change this to whatever key you want from the array 
 			//change this to whatever key you want from the array
+			if($year == date("Y")) {
+				array_multisort($sortArray[$orderby],SORT_ASC,$events);
+			} else {
+				array_multisort($sortArray[$orderby],SORT_DESC,$events);
+			}
 
-			array_multisort($sortArray[$orderby],SORT_DESC,$events);
-		}
+
+
+			//get the next event
+			$now = new DateTime();
+			$now_timestamp = $now->getTimestamp();   
+			$past_events = array();
+			
+
+			
+			//$next_event_id = 0;
+			//$lowest_diff = 365;
+			foreach($events as $id => $event){
+				//echo "ID: ".$id;
+				//echo "<br>";
+
+				foreach($event as $key=>$value){
+
+					if($key == 'date_end') {
+
+						if($value) {
+							$diff = $now_timestamp - $value;
+							$days_diff = round($diff / (60 * 60 * 24));
+						}
+						
+						
+						// echo "now_timestamp: ".$now_timestamp."<br>";
+						// echo "date_start".$value."<br>";
+						// echo "days_diff: ".$days_diff."<br>";
+						// echo "<br>";
+						// echo "<br>";
+
+						/*
+						if($days_diff < 0 && abs($days_diff) < $lowest_diff) {
+							$lowest_diff = abs($days_diff);
+							$next_event_id = $id;
+						}
+						*/
+
+
+						if($year == date("Y")) {
+							if($days_diff > 0) {
+								//means it is passed
+								array_push($past_events, $event);
+								unset($events[$id]);
+							}
+						}
+						
+
+
+					}
+				}
+			}
+			
+
+	
+			/*
+			if($year == date("Y")) {
+				$next_event = $events[$next_event_id];
+				unset($events[$next_event_id]);
+			}
+			*/
 
 
 
-		if($events) {
-			echo '<table class="table events_table events table-striped">';
+		echo '<table class="table events_table events table-striped">';
 				echo '<thead>';
 				echo '<tr>
 				<th>'.__('Event', 'nextcloud').'</th>
@@ -2575,6 +2810,30 @@ function events_list_funct($atts) {
 				</tr>';
 				echo '</thead>';
 				echo '<tbody>';
+
+				/*
+			if(isset($next_event)) {
+				?>
+				<tr class="next_event">
+				<td>
+							<a href="<?php if( $next_event['link'] ) { echo $next_event['link']; } else { echo "#"; } ?>" title="<?php echo $next_event['title']; ?>" target="<?php 
+							if($next_event['target']) {
+								echo $next_event['target'];
+							} ?>" class="">
+
+							<?php if(isset($next_event['short_title']) && $next_event['short_title']!='') {
+								echo $next_event['short_title'];
+							} else {
+								echo $next_event['title'];
+							} ?>
+							</a>
+				</td>
+				<td><?php echo $next_event['location']; ?></td>
+				<td><?php echo get_event_date($next_event['date_start'], $next_event['date_end']); ?></td>
+				</tr>
+				<?php
+			} 
+			*/
 
 			foreach ($events as  $event) {
 				?>
@@ -2594,65 +2853,7 @@ function events_list_funct($atts) {
 						</td>
 						<td><?php echo $event['location']; ?></td>
 						<td><?php 
-						if($event['date_start']) {
-
-							$start_day = gmdate("d", $event['date_start']);
-							$start_datetime = new DateTime('@' . $event['date_start']);
-							
-
-							// echo "date start: ".$event['date_start']."<br>";
-							// echo "date end: ".$event['date_end']."<br>";
-							// echo "start day: ".$start_day."<br>";
-							// echo "end day: ".$end_day."<br>";
-
-
-							$my_current_lang = apply_filters( 'wpml_current_language', NULL );
-							$date_format = get_option('date_format');
-
-							
-							$start_month = gmdate("F", $event['date_start']);
-							$start_month_intl = formatLanguage($start_datetime, 'F', $my_current_lang);
-
-							if( $event['date_end'] && ( $start_day != gmdate("d", $event['date_end'])) ) {
-								$end_day = gmdate("d", $event['date_end']);
-
-								$end_datetime = new DateTime('@' . $event['date_end']);
-
-								$end_month = gmdate("F", $event['date_end']);
-								$end_month_intl = formatLanguage($end_datetime, 'F', $my_current_lang);
-
-								$start_day = gmdate("j", $event['date_start']);
-								$end_day = gmdate("j", $event['date_end']);
-								
-
-
-								if($start_month == $end_month){ //if is the same month
-
-									if($my_current_lang == 'en') {
-										echo $start_month_intl." ".$start_day."-".$end_day.", ";
-									} else {
-										echo $start_day."-".$end_day." ".$start_month_intl." ";
-									}
-
-									echo gmdate("Y", $event['date_end']);
-
-								} else { //different months
-
-									if($my_current_lang == 'en') {
-										echo $start_month_intl." ".$start_day."-".$end_month_intl." ".$end_day.", ";
-									}else {
-										echo $start_day." ".$start_month_intl."-".$end_day." ".$end_month_intl." ";
-									}
-									
-									echo gmdate("Y", $event['date_end']);
-								}
-
-
-							} else {
-								echo formatLanguage($start_datetime, $date_format, $my_current_lang);
-							}
-							
-						}
+						echo get_event_date($event['date_start'], $event['date_end']);
 						?>
 					</td>
 				</tr>
@@ -2660,12 +2861,80 @@ function events_list_funct($atts) {
 				<?php
 			}
 
+			//list past events
+			if($past_events) {
+
+				$sortArray2 = array(); 
+				foreach($past_events as $event){
+					foreach($event as $key=>$value){
+						if(!isset($sortArray2[$key])){
+							$sortArray2[$key] = array();
+						}
+						$sortArray2[$key][] = $value;
+					}
+				}
+				$orderby = "date_start"; //change this to whatever key you want from the array 
+				//change this to whatever key you want from the array
+				array_multisort($sortArray2[$orderby],SORT_DESC,$past_events);
+				?>
+
+				<tr class="tr_btn_past_events" style="text-align: center;">
+				<td colspan="3">
+					<a href="#" class="open_past_events">
+						<span>
+						<?php echo __('Show past events','nextcloud'); ?>
+						</span>
+						<i class="fas fa-angle-down"></i>
+					</a>
+				</td>
+				</tr>
+
+				<?php
+				foreach ($past_events as  $event) {
+					?>
+					<tr class="past_events" style="display: none; ">
+					<td>
+								<a href="<?php if( $event['link'] ) { echo $event['link']; } else { echo "#"; } ?>" title="<?php echo $event['title']; ?>" target="<?php 
+								if($event['target']) {
+									echo $event['target'];
+								} ?>" class="">
+	
+								<?php if(isset($event['short_title']) && $event['short_title']!='') {
+									echo $event['short_title'];
+								} else {
+									echo $event['title'];
+								} ?>
+								</a>
+							</td>
+							<td><?php echo $event['location']; ?></td>
+							<td><?php 
+							echo get_event_date($event['date_start'], $event['date_end']);
+							?>
+						</td>
+					</tr>
+					<?php
+				}
+
+
+			}
+
+			
+
 			echo '</tbody>';
 			echo '</table>';
 		}
-		
-		
 		?>
+		<script id="">
+			jQuery(document).ready(function ($) {
+				$('.open_past_events').click(function(e){
+					e.preventDefault();
+					$('tr.past_events').toggle();
+					$(this).toggleClass('open');
+					$(this).find('span').toggleText('<?php echo __('Hide past events','nextcloud'); ?>', '<?php echo __('Show past events','nextcloud'); ?>');
+					$(this).find('i').toggleClass('fa-angle-top').toggleClass('fa-angle-down');
+				});
+			});
+		</script>
       <?php
 	  $result = ob_get_clean();
 	return $result;
@@ -2906,8 +3175,15 @@ function whitepapers_posts_func($atts){
 	), $atts );
 
 	$args = array(
-		'post_type' => 'post',
-		'category_name' => 'whitepaper',
+		'post_type' => array('post'),
+		//'category_name' => 'whitepaper',
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'category',
+				'field'    => 'slug',
+				'terms'    => 'whitepaper',
+			),
+		),
 		'post_status' => 'publish',
 		'posts_per_page' => '-1',
 		'orderby' => 'date',
@@ -2950,12 +3226,11 @@ function whitepapers_posts_func($atts){
 
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
-				echo '<li>posted in </li>';
+				echo '<li>'.__('posted in','nextcloud').' </li>';
 				foreach ($cat as $c) {
-					//	$category_link = get_category_link($c->term_id);
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
-				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
+				echo '<li>'.__('by','nextcloud').' ' . get_the_author_meta('display_name', $author_id) . '</li>';
 				echo '</ul>';
 				echo '<h4><a title="'.$title.'" href="'.$link.'">' . $title . '</a></h4>';
 				echo '<ul class="info">';
@@ -6025,8 +6300,6 @@ function nc_feature_funct($atts,  $content = null) {
 				});
 			  </script>
     <?php } ?>
-	
-
 	<?php if($content) { ?>
 	<div class="vc_row wpb_row vc_row-fluid vc_column-gap-30 vc_row-o-content-middle vc_row-flex other-features-list">
 		<div class="wpb_column vc_column_container vc_col-sm-12">

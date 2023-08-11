@@ -17,6 +17,22 @@ jQuery(document).ready(function ($) {
     }
 
 
+    var OSName="Unknown";
+    if (navigator.appVersion.indexOf("Win")!=-1) OSName="winOS";
+    if (navigator.appVersion.indexOf("Mac")!=-1) OSName="macOS";
+    if (navigator.appVersion.indexOf("X11")!=-1) OSName="unixOS";
+    if (navigator.appVersion.indexOf("Linux")!=-1) OSName="linuxOS";
+    console.log("OS name: "+OSName);
+
+    $('#card-clients-btns .a-btn').each(function(){
+        if($(this).hasClass(OSName)) {
+            $(this).addClass('highlight');
+        } else {
+            $(this).addClass('outline');
+        }
+    });
+
+
     //restrict list to max 12 items
     $('ul.list_load_more li').hide().slice(0, 12).show();
 
