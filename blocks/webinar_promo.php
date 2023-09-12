@@ -17,7 +17,7 @@ if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in insert
 
 else : /* rendering in editor body */
 ?>
-<section class="promo-section promo_webinar <?php if($bg_image) echo "has_custom_bg_image"; ?> <?php if($wide) echo "full-width"; ?>" id="<?php echo $id; ?>" style="<?php
+<section class="promo-section promo_webinar <?php /*if($bg_image)*/ echo "has_custom_bg_image"; ?> <?php if($wide) echo "full-width"; ?>" id="<?php echo $id; ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">
@@ -45,7 +45,7 @@ if($bg_image) {
 						$link_url = $link['url'];
 						$link_title = $link['title'];
 						$link_target = $link['target'] ? $link['target'] : '_self';
-						echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+						echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					}
 					?>
 				</div>

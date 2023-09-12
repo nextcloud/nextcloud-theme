@@ -19,8 +19,8 @@
   padding-top: 10rem;
   padding-bottom: 3rem;
 }
-.register-background h2, .register-background h3 {
-  color: white;
+.register-background h1, .register-background h2, .register-background h3 {
+  color: #fff;
 }
 .register-background h3 {
   font-size: 30px;

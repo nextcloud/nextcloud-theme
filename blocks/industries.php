@@ -64,7 +64,7 @@ else : /* rendering in editor body */
 					echo '<div class="'.$col_class.' col-md-6 spacer">';
 					echo '<div class="item-box">';
 					if (!empty($icon)) {
-						echo '<img src="' . $icon . '" alt=""/>';
+						echo '<img src="' . $icon . '" alt="Nextcloud - '.$header.'"/>';
 					}
 					if (!empty($header)) {
 						echo '<h4>' . $header . '</h4>';

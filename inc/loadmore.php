@@ -107,7 +107,7 @@ function nc_blog_articles_category_load_more() {
 
 		endwhile;
 	} else {
-		$response = '';
+		$response = 'No other posts found.';
 	}
   
 	echo $response;

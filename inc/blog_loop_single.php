@@ -17,7 +17,7 @@ if ( 'event' == get_post_type() ) {
 $cats = '';
 if($cat) {
 	foreach ($cat as $c) {
-		if($c->term_id != 243) { // exclude Uncategorized
+		if($c->term_id != 243 && $c->term_id != 1 ) { // exclude Uncategorized
 			$category_link = get_category_link($c->term_id);
 			$cats .= '<a href="'.$category_link.'">' . $c->name . ' </a>';
 		}

@@ -1351,20 +1351,14 @@
                 border-radius: 15px;
                 color: $textColor;
                 display: block;
-        
-                
-                &:hover {
-                    background-color: rgba(0,130,201,0.25);
-                    //color: $textColor;
-                }
-        
+
                 .iconbox_container {
                     padding: 1.5rem;
                     padding-bottom: 4rem;
         
                     .icon {
-                        font-size: 2rem;
-                        margin-bottom: 1.5rem;
+                        font-size: 3rem;
+                        margin-bottom: 0.5rem;
                         color: $mainColor;
                     }
         
@@ -1375,17 +1369,35 @@
         
                     .description {
                         margin-top: 1.5rem;
-                        //margin-top: 1.5rem;
                     }
         
                     .see_more {
-                        //margin-top: 2rem;
                         font-weight: bold;
                         display: block;
                         position: absolute;
                         bottom: 2rem;
+
+                        i {
+                            position: relative;
+                            top: 1px;
+                            left: 2px;
+                            transition: all 0.3s ease;
+                        }
                     }
                 }
+
+                &:hover {
+                    background-color: rgba(0,130,201,0.25);
+                   
+                    .iconbox_container {
+                        .see_more {
+                            i {
+                                left: 8px;
+                            }
+                        }
+                    }
+                }
+
         
             }
             

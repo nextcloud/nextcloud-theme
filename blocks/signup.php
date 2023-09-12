@@ -72,7 +72,7 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<h2><?php echo __('Simple sign up', 'nextcloud');?></h2>
+				<h1><?php echo __('Simple sign up', 'nextcloud');?></h1>
 				<h3><?php echo __('Sign up now with a Nextcloud provider to get a free account!', 'nextcloud');?></h3>
 			</div>
 		</div>

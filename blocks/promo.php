@@ -25,7 +25,7 @@ if($bg_image) {
 				<div class="text-block">
 					<?php
 					if($image_icon) {
-						echo '<div class="icon"><img src="'.$image_icon.'"></div>';
+						echo '<div class="icon"><img src="'.$image_icon.'" alt="Nextcloud - '.$title.'"/></div>';
 					}
 
 					if (!empty($title)) {

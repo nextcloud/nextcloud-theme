@@ -44,6 +44,13 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('.mail_obf').each(function(){
+        var s = $(this).data('email');
+        var e = s.split("").reverse().join("");
+        //$(this).append('<a href="mailto:'+email+'">'+email+'</a>');
+        $(this).html('<a href="mailto:'+e+'">'+e+'</a>');
+    });
+
     $('.list_load_more_btn').on('click',function(e){
         e.preventDefault();
         //console.log('test click');

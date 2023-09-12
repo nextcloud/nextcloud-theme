@@ -1616,8 +1616,8 @@ function press_releases_funct($atts) {
 	// The Query
 	$first_ids = get_posts( array(
 		'fields'         => 'ids',
-		'category_name' => 'pressrelease',
-		//'category' => 19,
+		//'category_name' => 'pressrelease',
+		'category' => 19,
 		//'category' => apply_filters( 'wpml_object_id', 19, 'category', TRUE  ),
 		'post_type' => array('post'),
 		'post_status' => array('publish'),
@@ -1629,7 +1629,8 @@ function press_releases_funct($atts) {
 		'posts_per_page' => '-1',
 		'orderby'    => 'date',
 		'order'      => 'DESC',
-		'suppress_filters' => false
+		//'suppress_filters' => false,
+		//'ignore_sticky_posts' => true,
 	));
 
 	$second_ids = get_posts( array(
@@ -1644,7 +1645,8 @@ function press_releases_funct($atts) {
 		'posts_per_page' => '-1',
 		'orderby'    => 'date',
 		'order'      => 'DESC',
-		//'suppress_filters' => 0
+		//'suppress_filters' => 0,
+		//'ignore_sticky_posts' => true,
 	));
 
 	//$the_query = new WP_Query( $args );
@@ -1655,7 +1657,8 @@ function press_releases_funct($atts) {
 		'post__in'  => $post_ids, 
 		'orderby'   => 'date', 
 		'order'     => 'DESC',
-		'posts_per_page' => '-1'
+		'posts_per_page' => '-1',
+		'post__not_in' => get_option('sticky_posts')
 	));
 
 	// The Loop
@@ -2170,6 +2173,15 @@ function webinars_list_func($atts){
 			$date_formatted = date_format($date, $date_format);
 			//echo $date_formatted;
 
+			//get CET/CEST
+			$date_start_utc = date_format($date,"Z");
+			$utc_offset = $date_start_utc / 3600;
+			$cet_cest = "(CET)";
+			if($utc_offset>1) // 2 = CEST, 1 = CET
+			{
+				$cet_cest = "(CEST)";
+			}
+
 			$my_current_lang = apply_filters( 'wpml_current_language', NULL );
 
 			echo formatLanguage($date, $date_format, $my_current_lang);
@@ -2177,7 +2189,7 @@ function webinars_list_func($atts){
 			</td>
 			<td>
 			<?php 
-			echo date_format($date,"g:i a"); ?> (CET)
+			echo date_format($date,"g:i a")." ".$cet_cest; ?>
 			</td>
 			</tr>
 
@@ -2468,10 +2480,15 @@ function webinar_details_func($atts){
 						$diff_hours_day = $diff_hours -  ($diff_days * 24);
 						
 
-						if($diff_days == 1) {
-							echo " ".$diff_days." ".__('day', 'nextcloud');
-						} else if ($diff_days > 1) {
-							echo " ".$diff_days." ".__('days', 'nextcloud');
+						$diff_days_int = ceil($diff_hours/24);
+						echo " ".$diff_days_int." ";
+						//if($diff_days == 1) {
+						if($end_day == $start_day) {
+							echo __('day', 'nextcloud');
+						}
+						//} else if ($diff_days > 1) {
+						else {	
+							echo __('days', 'nextcloud');
 						}
 
 
@@ -3623,7 +3640,7 @@ function team_members_list_funct($atts) {
 	$atts = shortcode_atts(array(
 		'team_members' => '',
 		'team_members_tag' => '',
-		'css_classes' => ''
+		'css_classes' => 'col-lg-4 col-md-6'
 	), $atts);
 
 	$items = $atts['team_members'];
@@ -3651,7 +3668,8 @@ function team_members_list_funct($atts) {
 				array( 
 					'taxonomy' => 'post_tag', 
 					'field' => 'name', 
-					'terms' => $team_members_tag)
+					'terms' => $team_members_tag
+					)
 				),
 			'orderby' => 'menu_order',
 			'order' => 'ASC'
@@ -3682,7 +3700,7 @@ function team_members_list_funct($atts) {
 		$social = get_field('social_links', $id);
 
 ?>
-<div class="col-lg-4 col-md-6 spacer <?php echo $atts['css_classes']; ?>">
+<div class="spacer <?php echo $atts['css_classes']; ?>">
 <div class="member-holder">
 	<?php
 	if (!empty($img)) {
@@ -3713,7 +3731,7 @@ function team_members_list_funct($atts) {
 				$link = $sm['social_media_link'];
 				echo '<li>';
 				echo '<a target="_blank" href="' . $link . '">';
-				echo '<img src="' . $icon . '" alt=""/>';
+				echo '<img src="' . $icon . '" alt="Social media"/>';
 				echo '</a>';
 				echo '</li>';
 			}
@@ -6318,3 +6336,55 @@ function nc_feature_funct($atts,  $content = null) {
 	$result = ob_get_clean();
 	return $result;
 }
+
+
+
+function cl_acf_set_language() {
+	return acf_get_setting('default_language');
+}
+function get_global_option($name) {
+	  add_filter('acf/settings/current_language', 'cl_acf_set_language', 100);
+	  $option = get_field($name, 'option');
+	  remove_filter('acf/settings/current_language', 'cl_acf_set_language', 100);
+	  return $option;
+}
+
+
+function get_clients_link_func($atts){
+	$a = shortcode_atts( array(
+		'os' => '' //default windows
+	), $atts );
+
+	$version = '';
+	if (get_field('clients_download_version', 'option') ) {
+		//$version = get_field('clients_download_version', 'option');
+		$version = get_global_option('clients_download_version');
+	}
+
+	$return = $a['os'];
+
+	switch($a['os']) {
+		case "win":
+			$return = '<a class="a-btn btn-light winOS" href="https://github.com/nextcloud-releases/desktop/releases/latest/download/Nextcloud-'.$version.'-x64.msi" target="_blank">
+			<i class="fab fa-windows"></i>Windows 10 64 bit</a>';
+			break;
+
+		case "mac":
+			$return = '<a class="a-btn btn-light macOS" href="https://github.com/nextcloud-releases/desktop/releases/latest/download/Nextcloud-'.$version.'.pkg" target="_blank">
+			<i class="fab fa-apple"></i>macOS 10.14+, 64 bit (universal)</a>';
+			break;
+		
+		case "linux":
+			$return = '<a class="a-btn btn-light unixOS" href="https://github.com/nextcloud-releases/desktop/releases/latest/download/Nextcloud-'.$version.'-x86_64.AppImage" target="_blank">
+			<i class="fab fa-linux"></i>Linux AppImage</a>';
+			break;
+		
+		default:
+			$return = "";
+			break;
+	}
+
+	return $return;
+
+}
+add_shortcode('get_clients_link','get_clients_link_func');

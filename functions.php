@@ -276,3 +276,12 @@ function nc_show_feat_image_as_twitter_image_tag(){
 	}
 };
 add_action('wp_head', 'nc_show_feat_image_as_twitter_image_tag');
+
+//Allow editor role to edit the translations created by other users
+add_filter('wpml_user_can_translate', function ($user_can_translate, $user){
+    if (in_array('editor', (array) $user->roles, true) && current_user_can('translate')) {
+        return true;
+    }
+        
+    return $user_can_translate;
+}, 10, 2);
