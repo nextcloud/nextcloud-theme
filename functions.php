@@ -285,3 +285,17 @@ add_filter('wpml_user_can_translate', function ($user_can_translate, $user){
         
     return $user_can_translate;
 }, 10, 2);
+
+
+//Disable part of endpoints wordpress api for users
+function smntcs_rest_endpoints( $endpoints ) {
+	if ( isset( $endpoints['/wp/v2/users'] ) ) {
+		unset( $endpoints['/wp/v2/users'] );
+	}
+	if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+		unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+	}
+
+	return $endpoints;
+}
+add_filter( 'rest_endpoints', 'smntcs_rest_endpoints' );

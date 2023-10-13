@@ -913,7 +913,7 @@
         }
     
         .hero-btn {
-            margin-bottom: 0 !important;
+            //margin-bottom: 0 !important;
 
 
             @media screen and (max-width: $md-breakpoint) {
@@ -994,11 +994,14 @@
                 aspect-ratio: 1;
                 filter: grayscale(1);
 
+                &:focus {
+                    filter: grayscale(0);
+                }
+
                 a {
                     width: 100%;
                     display: flex;
-                    //filter: grayscale(1);
-
+                    
                     &:focus {
                         filter: grayscale(0);
 
@@ -1018,6 +1021,7 @@
                     align-self: center;
                     max-height: 100px;
                     min-width: 100px;
+
                 }
             }
             

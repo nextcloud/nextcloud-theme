@@ -446,3 +446,73 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
   
     return $options;
 }, 10, 2 );
+
+
+//populate event name field with names of event post types and Activity IDs
+add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
+
+    $events_list = array();
+
+    $args = array(
+		'post_type' => 'event',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'event_categories',
+				'field'    => 'slug',
+				'terms'    => 'exhibition',
+			),
+		)
+	);
+
+	$events_query = new WP_Query($args);
+    if ( $events_query->have_posts() ) {
+		while ( $events_query->have_posts() ) {
+			$events_query->the_post();
+
+            $event_end_datetime = get_field('event_end_date_and_time', false, false);
+            $now_timestamp = new DateTime("now");
+            $event_end_datetime_timestamp = new DateTime($event_end_datetime);
+            $interval = $now_timestamp->diff($event_end_datetime_timestamp);
+
+
+			$activity_id = get_field('activity_id');
+            if( isset($activity_id) && str_contains($activity_id, '-apt-'))
+            {
+                $activity_id = str_replace("-apt-", "-", $activity_id);
+            }
+
+			$title = get_the_title();
+            if(get_field('event_short_title')) {
+                $title = get_field('event_short_title');
+            }
+
+            
+            if($interval->days < 30) {
+                $events_list[$activity_id]=$title;
+            }
+            //$events_list[$activity_id]=$title;
+            
+
+		}
+	} else {
+		// no posts found
+	}
+	/* Restore original Post Data */
+	wp_reset_postdata();
+
+    if( $settings['key'] == 'event_name_1685534754887') {
+        //$options = []; //don't reset the options, so it takes also the manual values 
+
+        foreach($events_list as $id => $event_name) {
+            $options[] = [
+                'label' => $event_name,
+                'value' => $id,
+                'calc' => 0
+            ];
+        }
+    }
+  
+    return $options;
+}, 10, 2 );

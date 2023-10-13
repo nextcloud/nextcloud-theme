@@ -1,8 +1,10 @@
 <?php
     $id = get_the_ID();
     if ($id !== false) {
-        $ids[] = $id;
+        $ignore_ids[] = $id;
     }
+	//print_r($ignore_ids);
+
     if(get_post_type() == 'event') {
             $terms = wp_get_post_terms( get_the_ID(), 'event_categories', array('fields' => 'ids') );
     } else {
@@ -10,16 +12,13 @@
     }
 
 							$tags = wp_get_post_terms( get_queried_object_id(), 'post_tag', ['fields' => 'ids'] );
-							//print_r($tags);
-
 							$related_ids = array();
-							
 
 							//tags
 							$related_posts_args_by_tags = array(
 								'post_type' => get_post_type(),
 								'post_status' => 'publish',
-								'post__not_in' => $ids,
+								//'post__not_in' => $ignore_ids,
 								'tax_query' => array(
 									'relation' => 'AND',
 									array(
@@ -49,66 +48,67 @@
 							}
 
 
-							//categories
-							$term_tax = 'category';
-							if(get_post_type() == 'event') {
-								$term_tax = 'event_categories';
-							}
+							//get terms, but not for press releases
+							if(get_post_type() != 'press_releases') {
 
-							$related_posts_args_by_terms = array(
-								'post_type' => get_post_type(),
-								'post_status' => 'publish',
-                                'post__not_in' => $ids,
-								'tax_query' => array(
-									'relation' => 'AND',
-									array(
-										'taxonomy' => $term_tax,
-										'field'    => 'term_id',
-										'terms'    => $terms,
-										'operator' => 'IN',
-									),
-									array(
-										'taxonomy' => $term_tax,
-										'field'    => 'term_id',
-										'terms'    => array(225, 226), // exclude Private categories
-										'operator' => 'NOT IN',
-									),
-									array(
-										'taxonomy' => 'post_tag',
-										'field'    => 'term_id',
-										'terms'    => array(269), // exclude unlisted tag
-										'operator' => 'NOT IN'
-									)
-								)
-							);
-							$related_posts_by_terms_query = new WP_Query();
-							$posts_by_terms = $related_posts_by_terms_query->query($related_posts_args_by_terms);
-							if($posts_by_terms) {
-								foreach ($posts_by_terms as $onepostsingle) {
-									$related_ids[] = $onepostsingle->ID;
+								$term_tax = 'category';
+								if(get_post_type() == 'event') {
+									$term_tax = 'event_categories';
 								}
-							}else {
-								//echo "no posts with those term conditions";
+
+								$related_posts_args_by_terms = array(
+									'post_type' => get_post_type(),
+									'post_status' => 'publish',
+									'post__not_in' => $ignore_ids,
+									'tax_query' => array(
+										'relation' => 'AND',
+										array(
+											'taxonomy' => $term_tax,
+											'field'    => 'term_id',
+											'terms'    => $terms,
+											'operator' => 'IN',
+										),
+										array(
+											'taxonomy' => $term_tax,
+											'field'    => 'term_id',
+											'terms'    => array(225, 226), // exclude Private categories
+											'operator' => 'NOT IN',
+										),
+										array(
+											'taxonomy' => 'post_tag',
+											'field'    => 'term_id',
+											'terms'    => array(269), // exclude unlisted tag
+											'operator' => 'NOT IN'
+										)
+										)
+								);
+								$related_posts_by_terms_query = new WP_Query();
+								$posts_by_terms = $related_posts_by_terms_query->query($related_posts_args_by_terms);
+								if($posts_by_terms) {
+									foreach ($posts_by_terms as $onepostsingle) {
+										$related_ids[] = $onepostsingle->ID;
+									}
+								}else {
+									//echo "no posts with those term conditions";
+								}
+
+
 							}
 
-							//print_r($related_ids);
 
+							
 
 
 							$my_wp_query = new WP_Query();
 							$related_args = array(
 								'post_type' => get_post_type(),
-								//'post__not_in' => $ids,
 								'post__in' => $related_ids,
+								'post__not_in' => $ignore_ids,
 								'posts_per_page' => 3,
 								'post_status' => 'publish',
 								'orderby' => 'post__in',
-								//'orderby' => 'date',
-								//'order' => 'DESC',
-								//'category__not_in'=> , //exclude Private category
-								//'tag__not_in' => array(269), // exclud unlisted tag
-								//'category__in' => wp_get_post_categories(get_the_ID()),
-						
+								'orderby' => 'date',
+								'order' => 'DESC'
 							);
 
 							$onepost = $my_wp_query->query($related_args);
@@ -141,7 +141,7 @@
                                         }
                                     }
     
-                                    echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
+                                    echo '<div id="post-'.$post_id.'" class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
                                     echo '<div class="post-box">';
                                     echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">';
 									
@@ -174,7 +174,4 @@
                             }else {
                                 //echo "no posts found!";
                             }
-
-							
-							
-							?>
+?>

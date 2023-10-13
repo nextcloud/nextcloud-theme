@@ -755,10 +755,7 @@ jQuery(document).ready(function () {
         .not('[href="#nextcloud_tab2"]')
         .not('[href="#nextcloud_tab3"]')
         .not('[href="#nextcloud_tab4"]')
-        .not('[data-vc-accordion]')
-        
-
-        .click(function (event) {
+        .not('[data-vc-accordion]').click(function (event) {
             // On-page links
             //event.preventDefault();
 
@@ -784,7 +781,7 @@ jQuery(document).ready(function () {
                         if ($target.is(":focus")) { // Checking if the target was focused
                             return false;
                         } else {
-                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            //$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
                             $target.focus(); // Set focus again
                         }
                         ;

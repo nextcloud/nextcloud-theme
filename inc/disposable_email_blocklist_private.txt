@@ -25,3 +25,5 @@ kabelbw.de
 ok.de
 fukaru.com
 lilo.org
+relay.firefox.com
+owncloud.com

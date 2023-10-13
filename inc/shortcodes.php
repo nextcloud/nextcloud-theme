@@ -2352,7 +2352,7 @@ function events_list_func($atts){
 			echo formatLanguage($date, $date_format, $my_current_lang);
 
 			if($event_end_datetime){
-				echo "TEST - ".date_format($date_end,$date_format);
+				echo date_format($date_end,$date_format);
 			}
 
 			?>
@@ -2808,14 +2808,6 @@ function events_list_funct($atts) {
 			}
 			
 
-	
-			/*
-			if($year == date("Y")) {
-				$next_event = $events[$next_event_id];
-				unset($events[$next_event_id]);
-			}
-			*/
-
 
 
 		echo '<table class="table events_table events table-striped">';
@@ -2828,39 +2820,12 @@ function events_list_funct($atts) {
 				echo '</thead>';
 				echo '<tbody>';
 
-				/*
-			if(isset($next_event)) {
-				?>
-				<tr class="next_event">
-				<td>
-							<a href="<?php if( $next_event['link'] ) { echo $next_event['link']; } else { echo "#"; } ?>" title="<?php echo $next_event['title']; ?>" target="<?php 
-							if($next_event['target']) {
-								echo $next_event['target'];
-							} ?>" class="">
-
-							<?php if(isset($next_event['short_title']) && $next_event['short_title']!='') {
-								echo $next_event['short_title'];
-							} else {
-								echo $next_event['title'];
-							} ?>
-							</a>
-				</td>
-				<td><?php echo $next_event['location']; ?></td>
-				<td><?php echo get_event_date($next_event['date_start'], $next_event['date_end']); ?></td>
-				</tr>
-				<?php
-			} 
-			*/
 
 			foreach ($events as  $event) {
 				?>
 				<tr>
 						<td>
-							<a href="<?php if( $event['link'] ) { echo $event['link']; } else { echo "#"; } ?>" title="<?php echo $event['title']; ?>" target="<?php 
-							if($event['target']) {
-								echo $event['target'];
-							} ?>" class="">
-
+							<a href="<?php if( $event['link'] ) { echo $event['link']; } else { echo "#"; } ?>" title="<?php echo $event['title']; ?>" target="_blank" class="">
 							<?php if(isset($event['short_title']) && $event['short_title']!='') {
 								echo $event['short_title'];
 							} else {
@@ -3996,8 +3961,12 @@ function blog_list_shortcode_funct($atts) {
 				if($rss_feed) {
 					//global $wp;
 					$current_url = home_url($_SERVER['REQUEST_URI']);
-					//echo $current_url;
-					echo '<a class="rss_feed" href="'.$current_url.'feed2" title="'.__('RSS Feed','nextcloud').'" target="_blank"><i class="fas fa-rss"></i></a>';
+					$base_url = strstr($current_url, '?', true);
+
+					echo '<a class="rss_feed" href="'.$base_url.'feed2" title="'.__('RSS Feed','nextcloud').'" target="_blank"><i class="fas fa-rss"></i></a>';
+					
+					
+					
 				}
 			}
 			
@@ -4894,12 +4863,14 @@ function countdown_shortcode_funct($atts) {
 	ob_start();
 	$atts = shortcode_atts(array(
 		'date' => '',
-		'id' => 'countdown'
+		'id' => 'countdown',
+		'custom_class' => ''
 	), $atts);
 	$date = $atts['date'];
 	$id = $atts['id'];
+	$custom_class = $atts['custom_class'];
 ?>
-<div id="<?php echo $id; ?>" class="countdown"></div>
+<div id="<?php echo $id; ?>" class="countdown <?php echo $custom_class; ?>"></div>
 <script>
 // Set the date we're counting down to
 var countDownDate = new Date("<?php echo $date; ?>").getTime();
@@ -5273,7 +5244,7 @@ function previous_episodes_podcast_funct($atts) {
 
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
-				echo '<li>'.__('Posten in','nextcloud').' </li>';
+				echo '<li>'.__('Posted in','nextcloud').' </li>';
 				foreach ($cat as $c) {
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
@@ -5417,6 +5388,7 @@ function nc_version_section_funct($atts,  $content = null) {
 					jQuery(document).ready(function ($) {
 						//sticky sidebar
 						//if ($(window).width() > 990) {
+/*
 							$('#version-fixed-<?php echo $id; ?>').stickySidebar({
 								containerSelector: '.nc_version_column',
 								innerWrapperSelector: '.version_info__inner',
@@ -5424,6 +5396,7 @@ function nc_version_section_funct($atts,  $content = null) {
 								bottomSpacing: 150,
 								minWidth: 990
 							});
+							*/
 						//}
 					});
 					</script>
@@ -6179,7 +6152,7 @@ function nc_feature_funct($atts,  $content = null) {
 
 				<?php if ($link['url']) { ?>
 					<div class="vc_btn3-container btn-main btn-small vc_btn3-inline">
-						<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?> <i class="vc_btn3-icon fas fa-angle-right"></i></a>
+						<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?> <i class="vc_btn3-icon fas fa-angle-right"></i></a>
 					</div>
 				<?php } ?>
 

@@ -1409,8 +1409,7 @@ p {
 
         .slick-slide {
             margin: 20px 15px;
-            border-radius: 10px;
-            -webkit-border-radius: 10px;
+            border-radius: 15px;
             border: 2px solid transparent;
             height: inherit !important;
             transition: all 0.3s ease;
@@ -2516,11 +2515,11 @@ p {
             img {
                 max-width: 100%;
                 height: auto;
-                border-radius: 10px;
+                border-radius: 15px;
                 -webkit-border-radius: 10px;
-                -webkit-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.15);
-                -moz-box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.15);
-                box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.15);
+                -webkit-box-shadow: 0px 3px 30px 0px rgba(0, 130, 201, 0.15);
+                -moz-box-shadow: 0px 3px 30px 0px rgba(0, 130, 201, 0.15);
+                box-shadow: 0px 3px 30px 0px rgba(0, 130, 201, 0.15);
 
                 &.no-shd {
                     background-color: transparent;
@@ -10138,6 +10137,38 @@ p {
             }
         }
     }
+
+
+    &.youtube {
+        .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+        {
+            color: #fff;
+            background-color: $youtube;
+            border-color: $youtube;
+
+            &:hover, &:focus {
+                color: #fff;
+                background-color: $youtube;
+                border-color: $youtube;
+            }
+        }
+    }
+
+    &.youtube-outline {
+        .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+        {
+            color: $youtube;
+            background-color: #fff;
+            border-color: $youtube;
+
+            &:hover, &:focus {
+                color: #fff;
+                background-color: $youtube;
+                border-color: $youtube;
+            }
+        }
+    }
+
 }
 
 
@@ -10938,6 +10969,13 @@ ul.upgrade_path_list {
 
 
 .nc-table {
+
+    &.wp-block-table {
+        thead {
+            border-bottom: 0 !important;
+        }
+    }
+
     table{
         width: 100%;
         max-width: 100%;
@@ -11017,6 +11055,51 @@ ul.upgrade_path_list {
         }
 
     }
+
+
+    &.costs {
+        table {
+            thead {
+                td {
+                    font-weight: 700;
+                    background-color: $communityColor;
+                    
+                    &:first-child {
+                        border-radius: 15px 0 0 0;
+                    }
+                    &:last-child {
+                        background-color: $mainColor;
+                        border-radius: 0 15px 0 0;
+
+                        //width: 200px;
+                        font-weight: bold;
+                        color: #fff;
+                    }
+    
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        border-left: 1px solid #DFDFDF !important;
+
+                        &:first-child {
+                            font-weight: normal !important;
+                            color: $textColor !important;
+                        }
+
+                        &:last-child {
+                            //width: 200px;
+                            //font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+         
+    }
+
+
 }
 
 
@@ -11150,6 +11233,21 @@ ul.upgrade_path_list {
             &{
                 padding-left: 4rem;
             }
+        }
+    }
+
+
+    &.cta_with_background {
+        background-size: cover;
+        background-position: center;
+
+        .overlay-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, $mainColor 43% ,rgba(0, 130, 201, 0.15) );
+            top: 0;
+            left: 0;
         }
     }
 }
@@ -11536,7 +11634,7 @@ ul.upgrade_path_list {
 
     &.blueOverlay {
         color: white;
-        
+
         .overlay-gradient {
 
             position: absolute;
@@ -12617,6 +12715,14 @@ ul.list_compliance {
     }
 }
 
+.iframeRoundShadow, .videoRoundShadow {
+    iframe {
+        border-radius: $borderRadius;
+        box-shadow: $boxShadow;
+        overflow: hidden;
+    }
+}
+
 .wp-block-video.imageRoundShadow {
     border-radius: $borderRadius;
     box-shadow: $boxShadow;
@@ -12662,6 +12768,9 @@ ul.list_compliance {
     }
 }
 
+.alignItemsCenter {
+    align-items: center !important;
+}
 
 .nc_aligncenter {
     text-align: center;
@@ -14244,9 +14353,53 @@ table.color_table {
 .nc_success_message {
     background: $successBGColor;
     color: #fff;
-    padding: 6px 13px;
+    padding: 15px;
     border-radius: $borderRadius;
+    position: relative;
+
+    /*
+    &:before {
+        left: 27px;
+        position: absolute;
+        content: "\f2bd";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
+        margin-right: 7px;
+        font-size: 2.5rem;
+    }
+    */
+
+    p {
+        margin: 0;
+    }
 }
+
+
+.nc_success_message_alt {
+    background: #e2ffec;
+    //color: #fff;
+    padding: 15px;
+    border-radius: $borderRadius;
+    position: relative;
+    padding-left: 5rem;
+
+    &:before {
+        left: 27px;
+        top: 0;
+        position: absolute;
+        content: "\f058";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
+        margin-right: 7px;
+        font-size: 2.5rem;
+        line-height: 5rem;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
 
 
 
@@ -14887,6 +15040,19 @@ blockquote.wp-block-quote {
         }
     }
 
+
+    &.simple {
+        & > div {
+            font-size: 30px;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 15px;
+            background: none;
+            color: $textColor;
+        }
+
+    }
+
 }
 
 
@@ -15452,6 +15618,9 @@ blockquote.wp-block-quote {
     }
 
     .changelog_list {
+
+        max-height: 650px;
+        overflow-y: scroll;
 
         ul {
             padding: 0;
