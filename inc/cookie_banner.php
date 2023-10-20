@@ -3,7 +3,7 @@
     <div class="cookie_banner_inner">
 
         <div class="logo">
-            <img src="https://nextcloud.com/wp-content/uploads/2022/10/nextcloud-logo-blue-transparent.svg" alt="Nextcloud" title="Nextcloud">
+            <img src="https://nextcloud.com/wp-content/uploads/2022/10/nextcloud-logo-blue-transparent.svg" width="71px" height="50px" alt="Nextcloud" title="Nextcloud">
         </div>
 
         <div class="description">

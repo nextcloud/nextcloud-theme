@@ -24,15 +24,20 @@ get_header();
 		<div class="container">
 			<div class="row row-list-blog">
 				<?php
+				
+				
 				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 				add_query_arg('paged', $paged);
+				//add_query_arg('post_type', 'post');
 				
 				if (have_posts()) : ?>
 				<?php
 					// Start the Loop
 					while (have_posts()) : the_post();
 
-						get_template_part('inc/blog_loop_single');
+						if(get_post_type()!='acf-field-group') {
+							get_template_part('inc/blog_loop_single');
+						}
 
 					endwhile;
 				endif;

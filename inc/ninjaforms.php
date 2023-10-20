@@ -114,16 +114,19 @@ function nc_change_nf_default_value( $default_value, $field_type, $field_setting
         $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
 
         if( str_contains($field_settings['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){
-                //$default_value = $_COOKIE["nc_form_name"];
-                $default_value = $nc_form_fields['nc_form_name'];
+                if(isset($nc_form_fields['nc_form_name'])) {
+                    $default_value = $nc_form_fields['nc_form_name'];
+                }
         }
         if( str_contains($field_settings['key'], 'email') ){
-                //$default_value = $_COOKIE['nc_form_email'];
-                $default_value = $nc_form_fields['nc_form_email'];
+                if(isset($nc_form_fields['nc_form_email'])) {
+                    $default_value = $nc_form_fields['nc_form_email'];
+                }
         }
         if( str_contains($field_settings['key'], 'phone') ){
-                //$default_value = $_COOKIE['nc_form_phone'];
-                $default_value = $nc_form_fields['nc_form_phone'];
+                if(isset($nc_form_fields['nc_form_phone'])) {
+                    $default_value = $nc_form_fields['nc_form_phone'];
+                }
         }
     }
 
@@ -421,16 +424,24 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
     if(str_contains($settings['key'], 'language')) {
 
         $options = [];
+        $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+        $pref_lang = '';
+        if(isset($_COOKIE['nc_form_fields'])){
+            $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
+            if( isset($nc_form_fields['nc_form_lang'])){
+                $pref_lang = $nc_form_fields['nc_form_lang'];
+            }
+        } else {
+            $pref_lang = $browser_lang;
+        }
+
 
         foreach($languages_list as $code => $language) {
-            
             $selected = false;
 
-            if(isset($_COOKIE['nc_form_fields'])){
-                $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
-                if($nc_form_fields['nc_form_lang'] == $code){
-                    $selected = true;
-                }
+            if($pref_lang == $code){
+                $selected = true;
             }
 
             $options[] = [

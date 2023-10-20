@@ -1,5 +1,4 @@
 <?php
-
 if (!empty($_SERVER['SCRIPT_FILENAME']) && 'functions.php' == basename($_SERVER['SCRIPT_FILENAME'])) {
 	die('Error!');
 }
@@ -8,8 +7,6 @@ require_once locate_template('vendor/autoload.php');
 require_once locate_template('lib/signup.php');
 //require_once locate_template('lib/ripcord.php');
 require_once(get_stylesheet_directory() . '/lib/ripcord.php');
-
-
 require_once(get_stylesheet_directory() . '/inc/shortcodes.php');
 require_once(get_stylesheet_directory() . '/inc/loadmore.php');
 require_once(get_stylesheet_directory() . '/inc/ninjaforms.php');
@@ -27,7 +24,6 @@ add_action('wp_head', 'add_custom_code_header');
 function add_custom_code_header(){
 	echo get_post_meta(get_the_ID(), 'custom_header_code', true);
 };
-
 
 add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
@@ -49,7 +45,6 @@ function file_scripts() {
 	//searchable select
 	wp_enqueue_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
 
-
 	//js
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/dist/js/jquery-3.6.0.min.js', [], true);
 	wp_enqueue_script('bootstrap', get_template_directory_uri() . '/dist/js/bootstrap.bundle.min.js', [], true);
@@ -69,19 +64,15 @@ function file_scripts() {
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
 	
 	
-    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form') ) {
+    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form')) {
         wp_enqueue_script('custom-nf-code');
     }
 	
-
 	wp_enqueue_script('main', get_template_directory_uri() . '/dist/js/main.js', [], true);
 
-	
 	if (is_singular() && comments_open() && get_option('thread_comments') ) {
 		wp_enqueue_script('comment-reply');
 	}
-
-
 }
 add_action('wp_enqueue_scripts', 'file_scripts');
 
@@ -299,3 +290,11 @@ function smntcs_rest_endpoints( $endpoints ) {
 	return $endpoints;
 }
 add_filter( 'rest_endpoints', 'smntcs_rest_endpoints' );
+
+//Exclude "unlisted" tag from archive query
+function exclude_posts( $query ) { 
+    if ( $query->is_archive() ) {  
+        $query->set( 'tag__not_in', array( 269 ) ); 
+    } 
+}
+add_action( 'pre_get_posts', 'exclude_posts' );

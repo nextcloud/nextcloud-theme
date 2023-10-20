@@ -169,7 +169,6 @@ p {
     
 }
 
-
 //btn hub 5 video
 .btn-hub5-video {
     img {
@@ -177,7 +176,7 @@ p {
     }
 }
 
-.c-btn {
+.c-btn, .btn-primary {
     display: inline-block;
     min-width: 242px;
     padding: 12px 2rem;
@@ -195,6 +194,7 @@ p {
         background-color: #fff;
         color: $mainColor;
         text-decoration: none;
+        border-color: $mainColor;
     }
 
     &:focus {
@@ -8201,12 +8201,8 @@ p {
 
 
         
-        a:not(.c-btn) {
+        a:not(.c-btn):not(.btn-primary):not(.wp-block-button__link) {
             color: $mainColor;
-
-            &:hover {
-                //color: #000;
-            }
         }
         
         a.btn {
@@ -14357,18 +14353,6 @@ table.color_table {
     border-radius: $borderRadius;
     position: relative;
 
-    /*
-    &:before {
-        left: 27px;
-        position: absolute;
-        content: "\f2bd";
-        font-family: "Font Awesome 5 Free";
-        font-weight: 400;
-        margin-right: 7px;
-        font-size: 2.5rem;
-    }
-    */
-
     p {
         margin: 0;
     }
@@ -14376,8 +14360,7 @@ table.color_table {
 
 
 .nc_success_message_alt {
-    background: #e2ffec;
-    //color: #fff;
+    background-color: #a5ffc4;
     padding: 15px;
     border-radius: $borderRadius;
     position: relative;

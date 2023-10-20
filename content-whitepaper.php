@@ -1,5 +1,7 @@
 <div class="wrapper">
 	<?php
+	wp_enqueue_script('custom-nf-code');
+
 	$ids = [];
 	while (have_posts()) : the_post();
 		$date = (string)get_the_date('F d, Y');
@@ -96,13 +98,10 @@
                                 echo __('Download data sheet', 'nextcloud');
                             }
                         ?>
-
-                        <?php //echo __('Download whitepaper','nextcloud'); ?>
                         </h3>
 
 						<?php 
 						echo '<div class="form-body download_whitepaper_form">';
-						//echo do_shortcode("[ninja_form id='10']");
 
 						if(get_post_meta(get_the_ID(), 'custom_ninja_form', true)) {
 							//if custom shortcode is in the custom field
@@ -142,17 +141,7 @@
 					<div class="col-12">
 						<div class="related-slider">
 							<?php
-                            /*
-                            $custom_post_type = '';
-                            if(get_post_type()=='whitepapers'){
-                                $custom_post_type = 'whitepapers';
-                            }else if(get_post_type()=='case_studies') {
-                                echo __('case studies', 'nextcloud');
-                            } else if(get_post_type()=='data_sheets'){
-                                echo __('data sheets', 'nextcloud');
-                            }
-                            */
-
+   
 
 							$my_wp_query = new WP_Query();
 							/** @var WP_Post[] $onepost */

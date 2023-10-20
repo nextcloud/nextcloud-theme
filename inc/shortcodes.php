@@ -4334,7 +4334,7 @@ function partners_search_shortcode_funct($atts) {
 							<button class="tab-link active" id="solution-tab"><?php echo __("Solution providers","nextcloud"); ?></button>
 						</li>
 						<li>
-							<button class="tab-link" id="technology-tab"><?php echo __("Technology Partners","nextcloud"); ?></button>
+							<button class="tab-link" id="technology-tab"><?php echo __("Technology partners","nextcloud"); ?></button>
 						</li>
 					</ul>
 				</div>

@@ -46,7 +46,6 @@ $flogo = get_field('footer_logo', 'options');
 					if (have_rows('social_media', 'options')):
 						echo '<ul class="social-menu">';
 
-
 						echo '<li><a id="cookies_preferences" title="'.__('Cookies preferences','nextcloud').'" href="#">'.__('Cookies preferences','nextcloud').'</a></li>';
 						
 						while (have_rows('social_media', 'options')): the_row();
@@ -73,59 +72,7 @@ $flogo = get_field('footer_logo', 'options');
 		</div>
 	</div>
 </footer>
-<?php
-/*
-if (have_rows('popup_items', 'options')) {
-						echo '<div class="modal custom-modal fade" id="trialModal" tabindex="-1" aria-labelledby="trialModalLabel" aria-hidden="true">';
-						echo '<div class="modal-dialog modal-xl">';
-						echo '<div class="modal-content">';
-						echo '<div class="modal-header">';
-						echo '<h3>Try Nextcloud</h3>';
-						echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-						echo '</div>';
-						echo '<div class="modal-body">';
-						echo '<div class="wrap-modal-slider">';
-						echo '<div class="modal-slider">';
-						while (have_rows('popup_items', 'options')) {
-							the_row();
-							$popicon = get_sub_field('icon');
-							$poptitle = get_sub_field('title');
-							$poptext = get_sub_field('text');
-							$poplink = get_sub_field('link');
-							echo '<div>';
-							echo '<div class="slider-box">';
-							if (!empty($popicon)) {
-								echo '<img src="' . $popicon . '" alt=""/>';
-							}
-							if (!empty($poptitle)) {
-								echo '<h4>' . $poptitle . '</h4>';
-							}
-							if (!empty($poptext)) {
-								echo wpautop($poptext);
-							}
-							if ($poplink) {
-								$link_url = $poplink['url'];
-								$link_title = $poplink['title'];
-								$link_target = $poplink['target'] ? $poplink['target'] : '_self';
-								echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-							}
-							echo '</div>';
-							echo '</div>';
-						}
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-	}
-*/
-?>
 <?php wp_footer(); ?>
-
-<?php //get_template_part('inc/matomo'); //comment when done with cookie banner ?>
-
 <a href="" title="Scroll Up" class="scroll_up" style=""><i class="fa fa-angle-up"></i></a>
-
 </body>
 </html>
