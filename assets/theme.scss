@@ -8200,6 +8200,7 @@ p {
         }
 
 
+
         
         a:not(.c-btn):not(.btn-primary):not(.wp-block-button__link) {
             color: $mainColor;
@@ -8209,6 +8210,12 @@ p {
             text-decoration: none !important;
         }
 
+        .is-style-outline {
+            a.wp-block-button__link {
+                color: $mainColor;
+            }
+        }
+        
 
         a.wp-block-button__link {
             color: #fff;
@@ -11880,7 +11887,7 @@ ul.upgrade_path_list {
                 top:0;
                 bottom: 0;
                 right: 0;
-                width: 150%;
+                width: 51vw;
                 background-color: $lightBG;
             }
 

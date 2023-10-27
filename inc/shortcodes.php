@@ -520,7 +520,11 @@ function nc_iconbox_function($atts, $content) {
 
 	$link = vc_build_link($attributes['link']);
 	
-	$see_more_label = __('See more', 'nextcloud');
+	if($attributes['see_more_label'] != ''){
+		$see_more_label = $attributes['see_more_label'];
+	} else {
+		$see_more_label = __('See more', 'nextcloud');
+	}
 
 	$return = '<div class="nc_iconbox '.$attributes['css_classes'].' ">';
 
@@ -5359,7 +5363,6 @@ function nc_version_section_funct($atts,  $content = null) {
 	ob_start();
 	$a = shortcode_atts(array(
 		'version' => '',
-		//'title' => '',
 		'date' => '',
 		'content' => '',
 		'link' => ''
@@ -5367,11 +5370,9 @@ function nc_version_section_funct($atts,  $content = null) {
 
 	$version = $a['version'];
 	$id = str_replace(".", "-", $version);
-	//$title = $a['title'];
 	$date = $a['date'];
 	$content = wpb_js_remove_wpautop($content, true);
-	$changelog_list = $a['changelog_list'];
-
+	//$changelog_list = $a['changelog_list'];
 	$link = vc_build_link($a['link']);
 	?>
 	<div class="nc_version">
@@ -5380,34 +5381,7 @@ function nc_version_section_funct($atts,  $content = null) {
 
 			<div class="col-lg-6 nc_version_column">
 				<div class="version-infos" id="version-fixed-<?php echo $id; ?>">
-					
-					<?php
-					
-					if ($content) { ?>
-					<script>
-					jQuery(document).ready(function ($) {
-						//sticky sidebar
-						//if ($(window).width() > 990) {
-/*
-							$('#version-fixed-<?php echo $id; ?>').stickySidebar({
-								containerSelector: '.nc_version_column',
-								innerWrapperSelector: '.version_info__inner',
-								topSpacing: 95,
-								bottomSpacing: 150,
-								minWidth: 990
-							});
-							*/
-						//}
-					});
-					</script>
-					<?php }
-					
-					?>
-
-					
 					<div class="version_info__inner">
-
-
 					<p class="version_date"><i class="fas fa-calendar-alt"></i> <?php 
 					$originalDate = str_replace("/", "-", $date);
 					echo date("F j, Y", strtotime($originalDate));
@@ -5422,7 +5396,7 @@ function nc_version_section_funct($atts,  $content = null) {
 						<div class="download_links">
 							<h4><?php echo __('Download:','nextcloud'); ?></h4>
 							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2">nextcloud-<?php echo $version; ?>.tar.bz2</a>
-							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip">nextcloud-<?php echo $version; ?>.zip</a>
+							<?php echo __('or','nextcloud'); ?> <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip">nextcloud-<?php echo $version; ?>.zip</a>
 							</div>
 
 
@@ -5434,27 +5408,27 @@ function nc_version_section_funct($atts,  $content = null) {
 							<div class="integrity_block">
 							<span class="integrity_name">MD5:</span>
 							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.md5">nextcloud-<?php echo $version; ?>.tar.bz2.md5</a>
-							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.md5">nextcloud-<?php echo $version; ?>.zip.md5</a>
+							<?php echo __('or','nextcloud'); ?> <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.md5">nextcloud-<?php echo $version; ?>.zip.md5</a>
 							</div>
 
 							<div class="integrity_block">
 							<span class="integrity_name">SHA256:</span>
 							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.sha256">nextcloud-<?php echo $version; ?>.tar.bz2.sha256</a>
-							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha256">nextcloud-<?php echo $version; ?>.zip.sha256</a>
+							<?php echo __('or','nextcloud'); ?> <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha256">nextcloud-<?php echo $version; ?>.zip.sha256</a>
 							</div>
 
 
 							<div class="integrity_block">
 							<span class="integrity_name">SHA512:</span>
 							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.sha512">nextcloud-<?php echo $version; ?>.tar.bz2.sha512</a>
-							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha512">nextcloud-<?php echo $version; ?>.zip.sha512</a>
+							<?php echo __('or','nextcloud'); ?> <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.sha512">nextcloud-<?php echo $version; ?>.zip.sha512</a>
 							</div>
 							
 
 							<div class="integrity_block">
 							<span class="integrity_name">PGP (<a target="_blank" href="https://nextcloud.com/nextcloud.asc">Key</a>):</span>
 							<a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.tar.bz2.asc">nextcloud-<?php echo $version; ?>.tar.bz2.asc</a>
-							or <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.asc">nextcloud-<?php echo $version; ?>.zip.asc</a>
+							<?php echo __('or','nextcloud'); ?> <a target="_blank" href="https://download.nextcloud.com/server/releases/nextcloud-<?php echo $version; ?>.zip.asc">nextcloud-<?php echo $version; ?>.zip.asc</a>
 							</div>
 
 						</div>
@@ -6344,7 +6318,7 @@ function get_clients_link_func($atts){
 
 		case "mac":
 			$return = '<a class="a-btn btn-light macOS" href="https://github.com/nextcloud-releases/desktop/releases/latest/download/Nextcloud-'.$version.'.pkg" target="_blank">
-			<i class="fab fa-apple"></i>macOS 10.14+, 64 bit (universal)</a>';
+			<i class="fab fa-apple"></i>macOS 12+, 64 bit (universal)</a>';
 			break;
 		
 		case "linux":

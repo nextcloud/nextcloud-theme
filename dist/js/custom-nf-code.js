@@ -16,13 +16,9 @@ jQuery(document).ready(function () {
         if(jQuery(input).length) {
             
             var iti = window.intlTelInput(input, {
-                separateDialCode: true,
-                //initialCountry: "de",
-                //initialCountry: countryCode,
-                
+                separateDialCode: true,        
                 initialCountry: "auto",
                 geoIpLookup: function(callback) {
-                    //jQuery.get("https://ipinfo.io", function() {}, "json").always(function(resp) {
                     jQuery.get("https://ipinfo.io/json?token=644fd25b60168e", function() {}, "json").always(function(resp) {
                     var countryCode = (resp && resp.country) ? resp.country : "";
                     callback(countryCode);
@@ -33,17 +29,14 @@ jQuery(document).ready(function () {
                 utilsScript: "https://nextcloud.com/wp-content/themes/nextcloud-theme/dist/js/utils.js",
             });
             
-            /*
-            if( jQuery(input).val() != '' ) {
-                var countryData = iti.getSelectedCountryData();
-                var curr_val = jQuery(input).val();
-                jQuery(input).val( countryData + curr_val );
+            
+            if (typeof iti.getNumber === "function") { 
+                jQuery(input).keyup(function(){
+                    jQuery(this).val(iti.getNumber());
+                });
             }
-            */
-            jQuery(input).keyup(function(){
-                jQuery(this).val(iti.getNumber());
-            });
 
+            
         }
 
 

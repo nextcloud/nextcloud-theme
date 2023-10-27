@@ -5,11 +5,11 @@
 $id = get_field('id');
 $custom_class = get_field('custom_css_classes');
 $autoplay_options = get_field_object('autoplay');
-if(isset($autoplay_options)) {
-    $autoplay = $autoplay_options['value'];
-}
-
-
+            $autoplay = is_array($autoplay_options)
+                ? count($autoplay_options['value']) ? $autoplay = "true" : $autoplay = "false"
+                : $autoplay = "false";
+?>
+<?php
 if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
     echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
@@ -36,21 +36,13 @@ else : /* rendering in editor body */
         <?php endif; ?>
 	</div>
 </section>
-
 <script>
     jQuery(document).ready(function ($) {
         var owl_simple_slider = $('.simple_slider_slideshow');
         owl_simple_slider.owlCarousel({
             loop:true,
             stagePadding: 50,
-            //autoWidth:true,
-            autoplay: <?php 
-            if (count($autoplay) === 0) {
-                echo "false";
-            } else {
-                echo "true";
-            }
-            ?>,
+            autoplay: <?php echo $autoplay; ?>,
             margin:10,
             dots: false,
             nav:true,
@@ -72,12 +64,9 @@ else : /* rendering in editor body */
             autoplayHoverPause:true
         });
 
-
         owl_simple_slider.on('click', function(e) {
             owl_stop_autoplay();
-            //owl_simple_slider.trigger('stop.owl.autoplay');
         });
-
         function owl_stop_autoplay() {
             //console.log('autoplay stopped.');
             owl_simple_slider.trigger('stop.owl.autoplay');
