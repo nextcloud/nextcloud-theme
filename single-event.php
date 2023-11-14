@@ -12,6 +12,7 @@ get_header();
 		$post_date = (string)get_the_date('F d, Y');
 		$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
 
+		$post_id = get_the_ID();
 		$event_start_datetime = get_field('event_start_date_and_time', $post_id, false);
 		$date_start_format = date_i18n($date_format, strtotime($event_start_datetime));
 

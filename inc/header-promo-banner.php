@@ -120,7 +120,7 @@
                     var promo_banner_carousel = $('.promo_banner_carousel');
 
                     promo_banner_carousel.owlCarousel({
-                        loop:true,
+                        loop:false,
                         autoplay: true,
                         margin:10,
                         dots: false,

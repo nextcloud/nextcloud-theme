@@ -1173,7 +1173,7 @@ function testimonials_carousel_funct($atts) {
 								<div class="wpb_text_column wpb_content_element organization testimonial_quote">
 									<div class="wpb_wrapper">
 										<h4><?php echo $item['title']; ?></h4>
-										<?php if (isset($item['title'])) {
+										<?php if (isset($item['position'])) {
 											echo "<span class='position'>";
 											echo $item['position'];
 											echo "</span>";
@@ -2992,7 +2992,7 @@ endif;
 function my_wpd_comment_html( $input ) {
 	ob_start();
 	?>
-	<li class="comment <?php echo $even ? 'even' : 'odd'; ?> depth-1">
+	<li class="comment depth-1">
 		<article class="comment-body comment_inner ">
 
 		<div class="comment_infos">
@@ -3027,7 +3027,6 @@ function my_wpd_comment_html( $input ) {
 	$output = ob_get_clean();
 return $output;
 }
-
 // Hook into the function from the plugin's code.
 add_filter(  'discourse_comment_html', 'my_wpd_comment_html' );
 
@@ -3189,27 +3188,11 @@ function whitepapers_posts_func($atts){
 				$date = (string)get_the_date('F d, Y', $post_id);
 				$cat = get_the_category($post_id);
 				$link = get_permalink($post_id) ?: '';
-				//$author_id = (int)$onepostsingle->post_author;
 				$author_id = get_the_author_meta( 'ID' );
 				$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
 
 				echo '<div class="col-lg-4 col-md-6 spacer">';
-
 				echo '<div class="post-box">';
-
-				/*
-				if($featured_image) {
-					?>
-					<div class="post-img">
-					<a href="<?php echo $link; ?>" title="<?php echo $title; ?>">
-						<?php echo $featured_image; ?>
-					</a>
-					</div>
-					<?php
-				}
-				*/
-
-
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
 				echo '<li>'.__('posted in','nextcloud').' </li>';
@@ -4452,9 +4435,9 @@ function partners_search_shortcode_funct($atts) {
 						</div>
 						<ul class="select-list cert-list">
 							<li data-certificate="all-cert"><?php echo __("All levels","nextcloud"); ?></li>
-							<li data-certificate="platinum">Platinum</li>
+							<li data-certificate="platinum"><?php echo __('Platinum','nextcloud'); ?></li>
 							<li data-certificate="gold">Gold</li>
-							<li data-certificate="silver">Silver</li>
+							<li data-certificate="silver"><?php echo __('Silver','nextcloud'); ?></li>
 							<li data-certificate="bronze">Bronze</li>
 						</ul>
 					</div>
@@ -4541,7 +4524,7 @@ function partners_search_shortcode_funct($atts) {
 									echo '" data-country="' . $country . '">';
 									echo '<div class="partner-box">';
 									echo '<div class="certificate-line ' . $level . '">';
-									echo $level . ' Partner';
+									echo __($level,'nextcloud') . ' Partner';
 									echo '</div>';
 									echo '<div class="partner-logo">';
 									if (!empty($logo)) {
@@ -5248,11 +5231,8 @@ function previous_episodes_podcast_funct($atts) {
 
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
-				echo '<li>'.__('Posted in','nextcloud').' </li>';
-				foreach ($cat as $c) {
-					echo '<li>' . $c->cat_name . ', </li>';
-				}
-				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
+				//echo '<li>'.__('Posted in','nextcloud').' </li>';
+				echo '<li>'.__('Posted by ','nextcloud'). get_the_author_meta('display_name', $author_id) . '</li>';
 				echo '</ul>';
 				echo '<h4><a href="' . $link . '">' . $title . '</a></h4>';
 				echo '<ul class="info">';
@@ -5372,7 +5352,6 @@ function nc_version_section_funct($atts,  $content = null) {
 	$id = str_replace(".", "-", $version);
 	$date = $a['date'];
 	$content = wpb_js_remove_wpautop($content, true);
-	//$changelog_list = $a['changelog_list'];
 	$link = vc_build_link($a['link']);
 	?>
 	<div class="nc_version">
@@ -5586,7 +5565,7 @@ function nc_filter_features_funct($atts,  $content = null) {
 ?>
 <div class="features-filters-holder-inner">
 	<div class="search-holder">
-		<input type="text" placeholder="Quick search.." id="features_filter">
+		<input type="text" placeholder="<?php echo __('Quick search..','nextcloud'); ?>" id="features_filter">
 	</div>
 </div>
 <div class="list_tags" id="list_tags">

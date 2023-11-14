@@ -686,7 +686,6 @@
 
 .promo-section {
     padding: 55px 0px;
-    //background-image: url('../img/bg05.jpg');
     background-image: url("https://nextcloud.com/wp-content/uploads/2022/12/nc-people-microsoft-integrations-titlebar.jpg");
     background-repeat: no-repeat;
     background-position: center center;
@@ -716,7 +715,7 @@
 
         h2 {
             color: #fff;
-            margin: 0px 0px 20px;
+            margin-top: 0px !important;
         }
 
         p {
@@ -1647,12 +1646,14 @@
     padding-left: 3rem;
     padding-right: 3rem;
 
-
+    /*
     @media screen and (min-width: $md-breakpoint) {
         &:first-of-type {
             transform: translateX(50px);
         }
     }
+    */
+    
 
     .nc_compliant_box {
         height: 100%;

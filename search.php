@@ -23,7 +23,7 @@ get_header();
 				<div class="col-lg-4"></div>
 			<?php
 			if (function_exists('wpes_search_form')) {
-				$search_id = $_GET['wpessid'] ? $_GET['wpessid'] : 1612;
+				$search_id = isset($_GET['wpessid']) ? $_GET['wpessid'] : 1612;
 
 				echo '<div class="col-lg-4">';
 				echo '<div class="form-holder">';

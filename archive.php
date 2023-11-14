@@ -43,7 +43,9 @@ get_header();
 				endif;
 
 				$category = get_category(get_query_var('cat'));
-				$cat_id = $category->cat_ID;
+				if(isset($category)){
+					$cat_id = $category->cat_ID;
+				}
 
 				if(get_post_type() == 'event') {
 					$cat_id = get_queried_object()->term_id;
@@ -55,7 +57,10 @@ get_header();
 			<div class="row loadNews_row">
 				<div class="col-12">
 					<div class="section-button">
-						<button class="c-btn btn-main loadNews" data-post-type="<?php echo get_post_type(); ?>" data-category="<?php echo $cat_id; ?>" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
+						<button class="c-btn btn-main loadNews" data-post-type="<?php echo get_post_type(); ?>" data-category="<?php 
+						if(isset($cat_id)) {
+							echo $cat_id;
+						} ?>" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 					</div>
 				</div>
 			</div>

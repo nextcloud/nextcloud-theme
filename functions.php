@@ -64,9 +64,9 @@ function file_scripts() {
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
 	
 	
-    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form')) {
+    /*if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form')) {*/
         wp_enqueue_script('custom-nf-code');
-    }
+    /*}*/
 	
 	wp_enqueue_script('main', get_template_directory_uri() . '/dist/js/main.js', [], true);
 

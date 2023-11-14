@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
                 initialCountry: "auto",
                 geoIpLookup: function(callback) {
                     jQuery.get("https://ipinfo.io/json?token=644fd25b60168e", function() {}, "json").always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    var countryCode = (resp && resp.country) ? resp.country : "de";
                     callback(countryCode);
                     });
                 },

@@ -8184,11 +8184,19 @@ p {
             max-width: 100%;
         }
 
+        .wp-block-image {
+            margin: 0.5rem 0px 20px;
+
+            img {
+                margin: 0;
+            }
+        }
+
         img {
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 0.5rem 0px 20px; 
+            //margin: 0.5rem 0px 20px; 
 
             &.aligncenter {
                 margin: 0.5rem auto;
@@ -10609,11 +10617,11 @@ ul.upgrade_path_list {
                         text-align: right;
                     }
 
-                    .fa-check-circle{
+                    .fa-check-circle, .fa-plus-circle {
                         color: $successColor;
                     }
 
-                    .fa-times-circle{
+                    .fa-times-circle {
                         color: $errorColor;
                     }
 
@@ -10766,7 +10774,6 @@ ul.upgrade_path_list {
 
                 th {
                     font-weight: normal;
-                    //width: 33% !important;
                 }
 
                 .feature_name {
@@ -10833,6 +10840,19 @@ ul.upgrade_path_list {
                 }
 
             }
+
+
+            &.with_ultimate { // temp
+                
+                tr {
+                    th, td {
+                        width: 20%;
+                    }
+                }
+
+            }
+
+
 
             @media screen and (max-width: $tablet-breakpoint) {
                 & {
@@ -10902,6 +10922,7 @@ ul.upgrade_path_list {
 
 
             &.table_head {
+
                 width: 75%;
                 margin-left: auto;
 
@@ -10960,6 +10981,80 @@ ul.upgrade_path_list {
                         }
 
                     }
+                }
+
+
+                &.with_ultimate { // temp
+
+                    width: 80%;
+                    margin-left: auto;
+    
+                    @media screen and (max-width: $md-breakpoint) {
+                        & {
+                            width: 100%;
+                        }
+                    }
+    
+                    tr {
+    
+                        th {
+                            width: 25%;
+                            text-align: center;
+                            vertical-align: top;
+                            padding: 1rem;
+                            line-height: 1.6;
+                            border: 0 !important;
+    
+                            &.basic {
+                                border-radius: 15px 0 0 0;
+                                background-color: $communityColor;
+                            }
+    
+                            &.standard {
+                                background-color: #abd6ed;   
+                            }
+                            
+                            &.premium {
+                                //border-radius: 0 15px 0 0;
+                                //background-color: $mainColor;
+                                //background-color: #57acdb;
+                                //color: #fff;
+                                border-radius: 0 !important;
+                                //background-color: $lightColor;
+                                background-color: #389dd5;
+                            }
+
+                            &.ultimate {
+                                border-radius: 0 15px 0 0;
+                                background-color: $mainColor;
+                                color: #fff;
+                            }
+    
+                            h3 {
+                                margin-bottom: 1rem;
+                                font-weight: bold;
+    
+                                @media screen and (max-width: $md-breakpoint) {
+                                    & {
+                                        font-size: 19px;
+                                    }
+                                }
+    
+                            }
+    
+                            p {
+                                font-weight: 500;
+                                @media screen and (max-width: $md-breakpoint) {
+                                    & {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+    
+                        }
+                    }
+    
+
                 }
             }
 
@@ -15720,6 +15815,7 @@ blockquote.wp-block-quote {
             padding: 7px 20px;
             font-size: 0.8em;
             transition: all 0.3s ease;
+            position: relative;
 
             &:hover {
                 background: white;
@@ -15730,6 +15826,29 @@ blockquote.wp-block-quote {
             &.active {
                 background: #fff;
                 border: 1px solid $mainColor;
+
+                &:after {
+                    position: absolute;
+                    right: -3px;
+                    top: -4px;
+                    content: "\f00d";
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                    background: #dbedf8;
+                    border-radius: 50%;
+                    width: 19px;
+                    height: 19px;
+                    text-align: center;
+                    line-height: 19px;
+                    transition: all .2s ease;
+                }
+
+                &:hover {
+                    &:after {
+                        //right: 3px;
+                    }
+                }
+
             }
 
         }

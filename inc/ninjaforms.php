@@ -56,49 +56,30 @@ function nc_custom_ninja_forms_submit_data($form_data)
 //save name, email and language on submitting the form
 add_filter('ninja_forms_submit_data', 'nc_ninja_custom_save_cookies');
 function nc_ninja_custom_save_cookies($form_data){   
-    $form_id       = $form_data[ 'form_id' ];
-
     $convenience_cookie_set = get_string_between($_COOKIE['nc_cookie_banner'], 'convenience\":', ',\"statistics');
-
     if($convenience_cookie_set) {
 
-        //$form_fields = new stdClass();
         $form_fields = array();
-
         foreach( $form_data[ 'fields' ] as $field_id => $field ) {
         
             if( str_contains($field['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){    
-                //name
-                //setcookie("nc_form_name", $field[ 'value' ], time() + (86400 * 30), "/" );
-                //$form_fields->nc_form_name = $field[ 'value' ];
                 $form_fields['nc_form_name'] = $field[ 'value' ];
             }
 
-            //if( $field[ 'key' ] == 'email_1654182135502' ) {
             if( str_contains($field['key'], 'email') ){
-                //email
-                //setcookie("nc_form_email", $field[ 'value' ], time() + (86400 * 30), "/" );
-                //$form_fields->nc_form_email = $field[ 'value' ];
-                $form_fields['nc_form_email'] = $field[ 'value' ];
+                $form_fields['nc_form_email'] = urlencode($field[ 'value' ]);
             }
 
-            //if( $field[ 'key' ] == 'language_1668605172479' ) {
             if(str_contains($field['key'], 'language')) {
-                //language 
-                //setcookie("nc_form_lang", $field[ 'value' ], time() + (86400 * 30), "/" );
-                //$form_fields->nc_form_lang = $field[ 'value' ];
                 $form_fields['nc_form_lang'] = $field[ 'value' ];
             }
 
-            //if( $field[ 'key' ] == 'phone_1668696834776' ) {
             if( str_contains($field['key'], 'phone') ){
-                //setcookie("nc_form_phone", $field[ 'value' ], time() + (86400 * 30), "/" );
-                //$form_fields->nc_form_phone = $field[ 'value' ];
                 $form_fields['nc_form_phone'] = $field[ 'value' ];
             }
         }
 
-        setcookie ('nc_form_fields', base64_encode(serialize($form_fields)), time() + (86400 * 30), "/");
+        setcookie('nc_form_fields', base64_encode(json_encode($form_fields)), time() + (86400 * 30), "/");
     }
 
 
@@ -111,7 +92,7 @@ add_filter( 'ninja_forms_render_default_value', 'nc_change_nf_default_value', 10
 function nc_change_nf_default_value( $default_value, $field_type, $field_settings ) {
     
     if(isset($_COOKIE['nc_form_fields'])){
-        $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
+        $nc_form_fields = json_decode(base64_decode($_COOKIE['nc_form_fields']), true);
 
         if( str_contains($field_settings['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){
                 if(isset($nc_form_fields['nc_form_name'])) {
@@ -120,7 +101,7 @@ function nc_change_nf_default_value( $default_value, $field_type, $field_setting
         }
         if( str_contains($field_settings['key'], 'email') ){
                 if(isset($nc_form_fields['nc_form_email'])) {
-                    $default_value = $nc_form_fields['nc_form_email'];
+                    $default_value = urldecode($nc_form_fields['nc_form_email']);
                 }
         }
         if( str_contains($field_settings['key'], 'phone') ){
@@ -167,7 +148,11 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 //add custom nija forms processing web hook - used to save contacts to newsletter
 add_action( 'nc_ninja_forms_processing_save_to_newsletter', 'nc_ninja_forms_processing_save_to_newsletter_callback' );
 function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
-    $form_id       = $form_data[ 'form_id' ];
+    
+    if(isset($form_data) && isset($form_data[ 'form_id' ])) {
+        $form_id       = $form_data[ 'form_id' ];
+    }
+    
     $form_fields   =  $form_data[ 'fields' ];
 
     $email = '';
@@ -178,52 +163,56 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
 
     $select_mailing_lists_checkboxes = array();
 
-    if(     $form_id == 27 // Newsletter form
-            ||  $form_id == 68  // Events newsletter form
-            ||  $form_id == 4 // whitepapers and case studies
-            ||  $form_id == 49 // Case study Meiji university
-            ||  $form_id == 66 // Get more information about event
-            
-        )
-    {
-        $subscribed = true; // automatically set as accepted for these forms
 
-        if($form_id == 66){ // for the events form, subscribe to the newsletters only if checkbox is selected
-            $subscribed = false;
-        }    
+    if(isset($form_id)) {
+            if(     $form_id == 27 // Newsletter form
+                    ||  $form_id == 68  // Events newsletter form
+                    ||  $form_id == 4 // whitepapers and case studies
+                    ||  $form_id == 49 // Case study Meiji university
+                    ||  $form_id == 66 // Get more information about event
+                )
+            {
+                $subscribed = true; // automatically set as accepted for these forms
 
-        foreach( $form_fields as $field ){
+                if($form_id == 66){ // for the events form, subscribe to the newsletters only if checkbox is selected
+                    $subscribed = false;
+                }    
 
-            if( str_contains($field['key'], 'keep_me_informed') ){
-                // means users selected the newsletters checkbox
-                if($field[ 'value' ] != 0){
-                    $subscribed = true;
+                foreach( $form_fields as $field ){
+
+                    if( str_contains($field['key'], 'keep_me_informed') ){
+                        // means users selected the newsletters checkbox
+                        if($field[ 'value' ] != 0){
+                            $subscribed = true;
+                        }
+                    }
+
+                    if( str_contains($field['key'], 'name') ){
+                        $name = $field[ 'value' ];
+                    }
+
+                    if( 
+                        str_contains($field['key'], 'email')
+                    ){
+                        $email = $field[ 'value' ];
+                    }
+
+                    if( 
+                        str_contains($field['key'], 'mailing_list_id')
+                    ){
+                        $mailing_list_ids[] = $field[ 'value' ];
+                    }
+
+
+                    if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
+                        $mailing_list_ids = $field[ 'value' ];
+                    }
+
                 }
+                
             }
-
-            if( str_contains($field['key'], 'name') ){
-                $name = $field[ 'value' ];
-            }
-
-            if( 
-                str_contains($field['key'], 'email')
-            ){
-                $email = $field[ 'value' ];
-            }
-
-            if( 
-                str_contains($field['key'], 'mailing_list_id')
-            ){
-                $mailing_list_ids[] = $field[ 'value' ];
-            }
-
-
-            if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
-                $mailing_list_ids = $field[ 'value' ];
-            }
-
-        }
     }
+    
 
     if($subscribed) {
         $url = 'https://odoo.nextcloud.com';
@@ -254,9 +243,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
          //setcookie("nc_sub_id", $sub_id , time() + (86400 * 30), "/" );
 
     }
-    
-    
-
 
     $form_settings = $form_data[ 'settings' ];
     $form_title    = $form_data[ 'settings' ][ 'title' ];
@@ -424,11 +410,13 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
     if(str_contains($settings['key'], 'language')) {
 
         $options = [];
-        $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        }
 
         $pref_lang = '';
         if(isset($_COOKIE['nc_form_fields'])){
-            $nc_form_fields = unserialize(base64_decode($_COOKIE['nc_form_fields']));
+            $nc_form_fields = json_decode(base64_decode($_COOKIE['nc_form_fields']), true);
             if( isset($nc_form_fields['nc_form_lang'])){
                 $pref_lang = $nc_form_fields['nc_form_lang'];
             }

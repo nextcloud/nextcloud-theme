@@ -152,6 +152,10 @@ header {
                     z-index: 2;
                     top: 0;
 
+                    &.disabled {
+                        display: none;
+                    }
+
                     &.owl-prev {
                         left: 2rem;
                     }
