@@ -1,5 +1,43 @@
 jQuery(document).ready(function ($) {
 
+    //toggle table icons for the Pricing table
+    $.fn.toggleHTML = function(t1, t2){
+        if (this.html() == t1) this.html(t2);
+        else                   this.html(t1);
+        return this;
+    };
+
+    var curr_lang_cookie = getCookie('wp-wpml_current_language');
+    var see_more = "See more";
+    var see_less = "See less";
+    
+    if (curr_lang_cookie == 'de') {
+        see_more = "Mehr sehen";
+        see_less = "Weniger sehen";
+    }
+    else if (curr_lang_cookie == 'it') {
+        see_more = "Vedi di più";
+        see_less = "Vedi di meno";
+    }
+    else if (curr_lang_cookie == 'fr') {
+        see_more = "Voir plus";
+        see_less = "Voir moins";
+    }
+    else if (curr_lang_cookie == 'es') {
+        see_more = "Ver más";
+        see_less = "Ver menos";
+    }
+    else {
+    }
+
+    $('a.toggle_items').parents('tr').closest('tr').nextUntil('.category').hide();
+    $('a.toggle_items').click(function(e){
+        e.preventDefault();
+        $(this).parents('tr').closest('tr').nextUntil('.category').toggle();
+        $(this).toggleHTML(see_more+' <i class="fa fa-angle-down"></i>', see_less+' <i class="fa fa-angle-up"></i>');
+    });
+
+
     var isUriImage = function(uri) {
         var uri, uri_splitted;
         if(uri) {

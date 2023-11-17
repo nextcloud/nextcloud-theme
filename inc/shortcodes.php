@@ -3390,7 +3390,6 @@ function quotes_carousel_funct($atts) {
 add_shortcode('sector_selected', 'sector_selected_funct');
 function sector_selected_funct($atts) {
 	ob_start();
-
 	if(isset($_GET['sector'])) {
 ?>
 <script>
@@ -3398,7 +3397,6 @@ jQuery( document ).ready( function( $ ) {
 	jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
 		var selected_sector = '<?php echo strip_tags($_GET['sector']); ?>';
 		//console.log(selected_sector);
-
 		jQuery('.nc_images_radio_buttons input[type=radio]').each(function(){
 			if(jQuery(this).val() == selected_sector){
 				jQuery(this).addClass('nf-checked');
@@ -3406,17 +3404,11 @@ jQuery( document ).ready( function( $ ) {
 				jQuery(this).trigger('click');
 			}
 		});
-
-
 		var sector_section = '#<?php echo strip_tags($_GET['sector']); ?>-row';
 		//console.log(sector_section);
 		jQuery('.special_pricing').removeClass('hidden');
 		jQuery('.special_pricing').find(sector_section).removeClass('hidden');
-
 	});
-
-
-	
 });
 </script>
 <?php
@@ -3427,122 +3419,34 @@ return $result;
 
 
 
-/*
-add_shortcode('team_member_infos', 'team_member_infos_funct');
-function team_member_infos_funct($atts) {
+
+add_shortcode('plan_selected', 'plan_selected_funct');
+function plan_selected_funct($atts) {
 	ob_start();
-	//global $post;
-	//id = $post->ID;
-	$id = get_the_ID();
-	$img = wp_get_attachment_url(get_post_thumbnail_id($id) ?: 0) ?: '';
-
-	$header = get_the_title($id);
-	$bio = get_field('biography', $id);
-	$pos = get_field('position', $id);
-	$desc = get_field('position_description', $id);
-	$social = get_field('social_links', $id);
+	if(isset($_GET['plan'])) {
 ?>
-<div class="member-holder">
-	<?php
-	if (!empty($img)) {
-		echo '<div class="member-img" style="background-image:url(' . $img . ');"></div>';
-	} else {
-		echo '<div class="member-img" style="background-image:url(' . get_stylesheet_directory_uri() . '/dist/img/person.jpg);"></div>';
-	}
-	?>
-	<div class="member-body">
-		<?php
-		if (!empty($header)) {
-			echo '<h4>' . $header . '</h4>';
-		}
-		if (!empty($pos)) {
-			echo '<h5>' . $pos . '</h5>';
-		}
-		if (!empty($desc)) {
-			echo '<h6>' . $desc . '</h6>';
-		}
-		if (!empty($bio)) {
-			echo wpautop($bio);
-		}
-		
-		if ($social) {
-			echo '<ul>';
-			foreach ($social as $sm) {
-				$icon = $sm['social_media_icon'];
-				$link = $sm['social_media_link'];
-				echo '<li>';
-				echo '<a target="_blank" href="' . $link . '">';
-				echo '<img src="' . $icon . '" alt=""/>';
-				echo '</a>';
-				echo '</li>';
+<script>
+jQuery( document ).ready( function( $ ) {
+	jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
+		var selected_plan = '<?php echo strip_tags($_GET['plan']); ?>';
+		//console.log(selected_sector);
+		jQuery('.nc_images_radio_buttons.plan input[type=radio]').each(function(){
+			if(jQuery(this).val() == selected_plan){
+				jQuery(this).addClass('nf-checked');
+				jQuery(this).next('label').addClass('nf-checked-label');
+				jQuery(this).trigger('click');
 			}
-			echo '</ul>';
-		}
-		
-		?>
-		</div>
-	</div>
+		});
+	});
+});
+</script>
 <?php
-	$result = ob_get_clean();
-	return $result;
+	}
+$result = ob_get_clean();
+return $result;
 }
-*/
 
 
-
-/*
-//Adding Custom Shortcode to Grid Builder
-add_filter( 'vc_grid_item_shortcodes', 'my_module_add_grid_shortcodes' );
-function my_module_add_grid_shortcodes( $shortcodes ) {
- $shortcodes['vc_custom_post_meta'] = array(
-  'name' => __( 'My Custom Post meta', 'my-text-domain' ),
-  'base' => 'vc_custom_post_meta',
-  'category' => __( 'Content', 'my-text-domain' ),
-  'description' => __( 'Show custom post meta', 'my-text-domain' ),
-  'post_type' => Vc_Grid_Item_Editor::postType(),
- );
- 
- return $shortcodes;
-}
-// output function
-add_shortcode( 'vc_custom_post_meta', 'vc_custom_post_meta_render' );
-function vc_custom_post_meta_render($atts, $content, $tag) {
- return '{{ custom_meta }}';
-}
-  
-add_filter( 'vc_gitem_template_attribute_custom_meta', 'vc_gitem_template_attribute_custom_meta ', 10, 2 );
-function vc_gitem_template_attribute_custom_meta( $value, $data ) {
-
- extract( array_merge( array(
-  'post' => null,
-  'data' => '',
- ), $data ) );
- return $post->ID;
-
- //return var_export( get_post_meta( $post->ID, 'biography' ), true );
-}
-*/
-
-
-
-
-
-/*
-//create custom date time field for the wp bakery custom shortcods
-vc_add_shortcode_param( 'post_select', 'nc_wpb_post_select_settings_field', get_template_directory_uri().'/vc_extend/datetime.js' );
-function nc_wpb_post_select_settings_field( $settings, $value ) {
-	$js = '<script>!function($) {
-		//jquery code
-
-	}(window.jQuery);</script>';
-
- return $js.'<div class="post_select_field">'
- .'<input name="' . esc_attr( $settings['param_name'] ) . '" class="post_select wpb_vc_param_value wpb-textinput ' .
- esc_attr( $settings['param_name'] ) . ' ' .
- esc_attr( $settings['type'] ) . '_field" type="text" value="' . esc_attr( $value ) . '" />' .
- '</div>'; // This is html markup that will be outputted in content elements edit form
-}
-*/
 
 
 //Event list repeater
@@ -3742,7 +3646,6 @@ function featured_blogs_shortcode_funct($atts) {
 <section class="blog-section featured_blogs">
 	<div class=""><?php //.container ?>
 		<?php
-
 		echo '<div class="row justify-content-between align-items-center">';
 		if (!empty($title)) {
 			echo '<div class="col-lg-6">';
@@ -3755,44 +3658,65 @@ function featured_blogs_shortcode_funct($atts) {
 		}
 		echo "</div>";
 
-		//$default_posts_per_page = get_option( 'posts_per_page' );
-		global $wpdb;
-		$sticky_ids = unserialize($wpdb->get_var( "SELECT `option_value`, `option_id` FROM `$wpdb->options` WHERE `option_name` = 'sticky_posts'" ));
+		//global $wpdb;
+		//$sticky_ids = unserialize($wpdb->get_var( "SELECT `option_value`, `option_id` FROM `$wpdb->options` WHERE `option_name` = 'sticky_posts'" ));
+		// Get all Sticky Posts
+		$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
+		$sticky_posts = get_option( 'sticky_posts' );
 
-		$args = array(
-			'post_type' => 'post',
+		$sticky_posts_with_date = array();
+		foreach($sticky_posts as $sticky_post_id) {
+			$sticky_posts_with_date[] = array("id"=>$sticky_post_id, "date" => get_the_date('Y-m-d G:i:s', $sticky_post_id));
+		}
+
+		//get all sticky events
+		$args_events = array(
+			'post_type' => array('event'),
 			'post_status' => 'publish',
-			'orderby' => 'date',
-			//'post__in' => get_option( 'sticky_posts' ),
-			'post__in' => $sticky_ids,
-			'tag__not_in' => array(269), // exclude unlisted tag
-			'category__not_in'=> array(225, 226), //exclude Private category
-			'order' => 'DESC',
-			//'suppress_filters' => false,
-			//'ignore_sticky_posts' => 1,
-			//'posts_per_page' => 5
+			'meta_query' => array(
+				array(
+					'key' => 'sticky_event',
+					'value' => true,
+					'compare' => 'LIKE'
+				)
+			)
+		);
+		$events__query = new WP_Query($args_events);
+		if ($events__query->have_posts()) {
+				while ($events__query->have_posts()) {
+					$events__query->the_post();
+					$sticky_posts_with_date[] = array("id" => get_the_ID(), "date" => get_the_date('Y-m-d G:i:s', get_the_ID()));
+				}
+		}
+
+		//sort sticky posts array
+		define('CUSTOM_DATE_FORMAT', 'Y-m-d G:i:s');
+		usort(
+			$sticky_posts_with_date,
+			function($a, $b) {
+				$date1 = DateTime::createFromFormat(CUSTOM_DATE_FORMAT, $a['date']);
+				$date2 = DateTime::createFromFormat(CUSTOM_DATE_FORMAT, $b['date']);
+				return $date1 < $date2;
+			}
 		);
 
-		$the_query = new WP_Query($args);
-			$count = $the_query->found_posts;
-			// The Loop
-			if ($the_query->have_posts()) {
-				$i = 1;
+		//limit posts to 5
+		$sticky_posts_with_date_first_5 = array_slice($sticky_posts_with_date, 0, 5);
+
+		if($sticky_posts_with_date) {
+			?>
+			<div id="featured_blog_posts" class="owl-carousel featured_blog_posts">
+			<?php
+			foreach($sticky_posts_with_date_first_5 as $sticky_posts_with_date_single) {
 				?>
-				<div id="featured_blog_posts" class="owl-carousel featured_blog_posts">
-				<?php
-				while ($the_query->have_posts() && $i < 6) {
-					$the_query->the_post();
-					?>
-					<div class="item">
+				<div class="item">
 						<?php 
-						$post_id = get_the_ID();
-						$title = get_the_title();
-						$post_excerpt = get_the_excerpt();
-						$link = get_permalink();
+						$post_id =  $sticky_posts_with_date_single['id'];
+						$title = get_the_title($post_id);
+						$post_excerpt = get_the_excerpt($post_id);
+						$link = get_permalink($post_id);
 						$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
-						$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
-						$date = (string)get_the_date($date_format);
+						$date = (string)get_the_date($date_format, $post_id);
 
 						if ( 'event' == get_post_type() ) {
 							$cat = wp_get_object_terms( $post_id, 'event_categories', array() );
@@ -3821,14 +3745,13 @@ function featured_blogs_shortcode_funct($atts) {
 						echo '</div>';		
 						?>
 					</div>
-					<?php 
-				$i++;	
-				}
-				?>
-				</div>
 				<?php
-				}
-				?>
+			}
+			?>
+			</div>
+			<?php
+		}
+		?>
 		<script>
 			jQuery(document).ready(function ($) {
 					$('#featured_blog_posts').owlCarousel({

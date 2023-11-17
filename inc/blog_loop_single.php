@@ -23,7 +23,9 @@ if($cat) {
 		}
 	}
 } else {
-	$cats = '<a href="https://nextcloud.com/events/">' . __('Events','nextcloud') . ' </a>';
+		if ( 'event' == get_post_type() ) {
+			$cats = '<a href="https://nextcloud.com/events/">' . __('Events','nextcloud') . ' </a>';
+		}
 }
 
 					echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" id="'.$post_id.'" style="">';
