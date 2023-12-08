@@ -7557,11 +7557,6 @@ p {
                     margin-right:6px;
                 }
 
-                &.categories {
-                    a {
-                        //color: #7b7b7b;
-                    }
-                }
                 
             }
         }
@@ -7569,12 +7564,12 @@ p {
         h4 {
             color: $mainColor;
             font-size: 24px;
-            //font-weight: 600;
             line-height: 30px;
             margin: 0px 0px 10px;
 
             a {
                 color: $mainColor;
+                display: inline-block;
             }
         }
 
@@ -10367,9 +10362,14 @@ ul.nc-list {
         list-style-type: none;
         padding-left: 24px !important;
         padding: 9px 0;
-        animation-name: slideFromLeft;
-        animation-duration: 0.3s;
-        animation-fill-mode: both;
+
+        @media screen and (min-width: $md-breakpoint) {
+            & {
+                animation-name: slideFromLeft;
+                animation-duration: 0.3s;
+                animation-fill-mode: both;
+            }
+        } 
 
         
         &:before {
@@ -11378,6 +11378,11 @@ ul.upgrade_path_list {
         }
     }
     
+    &.blue {
+        a {
+            color: $mainColor !important;
+        }
+    }
 }
 
 .btn_learn_more {
@@ -12295,9 +12300,7 @@ hr.wp-block-separator.nc-separator {
 
         
         &:hover {
-            //background-color: rgba(0,130,201,0.15);
             background-color: $communityColor;
-            //color: $textColor;
         }
 
         .iconbox_container {
@@ -12313,7 +12316,6 @@ hr.wp-block-separator.nc-separator {
             .icon {
                 font-size: 1.7rem;
                 margin-bottom: 1rem;
-                //color: $mainColor;
 
                 img {
                     max-height: 50px;
@@ -12351,6 +12353,24 @@ hr.wp-block-separator.nc-separator {
             }
         }
 
+    }
+
+
+    &.wide_img {
+        .icon {
+            min-height: 90px;
+            position: relative;
+
+            img {
+                max-height: initial !important;
+                max-width: 153px !important;
+                height: auto !important;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+            }
+        }
     }
 
 
@@ -12910,6 +12930,9 @@ ul.list_compliance {
 }
 
 .imageRoundShadow /*, .wp-block-image.size-full*/ {
+    a {
+        border-radius: $borderRadius;
+    }
     img {
         border-radius: $borderRadius;
         box-shadow: $boxShadow;
@@ -12963,6 +12986,8 @@ ul.list_compliance {
 
 .wpb_single_image {
     a {
+        display: block;
+        
         &:focus {
             outline: 1px solid #000 !important;
         }
@@ -14573,18 +14598,25 @@ table.color_table {
 
     &:before {
         left: 27px;
-        top: 0;
+        //top: 0;
         position: absolute;
         content: "\f058";
         font-family: "Font Awesome 5 Free";
         font-weight: 400;
         margin-right: 7px;
         font-size: 2.5rem;
-        line-height: 5rem;
+        //line-height: 5rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     p {
         margin: 0;
+    }
+
+    p.description {
+        font-style:italic;
+        margin-top: 10px;
     }
 }
 
@@ -15359,7 +15391,6 @@ blockquote.wp-block-quote {
 .nc-home-graphic {
     position: relative;
     height: 100%;
-    //width: 100%;
     display: block;
 
     @media screen and (min-width: $md-breakpoint) {
@@ -15384,15 +15415,21 @@ blockquote.wp-block-quote {
       z-index: 2;
       height: auto;
 
-      animation-name: homeGraphicMobileSlideFromBottom;
-      animation-duration: 0.7s;
-      animation-fill-mode: both;
 
+      @media screen and (min-width: $md-breakpoint) {
+        & {
+            animation-name: homeGraphicMobileSlideFromBottom;
+            animation-duration: 0.7s;
+            animation-fill-mode: both;
+        }
+      }
+      
+
+      
         .dm-device {
           position: relative;
           width: 100%;
           padding-bottom:203.477897%;
-
 
           .device {
             position: absolute;
@@ -15437,9 +15474,7 @@ blockquote.wp-block-quote {
                       justify-content: center;
                       align-items: center;
                       background-size: 100% 100%;
-                      /*background-position: center;*/
                       background-repeat: no-repeat;
-                      
                   }
 
 
@@ -15466,9 +15501,15 @@ blockquote.wp-block-quote {
       position: relative;
       z-index: 1;
 
-      animation-name: homeGraphicDesktopSlideFromRight;
-      animation-duration: 0.7s;
-      animation-fill-mode: both;
+
+      @media screen and (min-width: $md-breakpoint) {
+        & {
+            animation-name: homeGraphicDesktopSlideFromRight;
+            animation-duration: 0.7s;
+            animation-fill-mode: both;
+        }
+     }
+      
 
       
       .dm-device {
@@ -16486,6 +16527,76 @@ section.all_features {
 
 
 
+.wp-block-details {
+
+    summary {
+        background: $communityColor;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 25px;
+        position: relative;
+        color: $mainColor;
+        padding-left: 37px;
+        padding-right: 20px;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:before {
+            position: absolute;
+            content: "\f107";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 2em;
+            color: $mainColor;
+            left: 14px;
+            top: 7px;
+            font-size: 1.3em;
+        }
+
+    }
+
+    ul {
+        margin-top: 1rem;
+
+         li {
+            position: relative;
+            list-style-type: none;
+            padding-left: 24px !important;
+            padding: 9px 0;
+            
+            &:before {
+                position: absolute;
+                content: "\f058";
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                margin-right: 10px;
+                color: $mainColor;
+                left: 0;
+            }
+
+         }
+    }
+
+
+    &[open] {
+        summary {
+            background: $mainColor;
+            color: #fff;
+
+            &:before {
+                color: #fff;
+            }
+
+            &:before {
+                content: "\f106";
+            }
+        }
+    }
+}
+
+
 .nc-note-section {
     background-color: $communityColor;
     border-radius: $borderRadius;
@@ -16612,6 +16723,74 @@ section.all_features {
     } 
 }
 
+
+.copy_element_link {
+    position: relative;
+
+    .copy_element_link_trigger {
+        position: absolute;
+        left: -18px;
+        top: 0;
+        font-size: 2.3rem;
+        font-weight: bold;
+        color: #b5b5b5;
+        opacity: 0;
+        transition: all 0.3s ease;
+
+        @media screen and (max-width: $md-breakpoint) {
+            & {
+                left: 17px !important;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .copied {
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            top:0;
+            right: 0;
+            margin: auto;
+            width: fit-content;
+            background: #e1e1e1;
+            color: #222;
+            border-radius: 5px;
+            padding: 0px 9px;
+            color: $textColor;
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.3s ease;
+
+            &.hidden {
+                top:-10px;
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+    }
+
+    &:hover {
+        .copy_element_link_trigger {
+            opacity: 1;
+        }
+    }
+
+}
+
+
+
+@media screen and (min-width: $tablet-breakpoint) {
+    .side_padding_centered_row {
+        padding: 0 8rem;
+    }
+}
 
 
 @media screen and (min-width: $md-breakpoint) {

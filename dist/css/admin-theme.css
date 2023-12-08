@@ -2,6 +2,10 @@
     display: none;
 }
 
+.wpb_nc_iconbox .image_icon {
+    max-width: 100%;
+}
+
 .nc_version_section .textarea_html {
     display: none;
 }

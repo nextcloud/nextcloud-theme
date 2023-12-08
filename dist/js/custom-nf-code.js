@@ -157,6 +157,8 @@ if(typeof Marionette !== 'undefined') {
                 && form_id != 33 
                 && form_id != 68 
                 && form_id != 72
+                && form_id != 85 // exclude Hub announcements form
+
                 ) {
                 // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
                 new myCustomFieldController();

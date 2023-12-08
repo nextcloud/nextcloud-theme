@@ -52,7 +52,17 @@ function file_scripts() {
 	wp_enqueue_script('magnific-js', get_template_directory_uri() . '/dist/js/jquery.magnific-popup.min.js', [], true);
 	wp_enqueue_script('sticky-sidebar-js', get_template_directory_uri() . '/dist/js/jquery.sticky-sidebar.min.js', [], true);
 	wp_enqueue_script('owl-carousel-js', get_template_directory_uri() . '/dist/js/owl.carousel.min.js', [], true);
-	wp_enqueue_script('nc_loadmore-js', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
+	
+	wp_register_script('nc_loadmore', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
+	// Localize the script with new data
+	$translation_array = array(
+		'loading' => __( 'Loading...', 'nextcloud' ),
+	);
+	wp_localize_script( 'nc_loadmore', 'nc_loadmore_strings', $translation_array );
+	// Enqueued script with localized data.
+	wp_enqueue_script( 'nc_loadmore' );
+
+
 	//enqueue js cookie
 	//wp_enqueue_script('js_cookie', get_template_directory_uri() . '/dist/js/js.cookie.min.js', [], true);
 	wp_enqueue_script('typed', get_template_directory_uri() . '/dist/js/typed.min.js', [], true);
@@ -343,3 +353,19 @@ function my_custom_logo() {
 	
 }
 add_filter( 'get_custom_logo', 'my_custom_logo' );
+
+
+function word_count($string, $limit) {
+	$words = explode(' ', $string);
+	$etc = '';
+	if(count($words) > $limit) {
+		$etc = '...';
+	}
+	return implode(' ', array_slice($words, 0, $limit)).$etc;
+}
+
+//extend the default nonce expiration time for public preview plugin 
+add_filter( 'ppp_nonce_life', 'my_nonce_life' );
+function my_nonce_life() {
+    return 5 * 86400;
+}

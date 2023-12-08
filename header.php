@@ -22,9 +22,9 @@ if (!defined('WPINC')) {
 	<header class="<?php if (get_field('header_promo_activation', 'option') ) { echo "with-promo-banner"; }?>" id="header"><?php //class with-promo-banner ?>
 
 		<?php
-		if (get_field('header_promo_activation', 'option') ) {
+		//if (get_field('header_promo_activation', 'option') ) {
 			get_template_part("inc/header-promo-banner");
-		}
+		//}
 		?>
 
 		<div class="container" id="">

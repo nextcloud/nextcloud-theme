@@ -9,8 +9,7 @@ function nc_blog_articles_load_more() {
 	}
 
 	$ajaxposts = new WP_Query([
-		//'post_type' => array($post_type),
-		'post_type' => array('post','event'),
+		'post_type' => array('post', 'event', 'podcast'),
 		'posts_per_page' => 9,
 		'post_status' => array('publish'),
 		'orderby' => 'date',
@@ -49,11 +48,11 @@ function nc_blog_search_load_more() {
 	if(isset($_POST['post_type'])) {
 		$post_type = $_POST['post_type'];
 	} else {
-		$post_type = 'post';
+		$post_type = array('post', 'event', 'podcast');
 	}
 
 	$ajaxposts = new WP_Query([
-		'post_type' => array($post_type),
+		'post_type' => $post_type,
 		'posts_per_page' => 9,
 		's' => get_search_query(), //$_GET['s'],
 		'post_status' => array('publish'),
@@ -61,7 +60,6 @@ function nc_blog_search_load_more() {
 		'orderby' => 'date',
 		'order' => 'DESC',
 		'paged' => $paged,
-		//'post__not_in' => get_option( 'sticky_posts' ), // ignore sticky posts
 		'category__not_in' => array(226) //exclude Private category
 	]);
   

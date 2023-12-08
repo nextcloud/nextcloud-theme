@@ -1,7 +1,8 @@
 <?php
 $post_id = get_the_ID();
 $title = get_the_title();
-$post_excerpt = get_the_excerpt();
+$post_excerpt_full = get_the_excerpt();
+$post_excerpt = word_count(get_the_excerpt(), '45');
 $link = get_permalink();
 $featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
 
@@ -25,6 +26,8 @@ if($cat) {
 } else {
 		if ( 'event' == get_post_type() ) {
 			$cats = '<a href="https://nextcloud.com/events/">' . __('Events','nextcloud') . ' </a>';
+		} else if ('podcast' == get_post_type()) {
+			$cats = '<a href="https://nextcloud.com/podcast/">' . __('Podcasts','nextcloud') . ' </a>';
 		}
 }
 

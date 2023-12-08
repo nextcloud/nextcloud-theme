@@ -1397,7 +1397,7 @@ function media_coverage_funct($atts) {
 								<div class="wpb_single_image wpb_content_element vc_align_left image">
 									<figure class="wpb_wrapper vc_figure">
 										<?php if ( $item_link ) { ?>
-										<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="">
+										<a href="<?php echo $link['url']; ?>" title="<?php if(isset($item['title'])) echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="">
 										<?php } ?>
 											<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
 										<?php if ( $item_link ) { ?>
@@ -2931,11 +2931,8 @@ if( ! function_exists( 'nc_better_comments' ) ):
 	function nc_better_comments($comment, $args, $depth) {
 		?>
 	   <li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
-
 		<div class="comment_inner">
-
 		<div class="comment_infos">
-
 			<div class="img-thumbnail d-none d-sm-block">
 				<?php echo get_avatar($comment, $size='80' ); ?>
 			</div>
@@ -2968,18 +2965,8 @@ if( ! function_exists( 'nc_better_comments' ) ):
 						<div class="comment_text"><?php comment_text() ?></div>
 						
 					</div>
-
 			</div>
-			
-
-			
-
-
 		</div>
-			
-
-			
-
 		</div>
 	
 	<?php
@@ -3658,16 +3645,53 @@ function featured_blogs_shortcode_funct($atts) {
 		}
 		echo "</div>";
 
-		//global $wpdb;
-		//$sticky_ids = unserialize($wpdb->get_var( "SELECT `option_value`, `option_id` FROM `$wpdb->options` WHERE `option_name` = 'sticky_posts'" ));
+		global $wpdb;
+		$sticky_ids = unserialize($wpdb->get_var( "SELECT `option_value`, `option_id` FROM `$wpdb->options` WHERE `option_name` = 'sticky_posts'" ));
 		// Get all Sticky Posts
 		$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
-		$sticky_posts = get_option( 'sticky_posts' );
+		//$sticky_posts = get_option( 'sticky_posts' );
+
+
+		$array_query_sticky = array();
+		$args_test = array(
+			'post_type' => 'post',
+			'post_status' => 'publish',
+			'post__in' => $sticky_ids,
+		);
+		$test_query = new WP_Query($args_test);
+		if ($test_query->have_posts()) {
+				while ($test_query->have_posts()) {
+					$test_query->the_post();
+					$array_query_sticky[] = get_the_ID();
+				}
+		}
+
+
+		/*
+		echo '<div class="sticky_ids" style="display: none;">';
+		print_r($sticky_ids);
+		echo '</div>';
+
+		echo '<div class="array_query_sticky" style="display: none;">';
+		print_r($array_query_sticky);
+		echo '</div>';
+
+		echo '<div class="sticky_posts" style="display: none;">';
+		print_r($sticky_posts);
+		echo '</div>';
+		*/
+		
 
 		$sticky_posts_with_date = array();
-		foreach($sticky_posts as $sticky_post_id) {
-			$sticky_posts_with_date[] = array("id"=>$sticky_post_id, "date" => get_the_date('Y-m-d G:i:s', $sticky_post_id));
+		foreach($array_query_sticky as $sticky_post_id) {
+			if(get_post_status($sticky_post_id) == 'publish') {
+				if( !in_array($sticky_post_id, $sticky_posts_with_date) ) {
+					$sticky_posts_with_date[] = array("id"=>$sticky_post_id, "date" => get_the_date('Y-m-d G:i:s', $sticky_post_id));
+				}
+			}
 		}
+
+
 
 		//get all sticky events
 		$args_events = array(
@@ -3908,6 +3932,30 @@ function blog_list_shortcode_funct($atts) {
 
 			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+
+			//get all sticky events
+			$args_events = array(
+				'post_type' => array('event'),
+				'post_status' => 'publish',
+				'meta_query' => array(
+					array(
+						'key' => 'sticky_event',
+						'value' => true,
+						'compare' => 'LIKE'
+					)
+				)
+			);
+			$events__query = new WP_Query($args_events);
+			if ($events__query->have_posts()) {
+					while ($events__query->have_posts()) {
+						$events__query->the_post();
+						$sticky_events[] = get_the_ID();
+					}
+			}
+			//print_r($sticky_events);
+
+
+
 			// The Query
 			$args = array(
 				'posts_per_page' => $default_posts_per_page,
@@ -3915,7 +3963,7 @@ function blog_list_shortcode_funct($atts) {
 				'orderby' => 'date',
 				'paged=' => $paged,
 				'ignore_sticky_posts' => 1,
-				//'post__not_in' => get_option( 'sticky_posts' ), // ignore sticky posts
+				'post__not_in' => $sticky_events, // ignore sticky events (custom field)
 				'tag__not_in' => array(269), // exclude unlisted tag
 				'category__not_in'=> array(225, 226) //exclude Private category
 			);
@@ -3979,7 +4027,7 @@ function blog_list_shortcode_funct($atts) {
 			}
 			else {
 				//$args['post_type'] = array( $type );
-				$args['post_type'] = array( 'post', 'event');
+				$args['post_type'] = array( 'post', 'event', 'podcast');
 				$args['order'] = 'DESC';
 			}
 

@@ -29,7 +29,10 @@ function nc_custom_ninja_forms_submit_data($form_data)
     $form_id = $form_data['id'];
 
     foreach( $form_data[ 'fields' ] as $field_id => $field ) {
-        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 && $form_id != 68 && $form_id != 72 ) {
+        if($form_id != 1 && $form_id != 30 && $form_id != 27 && $form_id != 33 && $form_id != 68
+        && $form_id != 72
+        && $form_id != 85 // exclude Hub announcements form
+        ) {
             // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
 
             if( str_contains($field[ 'key' ], 'email') ) {
@@ -170,6 +173,7 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                     ||  $form_id == 4 // whitepapers and case studies
                     ||  $form_id == 49 // Case study Meiji university
                     ||  $form_id == 66 // Get more information about event
+                    ||  $form_id == 85 // Hub announcements form
                 )
             {
                 $subscribed = true; // automatically set as accepted for these forms

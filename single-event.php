@@ -128,7 +128,7 @@ get_header();
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h3>Other Events</h3>
+							<h3><?php echo __('Other Events', 'nextcloud');?></h3>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,32 @@
 jQuery(document).ready(function ($) {
 
+    //add clickable hashtag to elements to copy specific location
+    $('.copy_element_link').hover(
+        function(){
+        $(this).append('<span class="copy_element_link_trigger" title="Copy URL">#</span>'); 
+    }, function(){
+        setTimeout(function() {
+            $(this).find('.copy_element_link_trigger').remove(); 
+        }, 500);
+    }
+    );
+
+    $('.copy_element_link').on('click', '.copy_element_link_trigger' , function(){
+        var el_location = '';
+        var url = window.location.href;
+        var my_url = url.split("#"); // remove any hashtags
+        el_location = $(this).parent('.copy_element_link').attr('id');
+        //console.log(el_location);
+        
+        navigator.clipboard.writeText(my_url[0]+'#'+el_location);
+        $(this).append("<div class='copied'>Copied!</div>");
+
+        setTimeout(function() {
+            $(this).find('.copied').remove();
+        }, 1500);
+    });
+
+
     //toggle table icons for the Pricing table
     $.fn.toggleHTML = function(t1, t2){
         if (this.html() == t1) this.html(t2);
@@ -60,7 +87,7 @@ jQuery(document).ready(function ($) {
     if (navigator.appVersion.indexOf("Mac")!=-1) OSName="macOS";
     if (navigator.appVersion.indexOf("X11")!=-1) OSName="unixOS";
     if (navigator.appVersion.indexOf("Linux")!=-1) OSName="linuxOS";
-    console.log("OS name: "+OSName);
+    //console.log("OS name: "+OSName);
 
     $('#card-clients-btns .a-btn').each(function(){
         if($(this).hasClass(OSName)) {
@@ -166,26 +193,12 @@ jQuery(document).ready(function ($) {
     $('.copy_color').click(function(){
         // Select the text field
         $(this).select();
-        //$(this).setSelectionRange(0, 99999); // For mobile devices
         navigator.clipboard.writeText( $(this).text() );
-
-        // Alert the copied text
-        //alert("Copied the text: " +  $(this).text() );
-
         $(this).append("<div class='copied'>Copied!</div>");
-
         setTimeout(function() {
             $('.copied').remove();
         }, 2000);
-
     });
-
-
-    /*
-    $('.wpb_video_wrapper .video-wall button').click(function(){
-        $(this).parents('.wpb_video_wrapper').removeClass('with-iframe-blocker');
-    });
-    */
 
 
     //show buttons left right for moving the table when is not fully visible

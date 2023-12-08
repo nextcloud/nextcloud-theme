@@ -41,6 +41,10 @@ get_header();
 				$default_posts_per_page = get_option( 'posts_per_page' ); // should be 9
 				$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
+				echo '<div class="post_type" style="display:none;">';
+				print_r($post_type);
+				echo "</div>";
+
 				$search_query = new WP_Query(array(
 					'post_type' => array($post_type),
 					'posts_per_page' => $default_posts_per_page,
@@ -81,16 +85,18 @@ get_header();
 					<div class="section-button">
 						<button class="c-btn btn-main loadNews" data-post-type="<?php
 
-						if($_GET['wpessid']) {
+						$post_type_search = '';
+						
+						if(isset($_GET['wpessid'])) {
 							if($_GET['wpessid'] == 1612) {
-								$post_type = 'post';
+								$post_type_search = 'post';
 							} else if($_GET['wpessid'] == 125618) {
-								$post_type = 'event';
+								$post_type_search = 'event';
 							} else {
-								$post_type = 'post';
+								$post_type_search = 'post';
 							}
 						}
-						echo $post_type; ?>" data-search="true" data-category="" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
+						if(isset($post_type_search)) echo $post_type_search; ?>" data-search="true" data-category="" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 					</div>
 				</div>
 			</div>

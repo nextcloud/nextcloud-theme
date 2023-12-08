@@ -1,6 +1,12 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+
+.nf-field-description {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
 .nf-before-form-content, .nf-form-title, .nf-after-form-content, .nf-form-content  {
     max-width: 800px !important;
     margin: 0 auto;

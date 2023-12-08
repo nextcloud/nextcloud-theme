@@ -61,7 +61,7 @@ jQuery(function($){
                 dataType: 'html',
                 data: data,
                 beforeSend : function ( xhr ) {
-                    button.text('Loading...'); // change the button text, you can also add a preloader image
+                    button.text(nc_loadmore_strings.loading); // change the button text, you can also add a preloader image
                     //console.log(data);
                     //console.log("current page: "+currentPage);
                 },
