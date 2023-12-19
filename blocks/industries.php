@@ -61,8 +61,19 @@ else : /* rendering in editor body */
 					$icon = get_sub_field('icon');
 					$header = get_sub_field('the_title');
 					$desc = get_sub_field('the_text');
+					$link = get_sub_field('link');
+					$custom_css = '';
+					if (!empty($link)) {
+						$custom_css = 'with-link';
+					}
+
 					echo '<div class="'.$col_class.' col-md-6 spacer">';
-					echo '<div class="item-box">';
+					echo '<div class="item-box '.$custom_css.'">';
+					
+					if (!empty($link)) {
+						echo '<a href="'.$link['url'].'" title="'.$link['title'].'" target="'.$link['target'].'">';
+					}
+
 					if (!empty($icon)) {
 						echo '<img src="' . $icon . '" alt="Nextcloud - '.$header.'"/>';
 					}
@@ -72,6 +83,11 @@ else : /* rendering in editor body */
 					if (!empty($desc)) {
 						echo wpautop($desc);
 					}
+
+					if (!empty($link)) {
+						echo '</a>';
+					}
+
 					echo '</div>';
 					echo '</div>';
 				}

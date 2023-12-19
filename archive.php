@@ -44,7 +44,10 @@ get_header();
 
 				$category = get_category(get_query_var('cat'));
 				if(isset($category)){
-					$cat_id = $category->cat_ID;
+					if(isset($category->cat_ID)) {
+						$cat_id = $category->cat_ID;
+					}
+					
 				}
 
 				if(get_post_type() == 'event') {

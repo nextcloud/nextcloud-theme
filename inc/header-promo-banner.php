@@ -6,67 +6,6 @@
             <div class="owl-carousel promo_banner_carousel">
                 
             <?php
-                // The Query
-                $args_top_banner = array(
-                    'post_type' => array('post', 'page'),
-                    'post_status' => 'publish',
-                    'posts_per_page' => -1,
-                    'meta_key' => 'top_banner_image'
-                );
-                $top_banner_query = new WP_Query( $args_top_banner );
-
-                // The Loop
-                if ( $top_banner_query->have_posts() ) {
-                    while ( $top_banner_query->have_posts() ) {
-                        $top_banner_query->the_post();
-                            if(get_field('top_banner_image')) {
-                        ?>
-                        <div class="item">
-                            <div class="nc-awards-banner">
-                                <div class="cloudcomputing-logo">
-                                    <?php $image = get_field('top_banner_image');
-                                    if( !empty( $image ) ): ?>
-                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="">
-                                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
-                                    </a>    
-                                    <?php endif; ?>
-
-                                </div>
-
-                                <div class="awards-text">
-                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="">
-                                        <?php if (get_field('top_banner_text') ) { echo get_field('top_banner_text'); } ?>
-                                    </a>
-                                </div>
-                                
-                                <div class="btn-awards">
-                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="" class="c-btn btn-top btn-small btn-with-icon">
-                                        <?php 
-                                        if(get_field('button_label')) {
-                                            echo get_field('button_label');
-                                        } else {
-                                            echo __('Learn more','nextcloud'); 
-                                        }
-                                        
-                                        ?>
-                                        <i class="fa fa-angle-right right"></i>
-                                    </a>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <?php
-                            }
-                    }
-                }
-                /* Restore original Post Data */
-                wp_reset_postdata();
-                ?>
-
-
-
-            <?php
                 if (get_field('header_promo_activation', 'option') ) {
 			?>
                 <div class="item">
@@ -82,7 +21,7 @@
                                 if (get_field('header_promo_text', 'option') ) {
                                 echo strip_tags(get_field('header_promo_text', 'option'));
                                 }
-                            ?>" target="">
+                            ?>" target="_blank">
 
                             <?php 
                             if (get_field('header_promo_code', 'option') ) {
@@ -106,7 +45,7 @@
                         <div class="awards-text">
                             <a href="<?php if (get_field('header_promo_button_link', 'option') ) { echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php if (get_field('header_promo_text', 'option') ) {
                                 echo strip_tags(get_field('header_promo_text', 'option'));
-                                } ?>" target="">
+                                } ?>" target="_blank">
                                 <?php if (get_field('header_promo_text', 'option') ) { echo get_field('header_promo_text', 'option'); } ?>
                             </a>
                         </div>
@@ -116,7 +55,7 @@
                                 echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php
                                 if (get_field('header_promo_text', 'option') ) { 
                                     echo strip_tags(get_field('header_promo_text', 'option'));
-                                } ?>" target="" class="c-btn btn-top btn-small btn-with-icon">
+                                } ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
                                 <?php if (get_field('header_promo_button_label', 'option') ) {
                                     echo get_field('header_promo_button_label', 'option'); }
                                 ?> <i class="fa fa-angle-right right"></i>
@@ -126,6 +65,67 @@
                     </div>
                 </div>
                 <?php } ?>
+
+
+            <?php
+                // The Query
+                $args_top_banner = array(
+                    'post_type' => array('post', 'page'),
+                    'post_status' => 'publish',
+                    'posts_per_page' => -1,
+                    'meta_key' => 'top_banner_image'
+                );
+                $top_banner_query = new WP_Query( $args_top_banner );
+
+                // The Loop
+                if ( $top_banner_query->have_posts() ) {
+                    while ( $top_banner_query->have_posts() ) {
+                        $top_banner_query->the_post();
+                            if(get_field('top_banner_image')) {
+                        ?>
+                        <div class="item">
+                            <div class="nc-awards-banner">
+                                <div class="cloudcomputing-logo">
+                                    <?php $image = get_field('top_banner_image');
+                                    if( !empty( $image ) ): ?>
+                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank">
+                                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                                    </a>    
+                                    <?php endif; ?>
+
+                                </div>
+
+                                <div class="awards-text">
+                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank">
+                                        <?php if (get_field('top_banner_text') ) { echo get_field('top_banner_text'); } ?>
+                                    </a>
+                                </div>
+                                
+                                <div class="btn-awards">
+                                    <a href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
+                                        <?php 
+                                        if(get_field('button_label')) {
+                                            echo get_field('button_label');
+                                        } else {
+                                            echo __('Learn more','nextcloud'); 
+                                        }
+                                        
+                                        ?>
+                                        <i class="fa fa-angle-right right"></i>
+                                    </a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <?php
+                            }
+                    }
+                }
+                /* Restore original Post Data */
+                wp_reset_postdata();
+            ?>
+
 
 
 

@@ -1,8 +1,7 @@
 jQuery(document).ready(function () {
 
     jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
-        
-        //console.log(layoutView.model.id);
+        //console.log("nfFormReady. "+layoutView.model.id);
 
         var preferred_lang_select = document.querySelector('.preferred_lang_select select');
         if(jQuery(preferred_lang_select).length) {
@@ -43,112 +42,102 @@ jQuery(document).ready(function () {
         
     
     });
-
-
 });
 
 
+
+
+jQuery( document ).ready( function( $ ) {
+
 // if there is a ninja form on this page
 if(typeof Marionette !== 'undefined') {
-    //console.log('marionette loaded'); 
+    console.log('marionette loaded'); 
     //console.log(Marionette);
 
+        var myCustomFieldController = Marionette.Object.extend( {
+            initialize: function() {
+                // init listener
+                var fieldsChannel = Backbone.Radio.channel( 'fields' );
+                this.listenTo( fieldsChannel, 'change:modelValue', this.validateRequired  );
+            },
 
-    var myCustomFieldController = Marionette.Object.extend( {
-        initialize: function() {
-            // init listener
-            var fieldsChannel = Backbone.Radio.channel( 'fields' );
-            this.listenTo( fieldsChannel, 'change:modelValue', this.validateRequired  );
-        },
+            validateRequired : function( model ) {
+                // Check the field type.
+                if( 'email' != model.get( 'type' ) ) return;
+                // Only validate if the field is marked as required?
+                if( 0 == model.get( 'required' ) ) return;
+                console.log("ID: "+model.get( 'id' )); // id = 2 - id of the field
 
-        validateRequired : function( model ) {
-            // Check the field type.
-            if( 'email' != model.get( 'type' ) ) return;
-            // Only validate if the field is marked as required?
-            if( 0 == model.get( 'required' ) ) return;
+                // Get the field value.
+                var email = model.get( 'value' );
+                
+                var file = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist.txt";
+                var file2 = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
 
-            //console.log("ID: "+model.get( 'id' )); // id = 2 - id of the field
-
-            // Get the field value.
-            var email = model.get( 'value' );
-            
-
-            var file = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist.txt";
-            var file2 = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
-            //const blocked_domains = [];
-            //var blocked_domains_string = '';
-            var isDisposable = false;
-            //console.log("isDisposableEmail initialised");
-            //console.log(isDisposable);
-
-
-            var address_array = email.toLowerCase().split("@");
-            //console.log(address_array);
-            var domain = address_array[1];
-
-            jQuery.get(file,function(txt){
-                var lines = txt.split("\n");
-                for (var i = 0, len = lines.length; i < len; i++) {
-                    if(domain == lines[i]){
-                        //console.log('checkpoint 1');
-                        isDisposable = true;
-                        break;
-                    }
-                }
-
-                //console.log("isDisposable before return");
+                //const blocked_domains = [];
+                //var blocked_domains_string = '';
+                var isDisposable = false;
+                //console.log("isDisposableEmail initialised");
                 //console.log(isDisposable);
 
+                var address_array = email.toLowerCase().split("@");
+                //console.log(address_array);
+                var domain = address_array[1];
 
-                if(isDisposable){
-                    // Add Error to Model
-                    //console.log('add error');
-                    Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
-                    
-                } else {
-                    //console.log('remove error');
-                    Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
-                }
-
-            });
-            
-            
-
-            jQuery.get(file2,function(txt){
-                var lines = txt.split("\n");
-                for (var i = 0, len = lines.length; i < len; i++) {
-                    if(domain == lines[i]){
-                        //console.log('checkpoint 2');
-                        isDisposable = true;
-                        break;
+                jQuery.get(file,function(txt){
+                    var lines = txt.split("\n");
+                    for (var i = 0, len = lines.length; i < len; i++) {
+                        if(domain == lines[i]){
+                            //console.log('checkpoint 1');
+                            isDisposable = true;
+                            break;
+                        }
                     }
-                }
 
-                //console.log("isDisposable before return");
-                //console.log(isDisposable);
+                    //console.log("isDisposable before return");
+                    //console.log(isDisposable);
+
+                    if(isDisposable){
+                        // Add Error to Model
+                        //console.log('add error');
+                        Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
+                        
+                    } else {
+                        //console.log('remove error');
+                        Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
+                    }
+
+                });
+
+                jQuery.get(file2,function(txt){
+                    var lines = txt.split("\n");
+                    for (var i = 0, len = lines.length; i < len; i++) {
+                        if(domain == lines[i]){
+                            //console.log('checkpoint 2');
+                            isDisposable = true;
+                            break;
+                        }
+                    }
+                    //console.log("isDisposable before return");
+                    //console.log(isDisposable);
+                    if(isDisposable){
+                        // Add Error to Model
+                        //console.log('add error');
+                        Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
+                        
+                    } else {
+                        //console.log('remove error');
+                        Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
+                    }
+
+                });
 
 
-                if(isDisposable){
-                    // Add Error to Model
-                    //console.log('add error');
-                    Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
-                    
-                } else {
-                    //console.log('remove error');
-                    Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
-                }
+            }
 
-            });
+        });
 
-
-        }
-
-    });
-
-    jQuery( document ).ready( function( $ ) {
-    
         jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
-        
             //console.log(layoutView.model.id);
             var form_id = layoutView.model.id;
             if(form_id != 1 
@@ -163,12 +152,14 @@ if(typeof Marionette !== 'undefined') {
                 // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
                 new myCustomFieldController();
             }
-            
-
         });
 
+    } else {
+        console.log('marionette could not be loaded.'); 
+    }
+
+
         
-    });
 
-
-}
+        
+});

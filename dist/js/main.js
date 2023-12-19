@@ -1,5 +1,30 @@
 jQuery(document).ready(function ($) {
 
+
+    if (jQuery(window).width() > 767) {
+        $('.iconboxes_carousel .nc_iconbox .description').each(function(index){
+            var el = $(this);
+            var this_height = el.height(); //51.2
+            //console.log("this_height - "+index+": "+this_height);
+            //var fontSize = $(el).css('font-size'); //16px
+            //var lineHeight = fontSize.replace('px','') * 1.6; //25.6
+    
+            if (this_height > 51.2) {
+                $(this).addClass('truncate');
+                $("<div class='truncate_see_more'>"+main_js_strings.see_more+"</div>").insertAfter($(this));
+            }
+        });
+    
+        $('.truncate_see_more').on('click', function(){
+            $(this).siblings('.description').removeClass('truncate');
+            $(this).hide();
+        });
+    
+    }
+
+    
+
+
     //add clickable hashtag to elements to copy specific location
     $('.copy_element_link').hover(
         function(){
@@ -34,6 +59,7 @@ jQuery(document).ready(function ($) {
         return this;
     };
 
+    
     var curr_lang_cookie = getCookie('wp-wpml_current_language');
     var see_more = "See more";
     var see_less = "See less";
@@ -56,6 +82,7 @@ jQuery(document).ready(function ($) {
     }
     else {
     }
+    
 
     $('a.toggle_items').parents('tr').closest('tr').nextUntil('.category').hide();
     $('a.toggle_items').click(function(e){
@@ -392,6 +419,44 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    //iconboxes_carousel
+    var iconboxes_carousel = $('.iconboxes_carousel');
+
+    /*
+    function owl_setHeights(){
+        iconboxes_carousel.find('.description').each(function(index){
+            console.log("item height test - "+index+" : "+$(this).height()); 
+        });
+    };
+    owl_setHeights();
+    */
+    
+    iconboxes_carousel.owlCarousel({
+        loop:false,
+        autoplay: true,
+        margin:30,
+        dots: false,
+        nav: true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            800:{
+                items:2
+            },
+            1000:{
+                items:2
+            }
+        },
+        //onDragged: owl_stop_autoplay,
+        autoplayHoverPause:true,
+        //onInitialize: owl_setHeights
+    });
+
+    
 
 
 

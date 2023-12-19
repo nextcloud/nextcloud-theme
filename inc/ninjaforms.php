@@ -59,13 +59,16 @@ function nc_custom_ninja_forms_submit_data($form_data)
 //save name, email and language on submitting the form
 add_filter('ninja_forms_submit_data', 'nc_ninja_custom_save_cookies');
 function nc_ninja_custom_save_cookies($form_data){   
-    $convenience_cookie_set = get_string_between($_COOKIE['nc_cookie_banner'], 'convenience\":', ',\"statistics');
-    if($convenience_cookie_set) {
 
+    if (isset($_COOKIE['nc_cookie_banner'])) {
+        $convenience_cookie_set = get_string_between($_COOKIE['nc_cookie_banner'], 'convenience\":', ',\"statistics');
+    }
+
+    if(isset($convenience_cookie_set)) {
         $form_fields = array();
         foreach( $form_data[ 'fields' ] as $field_id => $field ) {
         
-            if( str_contains($field['key'], 'name') && !str_contains($field_settings['key'], 'organization') ){    
+            if( str_contains($field['key'], 'name') && !str_contains($field['key'], 'organization') ){    
                 $form_fields['nc_form_name'] = $field[ 'value' ];
             }
 
@@ -414,6 +417,8 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
     if(str_contains($settings['key'], 'language')) {
 
         $options = [];
+        $browser_lang = 'en'; // default browser language
+
         if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         }

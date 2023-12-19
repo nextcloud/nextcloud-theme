@@ -130,7 +130,12 @@ function request_account($request) {
 	// init vars
 	$email = $request['email'];
 	$providerId = intval($request['id']);
-	$locationId = intval($request['location']);
+
+	$locationId = 0; //default
+	if(isset($request['location'])) {
+		$locationId = intval($request['location']);
+	}
+	
 	$newsletter = array_key_exists('newsletter', $request);
 	$subscribe = boolval($request['subscribe']);
 

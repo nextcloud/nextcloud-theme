@@ -1451,11 +1451,51 @@
 }
 
 
+.row_values_video_carousel {
+    padding: 2rem 0;
+
+    .wpb_column {
+        &:first-child {
+            z-index: 10;
+            position: relative;
+            padding: 0 !important;
+            background-color: #fff;
+
+            &::before {
+                content: " ";
+                width: 50vw;
+                background: #fff;
+                position: absolute;
+                display: block;
+                height: 125%;
+                margin-left: -49vw;
+                z-index: 10;
+                margin-top: -3rem;
+                //margin-left: -60vw;
+            }
+
+            .vc_column-inner {
+                background: #fff;
+                z-index: 11 !important;
+                position: relative;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
+    }
+}
+
 
 .nc_video_preview_box {
     max-width: 450px;
     margin: 1.5rem auto;
     box-shadow: $boxShadow;
+    z-index: 9;
+    position: relative;
+
+    &.no_margin {
+        margin: 0 auto !important;
+    }
 
     &.full-width {
         max-width: 100% !important;
@@ -1475,8 +1515,6 @@
                 }
             }
         }
-
-        
     }
 
     &.text-centered {

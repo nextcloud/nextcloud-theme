@@ -1044,7 +1044,7 @@ function hub_circle_funct($atts) {
 
 
 
-//Repeater Features Carousel
+//Repeater Testimonials Carousel
 add_action('vc_before_init', 'testimonials_repeater_items_funct');
 function testimonials_repeater_items_funct() {
 	vc_map(
@@ -1123,6 +1123,7 @@ function testimonials_repeater_items_funct() {
 		  )
 	  );
 }
+
 
 add_shortcode('testimonials_carousel', 'testimonials_carousel_funct');
 function testimonials_carousel_funct($atts) {
@@ -1213,6 +1214,169 @@ function testimonials_carousel_funct($atts) {
 
 
 
+//Repeater Testimonials Carousel
+add_action('vc_before_init', 'iconboxes_repeater_items_funct');
+function iconboxes_repeater_items_funct() {
+	vc_map(
+		  array(
+		  	"name" => __("Iconboxes Carousel", "nextcloud"), // Element name
+		  	"base" => "iconboxes_carousel", // Element shortcode
+		  	"class" => "iconboxes_carousel",
+		  	"category" => __('Carousel', 'nextcloud'),
+		  	'params' => array(
+
+		  		array(
+		  			'type' => 'param_group',
+		  			'param_name' => 'box_repeater_items',
+		  			'params' => array(
+
+						array(
+							"type" => "iconpicker",
+							"holder" => "icon",
+							"class" => "",
+							"heading" => __("Icon", "nextcloud"),
+							"param_name" => "icon",
+							"value" => __("", "nextcloud"),
+						),
+
+		  				array(
+		  					"type" => "attach_image",
+		  					"holder" => "img",
+		  					"class" => "",
+		  					"heading" => __("Icon Image", "nextcloud"),
+		  					"param_name" => "image",
+		  					"value" => __("", "nextcloud"),
+		  				),
+
+		  				array(
+		  					"type" => "textfield",
+		  					"holder" => "div",
+		  					"class" => "",
+		  					"admin_label" => true,
+		  					"heading" => __("Title", "nextcloud"),
+		  					"param_name" => "title",
+		  					"value" => __("", "nextcloud"),
+		  				),
+
+						array(
+							"type" => "textarea",
+							"heading" => esc_html__("Description", "nextcloud"),
+							"description" => esc_html__("", "nextcloud"),
+							"param_name" => "description",
+							"value" => "",
+						),
+
+		  				array(
+		  					"type" => "vc_link",
+		  					"holder" => "div",
+		  					"class" => "client_link",
+		  					"admin_label" => true,
+		  					"heading" => __("Link", "nextcloud"),
+		  					"param_name" => "link",
+		  					"value" => __("", "nextcloud"),
+		  				)
+
+
+		  			)
+		  		),
+
+				array(
+					"type" => "textfield",
+					"holder" => "div",
+					"class" => "",
+					"admin_label" => true,
+					"heading" => __("Custom CSS classes", "nextcloud"),
+					"param_name" => "custom_css",
+					"value" => __("", "nextcloud"),
+				),
+
+		  	)
+		  )
+	  );
+}
+
+add_shortcode('iconboxes_carousel', 'iconboxes_carousel_funct');
+function iconboxes_carousel_funct($atts) {
+	ob_start();
+	$atts = shortcode_atts(array(
+		'box_repeater_heading' => '',
+		'box_repeater_items' => '',
+		'custom_css' => ''
+	), $atts, 'box_repeater');
+
+	if(function_exists('vc_param_group_parse_atts')){
+		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
+	}
+	?>
+      <div class="iconbox_repeater">
+          <?php if ($items) { ?>
+			<div class="iconboxes <?php echo $atts['custom_css']; ?>">
+              <div class="iconboxes_carousel owl-carousel owl-theme">
+                  <?php  foreach ($items as  $item) {
+					$item_link = false;
+
+					if ( isset($item['link']) ) {
+						$item_link = true;
+						$link = vc_build_link($item['link']);
+					}
+					?>
+                      <div class="nc_iconbox feature_iconbox">
+						<div class="link_replacement no_scroll">
+							<div class="iconbox_container">
+								
+								<?php if ( isset($item['icon']) ) { ?>									
+									<div class="icon">
+									<i class="<?php echo $item['icon']; ?>"></i>
+									</div>
+								<?php } ?>
+
+								<?php if ( isset($item['image']) ) { ?>
+								<div class="image-icon">
+										<?php if ( $item_link ) { ?>
+										<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="vc_single_image-wrapper vc_box_border_grey">
+										<?php } ?>
+											<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
+										<?php if ( $item_link ) { ?>
+										</a>
+										<?php } ?>
+								</div>
+								<?php } ?>
+
+								<div class="title">
+									<h4><?php echo $item['title']; ?></h4>
+								</div>
+								
+								<?php if( isset($item['description']) ) { ?>
+								<div class="description">
+									<?php echo $item['description']; ?>
+								</div>
+								<?php }
+								
+								if ( $item_link  ) { ?>
+								<div class="vc_btn3-container  btn-main btn-small vc_btn3-center">
+									<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>"><?php echo __('Learn more','nextcloud'); ?> <i class="vc_btn3-icon fas fa-angle-right"></i>
+									</a>
+								</div>
+								<?php } ?>
+
+							</div>
+						</div>
+					</div>
+
+				<?php } ?>
+              </div>
+			</div>
+        <?php } ?>
+
+      </div>
+      <?php
+	  $result = ob_get_clean();
+	return $result;
+}
+
+
+
+
 //Repeater History Timeline
 add_action('vc_before_init', 'timeline_repeater_items_funct');
 function timeline_repeater_items_funct() {
@@ -1285,14 +1449,11 @@ function history_timeline_funct($atts) {
 			<div id="timeline-content">
 				<ul class="timeline">
                   <?php  foreach ($items as  $item) { ?>
-	
 					<li class="event" data-date="<?php echo $item['date']; ?>">
 					<div class="arrow-left"></div>
 					<h3><?php echo $item['title']; ?></h3>
 					<p><?php echo $item['description']; ?></p>
 					</li>
-
-
 				<?php } ?>
                 </ul>
 			</div>
@@ -1406,17 +1567,17 @@ function media_coverage_funct($atts) {
 									</figure>
 								</div>
 
-								<?php if($item['title']) { ?>
+								<?php if(isset($item['title'])) { ?>
 								<div class="link">
 								<?php } ?>
 								<?php if ( $item_link ) { ?>
-								<a href="<?php echo $link['url']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $link['target']; ?>" class="">
+								<a href="<?php echo $link['url']; ?>" title="<?php if(isset($item['title'])) {echo $item['title'];} ?>" target="<?php echo $link['target']; ?>" class="">
 								<?php } ?>
-								<?php echo $item['title']; ?>
+								<?php if(isset($item['title'])) {echo $item['title'];} ?>
 								<?php if ( $item_link ) { ?>
 								</a>
 								<?php } ?>
-								<?php if($item['title']) { ?>
+								<?php if(isset($item['title'])) { ?>
 								</div>
 								<?php } ?>
 
@@ -1606,8 +1767,6 @@ function logo_resources_funct($atts) {
 
 
 
-
-
 add_shortcode('press_releases', 'press_releases_funct');
 function press_releases_funct($atts) {
 	ob_start();
@@ -1617,11 +1776,16 @@ function press_releases_funct($atts) {
 	), $atts );
 	$year = $a['year'];
 
+	/*
+	echo "<div class='cat_translated hidden'>";
+	echo apply_filters( 'wpml_object_id', 19, 'category', TRUE  );
+	echo "</div>";
+	*/
+
 	// The Query
-	$first_ids = get_posts( array(
+	$press_posts_ids = get_posts( array(
 		'fields'         => 'ids',
-		//'category_name' => 'pressrelease',
-		'category' => 19,
+		'category' => 19, //pressrelease
 		//'category' => apply_filters( 'wpml_object_id', 19, 'category', TRUE  ),
 		'post_type' => array('post'),
 		'post_status' => array('publish'),
@@ -1632,12 +1796,17 @@ function press_releases_funct($atts) {
 		),
 		'posts_per_page' => '-1',
 		'orderby'    => 'date',
-		'order'      => 'DESC',
-		//'suppress_filters' => false,
-		//'ignore_sticky_posts' => true,
+		'order'      => 'DESC'
 	));
 
-	$second_ids = get_posts( array(
+
+	echo '<div class="posts_ids hidden">';
+	echo '<pre>';
+	print_r($press_posts_ids);
+	echo '</pre>';
+	echo '</div>';
+
+	$press_releases_ids = get_posts( array(
 		'fields'         => 'ids',
 		'post_type' => array('press_releases'),
 		'post_status' => array('publish'),
@@ -1648,21 +1817,27 @@ function press_releases_funct($atts) {
 		),
 		'posts_per_page' => '-1',
 		'orderby'    => 'date',
-		'order'      => 'DESC',
-		//'suppress_filters' => 0,
-		//'ignore_sticky_posts' => true,
+		'order'      => 'DESC'
 	));
 
-	//$the_query = new WP_Query( $args );
-	$post_ids = array_merge( $first_ids, $second_ids);
+	echo '<div class="press_releases_ids hidden">';
+	echo '<pre>';
+	print_r($press_releases_ids);
+	echo '</pre>';
+	echo '</div>';
 
+	//$the_query = new WP_Query( $args );
+	$post_ids = array_merge( $press_posts_ids, $press_releases_ids);
+
+	
 	$the_query = new WP_Query(array(
 		'post_type' => 'any',
-		'post__in'  => $post_ids, 
+		'post__in'  => $post_ids,
 		'orderby'   => 'date', 
 		'order'     => 'DESC',
 		'posts_per_page' => '-1',
-		'post__not_in' => get_option('sticky_posts')
+		//'post__not_in' => get_option('sticky_posts'),
+		'ignore_sticky_posts' => true
 	));
 
 	// The Loop
@@ -1699,7 +1874,6 @@ function press_releases_funct($atts) {
 
 				</a>
 			</li>
-
 			<?php
 		}
 		echo '</ul>';
@@ -1716,7 +1890,6 @@ function press_releases_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
-
 
 
 
@@ -3934,6 +4107,7 @@ function blog_list_shortcode_funct($atts) {
 
 
 			//get all sticky events
+			$sticky_events = array();
 			$args_events = array(
 				'post_type' => array('event'),
 				'post_status' => 'publish',
