@@ -65,8 +65,8 @@ function file_scripts() {
 
 	//enqueue js cookie
 	//wp_enqueue_script('js_cookie', get_template_directory_uri() . '/dist/js/js.cookie.min.js', [], true);
-	wp_enqueue_script('typed', get_template_directory_uri() . '/dist/js/typed.min.js', [], true);
-	//wp_enqueue_script('dsgvo-video-embed', get_template_directory_uri() . '/dist/js/dsgvo-video-embed.min.js', [], true);
+	wp_register_script('typed', get_template_directory_uri() . '/dist/js/typed.min.js', [], false);
+	wp_enqueue_script('typed');
 	
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
 	
@@ -377,4 +377,71 @@ function word_count($string, $limit) {
 add_filter( 'ppp_nonce_life', 'my_nonce_life' );
 function my_nonce_life() {
     return 5 * 86400;
+}
+
+
+//Translating values in “urlencoded” shortcodes in WPML
+add_filter( 'wpml_pb_shortcode_encode', 'wpml_pb_shortcode_encode_urlencoded_json', 10, 3 );
+function wpml_pb_shortcode_encode_urlencoded_json( $string, $encoding, $original_string ) {
+    if ( 'urlencoded_json' === $encoding ) {
+        $output = array();
+        foreach ( $original_string as $combined_key => $value ) {
+            $parts = explode( '_', $combined_key );
+            $i = array_pop( $parts );
+            $key = implode( '_', $parts );
+			if ($key === 'link') {
+				$value = wpmlsupp_11368_decode_encode_vc_link($value, 'encode');
+			}
+            $output[ $i ][ $key ] = $value;
+        }
+        $string = urlencode( json_encode( $output ) );
+    }
+    return $string;
+}
+ 
+add_filter( 'wpml_pb_shortcode_decode', 'wpml_pb_shortcode_decode_urlencoded_json', 10, 3 );
+function wpml_pb_shortcode_decode_urlencoded_json( $string, $encoding, $original_string ) {
+    if ( 'urlencoded_json' === $encoding ) {
+        $rows = json_decode( urldecode( $original_string ), true );
+        $string = array();
+        foreach ( $rows as $i => $row ) {
+            foreach ( $row as $key => $value ) {
+				if ( in_array( $key, array( 'text', 'title', 'description', 'link', 'btn_text', 'label', 'value', 'vc_link', 'url' ) ) ) {
+                    if ($key === 'link') { //convert link to shortcode.
+						$value = wpmlsupp_11368_decode_encode_vc_link($value);
+					}
+					$string[ $key . '_' . $i ] = array( 'value' => $value, 'translate' => true );
+                } else {
+                    $string[ $key . '_' . $i ] = array( 'value' => $value, 'translate' => false );
+                }
+            }
+        }
+    }
+    return $string;
+}
+
+function wpmlsupp_11368_decode_encode_vc_link($value, $type = 'decode') {
+	if (!function_exists('vc_build_link')) {
+		return $value;
+	}
+
+	if ($type === 'decode') {
+		$str = '[fakeshortcode ';
+		$link_arr = vc_build_link($value);
+		foreach($link_arr as $key => $value) {
+			$str .= $key . '="' . $value . '" ';
+		}
+		$str .= ']';
+	} else if ($type === 'encode') {
+		$str = '';
+		$value = str_replace(['[fakeshortcode', ']'], ['',''], $value);
+		$value = shortcode_parse_atts($value);
+		$pipe = '';
+		foreach ($value as $key => $val) {
+			$str .= !empty($val) ? $pipe . $key . ':' . rawurlencode($val) : '';
+			$pipe = '|';
+		}
+	}
+
+	return $str;
 }

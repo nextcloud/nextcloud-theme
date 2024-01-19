@@ -1,0 +1,157 @@
+.table_outlook_comparison_container {
+    
+    table {
+        //max-width: 800px;
+        margin: 0 auto;
+        table-layout: fixed;
+
+        thead {
+            border: 0 !important;
+
+            tr {
+                line-height: 20px;
+
+                td, th {
+                    border: 0 !important;
+                    font-weight: 700;
+                    border-radius: 15px 15px 0 0;
+                    padding: 1rem 5px !important;
+                    text-align: center;
+                    width: 15% !important;
+                    
+                    &:first-child {
+                        width: auto !important;
+                    }
+
+                    &:nth-child(2) {
+                        background-color: $communityColor;
+                        //border-radius: 15px 0 0 0;
+                    }
+
+                    &:nth-child(3) {
+                        background-color: rgba($mainColor, 0.4);
+                        //border-radius: 0;
+                    }
+
+                    &:nth-child(4) {
+                        background-color: rgba($mainColor, 0.7);
+                        //border-radius: 0;
+                    }
+
+                    &:nth-child(5) {
+                        background-color: $mainColor;
+                        //border-radius: 0 15px 0 0;
+                        color: #fff;
+                    }    
+                }
+
+
+                @media screen and (max-width: $md-breakpoint) {
+                    & {
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+
+                        td, th {
+                            &:first-child {
+                                width: 0px !important;
+                                padding: 0 !important;
+                            }
+
+                            width: 33% !important;
+                            
+                        }
+                    }
+                }
+
+
+            }
+
+
+            @media screen and (max-width: $md-breakpoint) {
+                & {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    td {
+
+                        &:first-child {
+                            width: 0px !important;
+                            padding: 0 !important;
+                        }
+
+                        width: 33%;
+                        
+                    }
+                }
+            }
+
+        }
+
+
+        
+        tbody {
+            tr {
+    
+                &:nth-child(even){
+                    background-color: #F6F6F6;
+                }
+    
+                td {
+                    border: 0;
+                    padding: 1rem 1.6rem;
+                    text-align: center;
+
+                    &:not(:last-child) { 
+                        //border-left: 1px solid #DFDFDF;
+                        border-right: 1px solid #DFDFDF;
+                    }
+    
+                    &:first-child {
+                        text-align: right;
+                    }
+    
+                    .fa-check-circle, .fa-plus-circle {
+                        color: $successColor;
+                    }
+    
+                    .fa-times-circle {
+                        color: $errorColor;
+                    }
+    
+                    .optional {
+                        color:#ffba00 !important;
+                    }
+    
+                    .fa-dollar-sign {
+                        color: #0066d4 !important;
+                    }
+    
+                }
+
+
+
+                @media screen and (max-width: $md-breakpoint) {
+                    & {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        td {
+                            &:first-child {
+                                width: 100% !important;
+                                display: block;
+                                text-align: center;
+                            }
+
+                            width: 33% !important;
+
+                        }
+                    }
+                }
+
+
+            }
+        }
+    }
+
+}

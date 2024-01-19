@@ -73,7 +73,7 @@
                     'post_type' => array('post', 'page'),
                     'post_status' => 'publish',
                     'posts_per_page' => -1,
-                    'meta_key' => 'top_banner_image'
+                    'meta_key' => 'top_banner_text'
                 );
                 $top_banner_query = new WP_Query( $args_top_banner );
 
@@ -81,7 +81,7 @@
                 if ( $top_banner_query->have_posts() ) {
                     while ( $top_banner_query->have_posts() ) {
                         $top_banner_query->the_post();
-                            if(get_field('top_banner_image')) {
+                            if(get_field('top_banner_text')) {
                         ?>
                         <div class="item">
                             <div class="nc-awards-banner">

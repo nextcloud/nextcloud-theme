@@ -1,6 +1,36 @@
 jQuery(document).ready(function ($) {
 
 
+    $(document).on( 'nfFormReady', function() {
+        console.log('Form is ready');
+        jQuery('#specific_talk_toggle').each(function(){
+            //$(this).next('.nf-form-cont').hide();
+            $(this).next('.nf-form-cont').hide();
+            var form =  $(this).next('.nf-form-cont');
+            var form_id = form.attr('id');
+
+            $(this).click(function(e){
+                e.preventDefault();
+                form.slideDown("fast");
+
+                $('html, body').animate({
+                    scrollTop: $(form).offset().top
+                }, 2000);
+
+            });
+        });
+    });
+
+
+
+    jQuery('.iframe_noScrolling').each(function(){
+        var iframe = $(this).find('iframe');
+        iframe.css('pointer-events', 'none');
+        $(this).click(function(){
+            iframe.css('pointer-events', '');
+        });
+    });
+
     if (jQuery(window).width() > 767) {
         $('.iconboxes_carousel .nc_iconbox .description').each(function(index){
             var el = $(this);

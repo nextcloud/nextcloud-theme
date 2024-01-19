@@ -1137,9 +1137,6 @@
                 li{
                     padding: 9px 0;
                     display: block;
-                    //margin: 10px;
-                    //margin-right: 15px;
-                    //width: 100%;
                     width: fit-content;
                     
 
@@ -1147,6 +1144,7 @@
                         & {
                             width: calc(49% - 15px) !important;
                             display: inline-block !important;
+                            margin-right: 10px;
                         }
                     }
                     
@@ -1322,6 +1320,56 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2022/09/nc-office-icon.svg');
+                }
+            }
+        }
+
+
+
+        &.enterprise_stability_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-stability-icon-white.svg');
+                }
+            }
+        }
+
+        &.enterprise_security_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-security-icon-white.svg');
+                }
+            }
+        }
+
+        &.enterprise_expertise_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-expertise-icon-white.svg');
+                }
+            }
+        }
+
+        &.enterprise_compliance_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-compliance-icon-white.svg');
+                }
+            }
+        }
+
+        &.enterprise_influence_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-influence-icon-white.svg');
+                }
+            }
+        }
+
+        &.enterprise_functionality_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/01/nc-enterprise-custom-functionality-white.svg');
                 }
             }
         }
@@ -1782,7 +1830,8 @@
     right: 0;
 }
 
-.play-video-hub-btn {
+
+.play-video-hub-btn, .btn-overlap-section {
     position: absolute;
     left: 0;
     right: 0;

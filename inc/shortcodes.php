@@ -2209,23 +2209,34 @@ add_shortcode('webinar_video_url', 'nc_get_webinar_video_url');
 
 
 function nc_typed_text_func($atts){
+	//wp_enqueue_script('typed');
+	$attributes = shortcode_atts(
+		array(
+			'text' => ''
+		), $atts);
+
+	$text = $attributes['text'];
+	$words = explode(',', $text);
+	$text_as_array = '[';
+	foreach($words as $word) {
+		$text_as_array .= "'".$word."', ";
+	}
+	$text_as_array .= ']';
+
 	ob_start();
 	?>
-
 	<span class="typed_text" id="typed"></span>
-
-	<script>
+	<script id="typed_custom_js">
 	var options = {
-		strings: ['Password', 'Nudes', 'Diary', 'Photos', 'Data', 'Chatlogs'],
+		//strings: ['Password', 'Nudes', 'Diary', 'Photos', 'Data', 'Chatlogs'],
+		strings: <?php echo $text_as_array; ?>,
 		typeSpeed: 40,
 		backSpeed: 40,
 		fadeOut: true,
 		loop: true
 	};
-
 	var typed = new Typed('#typed', options);
 	</script>
-	
 	<?php
 	return ob_get_clean();
 }
@@ -4506,7 +4517,9 @@ function partners_search_shortcode_funct($atts) {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="filters-holder">
-					<div class="input-outer" id="service_select">
+
+
+					<div class="input-outer" id="service_select" style="display:none">
 						<div class="input-holder selection">
 							<span class="label"><?php echo __("Services","nextcloud"); ?></span>
 							<div class="inner">
@@ -4571,7 +4584,9 @@ function partners_search_shortcode_funct($atts) {
 							</li>
 						</ul>
 					</div>
-					<div class="input-outer">
+
+
+					<div class="input-outer" style="display:none">
 						<div class="input-holder selection">
 							<span class="label"><?php echo __("Partner level","nextcloud"); ?></span>
 							<div class="inner">
@@ -4586,7 +4601,9 @@ function partners_search_shortcode_funct($atts) {
 							<li data-certificate="bronze">Bronze</li>
 						</ul>
 					</div>
-					<div class="input-outer" id="country_select">
+
+
+					<div class="input-outer" id="country_select" style="display:none">
 						<div class="input-holder selection">
 							<span class="label"><?php echo __("Country","nextcloud"); ?></span>
 							<div class="inner">
@@ -4625,11 +4642,14 @@ function partners_search_shortcode_funct($atts) {
 							?>
 						</ul>
 					</div>
+
+
 					<div class="input-outer">
 						<div class="search-holder">
 							<input type="text" placeholder="<?php echo __("Search","nextcloud"); ?>" id="filtersearch" />
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
