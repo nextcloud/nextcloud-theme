@@ -1,6 +1,5 @@
 jQuery(document).ready(function ($) {
 
-
     $(document).on( 'nfFormReady', function() {
         console.log('Form is ready');
         jQuery('#specific_talk_toggle').each(function(){
@@ -759,22 +758,28 @@ jQuery(document).ready(function () {
         menuSection.removeAttribute('tab-index')
     })
 
-    const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children')
+
+    //const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children');
+    const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children > a');
 
     Array.prototype.forEach.call(menuItems, function (el, i) {
         el.setAttribute('aria-haspopup', 'true')
         let timer;
+
         el.addEventListener("mouseover", (event) => {
-            document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
-            el.classList.add('open')
-            clearTimeout(timer)
-        })
+            document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+            el.classList.add('open');
+            clearTimeout(timer);
+        });
+
         el.addEventListener("mouseout", (event) => {
             timer = setTimeout((event) => {
                 document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
-            }, 1000)
-        })
-        el.querySelector('a').addEventListener("click", function(event) {
+            }, 250)
+        });
+
+        //el.querySelector('a').addEventListener("click", function(event) {
+        el.addEventListener("click", function(event) {    
             if (this.parentNode.className.includes('menu-item-has-children')) {
                 document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
                 this.parentNode.classList.add('open')
@@ -794,6 +799,50 @@ jQuery(document).ready(function () {
         jQuery('header').toggleClass('active');
         jQuery('.header-items').slideToggle();
     });
+
+
+
+    
+    var windowsize = jQuery(window).width();
+    if (windowsize < 1200) {
+        jQuery(".menu-item-has-children").click(function () {
+                jQuery(this).siblings('li').children('.sub-menu').slideUp();
+                jQuery(this).siblings('li').removeClass('mobile-submenu-open');
+    
+                jQuery(this).children('.sub-menu').slideToggle();
+                jQuery(this).toggleClass('mobile-submenu-open');
+            });
+    }
+    
+
+
+    
+    jQuery( window ).on( "resize", function() {
+        var windowsize = jQuery(window).width();
+        if (windowsize > 1200) {
+
+            jQuery('.header-items').show();
+
+            if(jQuery('header').hasClass('active')) {
+                jQuery('header').removeClass('active');
+            }
+
+            if(jQuery('.phone-menu').hasClass('change')) {
+                jQuery('.phone-menu').removeClass('change');
+            }
+
+        } else {
+            if(jQuery('.phone-menu').hasClass('change')) {
+                jQuery('header').addClass('active');
+            } else {
+                jQuery('.header-items').hide();
+            }
+
+        }
+
+    } );
+    
+
 
     jQuery('.card-btn').click(function () {
         var box = jQuery(this).parent('.accordion-card');
@@ -853,20 +902,6 @@ jQuery(document).ready(function () {
         jQuery(this).toggleClass('active');
     });
 
-
-    /*
-    jQuery(".news-container").slice(0, 9).show();
-    if (jQuery(".news-item:hidden").length != 0) {
-        jQuery("#loadNews").show();
-    }
-    jQuery("#loadNews").on('click', function (e) {
-        e.preventDefault();
-        jQuery(".news-container:hidden").slice(0, 9).slideDown();
-        if (jQuery(".news-container:hidden").length == 0) {
-            jQuery("#loadNews").fadeOut('slow');
-        }
-    });
-    */
 
     setTimeout(function() {
         jQuery('.post-holder').each(function() {
@@ -1241,8 +1276,9 @@ jQuery(document).ready(function () {
         });
     }
 
-    /*
 
+
+    /*
     function resetFilter() {
     jQuery('#services').val('All services');
     jQuery('#services').data('value', 'all-dev');
@@ -1619,7 +1655,6 @@ function iniFilter() {
         var filter3 = 'all-comp';
     }
 
-
     var filter4 = jQuery('#filtersearch').val();
 
     if (jQuery.inArray("all-dev", filter1) !== -1 || filter1.length === 0) {
@@ -1646,21 +1681,8 @@ function iniFilter() {
         var partner_id = jQuery(this).attr('id');
         var values = jQuery(this).data('type');
         var country = jQuery(this).data('country');
-
         var countries_of_this_partner_array = country.split(",");
         //console.log("countries_of_this_partner: "+countries_of_this_partner);
-
-
-        /*
-        if(partner_id == 'partner-46694') {
-            console.log("ID partner: "+partner_id);
-            console.log("countries_of_this_partner_array: "+countries_of_this_partner_array);
-            console.log("filter3: "+filter3);
-
-            console.log("findCommonElement: "+findCommonElement(countries_of_this_partner_array, filter3));
-        }
-        */
-        
 
 
         if(filter3 != '') {
@@ -1670,24 +1692,33 @@ function iniFilter() {
         } else {
             countries_included = true;
         }
-       
 
-        /*
-        if(partner_id == 'partner-46694') {
-            console.log('countries_included: '+countries_included);
-        }
-        */
+        
 
 
         if (allDev == 1) { // if selected all services
-            if (values.includes(filter2) && countries_included && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4) ) {
+            //console.log("All services are selected.");
+
+            if (
+                //values.includes(filter2) && countries_included && 
+                jQuery(this).find('.partner-text').text().toLowerCase().match(filter4.toLowerCase()) 
+                || 
+                country.toLowerCase().match(filter4.toLowerCase())
+            ) {
                 jQuery(this).show();
 
             } else {
                 jQuery(this).hide();
             }
+
+
         } else { // if selected specific serivce
-            if (filter1.every(item => values.includes(item)) && values.includes(filter2) && countries_included && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4) ) {
+            //console.log("Specific serivce is selected.");
+
+            if (filter1.every(item => values.includes(item)) && values.includes(filter2) 
+            && countries_included 
+            && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4)
+            ) {
                 jQuery(this).show();
             } else {
                 jQuery(this).hide();

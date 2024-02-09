@@ -8218,7 +8218,7 @@ p {
         img {
             display: block;
             max-width: 100%;
-            height: auto;
+            height: auto !important;
             //margin: 0.5rem 0px 20px; 
 
             &.aligncenter {
@@ -10174,22 +10174,6 @@ p {
         }
     }
 
-
-    &.btn-small {
-        .vc_general.vc_btn3 {
-            min-width: auto;
-            padding: 0px 17px;
-            line-height: 27px;
-            height: auto !important;
-            font-size: 13px;
-
-            &.vc_btn3-icon-right {
-                padding-right: 41px !important;
-            }
-        }
-    }
-
-
     &.youtube {
         .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
         {
@@ -10221,8 +10205,6 @@ p {
     }
 
 }
-
-
 
 .btn-white {
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
@@ -10274,9 +10256,7 @@ p {
     
 }
 
-
 .btn-outline {
-
     
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
     {
@@ -10308,9 +10288,30 @@ p {
             }
         }
     }
-
-    
 }
+
+
+.btn-small {
+    .vc_general.vc_btn3 {
+        min-width: auto;
+        padding: 0px 17px !important;
+        line-height: 27px;
+        height: auto !important;
+        font-size: 13px !important;
+
+        &.vc_btn3-icon-right {
+            padding-right: 41px !important;
+        }
+
+        &.vc_btn3-icon-left {
+            padding-left: 35px !important;
+            i {
+                left: 11px !important;
+            }
+        }
+    }
+}
+
 
 
 .nc-section-title {
@@ -11728,6 +11729,8 @@ table.advantages {
                     .case_study {
                         display: flex;
 		                flex-direction: column;
+                        margin-bottom: 1rem !important;
+
 
                         .vc_column-inner {
                             display: flex;
@@ -12250,7 +12253,7 @@ table.advantages {
 
                 .feature_item {
                     flex: 1;
-                    min-width: 350px;
+                    //min-width: 350px;
 
                     &:not(:last-child) {
                         margin-right: 30px;
@@ -14865,12 +14868,15 @@ table.color_table {
 
 
 .events_table {
+
+    display: block;
+    overflow-x: auto;
+
     &.webinars {
         border-radius: $borderRadius;
-        overflow: hidden;
+        //overflow: hidden;
         box-shadow: $boxShadow;
     }
-    
 
     th, td {
         padding: 1rem 1.6rem;

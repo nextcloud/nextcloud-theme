@@ -117,6 +117,12 @@ header {
             margin: auto;
 
 
+            .item {
+                height: 100%;
+                margin-bottom: 30px; //trick to hide next visible item
+            }
+
+            //only after owl carousel is loaded
             .owl-stage-outer {
                 height: 100%;
 
@@ -166,11 +172,11 @@ header {
 
                     @media screen and (max-width: $md-breakpoint) {
                         &.owl-prev {
-                            left: 1rem;
+                            left: -6px;
                         }
     
                         &.owl-next {
-                            right: 1rem;
+                            right: -6px;
                         }
                     }
                 }
@@ -278,7 +284,6 @@ header {
 
 
     }
-
     
 
     &.active {
@@ -286,8 +291,8 @@ header {
         bottom: 0px;
 
         .container {
-            height: 100vh;
-            overflow-y: scroll !important;
+            //height: 100vh;
+            //overflow-y: scroll !important;
         }
     }
 
@@ -342,8 +347,8 @@ header {
                 }
 
                 .bar3 {
-                    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-                    transform: rotate(45deg) translate(-8px, -8px);
+                    -webkit-transform: rotate(45deg) translate(-9px, -9px);
+                    transform: rotate(45deg) translate(-9px, -9px);
                 }
             }
 
@@ -351,10 +356,11 @@ header {
             .bar2,
             .bar3 {
                 width: 31px;
-                height: 3px;
+                height: 4px;
                 background-color: #fff;
                 margin: 7px 0;
                 transition: 0.4s;
+                border-radius: 5px;
             }
         }
 
@@ -376,28 +382,21 @@ header {
                     flex-direction: row;
 
                     &>li {
-                        transition: all 0.3s ease;
 
+                        transition: all 0.3s ease;
                         position: relative;
-                        padding: 16px 0px;
-                        margin: 0px 8px;
+                        padding: 16px 5px;
                         display: inline-block;
 
                         &:not(.nav-btn) > a {
                             padding: 16px 12px;
                             border-radius: 27px;
                             -webkit-border-radius: 27px;
-
-                            /*
-                            &:focus {
-                                outline: none;
-                                border: 2px solid #fff;
-                                padding: 14px 10px;
-                            }
-                            */
                         }
 
                         &.nav-btn {
+                            margin-right: 12px;
+
                             & > a {
                                 background-color: #fff;
                                 color: $textColor;
@@ -407,14 +406,6 @@ header {
                                 transition: all 0.3s ease;
                                 margin: 6px auto;
                                 white-space: nowrap;
-
-                                /*
-                                &:focus {
-                                    border: 2px solid black;
-                                    padding: 14px 18px;
-                                    outline: none;
-                                }
-                                */
 
                                 &:hover {
                                     background-color: $mainColor;
@@ -456,6 +447,8 @@ header {
                                 }
                             }
 
+
+                            /*
                             &.open {
                                 & > a {
                                     background-color: $mainColor;
@@ -467,35 +460,29 @@ header {
 
                                 }
                             }
-
-                        }
-
-                        &.menu-item-has-children {
-
-                            /*
-                            .sub-menu {
-                                opacity: 0;
-                                top: -50%;
-                                transition: 0.3s all ease;
-                            }
                             */
 
-                            &:hover {
-                                .sub-menu {
-                                    display: block;
-                                    //opacity: 1;
-                                    //top: 100%;
-                                }
-                            }
 
-                            &.menu-item-has-children.open {
-                                .sub-menu {
-                                    display: block;
-                                    //opacity: 1;
-                                    //top: 100%;
+
+                        }
+
+
+                        @media (min-width: $menu-custom-breakpoint) {
+                            &.menu-item-has-children {
+                                &:hover {
+                                    .sub-menu {
+                                        display: block;
+                                    }
+                                }
+
+                                &.open {
+                                    .sub-menu {
+                                        display: block;
+                                    }
                                 }
                             }
                         }
+
 
                         a {
                             color: #ffffff;
@@ -511,7 +498,6 @@ header {
                                 color: #ffffff;
                                 font-size: 16px;
                                 font-weight: 600;
-                                //padding: 16px 0;
                                 display: inline-block;
                                 position: relative;
     
@@ -526,14 +512,18 @@ header {
                                         background-color: #fff;
                                         transition: all 0.3s ease;
                                     }
-                                }
-    
-                                &:hover {
-                                    //opacity: 0.7;
-                                    &:after {
-                                        width: 24px;
+
+                                    &:hover {
+                                        &:after {
+                                            width: 24px;
+                                        }
                                     }
+
                                 }
+
+                                
+    
+                            
                             }
 
                             &.current-menu-parent, &.current-menu-ancestor {
@@ -543,11 +533,14 @@ header {
                                     }
                                 }
                             }
+
+
                         }
 
-                        &.wpml-ls-item {
-                            & > a {
 
+                        &.wpml-ls-item {
+
+                            & > a {
 
                                 &:before {
                                     content: "\f0ac";
@@ -561,15 +554,19 @@ header {
                                 text-transform: uppercase;
 
                                 
-                                span.wpml-ls-native {
-                                    font-size: 0px;
-                                    
-                                    &:before {
-                                        margin-left: .3em;
-                                        content: attr(lang);
-                                        font-size: 16px;
+                                @media screen and (min-width:$menu-custom-breakpoint) {
+                                    span.wpml-ls-native {
+                                        font-size: 0px;
+                                        
+                                        &:before {
+                                            margin-left: .3em;
+                                            content: attr(lang);
+                                            font-size: 16px;
+                                        }
                                     }
                                 }
+                                
+
 
 
                                 img.wpml-ls-flag {
@@ -579,11 +576,7 @@ header {
                                     display: none;
                                 }
 
-                                @media screen and (min-width: $xl-breakpoint) {
-                                    .wpml-ls-native {
-                                        //display: none;
-                                    }
-                                }
+                             
                                 
 
                                 @media screen and (max-width: $xl-breakpoint) {
@@ -674,7 +667,7 @@ header {
                                     flex-direction: row;
                                     align-items: center;
                                     color: $textColor;
-                                    font-size: 16px;
+                                    //font-size: 16px;
                                     font-weight: 400;
 
                                 
@@ -717,7 +710,7 @@ header {
 
 
                                 >.sub-menu {
-                                    padding: 20px 0px 0px 30px;
+                                    padding: 10px 0px 0px 25px;
                                     margin: 0px;
                                     list-style: none;
 
@@ -730,7 +723,7 @@ header {
                                             flex-direction: row;
                                             align-items: center;
                                             color: $textColor;
-                                            font-size: 14px;
+                                            //font-size: 14px;
                                             font-weight: 400;
 
                                             &:hover {
@@ -772,6 +765,75 @@ header {
                                 }
                             }
                         }
+
+
+
+                    //megamenu styling
+                    @media (min-width: $menu-custom-breakpoint) {
+                        &.megamenu {
+
+                            &.products {
+                                
+                                & > ul.sub-menu {
+                                    margin-left: -305px;
+                                    width: 600px;
+
+
+                                    .hub {
+                                        ul.sub-menu {
+                                            padding-top: 10px;
+                                            border-bottom: 1px solid #d9d9d9;
+
+                                            li {
+                                                display: inline-block;
+                                                width: 46%;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            &.solutions {
+                                li.enterprise {
+
+                                    & > ul.sub-menu {
+
+                                        li:not(.pricing) {
+                                            a {
+                                                &:before {
+                                                    position: relative;
+                                                    content: "\f105";
+                                                    font-family: 'Font Awesome 5 Free';
+                                                    font-weight: 900;
+                                                    margin-right: 10px;
+                                                    //color: $textColor;
+                                                }
+                                            }
+                                            
+                                        }
+
+                                        li.pricing {
+                                            border-top: 1px solid #d9d9d9;
+                                            //color: $mainColor;
+
+                                            a {
+                                                padding-top: 10px;
+                                                padding-bottom: 10px;
+                                            }
+                                        }
+
+                                    }
+
+                                }
+
+                                
+
+                            }
+
+                        }
+
+                    }
                     }
 
 
@@ -784,32 +846,157 @@ header {
 
                         & > li {
                             margin: 0px;
-                            padding: 10px 0px;
-
-                            margin: 0px 8px;
+                            padding: 0;
                             display: inline-block;
 
-                            &:not(.nav-btn):not(.wpml-ls-item) > a {
-                                padding: 6px 6px;
+                            //&:not(.nav-btn):not(.wpml-ls-item) > a {
+                            & > a {
+                                padding: 16px 21px;
+                                display: block;
+                                width: 100%;
 
                                 &:focus {
-                                    padding: 4px 4px;
+                                    outline: 1px solid #fff;
+                                }
+
+                            }
+
+                            &.menu-item-has-children {
+                                & > a {
+                                    position: relative;
+
+                                    &:after {
+                                        content: "\f107";
+                                        font-family: 'Font Awesome 5 Free';
+                                        //display: block;
+                                        position: absolute;
+                                        right: 20px;
+                                        top: 0;
+                                        color: #fff;
+                                        bottom: 0;
+                                        margin: auto;
+                                        line-height: 57px;
+                                    }
+                                    
                                 }
                             }
 
-                            & > .sub-menu {
+                            &.nav-btn {
+                                margin-bottom: 10px;
+
+                                a {
+                                    width: auto;
+                                    display: inline-block;
+                                    padding-right: 47px !important;
+                                    margin:0;
+
+
+                                    &:after {
+                                        color: $textColor !important;
+                                        right: 14px;
+                                        line-height: 47px !important;
+                                    }
+
+
+                                    &:hover {
+                                        animation: all 0.3s ease;
+
+                                        &:before, &:after {
+                                            animation: all 0.3s ease;
+                                        }
+
+                                        &:after {
+                                            color: #fff !important;
+                                        }
+
+                                    }
+                                }
+
+                                .sub-menu {
+                                    border-radius: 0 10px 10px 10px;
+
+                                }
+
+                            }
+
+
+                            &.wpml-ls-item {
+                                & > a {
+                                    padding-left: 30px;
+
+                                    &:before {
+                                        left: 12px;
+                                    }
+                                }
+                            }
+
+
+                            //submenu opened
+                            &.mobile-submenu-open {
+
+                                &.nav-btn {
+                                    a:hover {
+                                        background-color: #fff !important;
+
+                                        &:after {
+                                            color: $mainColor !important;
+                                        }
+
+                                    }
+                                }
+
+                                &.open {
+                                    &.nav-btn {
+                                        & > a {
+                                            background-color: #fff !important;
+
+                                            &:after {
+                                                color: $mainColor !important;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                & > a {
+                                    border-radius: 25px 25px 0 0;
+                                    background-color: #fff;
+                                    color: $mainColor !important;
+
+                                    &:after {
+                                        content: "\f106"; // angle up
+                                        color: $mainColor !important;
+                                    }
+
+                                    &:before {
+                                        color: $mainColor !important;
+                                    }
+                                    
+                                    &:focus {
+                                        outline: none;
+                                    }
+                                }
+                            }
+
+
+                            .sub-menu {
                                 position: relative;
                                 left: 0px;
                                 width: 100%;
-                                max-width: 320px;
-                                margin: 20px 0px 0px;
-                                padding: 20px 15px 1px;
+                                padding: 20px 15px;
+                                background: #f7f7f7;
+                                box-shadow: none !important;
+                                max-width: 100%;
+                                margin-top: 0px;
+                                margin-left: 0px;
+                                border-radius: 0 0 10px 10px;
 
                                 &:before {
-                                    left: 20px;
-                                    margin: 0px;
+                                    display: none;
                                 }
                             }
+
+                          
                         }
                     }
                     
@@ -821,7 +1008,9 @@ header {
         }
     }
 
-    &.scrolled {
+
+
+    &.scrolled:not(.active) {
         background-color: $mainColor;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);

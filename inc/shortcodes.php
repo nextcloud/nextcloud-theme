@@ -2615,7 +2615,7 @@ function webinar_details_func($atts){
 
 	
 ?>
-	<ul class="webinar_details" data-test="">
+	<ul class="webinar_details">
 	<?php if($event_start_datetime) { ?>
 		<li><?php 
 

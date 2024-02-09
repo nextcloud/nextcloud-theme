@@ -70,9 +70,11 @@ function file_scripts() {
 	
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
 	
+
+	wp_enqueue_script('intlTelInput_utils', get_template_directory_uri() . '/dist/js/utils.js', ['nf-front-end'], true);
 	wp_enqueue_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', ['nf-front-end'], true);
 	wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['nf-front-end'], true);
-	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end'], true);
+	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end', 'intlTelInput_utils'], true);
 	wp_enqueue_script('custom-nf-code');
 	
 	
@@ -445,3 +447,46 @@ function wpmlsupp_11368_decode_encode_vc_link($value, $type = 'decode') {
 
 	return $str;
 }
+
+
+//dequeue podlove styles and scripts
+function dequeue_unused_style_scripts(){
+    wp_dequeue_style( 'podlove-frontend-css' );
+	wp_dequeue_style( 'podlove-admin-font' );
+	wp_dequeue_script( 'podlove-web-player-player');
+	wp_dequeue_script( 'podlove-web-player-player-cache');
+
+	//discourse plugin
+	wp_dequeue_style( 'comment_styles' );
+	wp_dequeue_script( 'load_comments_js');
+	
+	
+}
+add_action( 'wp_enqueue_scripts', 'dequeue_unused_style_scripts', 999 );
+function enqueue_unused_style_scripts(){
+	if(is_single()) {
+
+		if(get_post_type()=='podcast') {
+			wp_enqueue_style( 'podlove-frontend-css' );
+			wp_enqueue_style( 'podlove-admin-font' );
+			wp_enqueue_script( 'podlove-web-player-player');
+			wp_enqueue_script( 'podlove-web-player-player-cache');
+		}
+
+		if(get_post_type()=='post') {
+			wp_enqueue_style( 'comment_styles' );
+			wp_enqueue_script( 'load_comments_js');
+		}
+		
+	}
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_unused_style_scripts', 999 );
+
+
+// Unset the X-Mailer header
+function remove_phpmailer_x_mailer_header($phpmailer) {
+    // Check if PHPMailer class exists
+        $phpmailer->XMailer = ' ';
+		//$phpmailer->addCustomHeader('X-Nextcloud', 'Action works');
+}
+add_action('phpmailer_init', 'remove_phpmailer_x_mailer_header');

@@ -25,14 +25,16 @@ jQuery(document).ready(function () {
                 },
                 
                 preferredCountries: ['de', 'fr', 'uk', 'ch', 'at'],
-                utilsScript: "https://nextcloud.com/wp-content/themes/nextcloud-theme/dist/js/utils.js",
+                //utilsScript: "https://nextcloud.com/wp-content/themes/nextcloud-theme/dist/js/utils.js",
+                utilsScript: "https://nextcloud.com/c/themes/nextcloud-theme/dist/js/utils.js",
             });
             
             
             if (typeof iti.getNumber === "function") { 
-                jQuery(input).keyup(function(){
-                    jQuery(this).val(iti.getNumber());
-                });
+                    jQuery(input).keyup(function(){
+                        console.log("iti getNumber: "+iti.getNumber());
+                        jQuery(this).val(iti.getNumber());
+                    });
             }
 
             
@@ -140,12 +142,12 @@ if(typeof Marionette !== 'undefined') {
         jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
             //console.log(layoutView.model.id);
             var form_id = layoutView.model.id;
-            if(form_id != 1 
-                && form_id != 30 
-                && form_id != 27 
-                && form_id != 33 
-                && form_id != 68 
-                && form_id != 72
+            if(form_id != 1 // exclude Contact form
+                && form_id != 30 // exclude Discuss your app form
+                && form_id != 27 // exclude Newsletter form
+                && form_id != 33 // exclude Contact Issue form
+                && form_id != 68 // exclude Events newsletter form
+                && form_id != 72 // exclude  Events lead collection form
                 && form_id != 85 // exclude Hub announcements form
 
                 ) {
