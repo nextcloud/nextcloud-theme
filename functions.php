@@ -39,10 +39,17 @@ function file_scripts() {
 	wp_enqueue_style('style-bootstrap', get_stylesheet_directory_uri() . '/dist/css/bootstrap.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/bootstrap.min.css'), 'all');
 	wp_enqueue_style('css-slick', get_stylesheet_directory_uri() . '/dist/css/slick.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/slick.css'), 'all');
 	wp_enqueue_style('css-style', get_stylesheet_directory_uri() . '/dist/css/theme.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/theme.min.css'), 'all');
-	wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
+	//wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
 	wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', [], (string)filemtime(get_stylesheet_directory() . '/style.css'), 'all');
 	//searchable select
-	wp_enqueue_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
+	
+	wp_register_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
+	if ( 
+		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
+		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets'))
+	) {
+		wp_enqueue_style('selectizeStyle');
+	}
 
 
 	//js
@@ -70,21 +77,48 @@ function file_scripts() {
 	
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', [], true);
 	
+	//enqueue cookie banner script
+	wp_register_script('cookie_banner_script', get_template_directory_uri() . '/dist/js/cookie_banner_script.js', [], true);
+	$cookie_banner_strings = array(
+		'allow_selection' => __('Allow selection', 'nextcloud'),
+		'reject_all' => __('Reject all', 'nextcloud')
+	);
+	wp_localize_script( 'cookie_banner_script', 'cookie_banner_strings', $cookie_banner_strings );
+	wp_enqueue_script( 'cookie_banner_script' );
 
-	wp_enqueue_script('intlTelInput_utils', get_template_directory_uri() . '/dist/js/utils.js', ['nf-front-end'], true);
-	wp_enqueue_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', ['nf-front-end'], true);
-	wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['nf-front-end'], true);
+
+	wp_register_script('intlTelInput_utils', get_template_directory_uri() . '/dist/js/utils.js', ['nf-front-end'], true);
+	wp_register_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', ['nf-front-end', 'jquery'], true);
+	if( 
+		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
+		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets'))
+	){
+		wp_enqueue_script('intlTelInput_utils');
+		wp_enqueue_script('intlTelInput');
+	}
+
+
+	wp_register_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['nf-front-end', 'jquery'], true);
+	if ( 
+		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
+		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets'))
+	) {
+		wp_enqueue_script('selectize');
+	}
+
 	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end', 'intlTelInput_utils'], true);
 	wp_enqueue_script('custom-nf-code');
 	
 	
-	wp_register_script('main', get_template_directory_uri() . '/dist/js/main.js', [], true);
+	wp_register_script('main', get_template_directory_uri() . '/dist/js/main.js', [], (string)filemtime(get_stylesheet_directory() . '/dist/js/main.js') ,true);
 	// Localize the script with new data
 	$main_js_strings_array = array(
 		'see_more' => __( 'See more', 'nextcloud' ),
 		'copied' => __( 'Copied!', 'nextcloud' ),
 		'copy_url' => __( 'Copy URL', 'nextcloud' ),
-		'see_less' => __( 'See less', 'nextcloud' )
+		'see_less' => __( 'See less', 'nextcloud' ),
+		'hide_past_events' => __('Hide past events','nextcloud'),
+		'show_past_events' => __('Show past events','nextcloud')
 	);
 	wp_localize_script( 'main', 'main_js_strings', $main_js_strings_array );
 	wp_enqueue_script( 'main' );
@@ -459,13 +493,18 @@ function dequeue_unused_style_scripts(){
 	//discourse plugin
 	wp_dequeue_style( 'comment_styles' );
 	wp_dequeue_script( 'load_comments_js');
-	
-	
+
+	//reusable block plugin
+	wp_dequeue_style('reusablec-block-css');
+
+	//wp bakery font awesome
+	wp_dequeue_style('vc_font_awesome_5_shims');
+	wp_dequeue_style('vc_font_awesome_5');
 }
 add_action( 'wp_enqueue_scripts', 'dequeue_unused_style_scripts', 999 );
+
 function enqueue_unused_style_scripts(){
 	if(is_single()) {
-
 		if(get_post_type()=='podcast') {
 			wp_enqueue_style( 'podlove-frontend-css' );
 			wp_enqueue_style( 'podlove-admin-font' );
@@ -477,10 +516,21 @@ function enqueue_unused_style_scripts(){
 			wp_enqueue_style( 'comment_styles' );
 			wp_enqueue_script( 'load_comments_js');
 		}
-		
 	}
+
+	wp_enqueue_style('vc_font_awesome_5');
+	wp_enqueue_style('vc_font_awesome_5_shims');
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_unused_style_scripts', 999 );
+
+//exclude specific category from RSS feed
+function nc_custom_rss_filter($query) {
+	if ($query->is_feed) {
+	$query->set('cat','-226'); //Put category ID - here it is : 7
+	}
+	return $query;
+	}
+add_filter('pre_get_posts','nc_custom_rss_filter');
 
 
 // Unset the X-Mailer header
@@ -490,3 +540,33 @@ function remove_phpmailer_x_mailer_header($phpmailer) {
 		//$phpmailer->addCustomHeader('X-Nextcloud', 'Action works');
 }
 add_action('phpmailer_init', 'remove_phpmailer_x_mailer_header');
+
+
+//alter search query when searching for webinar recordings
+function webinar_recordings_search_filter($query) {
+    if ( $query->is_search && !is_admin() ) {
+		if($_GET['custom_type'] == 'webinar_recordings') {
+		date_default_timezone_set('Europe/Berlin');
+		$current_date_time = date('Y-m-d H:i:s', time());
+		
+		$query->set('tax_query', array(
+			array(
+				'taxonomy' => 'event_categories',
+				'field'    => 'slug',
+				'terms'    => 'webinars',
+			)
+		));
+
+        $query->set('meta_query', array(
+			'relation' => 'AND',
+                array(
+                    'key'     => 'download_available',
+                    'value'	  => '',
+                    'compare' => '!=',
+                )
+		));
+		
+      }
+    }
+}
+add_action('pre_get_posts','webinar_recordings_search_filter', 99);

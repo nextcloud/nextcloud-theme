@@ -12,17 +12,6 @@ try {
 	$ip = null;
 }
 
-/**
- * Translation placeholder
- * !TODO Replace with proper translation methods
- */
-// $l = new L10N('signup');
-/*
-function __($string) {
-	return $string;
-}
-*/
-
 $registerL10n = [
 	'subscribe' => __('Subscribe to our newsletter', 'nextcloud'),
 	'email' => __('Your email address', 'nextcloud'),

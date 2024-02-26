@@ -3,6 +3,7 @@
 	wp_enqueue_script('custom-nf-code');
 
 	$ids = [];
+	if(have_posts()) :
 	while (have_posts()) : the_post();
 		$date = (string)get_the_date('F d, Y');
 		$cat = get_the_category();
@@ -66,21 +67,20 @@
 				</div>
 			</div>
 		</section>
+
 		<section class="post-single-section">
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 col-md-12 whitepaper_desc_col">
 						<div class="text-block">
 						<?php
-						//echo do_shortcode(apply_filters('the_content', get_the_content()));
 
 						if(get_the_excerpt() && !get_the_content() ) {
 							echo get_the_excerpt();
 						} else {
-							echo get_the_content();
+							//echo get_the_content();
+							echo apply_filters( 'the_content', get_the_content() );
 						}
-						
-						endwhile; // End of the loop.
 						?>
 						</div>
 					</div>
@@ -88,35 +88,41 @@
 
 					<div class="col-lg-4 col-md-12 download_whitepaper_col">
 						
-						<h3>
-                        <?php
-                            if(get_post_type()=='whitepapers'){
-                                echo __('Download whitepaper', 'nextcloud');
-                            }else if(get_post_type()=='case_studies') {
-                                echo __('Download case study', 'nextcloud');
-                            } else if(get_post_type()=='data_sheets'){
-                                echo __('Download data sheet', 'nextcloud');
-                            }
-                        ?>
-                        </h3>
+						<div class="download_whitepaper_content">
+							<h3>
+							<?php
+								if(get_post_type()=='whitepapers'){
+									echo __('Download whitepaper', 'nextcloud');
+								}else if(get_post_type()=='case_studies') {
+									echo __('Download case study', 'nextcloud');
+								} else if(get_post_type()=='data_sheets'){
+									echo __('Download data sheet', 'nextcloud');
+								}
+							?>
+							</h3>
 
-						<?php 
-						echo '<div class="form-body download_whitepaper_form">';
 
-						if(get_post_meta(get_the_ID(), 'custom_ninja_form', true)) {
-							//if custom shortcode is in the custom field
-							echo do_shortcode(get_post_meta(get_the_ID(), 'custom_ninja_form', true));
-						} else {
-							echo do_shortcode("[ninja_form id='4']");
-						}
+							<?php 
+							echo '<div class="form-body download_whitepaper_form">';
+								if(get_post_meta(get_the_ID(), 'custom_ninja_form', true)) {
+									//if custom shortcode is in the custom field
+									echo do_shortcode(get_post_meta(get_the_ID(), 'custom_ninja_form', true));
+								} else {
+									echo do_shortcode("[ninja_form id='4']");
+								}
+							echo '</div>';
+							?>
+						</div>
+
+
 						
-						echo '</div>';
-						?>
+
 					</div>
 
 				</div>
 			</div>
 		</section>
+
 		<section class="related-posts-section">
 			<div class="container">
 				<div class="row">
@@ -181,6 +187,7 @@
 				</div>
 			</div>
 		</section>
+
 		<?php
 		$forum = get_field('footer_text', 'options');
 		$link = get_field('footer_link', 'options');
@@ -208,6 +215,9 @@
 		}
 		?>
 
-
+		<?php
+		endwhile; // End of the loop. 
+		endif; 
+		?>
 
 </div>

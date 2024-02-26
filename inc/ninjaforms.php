@@ -8,7 +8,9 @@ function get_string_between($string, $start, $end){
     return substr($string, $ini, $len);
 }
 
+
 //ninja forms filter emails - don't allow private or spam emails
+/*
 function isDisposableEmail($email, $blocklist_path = null) {
     //list repo https://gist.github.com/drakodev/e85c1fd6d9ac8634786d6139e0066fa0
     if (!$blocklist_path) $blocklist_path = __DIR__ . '/disposable_email_blocklist.txt';
@@ -16,6 +18,7 @@ function isDisposableEmail($email, $blocklist_path = null) {
     $domain = mb_strtolower(explode('@', trim($email))[1]);
     return in_array($domain, $disposable_domains);
 }
+*/
 
 function isDisposableEmail_private_list($email, $blocklist_path = null) {
     if (!$blocklist_path) $blocklist_path = __DIR__ . '/disposable_email_blocklist_private.txt';
@@ -30,29 +33,51 @@ function nc_custom_ninja_forms_submit_data($form_data)
     $form_id = $form_data['id'];
 
     foreach( $form_data[ 'fields' ] as $field_id => $field ) {
-        if(
-        $form_id != 1 // exclude Contact form
-        && $form_id != 30 // exclude Discuss your app form
-        && $form_id != 27 // exclude Newsletter form
-        && $form_id != 33 // exclude Contact Issue form
-        && $form_id != 68 // exclude Events newsletter form
-        && $form_id != 72 // exclude  Events lead collection form
-        && $form_id != 85 // exclude Hub announcements form
-        ) {
-
             if( str_contains($field[ 'key' ], 'email') ) {
-                // email, corporate_email_1656608192369, email_1666338754229, business_email_1654165444607  - the other keys
-                    $field_value = $form_data['fields'][$field_id]['value'];
+                    $field_value = strtolower($form_data['fields'][$field_id]['value']);
+
+                    //check if valid format
                     if ( !filter_var( $field_value , FILTER_VALIDATE_EMAIL) ) {
                         $form_data['errors']['fields'][$field_id] = 'Invalid email format!';
                     }
-                    if( isDisposableEmail($field_value) || isDisposableEmail_private_list($field_value) ){ // not for the Email field inside the Contact form
-                        $form_data['errors']['fields'][$field_id] = 'Please use a valid business email';
-                    }
-            }
-        }
-  
 
+                    $validator = EmailValidation\EmailValidatorFactory::create($field_value);	
+                    $arrayValidator = $validator->getValidationResults()->asArray();
+
+                    if(
+                        in_array($form_id, array(
+                            1,// exclude Contact form
+                            30,// exclude Discuss your app form
+                            27,// exclude Newsletter form
+                            33, // exclude Contact Issue form
+                            68,// exclude Events newsletter form
+                            72,// exclude  Events lead collection form
+                            85// exclude Hub announcements form
+                        ))
+                    ){
+
+                        //basic forms validation
+                        if( !$arrayValidator['valid_mx_records'] || $arrayValidator['disposable_email_provider'] 
+                        /* || !$arrayValidator['valid_host'] */
+                        ){
+                            $form_data['errors']['fields'][$field_id] = __('Please use a valid email address.', 'nextcloud');
+                        }
+
+                    }else{
+
+                        if( !$arrayValidator['valid_mx_records'] 
+                        || $arrayValidator['disposable_email_provider']
+                        || $arrayValidator['free_email_provider']
+                        || isDisposableEmail_private_list($field_value)
+                        /* || !$arrayValidator['valid_host'] */
+                        ){ 
+                            $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address.', 'nextcloud');
+                        }
+
+
+                    }
+
+        }
     }
 
     return $form_data;

@@ -1,6 +1,31 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+.nf-form-cont {
+
+    .nf-field-container {
+        input[type=submit]:focus {
+            color: $mainColor !important;
+            background: #fff !important;
+        }
+    }
+
+
+    .checkbox-wrap {
+        .nf-field-label {
+            &.focus {
+                label {
+                    &:after {
+                        border-color: $mainColor;
+                        border-width: 2px;
+                        box-shadow: 0 0 15px rgba(0, 130, 201, 0.12);
+                    }
+                }
+            }
+        }
+        
+    }
+}
 
 .nf-field-description {
     font-style: italic;
@@ -109,16 +134,6 @@
         margin: auto 0px 0px 0px;
         padding: 0px 20px 20px;
 
-        .wpcf7 form.invalid .wpcf7-response-output,
-        .wpcf7 form.unaccepted .wpcf7-response-output,
-        .wpcf7 form.payment-required .wpcf7-response-output {
-            font-size: 14px;
-        }
-
-        .wpcf7-not-valid-tip {
-            font-size: 12px;
-        }
-
         .nf-form-title {
             margin: 0 !important;
         }
@@ -202,48 +217,361 @@
                     display: none;
                 }
 
-                .wpcf7-list-item {
-                    margin: 0px;
+                
+            }
+        }
+    }
+}
+
+
+
+.aio_form, .form_no_title {
+    .nf-form-title {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.push_notifications_contact_form {
+    .nf-form-title {
+        margin: 0;
+        padding: 0;
+    }   
+}
+
+.nf-form-content {
+
+    .nf-field {
+        .iti.iti--allow-dropdown {
+            width: 100%;
+        }
+    }
+    
+
+    .label-above {
+        .nf-field-label {
+            margin-bottom: 5px !important;
+            margin-top: 11px !important;
+        }
+    }
+
+
+    input[type="button"], input[type="submit"] {
+        background: $mainColor !important;
+        color: #fff;
+        transition: all .3s;
+        border-radius: 25px !important;
+        padding: 12px 2rem;
+        border: 2px solid $mainColor !important;
+        line-height: initial;
+
+        &:hover {
+            color: $mainColor !important;
+            background: #fff !important;
+        }
+    }
+}
+
+.white-text {
+
+    .nf-form-content {
+
+        .submit-container {
+
+            input[type="button"] {
+                background: #fff !important;
+                color: $mainColor;
+                transition: all .3s;
+                border-radius: 25px;
+                padding: 12px 2rem;
+                border: 2px solid #fff !important;
+                line-height: initial;
+        
+                &:hover {
+                    color: #fff !important;
+                    background: $mainColor !important;
+                }
+            }
+
+        }
+        
+
+    }
+
+}
+
+
+
+.newsletter_form {
+
+    .nf-form-title {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nf-field {
+        .select_mailing_list {
+
+            .nf-field-label {
+                margin-top: 0 !important;
+                margin-bottom: 1rem !important; 
+            }
+
+            .nf-field-element {
+
+                &::after {
+                    right: -35px !important;
                 }
 
-                .wpcf7-checkbox label {
-                    cursor: pointer;
-                    color: #000;
-                    font-size: 14px;
+                ul {
+
+                    @media screen and (min-width: $tablet-breakpoint ) {
+                        & {
+                            display: flex;
+                        }
+                    }
+
+                    li {
+
+                        &:not(:last-child) {
+                            margin-right: 10px !important;
+                        }
+
+                        label {
+                            cursor: pointer;
+
+                            &.nf-checked-label {
+                                &:before {
+                                    color: $mainColor !important;
+                                }
+                            }
+
+                            &::after, &::before {
+                                top:0;
+                                bottom: 0;
+                                margin: auto;
+                                cursor: pointer;
+                                height: 20px;
+                                width: 20px;
+                            }
+
+                            &:before {
+                                
+                            }
+
+                            &::after {
+                                border-radius: 5px;
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+
+        }
+
+    }
+   
+}
+
+
+.nc_images_radio_buttons {
+
+    .nf-field-label{
+        margin: auto;
+    }
+
+    ul {
+        padding: 0;
+        margin-top: 1rem;
+        display: block !important;
+        text-align: center;
+
+        li {
+            width: 23% !important;
+            display: inline-flex;
+            height: auto !important;
+            margin: 5px !important;
+
+
+            input[type="radio"] {
+                display: block !important;
+                opacity: 0;
+                width: 0px !important;
+                height: 0px !important;
+                position: absolute;
+
+                &:focus {
+                    & + label {
+                        border: 0;
+                        background-color: $lightBG;
+
+                        &.nf-checked-label {
+                            position: relative;
+        
+                            &::after {
+                                position: absolute;
+                                content: "\f058";
+                                font-family: "Font Awesome 5 Free";
+                                font-weight: 900;
+                                color: $mainColor;
+                                right: -8px;
+                                top: -8px;
+                                font-size: 1.2em;
+                                background: #fff;
+                                border: 2px solid white;
+                                border-radius: 50%;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            
+            
+            @media screen and (min-width: $sm-breakpoint) and (max-width:$md-breakpoint) {
+                & {
+                    width: 46% !important;
+                }
+            }
+
+
+            @media screen and (max-width: $sm-breakpoint) {
+                & {
+                    width: 90% !important;
+                }
+            }
+
+            label {
+                width: 100%;
+                //font-size: 1.3em;
+                text-align: center;
+                font-weight: bold;
+                padding: 1rem;
+                border-radius: $borderRadius;
+                box-shadow: $boxShadow;
+                border: 0;
+                cursor: pointer;
+                transition: all .3s ease;
+                font-size: 16px;
+                word-wrap: break-word;
+
+                img {
+                    margin-top: 1.5rem;
+                    max-width: 74px !important;
+                    max-height: 45px;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
 
-                .wpcf7-checkbox input[type=checkbox] {
-                    display: none;
+                &:hover, &.nf-checked-label {
+                    border: 0;
+                    background-color: $lightBG;
                 }
 
-                .wpcf7-checkbox input[type=checkbox]+span {
-                    display: block;
+                &.nf-checked-label {
                     position: relative;
-                    padding-left: 25px;
+
+                    &::after {
+                        position: absolute;
+                        content: "\f058";
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        color: $mainColor;
+                        right: -8px;
+                        top: -8px;
+                        font-size: 1.2em;
+                        background: #fff;
+                        border: 2px solid white;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    &.sector {
+        ul {
+            li {
+                &:not(:last-child) {
+                    min-height: 144px;
                 }
 
-                .wpcf7-checkbox input[type=checkbox]+span:before {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    border: 1px solid rgba(0, 0, 0, 0.25);
-                    border-radius: 3px;
-                    -webkit-border-radius: 3px;
-                    height: 20px;
-                    width: 20px;
-                    top: 0px;
-                    left: 0px;
-                    background-color: #FFF;
-                    background-image: url('../img/check-square.png');
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                    background-size: cover;
-                }
+                &:last-child {
+                    width: 33% !important;
 
-                .wpcf7-checkbox input[type=checkbox]:checked+span:before {
-                    background-color: #000;
+                    img {
+                        display: none;
+                    }
                 }
             }
         }
     }
+
+    &.plan {
+        ul {
+            li {
+
+                &:first-child {
+                    label {
+                        background-color: $communityColor;
+
+                        &:hover {
+                            background-color: $mainColor;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    label {
+                        background-color: #abd6ed;
+
+                        &:hover {
+                            background-color: $mainColor;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:nth-child(3) {
+                    label {
+                        background-color: #389dd5;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: $mainColor;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    label {
+                        background-color: $mainColor;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: #fff;
+                            color: $mainColor;
+                        }
+
+                    }
+                }
+
+                label {
+                    img {
+                        display: none;
+                    }
+                }
+
+            }
+        }
+    }
+
+
 }

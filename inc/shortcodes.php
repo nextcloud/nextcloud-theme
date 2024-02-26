@@ -217,8 +217,6 @@ function nc_clients_carousel_content_function($atts, $content) {
 		$return .= $image;
 		$return .= '</div>';
 
-
-		//$return .='<div class="images"><img src="'.$images[0].'" alt="'.$atts['title'].'"></div>';
 	}
 	$return .= '</div>';
 	return $return;
@@ -238,6 +236,14 @@ function box_repeater_items_funct() {
 		  	"class" => "box-repeater",
 		  	"category" => __('Repeater', 'nextcloud'),
 		  	'params' => array(
+
+				array(
+					"type" => "textfield",
+					"heading" => esc_html__("ID", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "id",
+					"value" => "",
+				),
 
 		  		array(
 		  			'type' => 'param_group',
@@ -271,6 +277,15 @@ function box_repeater_items_funct() {
 		  				),
 		  			)
 		  		),
+
+				array(
+					"type" => "textarea",
+					"heading" => esc_html__("Custom code", "nextcloud"),
+					"description" => esc_html__("", "nextcloud"),
+					"param_name" => "custom_code",
+					"value" => "",
+				),
+				
 		  	)
 		  )
 	  );
@@ -280,21 +295,22 @@ add_shortcode('box_repeater', 'box_repeater_funct');
 function box_repeater_funct($atts) {
 	ob_start();
 	$atts = shortcode_atts(array(
-		'box_repeater_heading' => '',
+		'id' => '',
 		'box_repeater_items' => '',
+		'custom_code' => ''
 	), $atts, 'box_repeater');
 
-	$heading = $atts['box_repeater_heading'];
+	$id = $atts['id'];
+	$custom_code = $atts['custom_code'];
+
 
 	if(function_exists('vc_param_group_parse_atts')){
 	$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
 	?>
-
       <div class="box-repeater">
-
           <?php if ($items) { ?>
-              <div class="box-repeater-items clients_carousel owl-carousel owl-theme">
+              <div id="<?php echo $id; ?>" class="box-repeater-items clients_carousel owl-carousel owl-theme">
                   <?php  foreach ($items as  $item) {
 					
 					if (isset($item['box_repeater_items_link'])) {
@@ -322,7 +338,17 @@ function box_repeater_funct($atts) {
           <?php } ?>
 
       </div>
+
+	<?php if ($custom_code) { ?>
+		<script>
+		jQuery(document).ready(function ($) {
+			$('#<?php echo $id; ?>').owlCarousel({
+					<?php echo $custom_code; ?>
+			});
+		});
+		</script>
       <?php
+		}
 	  $result = ob_get_clean();
 	return $result;
 }
@@ -2177,15 +2203,29 @@ add_shortcode('nc_colorbox', 'nc_colorbox_function');
 
 function nc_get_whitepaper_attachment($atts){
 	global $post;
-
 	if(get_post_meta($post->ID, 'attachment', true)) {
 		return wp_get_attachment_url(get_post_meta($post->ID, 'attachment', true));
 	}
-
 	return;
-	
 }
 add_shortcode('nc_attachment', 'nc_get_whitepaper_attachment');
+
+
+function nc_get_whitepaper_type($atts){
+	global $post;
+	$type='';
+
+	if(get_post_type()=='whitepapers'){
+		$type = __('whitepaper', 'nextcloud');
+	}else if(get_post_type()=='case_studies') {
+		$type = __('case study', 'nextcloud');
+	} else if(get_post_type()=='data_sheets'){
+		$type = __('data sheet', 'nextcloud');
+	}
+	return $type;
+}
+add_shortcode('whitepaper_type', 'nc_get_whitepaper_type');
+
 
 
 function nc_get_whitepaper_slug(){
@@ -3087,24 +3127,10 @@ function events_list_funct($atts) {
 
 
 			}
-
-			
-
 			echo '</tbody>';
 			echo '</table>';
 		}
 		?>
-		<script id="">
-			jQuery(document).ready(function ($) {
-				$('.open_past_events').click(function(e){
-					e.preventDefault();
-					$('tr.past_events').toggle();
-					$(this).toggleClass('open');
-					$(this).find('span').toggleText('<?php echo __('Hide past events','nextcloud'); ?>', '<?php echo __('Show past events','nextcloud'); ?>');
-					$(this).find('i').toggleClass('fa-angle-top').toggleClass('fa-angle-down');
-				});
-			});
-		</script>
       <?php
 	  $result = ob_get_clean();
 	return $result;
@@ -3248,10 +3274,12 @@ function whitepapers_list_func($atts){
 	), $atts );
 	$type = $a['type'];
 
+	$default_posts_per_page = get_option( 'posts_per_page' );
+
 	$args = array(
 		'post_type' => $type,
 		'post_status' => 'publish',
-		'posts_per_page' => '-1',
+		'posts_per_page' => $default_posts_per_page,
 		'orderby' => 'date',
 		'order' => 'DESC',
 		'tag__not_in' => array(269) // exclude unlisted tag
@@ -3332,7 +3360,6 @@ function whitepapers_posts_func($atts){
 
 	$args = array(
 		'post_type' => array('post'),
-		//'category_name' => 'whitepaper',
 		'tax_query' => array(
 			array(
 				'taxonomy' => 'category',
@@ -3365,17 +3392,20 @@ function whitepapers_posts_func($atts){
 				echo '<div class="col-lg-4 col-md-6 spacer">';
 				echo '<div class="post-box">';
 				echo '<div class="paper-box">';
+
+				echo '<h4><a title="'.$title.'" href="'.$link.'">' . $title . '</a></h4>';
+
 				echo '<ul class="cats">';
-				echo '<li>'.__('posted in','nextcloud').' </li>';
+				echo '<li>'.__('Posted in','nextcloud').' </li>';
 				foreach ($cat as $c) {
 					echo '<li>' . $c->cat_name . ', </li>';
 				}
 				echo '<li>'.__('by','nextcloud').' ' . get_the_author_meta('display_name', $author_id) . '</li>';
 				echo '</ul>';
-				echo '<h4><a title="'.$title.'" href="'.$link.'">' . $title . '</a></h4>';
+
 				echo '<ul class="info">';
 				echo '<li>' . $date . '</li>';
-				echo '<li><a class="c-btn" title="'.__('Download', 'nextcloud').'" href="' . $link . '">'.__('Download', 'nextcloud').'</a></li>';
+				echo '<li><a class="c-btn" title="'.__('Read more', 'nextcloud').'" href="' . $link . '">'.__('Read more', 'nextcloud').'</a></li>';
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';
@@ -4078,13 +4108,9 @@ function blog_list_shortcode_funct($atts) {
 
 				if($rss_feed) {
 					//global $wp;
-					$current_url = home_url($_SERVER['REQUEST_URI']);
-					$base_url = strstr($current_url, '?', true);
-
-					echo '<a class="rss_feed" href="'.$base_url.'feed2" title="'.__('RSS Feed','nextcloud').'" target="_blank"><i class="fas fa-rss"></i></a>';
-					
-					
-					
+					//$current_url = home_url($_SERVER['REQUEST_URI']);
+					//$base_url = strstr($current_url, '?', true);
+					echo '<a class="rss_feed" href="'.get_site_url().'/feed" title="'.__('RSS Feed','nextcloud').'" target="_blank"><i class="fas fa-rss"></i></a>';	
 				}
 			}
 			
@@ -4273,6 +4299,8 @@ function blog_list_shortcode_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
+
+
 
 
 add_shortcode('job_position', 'job_position_funct');
@@ -6479,3 +6507,216 @@ function get_clients_link_func($atts){
 
 }
 add_shortcode('get_clients_link','get_clients_link_func');
+
+
+//webinars list shortcode
+add_action('vc_before_init', 'nc_webinars_list_funct');
+function nc_webinars_list_funct() {
+	vc_map(
+		  array(
+		  	"name" => __("Webinar list", "nextcloud"), // Element name
+		  	"base" => "webinars_list", // Element shortcode
+		  	"class" => "webinars_list",
+			"category" => __('Content', 'nextcloud'),
+		  	'params' => array(
+					array(
+						"type" => "textfield",
+						"heading" => esc_html__("Title", "nextcloud"),
+						"description" => esc_html__("", "nextcloud"),
+						"param_name" => "title",
+						"value" => "",
+					),
+					array(
+						"type" => "textfield",
+						"heading" => esc_html__("ID", "nextcloud"),
+						"description" => esc_html__("", "nextcloud"),
+						"param_name" => "id",
+						"value" => "",
+					)
+			)
+		  )
+	  );
+}
+
+add_shortcode('webinars_list', 'webinars_list_shortcode_funct');
+function webinars_list_shortcode_funct($atts) {
+	ob_start();
+	$type = '';
+
+	$atts = shortcode_atts(array(
+		'title' => '',
+		'id' => '',
+	), $atts);
+	$title = $atts['title'];
+	$id = $atts['id'];
+?>
+<section class="blog-section" id="<?php echo $id; ?>">
+	<div class=""><?php //.container ?>
+		<?php
+		echo '<div class="row justify-content-between align-items-center">';
+		
+		if (!empty($title)) {
+			echo '<div class="col-lg-6">';
+			echo '<div class="section-title">';
+			echo '<h3>';
+			echo $title;
+			echo '</h3>';
+			echo '</div>';
+			echo '</div>';
+		}
+
+
+		if (function_exists('wpes_search_form')) {
+			
+			//Webinar recordings search
+			$search_id = 200771;
+			echo '<div class="col-lg-4">';
+			echo '<div class="form-holder">';
+			/*
+			wpes_search_form(array(
+				'wpessid' => $search_id
+			));
+			*/
+
+			$form = '<form role="search" method="get" id="searchform" class="search-form" action="' . home_url('/') . '" >
+			<div class="custom-form">
+			<label>
+				<span class="screen-reader-text">'.__('Search:').'</span>
+				<input type="search" class="search-field " placeholder="'.__('Search here..', 'nextcloud').'" value="'.get_search_query().'" name="s">
+			</label>
+			<input type="submit" class="search-submit" title="'.__('Search', 'nextcloud').'" id="search-submit" />
+			<input type="hidden" value="'.$search_id.'" name="wpessid" />';
+			$form .= '<input type="hidden" value="webinar_recordings" name="custom_type" />';
+			$form .= '</div></form>';
+			echo $form;
+
+			echo '</div>';
+			echo '</div>';
+		}
+		echo '</div>';
+		?>
+		<div class="row row-list-blog">
+			<?php
+			$default_posts_per_page = get_option( 'posts_per_page' );
+
+			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+			// The Query
+			$args = array(
+				'posts_per_page' => $default_posts_per_page,
+				'post_status' => 'publish',
+				'orderby' => 'date',
+				'paged=' => $paged,
+				//'ignore_sticky_posts' => 1,
+				//'post__not_in' => $sticky_events, // ignore sticky events (custom field)
+				'tag__not_in' => array(269), // exclude unlisted tag
+				'category__not_in'=> array(225, 226) //exclude Private category
+			);
+			date_default_timezone_set('Europe/Berlin');
+			$current_date_time = date('Y-m-d H:i:s', time());
+
+            $args['post_type'] = array('event');
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'event_categories',
+						'field'    => 'slug',
+						'terms'    => 'webinars',
+					)
+			);
+
+            $args['meta_query'] = array(
+                'relation' => 'AND',
+                
+                array(
+                    'key' => 'event_start_date_and_time',
+                    'value'   => $current_date_time,
+                    'compare' => '<',
+                    'type'	=> 'DATETIME'
+                ),
+    
+                array(
+                    'key'     => 'download_available',
+                    'value'	  => '',
+                    'compare' => '!=',
+                ),
+                
+                
+            );
+            $args['orderby'] = 'meta_value';
+            $args['order'] = 'DESC';
+
+
+			
+			$the_query = new WP_Query($args);
+			$count = $the_query->found_posts;
+			//print_r($the_query);
+
+
+			// The Loop
+			if ($the_query->have_posts()) {
+				while ($the_query->have_posts()) {
+					$the_query->the_post();
+					get_template_part('inc/blog_loop_single');
+				}
+			} else {
+				// no posts found
+			?>
+			<div class="col-12">
+				<div class="section-button">
+					<h3><?php echo __('No webinar recordings found.','nextcloud'); ?></h3>
+				</div>
+			</div>
+			<?php
+			}
+			/* Restore original Post Data */
+			wp_reset_postdata();
+
+			?>
+		</div>
+
+		<?php if($count > $default_posts_per_page) { ?>
+		<div class="row loadNews_row">
+			<div class="col-12">
+				<div class="section-button">
+					<button class="c-btn btn-main loadNews" id="loadNews_<?php echo $type; ?>" data-post-type="past_webinars">
+					<?php 
+					echo __('Load more','nextcloud');
+					?></button>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+
+	</div>
+</section>
+<?php
+	$result = ob_get_clean();
+	return $result;
+}
+
+add_shortcode('date_diff', 'date_diff_shortcode_funct');
+function date_diff_shortcode_funct($atts) {
+	$atts = shortcode_atts(array(
+		'until' => ''
+	), $atts);
+	$until = $atts['until'];
+
+	$date_curr = date_create(date("Y/m/d H:i:s"));
+	$date_until = date_create($until);
+	$diff = date_diff($date_curr,$date_until);
+	$return = $diff->format("%a more ");
+	
+	if($diff->days < 2) {
+		$return .= " day";
+
+		if($diff->days==0) {
+			$return = $diff->format("%h more ");
+			$return .= " hours";
+		}
+
+	} else {
+		$return .= " days";
+	}
+
+	return $return;
+}

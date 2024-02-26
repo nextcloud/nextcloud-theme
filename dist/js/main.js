@@ -1,7 +1,27 @@
 jQuery(document).ready(function ($) {
 
+    
+   
     $(document).on( 'nfFormReady', function() {
-        console.log('Form is ready');
+        //console.log('Form is ready');
+
+        //add focus class to hidden checkbox
+        jQuery('.checkbox-container .nf-field-element input[type=checkbox]').each(function(){
+            console.log($(this).val());
+
+            $(this).focus(function(){
+                //console.log('focus!');
+                $(this).parent('.nf-field-element').prev('.nf-field-label').addClass('focus');
+            });
+
+            $(this).focusout(function(){
+                $(this).parent('.nf-field-element').prev('.nf-field-label').removeClass('focus');
+            });
+            
+        });
+
+
+        //toggle form on button click
         jQuery('#specific_talk_toggle').each(function(){
             //$(this).next('.nf-form-cont').hide();
             $(this).next('.nf-form-cont').hide();
@@ -22,6 +42,17 @@ jQuery(document).ready(function ($) {
 
 
 
+    jQuery(document).ready(function ($) {
+        $('.open_past_events').click(function(e){
+            e.preventDefault();
+            $('tr.past_events').toggle();
+            $(this).toggleClass('open');
+            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events);
+            $(this).find('i').toggleClass('fa-angle-up').toggleClass('fa-angle-down');
+        });
+    });
+
+
     jQuery('.iframe_noScrolling').each(function(){
         var iframe = $(this).find('iframe');
         iframe.css('pointer-events', 'none');
@@ -34,9 +65,6 @@ jQuery(document).ready(function ($) {
         $('.iconboxes_carousel .nc_iconbox .description').each(function(index){
             var el = $(this);
             var this_height = el.height(); //51.2
-            //console.log("this_height - "+index+": "+this_height);
-            //var fontSize = $(el).css('font-size'); //16px
-            //var lineHeight = fontSize.replace('px','') * 1.6; //25.6
     
             if (this_height > 51.2) {
                 $(this).addClass('truncate');
@@ -73,7 +101,7 @@ jQuery(document).ready(function ($) {
         //console.log(el_location);
         
         navigator.clipboard.writeText(my_url[0]+'#'+el_location);
-        $(this).append("<div class='copied'>Copied!</div>");
+        $(this).append("<div class='copied'>"+main_js_strings.copied+"</div>");
 
         setTimeout(function() {
             $(this).find('.copied').remove();
@@ -88,36 +116,11 @@ jQuery(document).ready(function ($) {
         return this;
     };
 
-    
-    var curr_lang_cookie = getCookie('wp-wpml_current_language');
-    var see_more = "See more";
-    var see_less = "See less";
-    
-    if (curr_lang_cookie == 'de') {
-        see_more = "Mehr sehen";
-        see_less = "Weniger sehen";
-    }
-    else if (curr_lang_cookie == 'it') {
-        see_more = "Vedi di più";
-        see_less = "Vedi di meno";
-    }
-    else if (curr_lang_cookie == 'fr') {
-        see_more = "Voir plus";
-        see_less = "Voir moins";
-    }
-    else if (curr_lang_cookie == 'es') {
-        see_more = "Ver más";
-        see_less = "Ver menos";
-    }
-    else {
-    }
-    
-
     $('a.toggle_items').parents('tr').closest('tr').nextUntil('.category').hide();
     $('a.toggle_items').click(function(e){
         e.preventDefault();
         $(this).parents('tr').closest('tr').nextUntil('.category').toggle();
-        $(this).toggleHTML(see_more+' <i class="fa fa-angle-down"></i>', see_less+' <i class="fa fa-angle-up"></i>');
+        $(this).toggleHTML(main_js_strings.see_more+' <i class="fa fa-angle-down"></i>', main_js_strings.see_less+' <i class="fa fa-angle-up"></i>');
     });
 
 
@@ -206,7 +209,7 @@ jQuery(document).ready(function ($) {
         version_id = $(this).parent('.version_name').attr('id');
         navigator.clipboard.writeText(my_url[0]+'#'+version_id);
 
-        $(this).append("<div class='copied'>Copied!</div>");
+        $(this).append("<div class='copied'>"+main_js_strings.copied+"</div>");
 
         setTimeout(function() {
             $('.copied').hide();

@@ -520,16 +520,16 @@ header {
                                     }
 
                                 }
-
-                                
-    
                             
                             }
 
-                            &.current-menu-parent, &.current-menu-ancestor {
-                                a {
-                                    &:after {
-                                        width: 24px;
+
+                            @media screen and (min-width: $xl-breakpoint) {
+                                &.current-menu-parent, &.current-menu-ancestor {
+                                    a {
+                                        &:after {
+                                            width: 24px;
+                                        }
                                     }
                                 }
                             }
@@ -804,10 +804,12 @@ header {
                                                 &:before {
                                                     position: relative;
                                                     content: "\f105";
+                                                    //content: "\f058";
                                                     font-family: 'Font Awesome 5 Free';
                                                     font-weight: 900;
                                                     margin-right: 10px;
                                                     //color: $textColor;
+                                                    font-size: 0.8em;
                                                 }
                                             }
                                             

@@ -67,7 +67,7 @@ get_header();
 				} else {
 					echo '<div class="col-12">';
 					echo '<div class="not-found">';
-					echo '<h3>'.__('No search results for: ', 'nextcloud') . get_search_query() . '</h3>';
+					echo '<h3 class="text-center">'.__('No search results for: ', 'nextcloud') . get_search_query() . '</h3>';
 					echo '</div>';
 					echo '</div>';
 				}

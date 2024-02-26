@@ -32,7 +32,7 @@ jQuery(document).ready(function () {
             
             if (typeof iti.getNumber === "function") { 
                     jQuery(input).keyup(function(){
-                        console.log("iti getNumber: "+iti.getNumber());
+                        //console.log("iti getNumber: "+iti.getNumber());
                         jQuery(this).val(iti.getNumber());
                     });
             }

@@ -8,21 +8,39 @@
 			"php": "7.4"
 		}
 	},
+	"require": {
+		"php": ">=7.4",
+    	"ext-json": "*",
+        "geoip2/geoip2": "~2.0",
+        "predis/predis": "^1.1"
+    },
+	
 	"scripts": {
 		"lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
 		"cs:check": "php-cs-fixer fix --dry-run --diff",
 		"cs:fix": "php-cs-fixer fix",
 		"psalm": "psalm",
 		"psalm:fix": "psalm --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
-		"psalm:update-baseline": "psalm --threads=1 --update-baseline"
+		"psalm:update-baseline": "psalm --threads=1 --update-baseline",
+		"update-data-files":  [
+			"(cd emailValidator/scripts && ./update-disposable-email-providers.php)",
+			"(cd emailValidator/scripts && ./update-top-level-domains.php)"
+		  ],
+		"post-install-cmd": "@update-data-files",
+		"post-update-cmd": "@update-data-files"
 	},
-    "require": {
-        "geoip2/geoip2": "~2.0",
-        "predis/predis": "^1.1"
-    },
+    
     "require-dev": {
 		"nextcloud/coding-standard": "^1.0.0",
 		"vimeo/psalm": "^4.23",
-		"php-stubs/wordpress-stubs": "^6.0"
+		"php-stubs/wordpress-stubs": "^6.0",
+		"mockery/mockery": "^1.3",
+    	"phpunit/phpunit": "^9.3"
+	},
+	"autoload": {
+		"psr-4": {
+		  "EmailValidation\\": "emailValidator/src/",
+		  "EmailValidation\\Tests\\": "emailValidator/tests"
+		}
 	}
 }
