@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 :root {
     --provider-content-height: 600px;
     --provider-height: 200px;
@@ -80,3 +81,82 @@ section {
         display: none;
     }
 }
+=======
+:root {
+    --provider-content-height: 600px;
+    --provider-height: 200px;
+    --provider-slide-up: 500ms ease-out 200ms 1 slideUpOnLoad;
+}
+
+/*
+.register-background {
+    //background-color: #0082c9;
+    //background-image: linear-gradient(90deg, #0082c9 0%, #1cafffff 100%);
+    //background-position: center;
+    //background-size: cover;
+    //height: 70vh;
+    //min-height: var(--provider-content-height);
+    //max-height: calc(var(--provider-content-height) + var(--provider-height));
+    
+	display: flex;
+	align-items: center;
+    padding-top: 10em;
+    padding-bottom: 3rem;
+
+    h1, h2, h3, p {
+        color: white;
+    }
+
+	h3 {
+		font-size: 30px;
+		font-weight: 500;
+        margin: 15px 0;
+	}
+}
+*/
+
+.section--providers {
+    padding-top: 4rem;
+
+    @media screen and (min-width: 767.98px) {
+        & {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+
+    // Define here as this is easier to quickly adjust
+    // without compiling again
+    #register {
+        //width: var(--provider-content-height);
+        max-width: 100vw;
+        position: relative;
+        //margin-top: calc(var(--provider-height) * -1);
+        //margin-bottom: var(--provider-height);
+        padding: 0;
+        transform: translateY(15px);
+        opacity: 0;
+        animation: var(--provider-slide-up);
+        animation-fill-mode: forwards;
+    }
+
+}
+
+
+@keyframes slideUpOnLoad {
+    0% {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    footer {
+        display: none;
+    }
+}
+>>>>>>> Stashed changes

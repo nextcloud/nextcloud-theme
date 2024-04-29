@@ -13,6 +13,7 @@ if (!defined('WPINC')) {
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+<<<<<<< Updated upstream
 	<?php wp_head(); ?>
 
 </head>
@@ -25,6 +26,22 @@ if (!defined('WPINC')) {
 	<header class="" id="header"><?php //class with-vote-banner?>
 
 		<?php //get_template_part("inc/banner-vote"); // when removing, remove also class from header?>
+=======
+	<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+	<?php
+	wp_body_open();
+	?>
+	<div id="hidden_header_anchor"></div>
+	<header class="<?php if (get_field('header_promo_activation', 'option') ) { echo "with-promo-banner"; }?>" id="header"><?php //class with-promo-banner ?>
+		
+		<a href="#main" class="skip"><?php echo __('Skip to main content','nextcloud'); ?></a>
+
+		<?php
+			get_template_part("inc/header-promo-banner");
+		?>
+>>>>>>> Stashed changes
 
 		<div class="container" id="">
 			<div class="row">

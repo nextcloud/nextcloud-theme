@@ -4,7 +4,11 @@
  */
 get_header();
 ?>
+<<<<<<< Updated upstream
 <div class="wrapper">
+=======
+<div class="wrapper" id="main">
+>>>>>>> Stashed changes
 	<?php
 	if (have_rows('page_navigation')) {
 		echo '<ul class="page-nav">';

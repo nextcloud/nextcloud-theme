@@ -41,6 +41,30 @@ get_header();
 						echo '</div>';
 						echo '</div>';
 
+<<<<<<< Updated upstream
+=======
+				$limit = $default_posts_per_page;
+
+				$search_query = new WP_Query(array(
+					'post_type' => array($post_type),
+					'posts_per_page' => $default_posts_per_page,
+					's' => get_search_query(),
+					'post_status' => array('publish'),
+					'tag__not_in' => array(269),
+					'orderby' => 'date',
+					'order' => 'DESC',
+					'paged' => $paged,
+					'category__not_in' => array(226) //exclude Private category
+				));
+				$count = $search_query->found_posts;
+
+				if ($search_query->have_posts()) {
+					
+
+					while ($search_query->have_posts()) {
+						$search_query->the_post();
+						get_template_part('inc/blog_loop_single');
+>>>>>>> Stashed changes
 					}
 				} else {
 					echo '<div class="col-12">';
@@ -51,6 +75,37 @@ get_header();
 				}
 				?>
 			</div>
+<<<<<<< Updated upstream
+=======
+
+			
+			<?php 
+			if ($count > $limit) {
+				?>
+			<div class="row loadNews_row">
+				<div class="col-12">
+					<div class="section-button">
+						<button class="c-btn btn-main loadNews" data-post-type="<?php
+
+						$post_type_search = '';
+						
+						if(isset($_GET['wpessid'])) {
+							if($_GET['wpessid'] == 1612) {
+								$post_type_search = 'post';
+							} else if($_GET['wpessid'] == 125618) {
+								$post_type_search = 'event';
+							} else {
+								$post_type_search = 'post';
+							}
+						}
+						if(isset($post_type_search)) echo $post_type_search; ?>" data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" data-search="true" data-category="" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
+					</div>
+				</div>
+			</div>
+			<?php } ?>
+
+
+>>>>>>> Stashed changes
 		</div>
 	</section>
 </div>
