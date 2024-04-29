@@ -1,0 +1,27 @@
+.wpb_nc_iconbox .iconbox_link {
+    display: none;
+}
+
+.wpb_nc_iconbox .image_icon {
+    max-width: 100%;
+    max-height: 35px;
+    display: block;
+}
+
+.nc_version_section .textarea_html {
+    display: none;
+}
+
+.acf-field-649e8ad38b604 ul > li {
+    width: 22%;
+}
+
+
+.nc_single_feature .feature_id,
+.nc_single_feature .feature_tags,
+.nc_single_feature .video_url ,
+.nc_single_feature .feature_desc,
+.nc_single_feature .textarea_html
+{
+    display: none;
+}

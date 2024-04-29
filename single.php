@@ -5,7 +5,7 @@
 
 get_header();
 ?>
-<div class="wrapper">
+<div class="wrapper" id="main">
 	<?php
 	$ids = [];
 	while (have_posts()) : the_post();
@@ -28,15 +28,15 @@ get_header();
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-4">
+				<div class="row post_meta">
+					<div class="col-lg-4 post_date">
 						<div class="date-block">
 							<?php
 							echo '<p>' . $date . '</p>';
 							?>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-4 post_cats">
 						<div class="cat-block">
 							<?php
 							echo '<ul>';
@@ -48,7 +48,7 @@ get_header();
 							?>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-4 post_author">
 						<div class="author-block">
 							<?php
 							echo '<p>' . get_the_author_meta('display_name', $author_id) . '</p>';

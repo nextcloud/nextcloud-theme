@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -239,4 +240,589 @@
             }
         }
     }
+=======
+// SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+.nf-form-cont {
+
+    .nf-field-container {
+        input[type=submit]:focus {
+            color: $mainColor !important;
+            background: #fff !important;
+        }
+    }
+
+
+    .checkbox-wrap {
+        .nf-field-label {
+            &.focus {
+                label {
+                    &:after {
+                        border-color: $mainColor;
+                        border-width: 2px;
+                        box-shadow: 0 0 15px rgba(0, 130, 201, 0.12);
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+.nf-field-description {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.nf-before-form-content, .nf-form-title, .nf-after-form-content, .nf-form-content  {
+    max-width: 800px !important;
+    margin: 0 auto;
+    display: block;
+    padding: 5px;
+}
+
+.nf-after-form-content {
+    margin-bottom: 2rem;
+}
+
+.data-sheet-section, .whitepaper-section, .case-study-section {
+    .nf-after-form-content {
+        margin-bottom: 0rem;
+        padding: 0;
+    }
+}
+
+.nf-form-title {
+    text-align: center;
+    max-width: 600px !important;
+    margin: 3rem auto 1rem auto;
+}
+
+.nf-form-content {
+    .list-select-wrap .nf-field-element > div,
+    input:not([type=button]),
+    input:not([type=submit]),
+    textarea {
+        border-radius: 10px !important;
+    }
+
+    .nf-error.field-wrap .nf-field-element:after {
+        border-bottom-right-radius: 9px;
+        border-top-right-radius: 9px;
+    }
+}
+
+.nf-response-msg {
+    display: block;
+    max-width: 800px;
+    margin: 4rem auto;
+}
+
+.nf-form-fields-required {
+    display: none;
+}
+
+.post-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    -moz-box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    box-shadow: 0px 8px 10px 0px rgba(0, 116, 178, 0.08);
+    overflow: hidden;
+
+    .post-img {
+        width: 100%;
+        height: 0px;
+        padding-top: 55%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        margin: 0px;
+    }
+
+    .nf-before-form-content {
+        padding: 0px;
+    }
+
+    .nf-before-form {
+        display: none;
+    }
+
+    .post-body {
+        margin: 0px;
+        padding: 20px 20px 25px;
+
+        h5 {
+            min-height: 60px;
+            color: #0C0726;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0px 0px 10px;
+        }
+
+        p {
+            line-height: 156%;
+            margin: 0px;
+        }
+    }
+
+    .form-body {
+        width: 100%;
+        margin: auto 0px 0px 0px;
+        padding: 0px 20px 20px;
+
+        .nf-form-title {
+            margin: 0 !important;
+        }
+
+        .nf-form-content {
+            width: 100%;
+            position: relative;
+
+            .input-holder {
+                width: 100%;
+
+                &.hidden-input {
+                    display: none;
+                }
+
+                input {
+                    width: 100%;
+                    height: 48px;
+                    padding: 0px 160px 0px 20px;
+                    border: 1px solid rgba(0, 0, 0, 0.25);
+                    background-color: transparent;
+                    border-radius: 24px !important;
+                    -webkit-border-radius: 24px;
+                    color: #000;
+                    font-size: 16px;
+                }
+                .nf-field-element::after {
+                    content: '' !important;
+                    display: none;
+                }
+            }
+
+            .submit-holder {
+                position: absolute;
+                top: 4px;
+                right: 0px;
+                width: 140px;
+                height: 48px;
+
+                input {
+                    width: 100%;
+                    min-width: 140px;
+                    height: 48px;
+                    border: 1px solid #0F0833;
+                    background-color: #0F0833;
+                    border-radius: 24px;
+                    -webkit-border-radius: 24px;
+                    color: #FFF;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            .check-holder {
+                padding-top: 0px;
+                text-align: left;
+                margin-bottom: 10px;
+
+                .checkbox-wrap {
+                    display: inline;
+                }
+
+                a {
+                    color: #000;
+                    text-decoration: underline;
+                }
+
+                label {
+                    font-weight: normal;
+                    display: inline;
+                    color: #000;
+                    font-size: 14px;
+
+                    a {
+                        color: #000;
+                        text-decoration: underline;
+                    }
+                }
+
+                br {
+                    display: none;
+                }
+
+                
+            }
+        }
+    }
+}
+
+
+
+.aio_form, .form_no_title {
+    .nf-form-title {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.push_notifications_contact_form {
+    .nf-form-title {
+        margin: 0;
+        padding: 0;
+    }   
+}
+
+.nf-form-content {
+
+    .nf-field {
+        .iti.iti--allow-dropdown {
+            width: 100%;
+        }
+    }
+    
+
+    .label-above {
+        .nf-field-label {
+            margin-bottom: 5px !important;
+            margin-top: 11px !important;
+        }
+    }
+
+
+    input[type="button"], input[type="submit"] {
+        background: $mainColor !important;
+        color: #fff;
+        transition: all .3s;
+        border-radius: 25px !important;
+        padding: 12px 2rem;
+        border: 2px solid $mainColor !important;
+        line-height: initial;
+
+        &:hover {
+            color: $mainColor !important;
+            background: #fff !important;
+        }
+    }
+}
+
+.white-text {
+
+    .nf-form-content {
+
+        .submit-container {
+
+            input[type="button"] {
+                background: #fff !important;
+                color: $mainColor;
+                transition: all .3s;
+                border-radius: 25px;
+                padding: 12px 2rem;
+                border: 2px solid #fff !important;
+                line-height: initial;
+        
+                &:hover {
+                    color: #fff !important;
+                    background: $mainColor !important;
+                }
+            }
+
+        }
+        
+
+    }
+
+}
+
+
+
+.newsletter_form {
+
+    .nf-form-title {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nf-field {
+        .select_mailing_list {
+
+            .nf-field-label {
+                margin-top: 0 !important;
+                margin-bottom: 1rem !important; 
+            }
+
+            .nf-field-element {
+
+                &::after {
+                    right: -35px !important;
+                }
+
+                ul {
+
+                    @media screen and (min-width: $tablet-breakpoint ) {
+                        & {
+                            display: flex;
+                        }
+                    }
+
+                    li {
+
+                        &:not(:last-child) {
+                            margin-right: 10px !important;
+                        }
+
+                        label {
+                            cursor: pointer;
+
+                            &.nf-checked-label {
+                                &:before {
+                                    color: $mainColor !important;
+                                }
+                            }
+
+                            &::after, &::before {
+                                top:0;
+                                bottom: 0;
+                                margin: auto;
+                                cursor: pointer;
+                                height: 20px;
+                                width: 20px;
+                            }
+
+                            &:before {
+                                
+                            }
+
+                            &::after {
+                                border-radius: 5px;
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+
+        }
+
+    }
+   
+}
+
+
+.nc_images_radio_buttons {
+
+    .nf-field-label{
+        margin: auto;
+    }
+
+    ul {
+        padding: 0;
+        margin-top: 1rem;
+        display: block !important;
+        text-align: center;
+
+        li {
+            width: 23% !important;
+            display: inline-flex;
+            height: auto !important;
+            margin: 5px !important;
+
+
+            input[type="radio"] {
+                display: block !important;
+                opacity: 0;
+                width: 0px !important;
+                height: 0px !important;
+                position: absolute;
+
+                &:focus {
+                    & + label {
+                        border: 0;
+                        background-color: $lightBG;
+
+                        &.nf-checked-label {
+                            position: relative;
+        
+                            &::after {
+                                position: absolute;
+                                content: "\f058";
+                                font-family: "Font Awesome 5 Free";
+                                font-weight: 900;
+                                color: $mainColor;
+                                right: -8px;
+                                top: -8px;
+                                font-size: 1.2em;
+                                background: #fff;
+                                border: 2px solid white;
+                                border-radius: 50%;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            
+            
+            @media screen and (min-width: $sm-breakpoint) and (max-width:$md-breakpoint) {
+                & {
+                    width: 46% !important;
+                }
+            }
+
+
+            @media screen and (max-width: $sm-breakpoint) {
+                & {
+                    width: 90% !important;
+                }
+            }
+
+            label {
+                width: 100%;
+                //font-size: 1.3em;
+                text-align: center;
+                font-weight: bold;
+                padding: 1rem;
+                border-radius: $borderRadius;
+                box-shadow: $boxShadow;
+                border: 0;
+                cursor: pointer;
+                transition: all .3s ease;
+                font-size: 16px;
+                word-wrap: break-word;
+
+                img {
+                    margin-top: 1.5rem;
+                    max-width: 74px !important;
+                    max-height: 45px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                &:hover, &.nf-checked-label {
+                    border: 0;
+                    background-color: $lightBG;
+                }
+
+                &.nf-checked-label {
+                    position: relative;
+
+                    &::after {
+                        position: absolute;
+                        content: "\f058";
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        color: $mainColor;
+                        right: -8px;
+                        top: -8px;
+                        font-size: 1.2em;
+                        background: #fff;
+                        border: 2px solid white;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    &.sector {
+        ul {
+            li {
+                &:not(:last-child) {
+                    min-height: 144px;
+                }
+
+                &:last-child {
+                    width: 33% !important;
+
+                    img {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &.plan {
+        ul {
+            li {
+
+                &:first-child {
+                    label {
+                        background-color: $communityColor;
+
+                        &:hover {
+                            background-color: $mainColor;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    label {
+                        background-color: #abd6ed;
+
+                        &:hover {
+                            background-color: $mainColor;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:nth-child(3) {
+                    label {
+                        background-color: #389dd5;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: $mainColor;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    label {
+                        background-color: $mainColor;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: #fff;
+                            color: $mainColor;
+                        }
+
+                    }
+                }
+
+                label {
+                    img {
+                        display: none;
+                    }
+                }
+
+            }
+        }
+    }
+
+}
+
+
+.nf-error-msg {
+    a {
+        color: #e80000;
+        font-weight: bold;
+    }
+>>>>>>> Stashed changes
 }

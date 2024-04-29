@@ -11,7 +11,7 @@ body.admin-bar {
 }
 
 .page-id-46558 {
-    .header-holder, #menu-footer-menu-container, .get-started-section, footer {
+    .top-banner-vote, .header-holder, #menu-footer-menu-container, .get-started-section, footer {
         display: none;
     }
 }
@@ -286,6 +286,7 @@ header {
                                 }
                             }
 
+<<<<<<< Updated upstream
                             &.open {
                                 & > a {
                                     background-color: $mainColor;
@@ -297,6 +298,8 @@ header {
 
                                 }
                             }
+=======
+>>>>>>> Stashed changes
 
                         }
 
@@ -309,6 +312,18 @@ header {
                             &.menu-item-has-children.open {
                                 .sub-menu {
                                     display: block;
+                                }
+
+                                & > a:focus {
+                                    & + .sub-menu {
+                                        display: block;
+                                    }
+                                }
+
+                                &.open {
+                                    .sub-menu {
+                                        display: block;
+                                    }
                                 }
                             }
                         }
@@ -425,6 +440,7 @@ header {
                                 
 
                                 .menu-item{
+
                                         a{
                                             &:after {
                                                 height: 0 !important;
@@ -476,9 +492,12 @@ header {
                                 border-bottom: 7px solid #fff;
                             }
 
-                            >li {
+                            > li {
                                 padding: 0px;
                                 margin: 0px 0px 10px;
+
+                                
+
 
                                 &:last-child {
                                     margin: 0;
@@ -493,8 +512,6 @@ header {
                                     color: rgba(12, 7, 38, 0.7);
                                     font-size: 16px;
                                     font-weight: 400;
-
-                                
 
                                     &:hover {
                                         color: #0082c9;
@@ -569,10 +586,128 @@ header {
                                                 }
                                             }
                                         }
+<<<<<<< Updated upstream
+=======
+
+
+                                        &.current_page_item, .current-menu-item {
+                                            a {
+                                                color: $mainColor;
+                                            }
+                                        }
+
+
+                                        &.new_label {
+                                            a small {
+                                                background-color: $labelColor;
+                                                display: inline-block !important;
+                                                padding: 1px 10px;
+                                                font-size: 0.9em !important;
+                                                font-weight: bold;
+                                                margin-bottom: 0;
+                                                margin-left: 17px;
+                                                border-radius: 4px;
+                                                position: relative;
+                                                top: -2px;
+        
+                                                &:before {
+                                                    content: "";
+                                                    display: block;
+                                                    position: absolute;
+                                                    width: 0;
+                                                    top: 0;
+                                                    bottom: 0;
+                                                    margin: auto;
+                                                    left: -10px;
+                                                    height: 7px;
+                                                    border: 5px solid transparent;
+                                                    border-right-color: $labelColor;
+                                                }
+                                            }                                   
+                                        }
+
+                                        
+>>>>>>> Stashed changes
+                                    }
+                                }
+
+
+                            }
+                        }
+<<<<<<< Updated upstream
+=======
+
+
+
+                    //megamenu styling
+                    @media (min-width: $menu-custom-breakpoint) {
+                        &.megamenu {
+
+                            &.products {
+                                
+                                & > ul.sub-menu {
+                                    margin-left: -305px;
+                                    width: 600px;
+
+
+                                    .hub {
+                                        ul.sub-menu {
+                                            padding-top: 10px;
+                                            border-bottom: 1px solid #d9d9d9;
+
+                                            li {
+                                                display: inline-block;
+                                                width: 46%;
+                                            }
+                                        }
                                     }
                                 }
                             }
+
+
+                            &.solutions {
+                                li.enterprise {
+
+                                    & > ul.sub-menu {
+
+                                        li:not(.pricing) {
+                                            a {
+                                                &:before {
+                                                    position: relative;
+                                                    //content: "\f105";
+                                                    //content: "\f058";
+                                                    font-family: 'Font Awesome 5 Free';
+                                                    font-weight: 900;
+                                                    margin-right: 10px;
+                                                    //color: $textColor;
+                                                    font-size: 0.8em;
+                                                }
+                                            }
+                                            
+                                        }
+
+                                        li.pricing {
+                                            border-top: 1px solid #d9d9d9;
+                                            //color: $mainColor;
+
+                                            a {
+                                                padding-top: 10px;
+                                                padding-bottom: 10px;
+                                            }
+                                        }
+
+                                    }
+
+                                }
+
+                                
+
+                            }
+
                         }
+
+                    }
+>>>>>>> Stashed changes
                     }
 
                     @media (max-width: $xl-breakpoint) {

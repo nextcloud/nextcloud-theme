@@ -1,5 +1,428 @@
 jQuery(document).ready(function ($) {
 
+<<<<<<< Updated upstream
+=======
+    $(document).on( 'nfFormReady', function() {
+        //console.log('Form is ready');
+
+        //add focus class to hidden checkbox
+        jQuery('.checkbox-container .nf-field-element input[type=checkbox]').each(function(){
+            console.log($(this).val());
+
+            $(this).focus(function(){
+                //console.log('focus!');
+                $(this).parent('.nf-field-element').prev('.nf-field-label').addClass('focus');
+            });
+
+            $(this).focusout(function(){
+                $(this).parent('.nf-field-element').prev('.nf-field-label').removeClass('focus');
+            });
+            
+        });
+
+
+        //toggle form on button click
+        jQuery('.open_ed_form').each(function(){
+            //$(this).next('.nf-form-cont').hide();
+            //$(this).next('.nf-form-cont').hide();
+            var link =  $(this).find('a');
+            var href = link.attr('href');
+            
+
+            $(this).click(function(e){
+                e.preventDefault();
+
+                console.log(href);
+                var section = $(href);
+                section.removeClass('hidden');
+                section.slideDown("fast");
+                
+
+                $('html, body').animate({
+                    scrollTop: $(form).offset().top
+                }, 2000);
+
+            });
+        });
+    });
+
+
+
+    jQuery(document).ready(function ($) {
+
+        //open past events on Events page
+        $('.open_past_events').click(function(e){
+            e.preventDefault();
+            $('tr.past_events').toggle();
+            $(this).toggleClass('open');
+            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events);
+            $(this).find('i').toggleClass('fa-angle-up').toggleClass('fa-angle-down');
+        });
+
+
+        //update URL of jobs page when toggle is opened
+        var orig_baseUrl = window.location.href.split('#')[0];
+        //console.log(orig_baseUrl);
+        let stateObj = { id: "100" };
+
+        $('#openpositions .faq_toggles .vc_toggle').click(function(e){
+            e.preventDefault();
+            //window.location.hash = "!";
+            var hashtag = $(this).attr('id');
+
+            if( $(this).hasClass('vc_toggle_active') ){ 
+                //closing, remove hashtag
+                window.history.pushState(stateObj, "Jobs", orig_baseUrl);
+            } else {
+                //reset
+                window.history.pushState(stateObj, "Jobs", orig_baseUrl);
+                window.location = window.location + '#' + hashtag;
+            }
+
+        });
+
+
+    });
+
+
+    
+
+
+    jQuery('.iframe_noScrolling').each(function(){
+        var iframe = $(this).find('iframe');
+        iframe.css('pointer-events', 'none');
+        $(this).click(function(){
+            iframe.css('pointer-events', '');
+        });
+    });
+
+    if (jQuery(window).width() > 767) {
+        $('.iconboxes_carousel .nc_iconbox .description').each(function(index){
+            var el = $(this);
+            var this_height = el.height(); //51.2
+    
+            if (this_height > 51.2) {
+                $(this).addClass('truncate');
+                $("<div class='truncate_see_more'>"+main_js_strings.see_more+"</div>").insertAfter($(this));
+            }
+        });
+    
+        $('.truncate_see_more').on('click', function(){
+            $(this).siblings('.description').removeClass('truncate');
+            $(this).hide();
+        });
+    
+    }
+
+    
+
+
+    //add clickable hashtag to elements to copy specific location
+    $('.copy_element_link').hover(
+        function(){
+        $(this).append('<span class="copy_element_link_trigger" title="Copy URL">#</span>'); 
+    }, function(){
+        setTimeout(function() {
+            $(this).find('.copy_element_link_trigger').remove(); 
+        }, 500);
+    }
+    );
+
+    $('.copy_element_link').on('click', '.copy_element_link_trigger' , function(){
+        var el_location = '';
+        var url = window.location.href;
+        var my_url = url.split("#"); // remove any hashtags
+        el_location = $(this).parent('.copy_element_link').attr('id');
+        //console.log(el_location);
+        
+        navigator.clipboard.writeText(my_url[0]+'#'+el_location);
+        $(this).append("<div class='copied'>"+main_js_strings.copied+"</div>");
+
+        setTimeout(function() {
+            $(this).find('.copied').remove();
+        }, 1500);
+    });
+
+
+    //toggle table icons for the Pricing table
+    $.fn.toggleHTML = function(t1, t2){
+        if (this.html() == t1) this.html(t2);
+        else                   this.html(t1);
+        return this;
+    };
+
+    $('a.toggle_items').parents('tr').closest('tr').nextUntil('.category').hide();
+    $('a.toggle_items').click(function(e){
+        e.preventDefault();
+        $(this).parents('tr').closest('tr').nextUntil('.category').toggle();
+        $(this).toggleHTML(main_js_strings.see_more+' <i class="fa fa-angle-down"></i>', main_js_strings.see_less+' <i class="fa fa-angle-up"></i>');
+    });
+
+
+    var isUriImage = function(uri) {
+        var uri, uri_splitted;
+        if(uri) {
+            //make sure we remove any nasty GET params
+            var uri_splitted = uri.split('?')[0];
+
+            //moving on now
+            var parts = uri_splitted.split('.');
+            var extension = parts[parts.length-1];
+            var imageTypes = ['jpg','jpeg','tiff','png','gif','bmp']
+            if(imageTypes.indexOf(extension) !== -1) {
+                return true;   
+            }
+        }
+    }
+
+
+    var OSName="Unknown";
+    if (navigator.appVersion.indexOf("Win")!=-1) OSName="winOS";
+    if (navigator.appVersion.indexOf("Mac")!=-1) OSName="macOS";
+    if (navigator.appVersion.indexOf("X11")!=-1) OSName="unixOS";
+    if (navigator.appVersion.indexOf("Linux")!=-1) OSName="linuxOS";
+    //console.log("OS name: "+OSName);
+
+    $('#card-clients-btns .a-btn').each(function(){
+        if($(this).hasClass(OSName)) {
+            $(this).addClass('highlight');
+        } else {
+            $(this).addClass('outline');
+        }
+    });
+
+
+    //restrict list to max 12 items
+    $('ul.list_load_more li').hide().slice(0, 12).show();
+
+    //add button load more
+    $('ul.list_load_more').each(function(item){
+        var listItems = $(this).children();
+        if(listItems.length > 12) {
+            $(this).parent().find('.list_load_more_btn').show();
+        }
+    });
+
+    $('.mail_obf').each(function(){
+        var s = $(this).data('email');
+        var e = s.split("").reverse().join("");
+        //$(this).append('<a href="mailto:'+email+'">'+email+'</a>');
+        $(this).html('<a href="mailto:'+e+'">'+e+'</a>');
+    });
+
+    $('.list_load_more_btn').on('click',function(e){
+        e.preventDefault();
+        //console.log('test click');
+        $(this).parents('.wpb_wrapper').find('ul.list_load_more li').each(function(index){
+            $(this).css("display", "inline-block");
+        });
+
+        $(this).hide();
+    });
+
+
+    if(window.location.hash) {
+        // Fragment exists
+        var hash = window.location.hash;
+        if($(hash).hasClass('vc_toggle')){
+            $(hash).addClass('vc_toggle_active');
+        }
+    } else {
+        // Fragment doesn't exist
+    }
+
+
+    $('.changelog_list li a').each(function(){
+        $(this).attr('target', '_blank');
+    });
+
+
+    $('.nc_version .version_name span.copy_id').click(function(){
+        var version_id = '';
+        var url = window.location.href;
+        var my_url = url.split("#"); // remove any hashtags
+        version_id = $(this).parent('.version_name').attr('id');
+        navigator.clipboard.writeText(my_url[0]+'#'+version_id);
+
+        $(this).append("<div class='copied'>"+main_js_strings.copied+"</div>");
+
+        setTimeout(function() {
+            $('.copied').hide();
+        }, 1500);
+
+    });
+
+    //add functionality to select continents and countries
+    $('.region_select_list .continent.parent').each(function(){
+        $(this).append('<div class="opener fa fa-angle-down"></div>');
+    });
+
+    $('.region_select_list li.parent .opener').click(function(){
+        //$(this).toggleClass('fa-angle-up');
+        $(this).siblings('ul').slideToggle();
+        $(this).parents('li').toggleClass('opened');
+    });
+
+    $('.region_select_list li.parent > input[type="checkbox"]').change(function(){
+        if(this.checked) {
+            $(this).siblings('.children_countries').find('input[type="checkbox"]').prop( "checked", true );
+        } else {
+            $(this).siblings('.children_countries').find('input[type="checkbox"]').prop( "checked", false );
+        }
+    });
+
+
+    //force download of images
+    $('.image_download a').each(function(){
+        $(this).attr('download','');
+    });
+
+    $('.wpb_video_wrapper').each(function(){
+        if($(this).children('.video-wall').length > 0){
+            $(this).addClass('with-iframe-blocker');
+        }
+    });
+
+
+    $('.copy_color').click(function(){
+        // Select the text field
+        $(this).select();
+        navigator.clipboard.writeText( $(this).text() );
+        $(this).append("<div class='copied'>Copied!</div>");
+        setTimeout(function() {
+            $('.copied').remove();
+        }, 2000);
+    });
+
+
+    //show buttons left right for moving the table when is not fully visible
+    if( $('.comparison_table').width() > $('.comparison_table_container_inner').width() ) {
+        $('.comparison_table_container_inner').addClass('innerShadow');
+
+        $('.table_move_arrows').show();
+    }
+
+
+    //left right move animation of the table
+    var box = $(".comparison_table_container_inner"), x;
+    $(".arrow").click(function() {
+        if ($(this).hasClass("arrow-right")) {
+            x = ((box.width() / 2)) + box.scrollLeft();
+            box.animate({
+            scrollLeft: x,
+            })
+        } else {
+            x = ((box.width() / 2)) - box.scrollLeft();
+            box.animate({
+            scrollLeft: -x,
+            })
+        }
+    });
+
+
+
+    //add dynamic css width to the td of the table header
+    $(".platform_logos th").each(function(){
+        //var padding = $(this).css('padding');
+        //console.log("padding: "+parseFloat(padding));
+        var width = $(this).width();
+        //width += parseFloat(padding);
+        console.log("width: "+width);
+        $(this).css("width", width );
+    });
+
+
+    //add class to the tds where the th has been checked to be compared
+    $(".platform_logos .check").click(function(){
+        $('button.filter').attr('disabled', false);
+
+        $(this).parent('th').toggleClass('td_selected');
+        $(this).toggleClass('selected');
+        //always select Nextcloud to compare with
+        $('.comparison_table .platform_logos').find('th').eq(1).find('.check').addClass('selected');
+        $('.comparison_table .platform_logos').find('th').eq(1).addClass('td_selected');
+        
+
+        var number_td = $(this).parent('th').index();
+        console.log(number_td);
+        $(this).parents('.comparison_table').children('tbody').find('tr:not(.colspan10)').each(function(item){
+            $(this).find('td').eq(number_td).toggleClass("hightlighted td_selected");
+
+            //always select the nextcloud column = column nr. 2
+            $(this).find('td').eq(1).addClass("hightlighted td_selected");
+
+        });
+    });
+
+
+    //add class filtered to the table on button click
+    $("button.filter").click(function(){
+        $('.comparison_table').addClass('filtered');
+    });
+
+    //reset table comparison on button click
+    $("button.reset").click(function(){
+        $('button.filter').attr('disabled', true);
+        $('.comparison_table').removeClass('filtered');
+        $('.check').removeClass("selected");
+        $('.hightlighted').removeClass("hightlighted");
+        $('.td_selected').removeClass("td_selected");
+    });
+
+    var animate_iconboxes = function(){
+
+        $('.animated_iconboxes').each(function(list_index){
+            
+            var elementTop = $(this).offset().top;
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+
+            if(elementBottom > viewportTop && elementTop < viewportBottom) {
+                //$(this).children('li').addClass('show');
+
+                $(this).find('.nc_iconbox').each(function(index){
+                    $(this).addClass('show');
+                    $(this).css({
+                        'transition-delay' : (list_index + index * 0.2) + 's'
+                    });
+                });
+
+            }
+        });
+
+    };
+    animate_iconboxes();
+
+
+    //animate list on scroll and when element is visible in the viewport
+    $(window).scroll(function(){
+        $('.animated_list').each(function(list_index){
+            var elementTop = $(this).offset().top;
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+
+            if(elementBottom > viewportTop && elementTop < viewportBottom) {
+                //$(this).children('li').addClass('show');
+
+                $(this).children('li').each(function(index){
+                    $(this).addClass('show');
+                    $(this).css({
+                        'transition-delay' : (list_index + index * 0.2) + 's'
+                    });
+                });
+
+            }
+        });
+
+
+        //animated_iconboxes > nc_iconbox animated when visible in the viewport
+        animate_iconboxes();
+
+    });
+
+>>>>>>> Stashed changes
 
     //set language switcher short lang as text
     var curr_lang_a = $('.menu-primary-menu-container .wpml-ls-current-language > a');
@@ -100,7 +523,18 @@ jQuery(document).ready(function ($) {
     });
 
 
+<<<<<<< Updated upstream
     $('.popup-video a').magnificPopup({
+=======
+    $('.open-popup-link').magnificPopup({
+        delegate: 'a', // child items selector, by clicking on it popup will open
+        type:'inline',
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
+
+
+    $('.popup-video a, a.popup-video').magnificPopup({
+>>>>>>> Stashed changes
         //disableOn: 700,
         type: 'iframe',
         mainClass: 'mfp-fade',
@@ -134,20 +568,31 @@ jQuery(document).ready(function ($) {
 
 
 jQuery(document).ready(function () {
+<<<<<<< Updated upstream
 
     fixedMeni();
+=======
+    fixedMenu();
+>>>>>>> Stashed changes
+
 
     document.querySelectorAll('.menu-footer .menu-item-has-children > a').forEach(menuSection => {
-        menuSection.setAttribute('role', 'heading')
-        menuSection.setAttribute('aria-level', '2')
-        menuSection.removeAttribute('tab-index')
+        menuSection.setAttribute('role', 'heading');
+        menuSection.setAttribute('aria-level', '2');
+        //menuSection.removeAttribute('tab-index');
     })
 
+<<<<<<< Updated upstream
     const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children')
 
+=======
+    
+    const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children > a');
+>>>>>>> Stashed changes
     Array.prototype.forEach.call(menuItems, function (el, i) {
-        el.setAttribute('aria-haspopup', 'true')
+        el.setAttribute('aria-haspopup', 'true');
         let timer;
+<<<<<<< Updated upstream
         el.addEventListener("mouseover", (event) => {
             document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
             el.classList.add('open')
@@ -159,6 +604,48 @@ jQuery(document).ready(function () {
             }, 1000)
         })
         el.querySelector('a').addEventListener("click", function(event) {
+=======
+
+        el.addEventListener("mouseover", function(){
+            document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+            el.parentElement.classList.add('open');
+            el.setAttribute('aria-expanded', 'true');
+            clearTimeout(timer);
+        });
+        el.addEventListener("focusin", function(){
+            document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+            el.parentElement.classList.add('open');
+            el.setAttribute('aria-expanded', 'true');
+            clearTimeout(timer);
+        });
+        el.addEventListener("mouseout", (event) => {
+            timer = setTimeout((event) => {
+                document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+                el.setAttribute('aria-expanded', 'false');
+            }, 250)
+        });
+
+
+        //console.log(el);
+        el.addEventListener("focusout", (event) => {
+            timer = setTimeout((event) => {
+
+                //error is here.....
+                var hasFocused = el.parentElement.contains(document.activeElement);
+                //console.log("Active element: "+document.activeElement);
+
+                if(!hasFocused) {
+                    //if no focused elements inside the current parent, then close the submenu
+                    document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+                    el.setAttribute('aria-expanded', 'false');
+                } else {
+                    //console.log("There are elements focused inside el.");
+                }
+            }, 250)
+        });
+
+        el.addEventListener("click", function(event) {
+>>>>>>> Stashed changes
             if (this.parentNode.className.includes('menu-item-has-children')) {
                 document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
                 this.parentNode.classList.add('open')
@@ -170,13 +657,35 @@ jQuery(document).ready(function () {
             event.preventDefault()
             return false
         });
-    })
+    });
+
+
+    jQuery(document).on('focusin', function (event) {
+        var $target = jQuery(event.target);
+        if (!$target.closest('.primary-menu').length) {
+          //console.log('You focused outside of .primary-menu!');
+          document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+        }
+    });
+
+
 
 
     jQuery(".phone-menu").click(function () {
         jQuery(this).toggleClass("change");
-        jQuery('header').toggleClass('active');
-        jQuery('.header-items').slideToggle();
+
+        if(jQuery('header').hasClass('active')){
+            jQuery('.header-items').slideUp(300, function(){
+                //animation complete    
+                jQuery('header').removeClass('active');
+            });
+        } else {
+            jQuery('header').addClass('active');
+            jQuery('.header-items').slideDown(300, function(){
+                //animation complete
+            });
+        }
+
     });
 
     jQuery('.card-btn').click(function () {
