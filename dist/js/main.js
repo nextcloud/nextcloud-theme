@@ -1,7 +1,5 @@
 jQuery(document).ready(function ($) {
 
-    
-   
     $(document).on( 'nfFormReady', function() {
         //console.log('Form is ready');
 
@@ -22,15 +20,21 @@ jQuery(document).ready(function ($) {
 
 
         //toggle form on button click
-        jQuery('#specific_talk_toggle').each(function(){
+        jQuery('.open_ed_form').each(function(){
             //$(this).next('.nf-form-cont').hide();
-            $(this).next('.nf-form-cont').hide();
-            var form =  $(this).next('.nf-form-cont');
-            var form_id = form.attr('id');
+            //$(this).next('.nf-form-cont').hide();
+            var link =  $(this).find('a');
+            var href = link.attr('href');
+            
 
             $(this).click(function(e){
                 e.preventDefault();
-                form.slideDown("fast");
+
+                console.log(href);
+                var section = $(href);
+                section.removeClass('hidden');
+                section.slideDown("fast");
+                
 
                 $('html, body').animate({
                     scrollTop: $(form).offset().top
@@ -43,6 +47,8 @@ jQuery(document).ready(function ($) {
 
 
     jQuery(document).ready(function ($) {
+
+        //open past events on Events page
         $('.open_past_events').click(function(e){
             e.preventDefault();
             $('tr.past_events').toggle();
@@ -50,7 +56,34 @@ jQuery(document).ready(function ($) {
             $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events);
             $(this).find('i').toggleClass('fa-angle-up').toggleClass('fa-angle-down');
         });
+
+
+        //update URL of jobs page when toggle is opened
+        var orig_baseUrl = window.location.href.split('#')[0];
+        //console.log(orig_baseUrl);
+        let stateObj = { id: "100" };
+
+        $('#openpositions .faq_toggles .vc_toggle').click(function(e){
+            e.preventDefault();
+            //window.location.hash = "!";
+            var hashtag = $(this).attr('id');
+
+            if( $(this).hasClass('vc_toggle_active') ){ 
+                //closing, remove hashtag
+                window.history.pushState(stateObj, "Jobs", orig_baseUrl);
+            } else {
+                //reset
+                window.history.pushState(stateObj, "Jobs", orig_baseUrl);
+                window.location = window.location + '#' + hashtag;
+            }
+
+        });
+
+
     });
+
+
+    
 
 
     jQuery('.iframe_noScrolling').each(function(){
@@ -669,7 +702,11 @@ jQuery(document).ready(function ($) {
     });
 
 
-
+    $('.open-popup-link').magnificPopup({
+        delegate: 'a', // child items selector, by clicking on it popup will open
+        type:'inline',
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
 
 
     $('.popup-video a, a.popup-video').magnificPopup({
@@ -752,37 +789,60 @@ jQuery(document).ready(function ($) {
 
 
 jQuery(document).ready(function () {
-
     fixedMenu();
 
+
     document.querySelectorAll('.menu-footer .menu-item-has-children > a').forEach(menuSection => {
-        menuSection.setAttribute('role', 'heading')
-        menuSection.setAttribute('aria-level', '2')
-        menuSection.removeAttribute('tab-index')
+        menuSection.setAttribute('role', 'heading');
+        menuSection.setAttribute('aria-level', '2');
+        //menuSection.removeAttribute('tab-index');
     })
 
-
-    //const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children');
+    
     const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children > a');
-
     Array.prototype.forEach.call(menuItems, function (el, i) {
-        el.setAttribute('aria-haspopup', 'true')
+        el.setAttribute('aria-haspopup', 'true');
         let timer;
 
-        el.addEventListener("mouseover", (event) => {
+        el.addEventListener("mouseover", function(){
             document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
-            el.classList.add('open');
+            el.parentElement.classList.add('open');
+            el.setAttribute('aria-expanded', 'true');
             clearTimeout(timer);
         });
-
+        el.addEventListener("focusin", function(){
+            document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+            el.parentElement.classList.add('open');
+            el.setAttribute('aria-expanded', 'true');
+            clearTimeout(timer);
+        });
         el.addEventListener("mouseout", (event) => {
             timer = setTimeout((event) => {
-                document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
+                document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+                el.setAttribute('aria-expanded', 'false');
             }, 250)
         });
 
-        //el.querySelector('a').addEventListener("click", function(event) {
-        el.addEventListener("click", function(event) {    
+
+        //console.log(el);
+        el.addEventListener("focusout", (event) => {
+            timer = setTimeout((event) => {
+
+                //error is here.....
+                var hasFocused = el.parentElement.contains(document.activeElement);
+                //console.log("Active element: "+document.activeElement);
+
+                if(!hasFocused) {
+                    //if no focused elements inside the current parent, then close the submenu
+                    document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+                    el.setAttribute('aria-expanded', 'false');
+                } else {
+                    //console.log("There are elements focused inside el.");
+                }
+            }, 250)
+        });
+
+        el.addEventListener("click", function(event) {
             if (this.parentNode.className.includes('menu-item-has-children')) {
                 document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
                 this.parentNode.classList.add('open')
@@ -794,13 +854,35 @@ jQuery(document).ready(function () {
             event.preventDefault()
             return false
         });
-    })
+    });
+
+
+    jQuery(document).on('focusin', function (event) {
+        var $target = jQuery(event.target);
+        if (!$target.closest('.primary-menu').length) {
+          //console.log('You focused outside of .primary-menu!');
+          document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
+        }
+    });
+
+
 
 
     jQuery(".phone-menu").click(function () {
         jQuery(this).toggleClass("change");
-        jQuery('header').toggleClass('active');
-        jQuery('.header-items').slideToggle();
+
+        if(jQuery('header').hasClass('active')){
+            jQuery('.header-items').slideUp(300, function(){
+                //animation complete    
+                jQuery('header').removeClass('active');
+            });
+        } else {
+            jQuery('header').addClass('active');
+            jQuery('.header-items').slideDown(300, function(){
+                //animation complete
+            });
+        }
+
     });
 
 
@@ -948,11 +1030,18 @@ jQuery(document).ready(function () {
                 &&
                 location.hostname == this.hostname
             ) {
+
+                targetsArray = [
+                    '#no_scroll',
+                    '#conf-form-popup',
+                    '#submit_proposal'
+                ];
+
                 // Figure out element to scroll to
                 var target = jQuery(this.hash);
                 target = target.length ? target : jQuery('[name=' + this.hash.slice(1) + ']');
                 // Does a scroll target exist?
-                if (target.length) {
+                if (target.length && jQuery.inArray(target, targetsArray) !== -1 ) {
                     // Only prevent default if animation is actually gonna happen
                     event.preventDefault();
                     jQuery('html, body').animate({
@@ -973,6 +1062,9 @@ jQuery(document).ready(function () {
                 }
             }
         });
+
+
+
     if (jQuery('.needs-slider').width() > 1) {
         jQuery('.needs-slider').slick({
             infinite: false,

@@ -2,6 +2,10 @@ jQuery(function($){
 
     $('.loadNews').each(function(){
         let currentPage = 1;
+        var count = $(this).data('count');
+        var limit = $(this).data('limit');
+
+
         $(this).on('click', function() {
 
             var thisBtn = $(this);
@@ -10,10 +14,12 @@ jQuery(function($){
             var button = $(this);
             var textBtn = button.html();
 
-
             var action = 'nc_load_more';
             var data = {
-                paged: currentPage
+                paged: currentPage,
+                post_type: $(this).data('post-type'),
+                count : $(this).data('count'),
+                limit : $(this).data('limit')
             };
 
             if($(this).data("category")){
@@ -43,7 +49,21 @@ jQuery(function($){
                     action = 'nc_load_more';
                     data.post_type = $(this).data('post-type');
                 }
-                
+            }
+
+            if(
+                $(this).data('post-type') == 'case_studies'
+                || $(this).data('post-type') == 'whitepapers'
+                || $(this).data('post-type') == 'data_sheets'
+                ) {
+                action = 'nc_whitepapers_load_more';
+                data.post_type = $(this).data('post-type');
+                //data.limit = $(this).data('limit');
+            }
+
+            if($(this).data('post-type') == 'whitepaper_posts') {
+                action = 'nc_whitepaper_posts_load_more';
+                data.post_type = 'post';
             }
 
 
@@ -63,15 +83,24 @@ jQuery(function($){
                 beforeSend : function ( xhr ) {
                     button.text(nc_loadmore_strings.loading); // change the button text, you can also add a preloader image
                     //console.log(data);
-                    //console.log("current page: "+currentPage);
+                    
+
                 },
                 success: function (res) {
                     $(thisBtn).parents('.loadNews_row').siblings('.row-list-blog').append(res);
                     button.text(textBtn);
+
+                    //console.log("current page: "+currentPage);
+                    //console.log("count: "+count);
+                    //console.log("limit: "+limit);
+                    if( (currentPage * limit) > count) {
+                        button.hide();
+                    }
                 },
                 error: function (res) {
                     $(thisBtn).parents('.loadNews_row').siblings('.row-list-blog').append(res);
                     button.text(textBtn);
+                    
                 }
             });
         });

@@ -4,19 +4,19 @@
   "version": "1.0.0",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "sass": "^1.52.1"
+      "sass": "^1.52.1"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/nextcloud/nextcloud-theme.git"
+      "type": "git",
+      "url": "https://github.com/nextcloud/nextcloud-theme.git"
   },
   "scripts": {
-    "sass": "sass assets/theme.scss:dist/css/theme.min.css",
-    "sass:watch": "sass --watch assets/theme.scss:dist/css/theme.min.css",
-    "sass-signup:watch": "sass --watch dist/signup/css/signup.scss:dist/signup/css/signup.css"
+      "sass": "sass assets/theme.scss:dist/css/theme.min.css",
+      "sass:watch": "sass --watch assets/theme.scss:dist/css/theme.min.css",
+      "sass-signup:watch": "sass --watch dist/signup/css/signup.scss:dist/signup/css/signup.css"
   },
   "engines": {
-    "node": "^20.0.0",
-    "npm": "^10.0.0"
+    "node": "^14.0.0",
+    "npm": "^7.0.0"
   }
 }

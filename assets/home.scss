@@ -952,30 +952,6 @@
 }
 
 
-/*
-.clients_carousel {
-    display: flex !important;
-
-    .client_item {
-        width: 150px;
-        
-        a {
-            display: block;
-            height: 100%;
-            width: 100%;
-        }
-
-        img {
-            height: auto;
-            width: auto;
-            max-width: 100%;
-        }
-    }
-    
-}
-*/
-
-
 
 .clients_carousel, .post_clients_carousel {
     margin: 2rem auto !important;
@@ -1009,6 +985,7 @@
                 display: flex;
                 aspect-ratio: 1;
                 filter: grayscale(1);
+                box-sizing: border-box;
 
                 &:focus {
                     filter: grayscale(0);
@@ -1030,13 +1007,20 @@
                 img {
                     transition: all 0.3s ease;
                     //max-height: 100px;
-                    width: auto !important;
+                    //width: auto !important;
                     margin: auto;
                     opacity: 0.5;
                     max-width: 100%;
                     align-self: center;
-                    max-height: 100px;
-                    min-width: 100px;
+                    //max-height: 100px;
+                    //min-width: 100px;
+                    max-height: 75px;
+
+                    @media screen and (min-width: $tablet-breakpoint) and (max-width: $xl-breakpoint) {
+                        & {
+                            max-height: 50px;
+                        }
+                    }
 
                 }
             }
@@ -1332,11 +1316,38 @@
             }
         }
 
-        //office presentation, writer, spreadsheet, Text
-        &.nc_office_presentation, &.nc_office_writer, &.nc_office_spreadsheet, &.nc_office_text {
+        //Write
+        &.nc_office_writer {
             .vc_tta-panel-title {
                 &:before {
-                    background-image: url('/wp-content/uploads/2022/09/nc-office-icon.svg');
+                    background-image: url('/c/uploads/2024/03/Nextcloud-write-icon-white.svg');
+                }
+            }
+        }
+
+        //Spreadsheet
+        &.nc_office_spreadsheet {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/c/uploads/2024/03/Nextcloud-Spreadsheet-icon-white.svg');
+                }
+            }
+        }
+
+        //Present
+        &.nc_office_presentation {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/c/uploads/2024/03/Nextcloud-Present-icon-white.svg');
+                }
+            }
+        }
+
+        //Draw
+        &.nc_office_text {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/c/uploads/2024/03/Nextcloud-Draw-icon-white.svg');
                 }
             }
         }
@@ -1523,8 +1534,11 @@
         &:first-child {
             z-index: 10;
             position: relative;
-            padding: 0 !important;
             background-color: #fff;
+
+            &:not(.textColumn) {
+                padding: 0 !important;
+            }
 
             &::before {
                 content: " ";
@@ -1618,7 +1632,7 @@
         }
 
 
-        &:hover {
+        &:hover, &:focus {
             .overlay {
                 background-color: rgba(0,130,201,0.75);
             }
@@ -1755,15 +1769,6 @@
     padding-left: 3rem;
     padding-right: 3rem;
 
-    /*
-    @media screen and (min-width: $md-breakpoint) {
-        &:first-of-type {
-            transform: translateX(50px);
-        }
-    }
-    */
-    
-
     .nc_compliant_box {
         height: 100%;
         padding-bottom: 1rem;
@@ -1778,19 +1783,16 @@
             box-shadow: 0 0 25px rgba(0, 130, 201, 0.12);
     
             
-            &:hover {
+            &:hover, &:focus {
                 background-color: rgba(0,130,201,0.15);
-                //color: $textColor;
             }
     
             .iconbox_container {
                 padding: 1.5rem;
-                //padding-bottom: 4rem;
     
                 .icon {
                     font-size: 1.7rem;
                     margin-bottom: 1rem;
-                    //color: $mainColor;
 
                     img {
                         max-height: 29px;
@@ -1817,11 +1819,8 @@
     
                 .see_more {
                     margin-top: 10px;
-                    //margin-top: 2rem;
                     font-weight: bold;
                     display: block;
-                    //position: absolute;
-                    //bottom: 2rem;
                     color: $mainColor;
                 }
             }

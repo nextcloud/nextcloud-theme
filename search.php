@@ -45,6 +45,8 @@ get_header();
 				print_r($post_type);
 				echo "</div>";
 
+				$limit = $default_posts_per_page;
+
 				$search_query = new WP_Query(array(
 					'post_type' => array($post_type),
 					'posts_per_page' => $default_posts_per_page,
@@ -56,9 +58,10 @@ get_header();
 					'paged' => $paged,
 					'category__not_in' => array(226) //exclude Private category
 				));
+				$count = $search_query->found_posts;
 
 				if ($search_query->have_posts()) {
-					$count = $search_query->post_count; 
+					
 
 					while ($search_query->have_posts()) {
 						$search_query->the_post();
@@ -78,8 +81,8 @@ get_header();
 
 			
 			<?php 
-			//echo $count." - ".$default_posts_per_page;
-			if ($search_query->max_num_pages > $default_posts_per_page ) { ?>
+			if ($count > $limit) {
+				?>
 			<div class="row loadNews_row">
 				<div class="col-12">
 					<div class="section-button">
@@ -96,7 +99,7 @@ get_header();
 								$post_type_search = 'post';
 							}
 						}
-						if(isset($post_type_search)) echo $post_type_search; ?>" data-search="true" data-category="" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
+						if(isset($post_type_search)) echo $post_type_search; ?>" data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" data-search="true" data-category="" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 					</div>
 				</div>
 			</div>

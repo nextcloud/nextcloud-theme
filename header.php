@@ -20,11 +20,11 @@ if (!defined('WPINC')) {
 	?>
 	<div id="hidden_header_anchor"></div>
 	<header class="<?php if (get_field('header_promo_activation', 'option') ) { echo "with-promo-banner"; }?>" id="header"><?php //class with-promo-banner ?>
+		
+		<a href="#main" class="skip"><?php echo __('Skip to main content','nextcloud'); ?></a>
 
 		<?php
-		//if (get_field('header_promo_activation', 'option') ) {
 			get_template_part("inc/header-promo-banner");
-		//}
 		?>
 
 		<div class="container" id="">

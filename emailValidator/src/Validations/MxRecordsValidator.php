@@ -1,5 +1,5 @@
 <?php
-
+/*
 declare(strict_types=1);
 
 namespace EmailValidation\Validations;
@@ -31,5 +31,37 @@ class MxRecordsValidator extends Validator implements ValidatorInterface
     protected function checkDns(string $host, string $type = null): bool
     {
         return checkdnsrr($host, $type);
+    }
+}
+*/
+
+
+declare(strict_types=1);
+namespace EmailValidation\Validations;
+
+class MxRecordsValidator extends Validator implements ValidatorInterface
+{
+    public function getValidatorName(): string
+    {
+        return 'valid_mx_records'; // @codeCoverageIgnore
+    }
+
+    public function getResultResponse(): bool
+    {
+        if (!$this->getEmailAddress()->isValidEmailAddressFormat()) {
+            return false; // @codeCoverageIgnore
+        }
+
+        return $this->hasMxRecord($this->getEmailAddress()->getHostPart(true));
+    }
+
+    protected function hasMxRecord(string $domain): bool
+    {
+        $mxRecords = [];
+        if (getmxrr($domain, $mxRecords)) {
+            return count($mxRecords) > 0;
+        }
+
+        return false;
     }
 }

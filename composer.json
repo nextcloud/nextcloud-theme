@@ -22,10 +22,6 @@
 		"psalm": "psalm",
 		"psalm:fix": "psalm --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
 		"psalm:update-baseline": "psalm --threads=1 --update-baseline",
-		"update-data-files":  [
-			"(cd emailValidator/scripts && ./update-disposable-email-providers.php)",
-			"(cd emailValidator/scripts && ./update-top-level-domains.php)"
-		  ],
 		"post-install-cmd": "@update-data-files",
 		"post-update-cmd": "@update-data-files"
 	},

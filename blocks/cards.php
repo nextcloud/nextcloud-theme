@@ -37,6 +37,8 @@ $id = get_field('section_id');
 						the_row();
 						$card_title = get_sub_field('card_title');
 						$card_icon = get_sub_field('card_icon');
+						$card_new_label = get_sub_field('new_label');
+
 						echo '<div class="card-block">';
 						echo '<div class="card-head">';
 						if (!empty($card_icon)) {
@@ -45,6 +47,10 @@ $id = get_field('section_id');
 						if (!empty($card_title)) {
 							echo '<h6>' . $card_title . '</h6>';
 						}
+						if (!empty($card_new_label)) {
+							echo '<span class="new_label">'.__('New', 'nextcloud').'</span>';
+						}
+
 						echo '</div>';
 						echo '<div class="card-main">';
 						if (have_rows('card_content')) {
