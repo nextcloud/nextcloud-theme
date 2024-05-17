@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-<div class="wrapper">
+<div class="wrapper" id="main">
 	<?php
 	if (have_rows('page_navigation')) {
 		echo '<ul class="page-nav">';

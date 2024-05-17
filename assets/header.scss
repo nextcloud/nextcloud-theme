@@ -11,7 +11,7 @@ body.admin-bar {
 }
 
 .page-id-46558 {
-    .header-holder, #menu-footer-menu-container, .get-started-section, footer {
+    .top-banner-vote, .header-holder, #menu-footer-menu-container, .get-started-section, footer {
         display: none;
     }
 }
@@ -448,22 +448,6 @@ header {
                             }
 
 
-                            /*
-                            &.open {
-                                & > a {
-                                    background-color: $mainColor;
-                                    color: #fff;
-
-                                    &:before {
-                                        color: #fff;
-                                    }
-
-                                }
-                            }
-                            */
-
-
-
                         }
 
 
@@ -471,6 +455,18 @@ header {
                             &.menu-item-has-children {
                                 &:hover {
                                     .sub-menu {
+                                        display: block;
+                                    }
+                                }
+
+                                &.open {
+                                    .sub-menu {
+                                        display: block;
+                                    }
+                                }
+
+                                & > a:focus {
+                                    & + .sub-menu {
                                         display: block;
                                     }
                                 }
@@ -601,6 +597,7 @@ header {
                                 
 
                                 .menu-item{
+
                                         a{
                                             &:after {
                                                 height: 0 !important;
@@ -652,9 +649,12 @@ header {
                                 border-bottom: 7px solid #fff;
                             }
 
-                            >li {
+                            > li {
                                 padding: 0px;
                                 margin: 0px 0px 10px;
+
+                                
+
 
                                 &:last-child {
                                     margin: 0;
@@ -669,8 +669,6 @@ header {
                                     color: $textColor;
                                     //font-size: 16px;
                                     font-weight: 400;
-
-                                
 
                                     &:hover {
                                         color: $mainColor;
@@ -758,11 +756,40 @@ header {
                                         }
 
 
+                                        &.new_label {
+                                            a small {
+                                                background-color: $labelColor;
+                                                display: inline-block !important;
+                                                padding: 1px 10px;
+                                                font-size: 0.9em !important;
+                                                font-weight: bold;
+                                                margin-bottom: 0;
+                                                margin-left: 17px;
+                                                border-radius: 4px;
+                                                position: relative;
+                                                top: -2px;
+        
+                                                &:before {
+                                                    content: "";
+                                                    display: block;
+                                                    position: absolute;
+                                                    width: 0;
+                                                    top: 0;
+                                                    bottom: 0;
+                                                    margin: auto;
+                                                    left: -10px;
+                                                    height: 7px;
+                                                    border: 5px solid transparent;
+                                                    border-right-color: $labelColor;
+                                                }
+                                            }                                   
+                                        }
+
+                                        
                                     }
-
-                                    
-
                                 }
+
+
                             }
                         }
 
@@ -803,7 +830,7 @@ header {
                                             a {
                                                 &:before {
                                                     position: relative;
-                                                    content: "\f105";
+                                                    //content: "\f105";
                                                     //content: "\f058";
                                                     font-family: 'Font Awesome 5 Free';
                                                     font-weight: 900;

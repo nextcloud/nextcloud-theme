@@ -41,12 +41,15 @@ function file_scripts() {
 	wp_enqueue_style('css-style', get_stylesheet_directory_uri() . '/dist/css/theme.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/theme.min.css'), 'all');
 	//wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
 	wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css', [], (string)filemtime(get_stylesheet_directory() . '/style.css'), 'all');
+
+	wp_register_style('nc_register', get_stylesheet_directory_uri() . '/dist/signup/css/signup.css', [], 
+	'1.2', 'all');
+
 	//searchable select
-	
 	wp_register_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
 	if ( 
 		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
-		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets'))
+		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets', 'event'))
 	) {
 		wp_enqueue_style('selectizeStyle');
 	}
@@ -59,6 +62,9 @@ function file_scripts() {
 	wp_enqueue_script('magnific-js', get_template_directory_uri() . '/dist/js/jquery.magnific-popup.min.js', [], true);
 	wp_enqueue_script('sticky-sidebar-js', get_template_directory_uri() . '/dist/js/jquery.sticky-sidebar.min.js', [], true);
 	wp_enqueue_script('owl-carousel-js', get_template_directory_uri() . '/dist/js/owl.carousel.min.js', [], true);
+
+	wp_register_script('nc_register', get_template_directory_uri().'/dist/signup/js/nextcloud-register-main.js', [], 
+	'1.2', true);
 	
 	wp_register_script('nc_loadmore', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
 	// Localize the script with new data
@@ -101,7 +107,7 @@ function file_scripts() {
 	wp_register_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['nf-front-end', 'jquery'], true);
 	if ( 
 		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
-		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets'))
+		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets', 'event'))
 	) {
 		wp_enqueue_script('selectize');
 	}
@@ -132,7 +138,7 @@ function file_scripts() {
 add_action('wp_enqueue_scripts', 'file_scripts');
 
 function nc_enqueue_file_scripts_admin( $hook ) {
-	wp_register_style( 'jquery-ui', 'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css' );
+	wp_register_style( 'jquery-ui', get_stylesheet_directory_uri().'/dist/css/jquery-ui.css' );
 	wp_enqueue_style( 'jquery-ui' ); 
     wp_enqueue_script('jquery-ui-datepicker');
 	wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
@@ -412,7 +418,7 @@ function word_count($string, $limit) {
 //extend the default nonce expiration time for public preview plugin 
 add_filter( 'ppp_nonce_life', 'my_nonce_life' );
 function my_nonce_life() {
-    return 5 * 86400;
+    return 30 * 86400; // 30 days
 }
 
 
@@ -565,8 +571,19 @@ function webinar_recordings_search_filter($query) {
                     'compare' => '!=',
                 )
 		));
-		
-      }
+    } else if ( in_array($_GET['custom_type'], array('case_studies', 'whitepapers','data_sheets')) )
+	{
+		$query->set('post_type', strip_tags($_GET['custom_type']));
+	}
     }
 }
 add_action('pre_get_posts','webinar_recordings_search_filter', 99);
+
+
+// Removes anything that looks like a shortcode. This will remove anything in the post that
+// occurs inside of brackets `[...]`.
+add_filter( 'wp_discourse_excerpt', 'nc_discourse_forum_remove_ninja_form_shortcodes' );
+function nc_discourse_forum_remove_ninja_form_shortcodes( $excerpt ) {
+    $excerpt = preg_replace( '/\[ninja.*\]/', '', $excerpt );
+    return $excerpt;
+}

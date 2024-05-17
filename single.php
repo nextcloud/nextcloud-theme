@@ -5,7 +5,7 @@
 
 get_header();
 ?>
-<div class="wrapper">
+<div class="wrapper" id="main">
 	<?php
 	$ids = [];
 	while (have_posts()) : the_post();
@@ -28,8 +28,8 @@ get_header();
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-4">
+				<div class="row post_meta">
+					<div class="col-lg-4 post_date">
 						<div class="date-block">
 							<span class="date_label">
 								<?php echo __('Post date','nextcloud'); ?>
@@ -39,7 +39,7 @@ get_header();
 							?>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-4 post_cats">
 						<div class="cat-block">
 
 							<span class="cat_label">
@@ -58,7 +58,7 @@ get_header();
 							?>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-4 post_author">
 						<div class="author-block">
 
 							<span class="author_label">

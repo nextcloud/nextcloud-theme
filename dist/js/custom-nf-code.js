@@ -1,8 +1,23 @@
 jQuery(document).ready(function () {
-
     jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
         //console.log("nfFormReady. "+layoutView.model.id);
 
+        jQuery('.select_ed_slides select').on('change', function(){
+            var index = this.selectedIndex;
+            //console.log("Selected index: "+index);
+            
+            //auto-select option of the slide URLs select field
+            jQuery('.all_slides_urls select option').eq(index).prop('selected',true);
+            jQuery(".all_slides_urls select option").eq(index).change();
+            jQuery(".all_slides_urls select option").eq(index).attr("selected","selected");
+
+            //auto-select option of the slide interests select field
+            jQuery('.all_slides_interests select option').eq(index).prop('selected',true);
+            jQuery(".all_slides_interests select option").eq(index).change();
+            jQuery(".all_slides_interests select option").eq(index).attr("selected","selected");
+        });
+
+        //if preferred language select field is present, add select style to it
         var preferred_lang_select = document.querySelector('.preferred_lang_select select');
         if(jQuery(preferred_lang_select).length) {
             jQuery('.preferred_lang_select select').select2({
@@ -10,10 +25,10 @@ jQuery(document).ready(function () {
             });
         }
 
+
         //phone flags
         var input = document.querySelector('input[name="phone"]');
         if(jQuery(input).length) {
-            
             var iti = window.intlTelInput(input, {
                 separateDialCode: true,        
                 initialCountry: "auto",
@@ -25,10 +40,9 @@ jQuery(document).ready(function () {
                 },
                 
                 preferredCountries: ['de', 'fr', 'uk', 'ch', 'at'],
-                //utilsScript: "https://nextcloud.com/wp-content/themes/nextcloud-theme/dist/js/utils.js",
                 utilsScript: "https://nextcloud.com/c/themes/nextcloud-theme/dist/js/utils.js",
+                //utilsScript: "https://staging.nextcloud.com/c/themes/nextcloud-theme/dist/js/utils.js",
             });
-            
             
             if (typeof iti.getNumber === "function") { 
                     jQuery(input).keyup(function(){
@@ -36,8 +50,6 @@ jQuery(document).ready(function () {
                         jQuery(this).val(iti.getNumber());
                     });
             }
-
-            
         }
 
 
@@ -53,7 +65,7 @@ jQuery( document ).ready( function( $ ) {
 
 // if there is a ninja form on this page
 if(typeof Marionette !== 'undefined') {
-    console.log('marionette loaded'); 
+    //console.log('marionette loaded'); 
     //console.log(Marionette);
 
         var myCustomFieldController = Marionette.Object.extend( {
@@ -68,13 +80,12 @@ if(typeof Marionette !== 'undefined') {
                 if( 'email' != model.get( 'type' ) ) return;
                 // Only validate if the field is marked as required?
                 if( 0 == model.get( 'required' ) ) return;
-                console.log("ID: "+model.get( 'id' )); // id = 2 - id of the field
+                //console.log("ID: "+model.get( 'id' )); // id = 2 - id of the field
 
                 // Get the field value.
                 var email = model.get( 'value' );
                 
-                var file = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist.txt";
-                var file2 = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
+                var disposable_email_blocklist_private = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
 
                 //const blocked_domains = [];
                 //var blocked_domains_string = '';
@@ -86,32 +97,7 @@ if(typeof Marionette !== 'undefined') {
                 //console.log(address_array);
                 var domain = address_array[1];
 
-                jQuery.get(file,function(txt){
-                    var lines = txt.split("\n");
-                    for (var i = 0, len = lines.length; i < len; i++) {
-                        if(domain == lines[i]){
-                            //console.log('checkpoint 1');
-                            isDisposable = true;
-                            break;
-                        }
-                    }
-
-                    //console.log("isDisposable before return");
-                    //console.log(isDisposable);
-
-                    if(isDisposable){
-                        // Add Error to Model
-                        //console.log('add error');
-                        Backbone.Radio.channel( 'fields' ).request( 'add:error', model.get( 'id' ), 'custom-field-error', 'Please use a valid business email' );
-                        
-                    } else {
-                        //console.log('remove error');
-                        Backbone.Radio.channel( 'fields' ).request( 'remove:error', model.get( 'id' ), 'custom-field-error' );
-                    }
-
-                });
-
-                jQuery.get(file2,function(txt){
+                jQuery.get(disposable_email_blocklist_private,function(txt){
                     var lines = txt.split("\n");
                     for (var i = 0, len = lines.length; i < len; i++) {
                         if(domain == lines[i]){
@@ -149,7 +135,8 @@ if(typeof Marionette !== 'undefined') {
                 && form_id != 68 // exclude Events newsletter form
                 && form_id != 72 // exclude  Events lead collection form
                 && form_id != 85 // exclude Hub announcements form
-
+                && form_id != 89 // exclude Unsubscribe form
+                && form_id != 95 // exclude Conference 2024 form
                 ) {
                 // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
                 new myCustomFieldController();
@@ -159,9 +146,5 @@ if(typeof Marionette !== 'undefined') {
     } else {
         console.log('marionette could not be loaded.'); 
     }
-
-
-        
-
         
 });

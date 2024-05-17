@@ -4,6 +4,8 @@
 
 .wpb_nc_iconbox .image_icon {
     max-width: 100%;
+    max-height: 35px;
+    display: block;
 }
 
 .nc_version_section .textarea_html {

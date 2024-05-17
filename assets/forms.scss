@@ -4,6 +4,8 @@
 .nf-form-cont {
 
     .nf-field-container {
+        margin-bottom: 25px !important;
+
         input[type=submit]:focus {
             color: $mainColor !important;
             background: #fff !important;
@@ -573,5 +575,12 @@
         }
     }
 
+}
 
+
+.nf-error-msg {
+    a {
+        color: #e80000;
+        font-weight: bold;
+    }
 }

@@ -10,16 +10,6 @@ function get_string_between($string, $start, $end){
 
 
 //ninja forms filter emails - don't allow private or spam emails
-/*
-function isDisposableEmail($email, $blocklist_path = null) {
-    //list repo https://gist.github.com/drakodev/e85c1fd6d9ac8634786d6139e0066fa0
-    if (!$blocklist_path) $blocklist_path = __DIR__ . '/disposable_email_blocklist.txt';
-    $disposable_domains = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $domain = mb_strtolower(explode('@', trim($email))[1]);
-    return in_array($domain, $disposable_domains);
-}
-*/
-
 function isDisposableEmail_private_list($email, $blocklist_path = null) {
     if (!$blocklist_path) $blocklist_path = __DIR__ . '/disposable_email_blocklist_private.txt';
     $disposable_domains = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -52,7 +42,8 @@ function nc_custom_ninja_forms_submit_data($form_data)
                             33, // exclude Contact Issue form
                             68,// exclude Events newsletter form
                             72,// exclude  Events lead collection form
-                            85// exclude Hub announcements form
+                            85,// exclude Hub announcements form
+                            95// exclude Conference 2024 form
                         ))
                     ){
 
@@ -60,10 +51,48 @@ function nc_custom_ninja_forms_submit_data($form_data)
                         if( !$arrayValidator['valid_mx_records'] || $arrayValidator['disposable_email_provider'] 
                         /* || !$arrayValidator['valid_host'] */
                         ){
-                            $form_data['errors']['fields'][$field_id] = __('Please use a valid email address.', 'nextcloud');
+                            $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
                         }
 
-                    }else{
+                    } else if (
+                        in_array($form_id, array(
+                            89 // unsubscribe form
+                        ))
+                    ) {
+
+                        if( !$arrayValidator['valid_mx_records'] ){ 
+                            $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
+                        }
+
+                    } 
+                    else if (in_array($form_id, array(
+                        90 // testing form
+                    ))) {
+
+                        /*
+                        if( !$arrayValidator['valid_mx_records'] ){ 
+                            $form_data['errors']['fields'][$field_id] = __('The MX records are not valid.', 'nextcloud');
+                        }
+
+                        if( $arrayValidator['disposable_email_provider'] ){ 
+                            $form_data['errors']['fields'][$field_id] = __('Email is disposable.', 'nextcloud');
+                        }
+
+                        if( $arrayValidator['free_email_provider'] ){ 
+                            $form_data['errors']['fields'][$field_id] = __('The email is a free email provider', 'nextcloud');
+                        }
+
+                        if( isDisposableEmail_private_list($field_value) ){ 
+                            $form_data['errors']['fields'][$field_id] = __('Email is disposable (private list)', 'nextcloud');
+                        }
+
+                        
+                        $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
+
+                        */
+
+                    }
+                    else{
 
                         if( !$arrayValidator['valid_mx_records'] 
                         || $arrayValidator['disposable_email_provider']
@@ -71,7 +100,7 @@ function nc_custom_ninja_forms_submit_data($form_data)
                         || isDisposableEmail_private_list($field_value)
                         /* || !$arrayValidator['valid_host'] */
                         ){ 
-                            $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address.', 'nextcloud');
+                            $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
                         }
 
 
@@ -124,9 +153,8 @@ function nc_ninja_custom_save_cookies($form_data){
 
 
 //pre-populating fields on display
-add_filter( 'ninja_forms_render_default_value', 'nc_change_nf_default_value', 10, 3 );
+//add_filter( 'ninja_forms_render_default_value', 'nc_change_nf_default_value', 10, 3 );
 function nc_change_nf_default_value( $default_value, $field_type, $field_settings ) {
-    
     if(isset($_COOKIE['nc_form_fields'])){
         $nc_form_fields = json_decode(base64_decode($_COOKIE['nc_form_fields']), true);
 
@@ -149,6 +177,8 @@ function nc_change_nf_default_value( $default_value, $field_type, $field_setting
 
   return $default_value;
 }
+
+
 
 
 /**
@@ -181,7 +211,7 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 
 
 
-//add custom nija forms processing web hook - used to save contacts to newsletter
+//add custom ninja forms processing web hook - used to save contacts to newsletter
 add_action( 'nc_ninja_forms_processing_save_to_newsletter', 'nc_ninja_forms_processing_save_to_newsletter_callback' );
 function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     
@@ -190,64 +220,67 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     }
     
     $form_fields   =  $form_data[ 'fields' ];
-
     $email = '';
     $name = '';
     $phone = '';
     $mailing_list_ids = array();
     $subscribed = false;
-
     $select_mailing_lists_checkboxes = array();
 
-
     if(isset($form_id)) {
-            if(     $form_id == 27 // Newsletter form
+            if( 
+                    $form_id == 27 // Newsletter form
                     ||  $form_id == 68  // Events newsletter form
-                    ||  $form_id == 4 // whitepapers and case studies
-                    ||  $form_id == 49 // Case study Meiji university
+                    // ||  $form_id == 4 // whitepapers and case studies
+                    // ||  $form_id == 49 // Case study Meiji university
                     ||  $form_id == 66 // Get more information about event
                     ||  $form_id == 85 // Hub announcements form
                 )
             {
                 $subscribed = true; // automatically set as accepted for these forms
-
-                if($form_id == 66){ // for the events form, subscribe to the newsletters only if checkbox is selected
-                    $subscribed = false;
-                }    
-
-                foreach( $form_fields as $field ){
-
-                    if( str_contains($field['key'], 'keep_me_informed') ){
-                        // means users selected the newsletters checkbox
-                        if($field[ 'value' ] != 0){
-                            $subscribed = true;
-                        }
-                    }
-
-                    if( str_contains($field['key'], 'name') ){
-                        $name = $field[ 'value' ];
-                    }
-
-                    if( 
-                        str_contains($field['key'], 'email')
-                    ){
-                        $email = $field[ 'value' ];
-                    }
-
-                    if( 
-                        str_contains($field['key'], 'mailing_list_id')
-                    ){
-                        $mailing_list_ids[] = $field[ 'value' ];
-                    }
-
-
-                    if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
-                        $mailing_list_ids = $field[ 'value' ];
-                    }
-
-                }
-                
+            } else {
+                //for all the other forms
+                //if($form_id == 66){ // for the events form, subscribe to the newsletters only if checkbox is selected
+                $subscribed = false;
+                //}  
             }
+
+
+            foreach( $form_fields as $field ){
+
+                if( str_contains($field['key'], 'keep_me_informed') || str_contains($field['key'], 'newsletter') ){
+                    // means users selected the newsletters checkbox
+                    if($field[ 'value' ] != 0){
+                        $subscribed = true;
+                    }
+                }
+
+                if( str_contains($field['key'], 'name') ){
+                    $name = $field[ 'value' ];
+                }
+
+                if( 
+                    str_contains($field['key'], 'email')
+                ){
+                    $email = $field[ 'value' ];
+                }
+
+
+                if(str_contains($field['key'], 'mailing_list_id')){
+                    $mailing_list_ids[] = $field[ 'value' ];
+                } else {
+                    //default mailing list ID
+                    $mailing_list_ids[] = 7647; // Nextcloud Newsletter subscribers
+                }
+
+
+                if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
+                    $mailing_list_ids = $field[ 'value' ];
+                }
+
+            }
+
+
     }
     
 
@@ -551,6 +584,167 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
             ];
         }
     }
+  
+    return $options;
+}, 10, 2 );
+
+
+
+//custom ninja forms processing web hook to add conference attendees
+add_action( 'nc_ninja_forms_processing_save_attendees', 'nc_ninja_forms_processing_save_attendees_callback' );
+function nc_ninja_forms_processing_save_attendees_callback( $form_data ){
+    $conf_form_id = 95;
+
+    if(isset($form_data) && isset($form_data[ 'form_id' ])) {
+        $form_id = $form_data[ 'form_id' ];
+    }
+
+    if(isset($form_id) && $form_id == $conf_form_id) { // enable this only for the form ID 95 = Conference 2024 registration
+        $name = '';
+        $email = '';
+        $phone = '';
+        $attendance_date = '';
+        $allergies = '';
+        $contribution = '';
+        $event_id = 27; //Nextcloud Conference 2024
+
+
+        $form_fields  =  $form_data[ 'fields' ];
+        foreach( $form_fields as $field ){
+            if( str_contains($field['key'], 'name') ){
+                $name = $field[ 'value' ];
+            }
+            if( str_contains($field['key'], 'email') ){
+                $email = $field[ 'value' ];
+            }
+            if( str_contains($field['key'], 'phone') ){
+                $phone = $field[ 'value' ];
+            }
+            if( str_contains($field['key'], 'answer_18') ){
+                $attendance_date = $field[ 'value' ];
+            }
+            if( str_contains($field['key'], 'answer_22') ){
+                $allergies = $field[ 'value' ];
+            }
+            if( str_contains($field['key'], 'answer_26') ){
+                $contribution = $field[ 'value' ];
+            }
+        }
+
+        $url = 'https://odoo.nextcloud.com';
+        $db = 'nextcloud-crm-odoo-main-4730113';
+        $username = "jos.poortvliet@nextcloud.com";
+        $password = ODOO_API_KEY; // api key
+        //$password = ''; // password
+
+        //logging in
+        $common = ripcord::client("$url/xmlrpc/2/common");
+        //authenticate
+        $uid = $common->authenticate($db, $username, $password, array());
+        $models = ripcord::client("$url/xmlrpc/2/object");
+
+
+
+
+        /*
+        $questions = $models->execute_kw($db, $uid, $password, 'event.question', 'search_read', array(array(array('event_id', '=', $event_id))), array('fields' => array('id', 'name')));
+        // Capture answers from the form submission
+        $answers = array();
+        foreach ($questions as $question) {
+            $field_id = 'field_' . $question['id']; // Assuming the field IDs in Ninja Forms correspond to question IDs in Odoo
+            if (isset($form_data['fields'][$field_id])) {
+                $answers[$question['id']] = $form_data['fields'][$field_id];
+            }
+        }
+        */
+
+
+
+        $sub_id = $models->execute_kw($db, $uid, $password,
+                'event.registration', 'create',
+                array(
+                    array(
+                        'event_id' => $event_id,
+                        'name'=> $name,
+                        'email'=> $email,
+                        'phone' => $phone,
+                        /*'answer_11' => $attendance_date,
+                        'answer_15' => $allergies,
+                        'answer_19' => $contribution*/
+                        //'answers' => $answers
+                        'answers' => array(
+                            'answer_18' => $attendance_date,
+                            'answer_22' => $allergies,
+                            'answer_26' => $contribution
+                        )
+                    )
+                )
+        );
+
+        $form_settings = $form_data[ 'settings' ];
+        $form_title    = $form_data[ 'settings' ][ 'title' ];
+    }
+    
+}
+
+
+
+
+
+//populate Enterprise Day downloads form select with all presentations
+add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
+    $ed_presentations = array(   
+    );
+
+    
+    if( have_rows('enterprise_day_slides', 'option') ):
+        while( have_rows('enterprise_day_slides', 'option') ) : 
+            the_row();
+
+            $ed_presentations[] = array(
+                'title' => get_sub_field('presentation_title'),
+                'file_url' => get_sub_field('presentation_pdf'),
+                'interests' => get_sub_field('presentation_interests')
+            );
+
+        endwhile;
+    endif;
+    
+    
+    //prefill the slides list select field
+    if( $settings['key'] == 'select_slides_you_want_to_download_1714669386359') {
+        //$options = []; //reset the options
+        foreach($ed_presentations as $id => $ed_presentation) {
+            $options[] = [
+                'label' => $ed_presentation['title'],
+                'value' => preg_replace('/[ ,]/', '-', $ed_presentation['title']) //replaces spaces and commas with dashes
+            ];
+        }
+    }
+
+    //prefill the slides URLs select field (hidden)
+    if( $settings['key'] == 'all_slides_urls_1715151284630') {
+        //$options = []; //reset the options
+        foreach($ed_presentations as $id => $ed_presentation) {
+            $options[] = [
+                'label' => $ed_presentation['file_url'],
+                'value' => $ed_presentation['file_url']
+            ];
+        }
+    }
+
+    //prefill the slides interests select field (hidden)
+    if( $settings['key'] == 'all_slides_interests_1715151300664') {
+        //$options = []; //reset the options
+        foreach($ed_presentations as $id => $ed_presentation) {
+            $options[] = [
+                'label' => $ed_presentation['interests'],
+                'value' => str_replace(' ', '', $ed_presentation['interests']) //remove spaces
+            ];
+        }
+    }
+
+
   
     return $options;
 }, 10, 2 );
