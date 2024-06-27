@@ -219,6 +219,10 @@ header {
 
                     p {
                         margin: 0 !important;
+                        
+                        strong {
+                            display: inline-block;
+                        }
                     }
                 }
                 
@@ -382,7 +386,6 @@ header {
                     flex-direction: row;
 
                     &>li {
-
                         transition: all 0.3s ease;
                         position: relative;
                         padding: 16px 5px;
@@ -412,6 +415,10 @@ header {
                                     color: #fff;
                                 }
 
+                                &:before {
+                                    transition: all 0.3s ease;
+                                }
+
                             }
 
                             &.open {
@@ -434,6 +441,7 @@ header {
                                     font-weight: 900;
                                     margin-right: 10px;
                                     color: $textColor;
+                                    transition: all 0.3s ease;
                                 }
 
                                 &:hover {

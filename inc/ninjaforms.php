@@ -43,7 +43,8 @@ function nc_custom_ninja_forms_submit_data($form_data)
                             68,// exclude Events newsletter form
                             72,// exclude  Events lead collection form
                             85,// exclude Hub announcements form
-                            95// exclude Conference 2024 form
+                            95,// exclude Conference 2024 form
+                            96// exclude call for proposals form for Conference 2024
                         ))
                     ){
 
@@ -289,7 +290,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
         $db = 'nextcloud-crm-odoo-main-4730113';
         $username = "jos.poortvliet@nextcloud.com";
         $password = ODOO_API_KEY; // api key
-        //$password = ''; // password
 
         //logging in
         $common = ripcord::client("$url/xmlrpc/2/common");
@@ -297,8 +297,8 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
         //authenticate
         $uid = $common->authenticate($db, $username, $password, array());
 
-                $models = ripcord::client("$url/xmlrpc/2/object");
-                $sub_id = $models->execute_kw($db, $uid, $password,
+        $models = ripcord::client("$url/xmlrpc/2/object");
+        $sub_id = $models->execute_kw($db, $uid, $password,
                 'mailing.contact', 'create',
                 array(
                     array(
@@ -307,10 +307,7 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                         'list_ids' => $mailing_list_ids
                     )
                 )
-            );
-
-         //debug
-         //setcookie("nc_sub_id", $sub_id , time() + (86400 * 30), "/" );
+        );
 
     }
 
@@ -519,7 +516,7 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 }, 10, 2 );
 
 
-//populate event name field with names of event post types and Activity IDs
+//populate event names Activity IDs on the Events lead collection form - https://nextcloud.com/events-lead-collection-form/
 add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 
     $events_list = array();
@@ -546,7 +543,7 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
             $now_timestamp = new DateTime("now");
             $event_end_datetime_timestamp = new DateTime($event_end_datetime);
             $interval = $now_timestamp->diff($event_end_datetime_timestamp);
-
+            $interval_days = $interval->format('%R%a');
 
 			$activity_id = get_field('activity_id');
             if( isset($activity_id) && str_contains($activity_id, '-apt-'))
@@ -559,12 +556,21 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
                 $title = get_field('event_short_title');
             }
 
-            
+            /*
             if($interval->days < 30) {
                 $events_list[$activity_id]=$title;
             }
-            //$events_list[$activity_id]=$title;
-            
+            */
+
+            if($interval_days >= 0 ) { // upcoming event
+                $events_list[$activity_id]=$title;
+            } else {
+				//past event
+				if($interval->days < 30){
+					$events_list[$activity_id]=$title;
+				}
+			}
+
 
 		}
 	} else {
@@ -748,3 +754,15 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
   
     return $options;
 }, 10, 2 );
+
+
+/*
+function add_form_id_attribute($form) {
+    // Retrieve the form ID
+    $form_id = $form['id'];
+    // Add the id attribute to the form tag
+    $form['form']['settings']['form_id'] = 'ninja_form_' . $form_id;
+    return $form;
+}
+add_filter('ninja_forms_display_form_settings', 'add_form_id_attribute');
+*/

@@ -1,9 +1,18 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-.nf-form-cont {
+select {
+    &.users_select {
+        padding: 5px 15px;
+        border-radius: 10px;
+        background: #f7f7f7;
+        border: 1px solid #c4c4c4;
+    }
+}
 
-    .nf-field-container {
+
+.nf-form-cont {
+    .nf-field-container:not(.hidden-container) {
         margin-bottom: 25px !important;
 
         input[type=submit]:focus {
@@ -69,6 +78,10 @@
     .nf-error.field-wrap .nf-field-element:after {
         border-bottom-right-radius: 9px;
         border-top-right-radius: 9px;
+    }
+
+    select.ninja-forms-field {
+        color: initial !important;
     }
 }
 

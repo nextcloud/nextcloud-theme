@@ -1006,14 +1006,11 @@
 
                 img {
                     transition: all 0.3s ease;
-                    //max-height: 100px;
-                    //width: auto !important;
                     margin: auto;
                     opacity: 0.5;
                     max-width: 100%;
+                    width: auto;
                     align-self: center;
-                    //max-height: 100px;
-                    //min-width: 100px;
                     max-height: 75px;
 
                     @media screen and (min-width: $tablet-breakpoint) and (max-width: $xl-breakpoint) {
@@ -1122,24 +1119,45 @@
 
             ul{
                 list-style-type: none;
-                //text-align: center;
                 padding-left: 0;
                 width: fit-content;
                 margin: auto;
-
+                
 
                 @media screen and (min-width:$tablet-breakpoint) {
                     & {
-                        padding-left: 3rem;
-                        padding-right: 3rem;
+                        padding-left: 2rem;
+                        padding-right: 1rem;
                     }
                 }
+
+
+                &.three_cols {
+                    li{
+                        
+                        @media screen and (min-width:$tablet-breakpoint) {
+                            & {
+                                width: calc(31% - 5px) !important;
+                            }
+                        }
+
+                    }
+
+                    @media screen and (min-width:$tablet-breakpoint) {
+                        & {
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
+                    }
+                    
+                }
+
 
                 li{
                     padding: 9px 0;
                     display: block;
                     width: fit-content;
-                    
+
 
                     @media screen and (min-width:$tablet-breakpoint) {
                         & {
@@ -1170,6 +1188,7 @@
                         width: 100% !important;
                     }
                 }
+
             }
         }
 
@@ -1178,9 +1197,9 @@
 
 }
 
+
+
 .nextcloud-hub-accordion {
-
-
     .product_tab {
 
         &:not(:last-child){
@@ -1270,6 +1289,14 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2022/09/nc-office-icon.svg');
+                }
+            }
+        }
+
+        &.nextcloud_assistant_tab{
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
                 }
             }
         }
@@ -1398,6 +1425,15 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2024/01/nc-enterprise-custom-functionality-white.svg');
+                }
+            }
+        }
+
+
+        &.context_write_tab, &.context_chat_tab, &.transcribe_tab, &.generate_text_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
                 }
             }
         }
@@ -1633,6 +1669,8 @@
 
 
         &:hover, &:focus {
+            color: #fff;
+            
             .overlay {
                 background-color: rgba(0,130,201,0.75);
             }

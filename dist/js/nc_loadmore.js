@@ -1,5 +1,64 @@
 jQuery(function($){
 
+    $('#loadNews_test').each(function(){
+        let currentPage = 1;
+        var count = $(this).data('count');
+        var limit = $(this).data('limit');
+
+
+        $(this).on('click', function() {
+            var thisBtn = $(this);
+            //console.log("Current page:" + currentPage);
+            currentPage++; // Do currentPage + 1, because we want to load the next page
+            //console.log("next loaded page:" + currentPage);
+            console.log("AJax URL: "+nc_loadmore_strings.ajaxurl);
+
+            var button = $(this);
+            var textBtn = button.html();
+
+            var action = 'nc_load_more_test';
+            var data = {
+                paged: currentPage,
+                post_type: $(this).data('post-type'),
+                count : $(this).data('count'),
+                limit : $(this).data('limit')
+            };
+
+            data.action = action;
+
+            $.ajax({
+                type: 'POST',
+                url: nc_loadmore_strings.ajaxurl,
+                dataType: 'html',
+                data: data,
+                beforeSend : function ( xhr ) {
+                    button.text(nc_loadmore_strings.loading); // change the button text, you can also add a preloader image
+                    //console.log(data);
+                },
+                success: function (res) {
+                    $(thisBtn).parents('.loadNews_row').siblings('.row-list-blog').append(res);
+                    button.text(textBtn);
+
+                    //console.log("current page: "+currentPage);
+                    //console.log("count: "+count);
+                    //console.log("limit: "+limit);
+
+                    if( (currentPage * limit) > count) {
+                        button.hide();
+                    }
+                },
+                error: function (res) {
+                    $(thisBtn).parents('.loadNews_row').siblings('.row-list-blog').append(res);
+                    button.text(textBtn);
+                    
+                }
+            });
+        });
+    });
+
+
+
+
     $('.loadNews').each(function(){
         let currentPage = 1;
         var count = $(this).data('count');
@@ -7,10 +66,12 @@ jQuery(function($){
 
 
         $(this).on('click', function() {
-
             var thisBtn = $(this);
-            //console.log("currentPage:"+currentPage);
+            //console.log("Current page:" + currentPage);
             currentPage++; // Do currentPage + 1, because we want to load the next page
+            //console.log("next loaded page:" + currentPage);
+
+
             var button = $(this);
             var textBtn = button.html();
 

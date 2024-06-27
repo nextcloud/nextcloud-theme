@@ -67,12 +67,14 @@ function file_scripts() {
 	'1.2', true);
 	
 	wp_register_script('nc_loadmore', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
+	
+	
 	// Localize the script with new data
 	$translation_array = array(
 		'loading' => __( 'Loading...', 'nextcloud' ),
+		'ajaxurl' => admin_url('admin-ajax.php')
 	);
 	wp_localize_script( 'nc_loadmore', 'nc_loadmore_strings', $translation_array );
-	// Enqueued script with localized data.
 	wp_enqueue_script( 'nc_loadmore' );
 
 
@@ -122,9 +124,12 @@ function file_scripts() {
 		'see_more' => __( 'See more', 'nextcloud' ),
 		'copied' => __( 'Copied!', 'nextcloud' ),
 		'copy_url' => __( 'Copy URL', 'nextcloud' ),
+		'events' => __( 'Events', 'nextcloud' ),
 		'see_less' => __( 'See less', 'nextcloud' ),
-		'hide_past_events' => __('Hide past events','nextcloud'),
-		'show_past_events' => __('Show past events','nextcloud')
+		'hide_past_events' => __('Hide all events','nextcloud'),
+		'show_past_events' => __('All events in','nextcloud'),
+		'hide_older_years_events' => __('Hide previous years','nextcloud'),
+		'show_older_years_events' => __('Show previous years','nextcloud')
 	);
 	wp_localize_script( 'main', 'main_js_strings', $main_js_strings_array );
 	wp_enqueue_script( 'main' );

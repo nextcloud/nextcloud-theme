@@ -54,6 +54,24 @@ a {
     text-decoration-thickness: 2px;
     text-underline-offset: 2px;
     color: $mainColor;
+
+    &.disabled {
+        opacity: 0.6;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.vc_do_btn.disabled {
+    a {
+        opacity: 0.6;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
 }
 
 a,
@@ -61,6 +79,10 @@ a:active,
 a:visited,
 a:hover {
     text-decoration: none;
+}
+
+a:active, a:hover {
+    color: $mainColorDarker;
 }
 
 *:not(iframe):not(section):focus {
@@ -7391,6 +7413,19 @@ ol {
             }
         }
 
+        .webinar_lang {
+            margin-bottom: 6px;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.8em;
+
+            img {
+                max-width: 15px;
+                margin-right: 5px;
+            }
+        }
+
+
         h4 {
             color: $mainColor;
             font-size: 24px;
@@ -7835,8 +7870,6 @@ ol {
             .wp-block-media-text__content {
                 padding-right: 8%;
                 padding-left: 0;
-                //text-align: right;
-                
 
                 @media screen and (max-width: $sm-breakpoint600) {
                     & {
@@ -7869,7 +7902,7 @@ ol {
         }
 
         a {
-            display: block;
+            display: inline-block;
             height: 100%;
         }
 
@@ -9975,7 +10008,7 @@ ol {
         //font-weight: 600;
         border-radius: 25px;
         padding: 12px 2rem;
-        border-width: 2px;
+        //border-width: 1px;
 
         &.vc_btn3-icon-left {
             padding-left: 48px;
@@ -10030,7 +10063,6 @@ ol {
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
     {
         font-size: 16px;
-        //font-weight: 600;
         border-radius: 25px;
         padding: 12px 2rem;
         color: $textColor;
@@ -10057,6 +10089,16 @@ ol {
 
 .btn-white-outline {
 
+    &.icon_only {
+        .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern{
+            padding: 9px 20px !important;
+
+            i {
+                font-size: 12px !important;
+            }
+        }
+    }
+
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
     {
         font-size: 16px;
@@ -10077,7 +10119,7 @@ ol {
 }
 
 .btn-outline {
-    
+
     .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
     {
         font-size: 16px;
@@ -10124,10 +10166,15 @@ ol {
         }
 
         &.vc_btn3-icon-left {
-            padding-left: 35px !important;
+            padding-left: 32px !important;
+
             i {
                 left: 11px !important;
             }
+        }
+
+        i {
+            font-size: 13px;
         }
     }
 }
@@ -10693,6 +10740,11 @@ table.advantages {
         width: 100%;
         max-width: 100%;
 
+
+        .price_meta {
+            display: inline;
+        }
+
         tbody {
             width: 100%;
             display: block;
@@ -10700,9 +10752,26 @@ table.advantages {
 
 
         tr {
-
             display: flex;
             width: 100%;
+
+            &.price {
+
+                th {
+                    @media screen and (min-width: $tablet-breakpoint) {
+                        justify-content: flex-end;
+                    }
+                }
+
+                th, td {
+                    display: flex;
+                    align-items: center;
+                }
+
+                td {
+                    justify-content: center;
+                }
+            }
 
             th, td {
                 width: 25%;
@@ -10796,9 +10865,6 @@ table.advantages {
                         font-size: 0.8em;
                     }
 
-                    &:last-child {
-                        //width: 80%;
-                    }
                 }
             }
 
@@ -10830,8 +10896,18 @@ table.advantages {
             }
 
             &.buttons {
+                align-items: stretch;
+
+                td {    
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
                 a {
-                    white-space: nowrap;
+                    @media screen and (min-width: $tablet-breakpoint) {
+                        white-space: nowrap;
+                    }
 
                     br {
                         display: none;
@@ -10931,7 +11007,7 @@ table.advantages {
 
                         th:nth-child(2), td:nth-child(2) {
                             width: auto;
-                            display: none;
+                            //display: none;
                         }
                     }
 
@@ -11024,7 +11100,14 @@ table.advantages {
                                     font-size: 16px;
                                 }
                             }
+                        }
 
+                        h6 {
+                            @media screen and (max-width: $md-breakpoint) {
+                                & {
+                                    font-size: 14px;
+                                }
+                            }
                         }
 
                         p {
@@ -12376,7 +12459,7 @@ table.advantages {
                         position: relative;
 
                         &.with_link{
-                            padding-bottom: 3rem;
+                            padding-bottom: 4.5rem;
                         }
                         
 
@@ -12399,6 +12482,10 @@ table.advantages {
                             bottom: 20px;
                             font-weight: bold;
                             color: $mainColor;
+                            right: 0;
+                            left: 0;
+                            padding-left: inherit;
+                            padding-right: inherit;
 
                             a {
                                 color: $mainColor;
@@ -12719,7 +12806,7 @@ hr.wp-block-separator.nc-separator {
                 margin-bottom: 1rem;
 
                 img {
-                    max-height: 50px;
+                    max-height: 33px;
                     height: auto;
                     max-width: 100px;
                     display: inline;
@@ -12777,6 +12864,12 @@ hr.wp-block-separator.nc-separator {
                 bottom: 0;
                 margin: auto;
             }
+        }
+    }
+
+    &.full_height {
+        .nc_iconbox {
+            height: 100%;
         }
     }
 
@@ -13347,8 +13440,6 @@ ul.list_compliance {
     }
 }
 
-
-
 .app_store_btn {
     width: fit-content;
     display: inline;
@@ -13420,6 +13511,13 @@ ul.list_compliance {
     border-radius: $borderRadius !important;
 }
 
+
+.assistant_backgrounds_row {
+    .vc_column-inner {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
 
 .wpb_single_image {
     a {
@@ -14629,10 +14727,32 @@ ul.press_releases {
 
 .btns-inline {
 
+    .wpb_wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+
+    &.right {
+        .wpb_wrapper {
+            justify-content: flex-end;
+        }
+    }
+
     @media screen and (max-width: $md-breakpoint) {
         & {
             text-align: center;
-        }    
+        }
+
+        .wpb_wrapper {
+            justify-content: center;
+        }
+
+        &.right {
+            .wpb_wrapper {
+                justify-content: center;
+            }
+        }
     }
 
     .btn-main, .btn-white, .vc_btn3-container {
@@ -14956,7 +15076,6 @@ table.color_table {
 
 
 .events_table {
-
     //display: block;
     overflow-x: auto;
 
@@ -14964,6 +15083,25 @@ table.color_table {
         border-radius: $borderRadius;
         //overflow: hidden;
         box-shadow: $boxShadow;
+
+
+        .webinar_lang {
+            display: inline;
+            vertical-align: middle;
+            font-size: 0.8em;
+            margin-bottom: 4px;
+
+            .flag_icon {
+                max-width: 15px;
+                margin-right: 5px;
+            }
+        }
+
+        a {
+            display: block;
+        }
+
+
     }
 
     th, td {
@@ -15009,6 +15147,114 @@ table.color_table {
         }
 
     }
+
+}
+
+
+.webinar_details {
+    padding: 0px;
+    margin: 0px 0px 20px;
+    list-style: none;
+
+    li {
+
+        .show_local_time {
+            margin-left: 6px;
+            color: $mainColor;
+            display: inline-block;
+            font-size: 0.8em;
+    
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+
+        i, span {
+            margin-right: 5px;
+        }
+    }
+    
+
+}
+
+
+.edt_time {
+    opacity: 60%;
+    font-size: 0.9em;
+}
+
+
+.next-webinar {
+
+    .post-img {
+        a {
+            position: relative;
+        }
+    }
+
+    .coming_next {
+        background: $communityColor;
+        border-radius: $borderRadiusLarger;
+        padding: 1px 12px;
+        display: inline-block;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+        position: absolute;
+        z-index: 9;
+        top: 15px;
+        right: 4%;
+        color: $textColor;
+        box-shadow: $boxShadow;
+
+
+        i {
+            margin-left: 5px;
+        }
+    }
+
+
+    .post-body {
+        padding: 13px 23px 22px;
+
+        .webinar_details {
+            margin-bottom: 0;
+        }
+
+        .webinar_lang {
+            font-style: normal;
+            font-size: 1em !important;
+            margin-bottom: 0 !important;
+    
+            span {
+                display: inline;
+                vertical-align: middle;
+            }
+    
+            i, img{
+                margin-right: 5px;
+            }
+        }
+    
+        .webinar_excerpt {
+            margin-top:10px;
+            margin-bottom: 10px;
+        }
+    
+        .c-btn {
+            position: relative;
+            font-size: 13px;
+            padding: 9px 23px;
+            bottom: auto;
+            left: auto;
+        }
+
+    }
+
+    
+
+
+    
 
 }
 
@@ -15977,16 +16223,34 @@ blockquote.wp-block-quote {
         align-content: center;
         align-items: center;
         justify-content: center;
+        box-shadow: $boxShadow;
 
         img {
             width: auto;
             max-width: 100%;
         }
-
     }
 
+    &.imageCenter {
+        .quote_image {
+            top:0;
+            bottom: 0;
+            margin: auto;
+            left: -6.5rem;
+            width: 13rem;
+        }
+    }
+
+    &.speaker {
+        .quote_image {
+            padding: 0;
+            overflow: hidden;
+        }
+    }
+
+
     .title_position {
-        margin-bottom: 2rem;
+        margin-bottom: 1.3rem;
 
         .quote_title {
             font-weight: bold;
@@ -16001,8 +16265,10 @@ blockquote.wp-block-quote {
         }
     }
 
-    .quote {
 
+    .quote_btn{
+        margin-bottom: 0 !important;
+        margin-top: 1rem;
     }
 
     &:after {
@@ -16012,7 +16278,6 @@ blockquote.wp-block-quote {
         font-weight: 900;
         content: "\f10d";
         font-size: 6rem;
-        //background-color: #fff;
         color: #BCDEF1;
         bottom: -1rem;
         margin: auto;
@@ -16031,11 +16296,16 @@ blockquote.wp-block-quote {
         & {
             padding: 7rem 1.5rem;
 
+            &.imageCenter{
+                padding-top: 9rem;
+            }
+
             .quote_image {
-                left: 0;
-                right: 0;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: auto !important;
                 margin: auto;
-                top: -5rem;
+                top: -5rem !important;
             }
 
             .title_position {
@@ -16516,12 +16786,12 @@ section.all_features {
                                     top: 0;
                                     height: 100%;
                                     width: 100%;
-                                    background-color: rgba(0,130,201,0.5);
+                                    background-color: rgba(0,130,201,0.35);
                                     z-index: 1;
                                     transition: all 0.3s ease;
 
                                     &:hover {
-                                        background-color: rgba(0,130,201,0.7);
+                                        background-color: rgba(0,130,201,0.65);
                                     }
 
                                 }
@@ -16582,6 +16852,10 @@ section.all_features {
                                     bottom: 20px;
                                     font-weight: bold;
                                     color: $mainColor;
+                                    right: 0;
+                                    left: 0;
+                                    padding-left: inherit;
+                                    padding-right: inherit;
         
                                     a {
                                         color: $mainColor;

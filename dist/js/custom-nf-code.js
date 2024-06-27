@@ -2,6 +2,25 @@ jQuery(document).ready(function () {
     jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
         //console.log("nfFormReady. "+layoutView.model.id);
 
+        jQuery('.nf-form-cont').each(function(){
+            var form_id = jQuery(this).attr('id').match(/\d+/); // get numbers
+            //console.log("form ID: "+form_id);
+            if(form_id == 4) {
+                // whitepapers, case studies, data sheets - add Activity ID as form name
+                // Activity ID field = nf-field-309
+                var activity_id = jQuery(this).find('input#nf-field-309').val();
+                jQuery(this).find('form').attr('name', activity_id);
+            } else if(form_id == 75) {
+                // webinars form
+                // Activity ID field = nf-field-616
+                var activity_id = jQuery(this).find('input#nf-field-616').val();
+                jQuery(this).find('form').attr('name', activity_id);
+            }
+            jQuery(this).find('form').attr('id', 'form_id_'+form_id);
+        });
+
+
+
         jQuery('.select_ed_slides select').on('change', function(){
             var index = this.selectedIndex;
             //console.log("Selected index: "+index);
@@ -106,8 +125,11 @@ if(typeof Marionette !== 'undefined') {
                             break;
                         }
                     }
+
                     //console.log("isDisposable before return");
-                    //console.log(isDisposable);
+                    console.log("is disposable? "+isDisposable);
+
+
                     if(isDisposable){
                         // Add Error to Model
                         //console.log('add error');
@@ -126,9 +148,11 @@ if(typeof Marionette !== 'undefined') {
         });
 
         jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
-            //console.log(layoutView.model.id);
             var form_id = layoutView.model.id;
-            if(form_id != 1 // exclude Contact form
+            //console.log("Form ID: "+layoutView.model.id);
+
+            if(
+                form_id != 1 // exclude Contact form
                 && form_id != 30 // exclude Discuss your app form
                 && form_id != 27 // exclude Newsletter form
                 && form_id != 33 // exclude Contact Issue form
@@ -137,8 +161,8 @@ if(typeof Marionette !== 'undefined') {
                 && form_id != 85 // exclude Hub announcements form
                 && form_id != 89 // exclude Unsubscribe form
                 && form_id != 95 // exclude Conference 2024 form
+                && form_id != 96 // exclude call for proposals form for Conference 2024
                 ) {
-                // exclude Contact form, Discuss your app form, Newsletter form, Contact Issue form, Events newsletter form, Events lead collection form
                 new myCustomFieldController();
             }
         });

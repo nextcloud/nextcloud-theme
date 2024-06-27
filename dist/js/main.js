@@ -2,11 +2,9 @@ jQuery(document).ready(function ($) {
 
     $(document).on( 'nfFormReady', function() {
         //console.log('Form is ready');
-
         //add focus class to hidden checkbox
         jQuery('.checkbox-container .nf-field-element input[type=checkbox]').each(function(){
-            console.log($(this).val());
-
+            //console.log($(this).val());
             $(this).focus(function(){
                 //console.log('focus!');
                 $(this).parent('.nf-field-element').prev('.nf-field-label').addClass('focus');
@@ -42,18 +40,112 @@ jQuery(document).ready(function ($) {
 
             });
         });
-    });
+});
 
 
 
-    jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
+
+
+        $('select.users_select').change(function(){
+            if($(this).val() == 200) {
+                $('.nc_price.100_users').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.nc_price.200_users').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.price_request_offer').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                
+
+            } else if ($(this).val() == 100) {
+                $('.nc_price.200_users').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.nc_price.100_users').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.price_request_offer').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).removeClass('hidden');
+                });
+            } else {
+                $('.price_request_offer').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.nc_price').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).addClass('hidden');
+                });
+            }
+        });
+
+
+        $('.switch_pricing').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('monthly yearly');
+            var switch_pricing_btn = $(this);
+
+            if($(this).hasClass('yearly')) { // show monthly
+                switch_pricing_btn.text('Show yearly');
+                $('.nc_price').each(function(){
+                    $(this).text($(this).data('monthly'));
+                });
+            } else { //show yearly
+                switch_pricing_btn.text('Show monthly');
+                $('.nc_price').each(function(){
+                    $(this).text($(this).data('yearly'));
+                });
+            }
+        });
+
+
+        $('.load_older_events a').each(function(){
+            $(this).html(main_js_strings.show_older_years_events);
+            if($(this).hasClass('open')) {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-up"></i>');
+            } else {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-down"></i>');
+            }   
+        });
+
+
+        $('#events_row').find('.vc_tta-panel-title span.vc_tta-title-text').each(function(){
+            var events_title = main_js_strings.events;
+            var year = $(this).text().match(/\d+/); // get numbers
+            $(this).text(events_title+" "+year);
+        });
+
+        $('.older_events_accordion').hide();
+        $('.load_older_events a').click(function(e){
+            e.preventDefault();
+            $('.older_events_accordion').toggle();
+            $(this).toggleClass('open');
+            $(this).toggleText(main_js_strings.hide_older_years_events, main_js_strings.show_older_years_events);
+            if($(this).hasClass('open')) {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-up"></i>');
+            } else {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-down"></i>');
+            }
+
+        });
+
 
         //open past events on Events page
         $('.open_past_events').click(function(e){
             e.preventDefault();
             $('tr.past_events').toggle();
             $(this).toggleClass('open');
-            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events);
+            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events+" "+$(this).data('year'));
             $(this).find('i').toggleClass('fa-angle-up').toggleClass('fa-angle-down');
         });
 
@@ -653,7 +745,7 @@ jQuery(document).ready(function ($) {
     $('.scroll_up').hide();
     //.scroll_up show
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) { // Wenn 100 Pixel gescrolled wurde
+        if ($(this).scrollTop() > 300) { // When 300 pixels of page is scrolle
         $('.scroll_up').fadeIn();
         } else {
         $('.scroll_up').fadeOut();

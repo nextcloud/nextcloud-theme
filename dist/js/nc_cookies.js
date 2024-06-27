@@ -303,7 +303,7 @@ var block_all_iframes = function(platform = 'all') {
 
                                 //set matomo consent
                                 nc_cookies_banner_saved.statistics.matomo = true;
-                                _paq.push(['setCookieConsentGiven']);
+                                //_paq.push(['setCookieConsentGiven']);
 
                                 setCookie('nc_cookie_banner', JSON.stringify(nc_cookies_banner_saved), 30);
                                 document.getElementById("accept_youtube").checked = true;
@@ -512,7 +512,8 @@ var block_all_iframes = function(platform = 'all') {
                                 
                                 //set matomo consent and load code
                                 nc_cookies_banner_saved.statistics.matomo = true;
-                                _paq.push(['setCookieConsentGiven']);
+                                //_paq.push(['setCookieConsentGiven']);
+                                
 
                                 setCookie('nc_cookie_banner', JSON.stringify(nc_cookies_banner_saved), 30);
                                 document.getElementById("accept_vimeo").checked = true;
