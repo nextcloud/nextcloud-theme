@@ -1,8 +1,8 @@
 1.com
-33mail.com
-88.com
 126.com
+33mail.com
 420blaze.it
+88.com
 a.com
 aa.com
 aaa.com
@@ -147,7 +147,7 @@ proton.ch
 proton.com
 proton.me
 protonamil.com
-protonmail.com
+protonmail.ch
 protonmail.com
 putz.me
 qmail.re
