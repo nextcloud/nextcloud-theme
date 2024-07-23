@@ -13,6 +13,7 @@ aleeas.com
 americaonline.com
 anonadddy.me
 anonbox.net
+aol.de
 asda.com
 asdf.asdf
 b.com
@@ -107,6 +108,7 @@ mailbox.org
 mailcurity.com
 mailo.com
 mailo.fr
+mailoo.org
 mailpass.co.uk
 mailtub.com
 mcatag.com
@@ -137,6 +139,7 @@ omeie.com
 outlook.be
 outlook.co.th
 outlook.com
+outlook.com.br
 own.com
 owncloud.com
 passinbox.com
