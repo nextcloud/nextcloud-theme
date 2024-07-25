@@ -13,6 +13,8 @@ aleeas.com
 americaonline.com
 anonadddy.me
 anonbox.net
+aol.de
+asda.com
 asdf.asdf
 b.com
 bar.com
@@ -39,6 +41,7 @@ dietrich.net
 duck.com
 e.com
 ecomail.fr
+email.de
 email.ml
 email1.io
 emailabox.pro
@@ -106,6 +109,7 @@ mailbox.org
 mailcurity.com
 mailo.com
 mailo.fr
+mailoo.org
 mailpass.co.uk
 mailtub.com
 mcatag.com
@@ -136,6 +140,7 @@ omeie.com
 outlook.be
 outlook.co.th
 outlook.com
+outlook.com.br
 own.com
 owncloud.com
 passinbox.com
@@ -146,6 +151,7 @@ proton.ch
 proton.com
 proton.me
 protonamil.com
+protonmail.ch
 protonmail.com
 putz.me
 qmail.re
@@ -181,6 +187,7 @@ vivaldi.net
 waifu.club
 wants.dicksinhisan.us
 wants.dicksinmyan.us
+web.de
 wi.twcbc.com
 windowslive.com
 yahoo.co.id
