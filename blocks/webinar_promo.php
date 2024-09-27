@@ -13,13 +13,21 @@ $bg_image = get_field('background_image');
 $open_popup_on_button_click = get_field('open_popup_on_button_click');
 $popup_id = get_field('popup_id');
 $popup_content = get_field('popup_content');
+$custom_css_classes = get_field('custom_css_classes');
 
 if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
     echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
 else : /* rendering in editor body */
 ?>
-<section class="promo-section promo_webinar <?php /*if($bg_image)*/ echo "has_custom_bg_image"; ?> <?php if($wide) echo "full-width"; ?>" id="<?php echo $id; ?>" style="<?php
+<section class="promo-section promo_webinar has_custom_bg_image <?php 
+if($wide) { echo " full-width "; } 
+if($custom_css_classes) {
+	echo " ".$custom_css_classes." ";
+}
+?>" id="<?php if($id) { 
+	echo $id;
+} ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">

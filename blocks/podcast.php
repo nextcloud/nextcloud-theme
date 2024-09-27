@@ -4,6 +4,7 @@
  */
 $id = get_field('section_id');
 $title = get_field('title');
+$hide_previous_episodes = get_field('hide_previous_episodes');
 $dir = get_stylesheet_directory_uri();
 ?>
 <script src="https://cdn.podlove.org/web-player/5.x/embed.js"></script>
@@ -93,7 +94,7 @@ $dir = get_stylesheet_directory_uri();
 		window.podlovePlayer("#podcast-player", episodes_list[0], config_data)
 			.then(store => {
 				store.subscribe(() => {
-					console.log(store.getState());
+					//console.log(store.getState());
 				});
 			});
 	});
@@ -139,6 +140,9 @@ $dir = get_stylesheet_directory_uri();
 		?>
 	</div>
 </section>
+
+
+<?php if(!$hide_previous_episodes) { ?>
 <section class="whitepaper-list-section">
 	<div class="container">
 		<?php
@@ -170,6 +174,7 @@ $dir = get_stylesheet_directory_uri();
 				$link = get_permalink($onepostsingle->ID) ?: '';
 				$author_id = (int)$onepostsingle->post_author;
 				echo '<div class="col-lg-4 col-md-6 spacer">';
+				echo '<div class="post-box">';
 				echo '<div class="paper-box">';
 				echo '<ul class="cats">';
 				echo '<li>posted in </li>';
@@ -186,9 +191,11 @@ $dir = get_stylesheet_directory_uri();
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';
+				echo '</div>';
 			}
 			wp_reset_query();
 			?>
 		</div>
 	</div>
 </section>
+<?php } ?>

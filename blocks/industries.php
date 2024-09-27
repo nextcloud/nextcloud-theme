@@ -6,8 +6,27 @@ $id = get_field('section_id');
 $tagline = get_field('tagline');
 $title = get_field('title');
 $text = get_field('text');
+$columns = get_field('no_of_columns');
+$css = get_field('custom_css_classes');
+
+$col_class = '';
+if ($columns == 4) {
+	$col_class = 'col-lg-3';
+} else if ($columns == 3) {
+	$col_class = 'col-lg-4';
+} 
+else if ($columns == 2) {
+	$col_class = 'col-lg-6';
+} 
+else {
+	$col_class = 'col-lg-4';
+}
+
+if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
+    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+else : /* rendering in editor body */
 ?>
-<section class="industries-section" id="<?php echo $id; ?>">
+<section class="industries-section <?php echo $css; ?>" id="<?php echo $id; ?>">
 	<div class="container">
 		<?php
 		if (!empty($tagline)) {
@@ -42,10 +61,21 @@ $text = get_field('text');
 					$icon = get_sub_field('icon');
 					$header = get_sub_field('the_title');
 					$desc = get_sub_field('the_text');
-					echo '<div class="col-lg-4 col-md-6 spacer">';
-					echo '<div class="item-box">';
+					$link = get_sub_field('link');
+					$custom_css = '';
+					if (!empty($link)) {
+						$custom_css = 'with-link';
+					}
+
+					echo '<div class="'.$col_class.' col-md-6 spacer">';
+					echo '<div class="item-box '.$custom_css.'">';
+					
+					if (!empty($link)) {
+						echo '<a href="'.$link['url'].'" title="'.$link['title'].'" target="'.$link['target'].'">';
+					}
+
 					if (!empty($icon)) {
-						echo '<img src="' . $icon . '" alt=""/>';
+						echo '<img src="' . $icon . '" alt="Nextcloud - '.$header.'"/>';
 					}
 					if (!empty($header)) {
 						echo '<h4>' . $header . '</h4>';
@@ -53,6 +83,11 @@ $text = get_field('text');
 					if (!empty($desc)) {
 						echo wpautop($desc);
 					}
+
+					if (!empty($link)) {
+						echo '</a>';
+					}
+
 					echo '</div>';
 					echo '</div>';
 				}
@@ -61,3 +96,4 @@ $text = get_field('text');
 		</div>
 	</div>
 </section>
+<?php endif; ?>

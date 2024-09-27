@@ -45,7 +45,9 @@ $title = get_field('title');
 					echo '<div class="image-slider">';
 					foreach ($col_img as $img) {
 						echo '<div>';
-						echo '<p>' . $img['caption'] . '</p>';
+						if(!empty($img['caption'])){
+							echo '<p class="caption">' . $img['caption'] . '</p>';
+						}
 						if ($deco) {
 							echo '<img class="no-shd" src="' . $img['url'] . '" alt=""/>';
 						} else {

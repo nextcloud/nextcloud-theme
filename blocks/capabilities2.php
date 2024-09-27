@@ -6,6 +6,10 @@ $id = get_field('section_id');
 $title = get_field('title');
 $text = get_field('text');
 $link = get_field('link');
+
+if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
+    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+else : /* rendering in editor body */
 ?>
 <section class="capabilities2-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -69,3 +73,4 @@ $link = get_field('link');
 		</div>
 	</div>
 </section>
+<?php endif; ?>

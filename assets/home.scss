@@ -9,7 +9,7 @@
     background-position: center center;
     background-size: cover;
 
-    padding-top: 4rem !important;
+    padding-top: 9rem !important;
     padding-bottom: 4rem !important;
 
     @media screen and (max-width: $md-breakpoint) { // mobile
@@ -219,8 +219,8 @@
             height: 61px;
             top: -156px;
             border: none;
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
+            border-radius: $borderRadiusSmall;
+
             background-color: #004871;
             background-repeat: no-repeat;
             background-position: left 26px center;
@@ -685,18 +685,37 @@
 }
 
 .promo-section {
-    padding: 55px 0px;
-    background-image: url('../img/bg05.jpg');
+    padding: 2rem 0;
+    background-image: url("https://nextcloud.com/wp-content/uploads/2022/12/nc-people-microsoft-integrations-titlebar.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    position: relative;
+    
+
+    &:not(.full-width) {
+        border-radius: $borderRadiusLarger;
+        overflow: hidden;
+    }
 
     .text-block {
         text-align: center;
 
+        .icon {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+
+            img {
+                max-width: 50px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         h2 {
             color: #fff;
-            margin: 0px 0px 20px;
+            margin-top: 0px !important;
         }
 
         p {
@@ -710,6 +729,85 @@
             margin-top: 10px;
         }
     }
+
+    &.full-width {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+
+
+    &.lightBG {
+        background-image: none;
+        
+        .text-block {
+            h2 {
+                color: $textColor;
+            }
+    
+            p {
+                color: $textColor;
+            }
+        }
+    }
+
+    &.promo_webinar {
+        .nf-form-title {
+            display: none;
+        }
+
+        .nf-form-content {
+            label {
+                color:#fff;
+
+                a {
+                    color:#fff !important;
+                }
+            }
+
+            .field-wrap.checkbox-wrap {
+                label {
+                    text-align: left;
+                }
+            }
+
+            input[type="button"], input[type="submit"] {
+                background-color: #fff !important;
+                color: $mainColor !important;
+
+                &:hover {
+                    background-color: $mainColor !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+
+    &.has_custom_bg_image:not(.lightBG) {
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 130, 201, 0.75);
+        }
+
+        .container {
+            z-index: 2;
+            position: relative;
+        }
+    }
+
 }
 
 .more-about-section {
@@ -792,31 +890,72 @@
     
             h1 {
                 color: #fff;
-                font-weight: 800;
-                font-size: 3rem;
-                //line-height: 3.3rem;
-                line-height: 2.4rem;
-                
-                span.subtitle {
-                    font-size: 1.4rem;
-                    font-weight: 500;
+                font-size: 3rem; 
+            }
+
+            @media screen and (max-width: $md-breakpoint) {
+                margin-bottom: 1rem !important;
+
+                h1 {
+                    font-size: 2.2rem;
                 }
             }
+
+            span.subtitle {
+                font-size: 1.4rem;
+                font-weight: 500;
+            }
+
+
+            @media screen and (max-width: $md-breakpoint) {
+                &{
+                    text-align: center;
+                }
+            }
+
         }
     
         .hero-subtitle{
             font-size: 1.4rem;
+
+            @media screen and (max-width: $md-breakpoint) {
+                &{
+                    text-align: center;
+                }
+            }
         }
+
+
+        .hero-list {
+            @media screen and (max-width: $md-breakpoint) {
+                ul {
+                    width: fit-content;
+                }
+            }
+        }
+
+
     
         .hero-illustration {
             margin-bottom: 0 !important;
-            //width: 150% !important;
             margin-right: -15rem;
         }
-    
-        .hero-btn {
-            margin-bottom: 0 !important;
+
+        @media screen and (max-width: $md-breakpoint) {
+            .hero-btns {
+                text-align: center;
+            }
+
+            .hero-btn {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
         }
+
+
+        
+
 
         .nc-list {
             margin: 2rem auto;
@@ -825,32 +964,25 @@
 
 
     }
-
-
 }
 
 
-<<<<<<< Updated upstream
-.clients_carousel {
-=======
 
 .clients_carousel, .post_clients_carousel {
->>>>>>> Stashed changes
     margin: 2rem auto !important;
+    
+    //temporary until JS kicks in
+    overflow: visible !important;
+    display: flex;
+    align-items: stretch;
 
-    .owl-stage-outer{
+        
+    .owl-stage {
+        display: flex;
+        align-items: stretch;
+    }
 
-        .client_item {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            //padding: 2rem 0;
-            box-shadow: 0 0 15px rgba(0,130, 201, 0.12);
-            background: #fff;
-            border-radius: 15px;
-            filter: grayscale(1);
 
-<<<<<<< Updated upstream
-=======
     .client_item {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -877,6 +1009,14 @@
                 a {
                     width: 100%;
                     display: flex;
+                    align-items: center;
+
+                    .title {
+                        height: fit-content;
+                        margin: 0;
+                        text-align: center;
+                        font-size: 1rem;
+                    }
                     
                     &:focus {
                         filter: grayscale(0);
@@ -889,14 +1029,11 @@
 
                 img {
                     transition: all 0.3s ease;
-                    //max-height: 100px;
-                    //width: auto !important;
                     margin: auto;
                     opacity: 0.5;
                     max-width: 100%;
+                    width: auto;
                     align-self: center;
-                    //max-height: 100px;
-                    //min-width: 100px;
                     max-height: 75px;
 
                     @media screen and (min-width: $tablet-breakpoint) and (max-width: $xl-breakpoint) {
@@ -910,35 +1047,8 @@
             
 
             &:hover {
->>>>>>> Stashed changes
 
                 .client_item_inner {
-                    border-radius: 15px;
-                    padding: 2rem 1.5rem;
-                    
-                    display: flex;
-                    aspect-ratio: 1;
-
-                    a {
-                        width: 100%;
-                        display: flex;
-                    }
-
-                    img {
-                        transition: all 0.3s ease;
-                        //max-height: 100px;
-                        width: auto !important;
-                        margin: auto;
-                        opacity: 0.5;
-                        max-width: 100%;
-                        align-self: center;
-                        max-height: 100px;
-        
-                    }
-                }
-                
-
-                &:hover {
                     filter: grayscale(0);
 
                     img {
@@ -946,8 +1056,10 @@
                     }
                 }
 
-            
-        }
+                
+            }
+
+        
     }
 
     .owl-nav {
@@ -984,6 +1096,10 @@
 }
 
 
+
+
+
+
 .img_stack_up {
 
     .vc_figure {
@@ -1014,38 +1130,63 @@
             display: block;
         }
 
+        .wpb_single_image {
+            a {
+                display: block;
+            }
+        }
+
 
         .feature_list {
             margin-top: 1rem;
 
             ul{
                 list-style-type: none;
-                //text-align: center;
                 padding-left: 0;
                 width: fit-content;
                 margin: auto;
-
+                
 
                 @media screen and (min-width:$tablet-breakpoint) {
                     & {
-                        padding-left: 3rem;
-                        padding-right: 3rem;
+                        padding-left: 2rem;
+                        padding-right: 1rem;
                     }
                 }
+
+
+                &.three_cols {
+                    li{
+                        
+                        @media screen and (min-width:$tablet-breakpoint) {
+                            & {
+                                width: calc(31% - 5px) !important;
+                            }
+                        }
+
+                    }
+
+                    @media screen and (min-width:$tablet-breakpoint) {
+                        & {
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
+                    }
+                    
+                }
+
 
                 li{
                     padding: 9px 0;
                     display: block;
-                    //margin: 10px;
-                    //margin-right: 15px;
-                    //width: 100%;
                     width: fit-content;
-                    
+
 
                     @media screen and (min-width:$tablet-breakpoint) {
                         & {
                             width: calc(49% - 15px) !important;
                             display: inline-block !important;
+                            margin-right: 10px;
                         }
                     }
                     
@@ -1063,6 +1204,14 @@
                         left: 0;
                     }
                 }
+
+
+                &.full_width {
+                    li{
+                        width: 100% !important;
+                    }
+                }
+
             }
         }
 
@@ -1071,9 +1220,9 @@
 
 }
 
+
+
 .nextcloud-hub-accordion {
-
-
     .product_tab {
 
         &:not(:last-child){
@@ -1084,10 +1233,7 @@
             background-color: transparent !important;
             border: none !important;
             background-image: none !important;
-            
-            &:not(.opened){
-                //margin-bottom: 27px !important;
-            }
+        
 
             .vc_tta-controls-icon {
                 &::before {
@@ -1107,6 +1253,7 @@
                 a {
                     color: $textColor !important;
                     padding-left: 65px !important;
+
                 }
 
                 &:before {
@@ -1116,7 +1263,7 @@
                     height: 48px;
                     position: absolute;
                     padding: 10px;
-                    border-radius: 10px;
+                    border-radius: $borderRadius;
                     background-color: $mainColor;
                     opacity: 0.25;
                     background-size: 22px auto;
@@ -1149,6 +1296,7 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2022/09/nc-groupware-icon.svg');
+                    background-size: 66%;
                 }
             }
         }
@@ -1161,7 +1309,6 @@
             }
         }
 
-
         &.nextcloud_office_tab{
             .vc_tta-panel-title {
                 &:before {
@@ -1170,10 +1317,24 @@
             }
         }
 
+        &.nextcloud_assistant_tab{
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
+                }
+            }
+        }
+        
+
+        &.nc_integration_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2022/09/puzzle-piece-solid-white.svg');
+                }
+            }
+        }
 
 
-<<<<<<< Updated upstream
-=======
         &.nc_product_mail {
             .vc_tta-panel-title {
                 &:before {
@@ -1293,7 +1454,15 @@
             }
         }
 
->>>>>>> Stashed changes
+
+        &.context_write_tab, &.context_chat_tab, &.transcribe_tab, &.generate_text_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
+                }
+            }
+        }
+
 
 
         &.vc_active {
@@ -1328,20 +1497,14 @@
                 border-radius: 15px;
                 color: $textColor;
                 display: block;
-        
-                
-                &:hover {
-                    background-color: rgba(0,130,201,0.25);
-                    //color: $textColor;
-                }
-        
+
                 .iconbox_container {
                     padding: 1.5rem;
                     padding-bottom: 4rem;
         
                     .icon {
-                        font-size: 2rem;
-                        margin-bottom: 1.5rem;
+                        font-size: 3rem;
+                        margin-bottom: 0.5rem;
                         color: $mainColor;
                     }
         
@@ -1352,17 +1515,35 @@
         
                     .description {
                         margin-top: 1.5rem;
-                        //margin-top: 1.5rem;
                     }
         
                     .see_more {
-                        //margin-top: 2rem;
                         font-weight: bold;
                         display: block;
                         position: absolute;
                         bottom: 2rem;
+
+                        i {
+                            position: relative;
+                            top: 1px;
+                            left: 2px;
+                            transition: all 0.3s ease;
+                        }
                     }
                 }
+
+                &:hover {
+                    background-color: rgba(0,130,201,0.25);
+                   
+                    .iconbox_container {
+                        .see_more {
+                            i {
+                                left: 8px;
+                            }
+                        }
+                    }
+                }
+
         
             }
             
@@ -1400,8 +1581,6 @@
 
 
 
-<<<<<<< Updated upstream
-=======
 .nextcloud_outlook_preview{
     .nc_video_preview_box {
         max-width: 100% !important;
@@ -1447,10 +1626,49 @@
 }
 
 
->>>>>>> Stashed changes
 .nc_video_preview_box {
-    max-width: 400px;
+    max-width: 450px;
     margin: 1.5rem auto;
+    box-shadow: $boxShadow;
+    z-index: 9;
+    position: relative;
+
+    &.no_margin {
+        margin: 0 auto !important;
+    }
+
+    &.full-width {
+        max-width: 100% !important;
+
+        a {
+            .overlay {
+                background: linear-gradient(45deg, rgba(0, 130, 201,0.8), rgba(28, 175, 255, 0.4))
+            }
+    
+            .video_text {
+                .icon {
+                    @media screen and (min-width: $md-breakpoint) {
+                        & {
+                            font-size: 4.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.text-centered {
+        a {
+            .video_text {
+                top: 0;
+                right: 0;
+                margin: auto;
+                height: fit-content;
+            }
+        }
+    }
+
+    
 
     a {
         display: block;
@@ -1476,6 +1694,8 @@
 
 
         &:hover, &:focus {
+            color: #fff;
+            
             .overlay {
                 background-color: rgba(0,130,201,0.75);
             }
@@ -1497,7 +1717,6 @@
 
             .icon {
                 font-size: 2.5rem;
-                //margin-bottom: 15px;
             }
 
             .title {
@@ -1613,16 +1832,6 @@
     padding-left: 3rem;
     padding-right: 3rem;
 
-<<<<<<< Updated upstream
-
-    @media screen and (min-width: $md-breakpoint) {
-        &:first-of-type {
-            transform: translateX(50px);
-        }
-    }
-
-=======
->>>>>>> Stashed changes
     .nc_compliant_box {
         height: 100%;
         padding-bottom: 1rem;
@@ -1680,6 +1889,13 @@
             }
     
         }
+
+
+        &.youtube {
+            .icon {
+                color: $youtubeColor;
+            }
+        }
         
     
     }
@@ -1693,7 +1909,8 @@
     right: 0;
 }
 
-.play-video-hub-btn {
+
+.play-video-hub-btn, .btn-overlap-section {
     position: absolute;
     left: 0;
     right: 0;

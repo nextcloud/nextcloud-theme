@@ -1,14 +1,10 @@
 jQuery(document).ready(function ($) {
 
-<<<<<<< Updated upstream
-=======
     $(document).on( 'nfFormReady', function() {
         //console.log('Form is ready');
-
         //add focus class to hidden checkbox
         jQuery('.checkbox-container .nf-field-element input[type=checkbox]').each(function(){
-            console.log($(this).val());
-
+            //console.log($(this).val());
             $(this).focus(function(){
                 //console.log('focus!');
                 $(this).parent('.nf-field-element').prev('.nf-field-label').addClass('focus');
@@ -44,18 +40,139 @@ jQuery(document).ready(function ($) {
 
             });
         });
-    });
+});
 
 
 
-    jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
+
+
+        //add class automatically on jpgs
+        $('.post-single-section').find('img').each(function(index){
+            var url = $(this).attr('src');
+            if( url.indexOf(".jpg") >= 0 || url.indexOf(".jpeg") >= 0 ){
+                //console.log(url);
+                if(!$(this).parents('.wp-block-image').hasClass('imageRoundShadow')) {
+                    $(this).parents('.wp-block-image').addClass('imageRoundShadow');
+                }
+            }
+            
+        });
+
+        //custom table of contents
+        var all_h2s = $('.nc_custom_toc').parents('.text-block').find('h2');
+        all_h2s.each(function(index){
+            //$(this).attr('id', 'h_'+index);
+            //$(this).prepend('<div class="" id="h_'+index+'"></div>');
+            $( '<div class="" style="padding: 13px;" id="h_'+index+'"></div>' ).insertBefore( $(this) );
+        });
+
+        $('.nc_custom_toc li').each(function(index){
+            var list_item = $(this);
+            //console.log("Heading: "+index+" : "+list_item.text());
+            list_item.wrapInner('<a href="#h_'+index+'" class=""></a>');
+        });
+
+
+        $('select.users_select').change(function(){
+            if($(this).val() == 200) {
+                $('.nc_price.100_users').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.nc_price.200_users').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.price_request_offer').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                
+
+            } else if ($(this).val() == 100) {
+                $('.nc_price.200_users').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.nc_price.100_users').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.price_request_offer').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).removeClass('hidden');
+                });
+            } else {
+                $('.price_request_offer').each(function(){
+                    $(this).removeClass('hidden');
+                });
+                $('.nc_price').each(function(){
+                    $(this).addClass('hidden');
+                });
+                $('.price_meta').each(function(){
+                    $(this).addClass('hidden');
+                });
+            }
+        });
+
+
+        $('.switch_pricing').click(function(e){
+            e.preventDefault();
+            $(this).toggleClass('monthly yearly');
+            var switch_pricing_btn = $(this);
+
+            if($(this).hasClass('yearly')) { // show monthly
+                switch_pricing_btn.text('Show yearly');
+                $('.nc_price').each(function(){
+                    $(this).text($(this).data('monthly'));
+                });
+            } else { //show yearly
+                switch_pricing_btn.text('Show monthly');
+                $('.nc_price').each(function(){
+                    $(this).text($(this).data('yearly'));
+                });
+            }
+        });
+
+
+        $('.load_older_events a').each(function(){
+            $(this).html(main_js_strings.show_older_years_events);
+            if($(this).hasClass('open')) {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-up"></i>');
+            } else {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-down"></i>');
+            }   
+        });
+
+
+        $('#events_row').find('.vc_tta-panel-title span.vc_tta-title-text').each(function(){
+            var events_title = main_js_strings.events;
+            var year = $(this).text().match(/\d+/); // get numbers
+            $(this).text(events_title+" "+year);
+        });
+
+        $('.older_events_accordion').hide();
+        $('.load_older_events a').click(function(e){
+            e.preventDefault();
+            $('.older_events_accordion').toggle();
+            $(this).toggleClass('open');
+            $(this).toggleText(main_js_strings.hide_older_years_events, main_js_strings.show_older_years_events);
+            if($(this).hasClass('open')) {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-up"></i>');
+            } else {
+                $(this).append('<i class="vc_btn3-icon fas fa-angle-down"></i>');
+            }
+
+        });
+
 
         //open past events on Events page
         $('.open_past_events').click(function(e){
             e.preventDefault();
             $('tr.past_events').toggle();
             $(this).toggleClass('open');
-            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events);
+            $(this).find('span').toggleText(main_js_strings.hide_past_events, main_js_strings.show_past_events+" "+$(this).data('year'));
             $(this).find('i').toggleClass('fa-angle-up').toggleClass('fa-angle-down');
         });
 
@@ -323,54 +440,63 @@ jQuery(document).ready(function ($) {
 
     //add dynamic css width to the td of the table header
     $(".platform_logos th").each(function(){
-        //var padding = $(this).css('padding');
-        //console.log("padding: "+parseFloat(padding));
         var width = $(this).width();
-        //width += parseFloat(padding);
         console.log("width: "+width);
         $(this).css("width", width );
     });
 
 
-    //add class to the tds where the th has been checked to be compared
-    $(".platform_logos .check").click(function(){
-        $('button.filter').attr('disabled', false);
 
-        $(this).parent('th').toggleClass('td_selected');
-        $(this).toggleClass('selected');
-        //always select Nextcloud to compare with
-        $('.comparison_table .platform_logos').find('th').eq(1).find('.check').addClass('selected');
-        $('.comparison_table .platform_logos').find('th').eq(1).addClass('td_selected');
-        
+    $('.comparison_table_container').each(function(index){
+        var comparison_table_container = $(this);
 
-        var number_td = $(this).parent('th').index();
-        console.log(number_td);
-        $(this).parents('.comparison_table').children('tbody').find('tr:not(.colspan10)').each(function(item){
-            $(this).find('td').eq(number_td).toggleClass("hightlighted td_selected");
+        //add class to the tds where the th has been checked to be compared
+        comparison_table_container.find(".platform_logos .check").click(function(){
+            comparison_table_container.find('button.filter').attr('disabled', false);
 
-            //always select the nextcloud column = column nr. 2
-            $(this).find('td').eq(1).addClass("hightlighted td_selected");
+            $(this).parent('th').toggleClass('td_selected');
+            $(this).toggleClass('selected');
 
+            //always select Nextcloud to compare with
+            // $('.comparison_table .platform_logos').find('th').eq(1).find('.check').addClass('selected');
+            // $('.comparison_table .platform_logos').find('th').eq(1).addClass('td_selected');
+            comparison_table_container.find('.platform_logos').find('th').eq(1).find('.check').addClass('selected');
+            comparison_table_container.find('.platform_logos').find('th').eq(1).addClass('td_selected');
+
+            var number_td = $(this).parent('th').index();
+            console.log(number_td);
+            $(this).parents('.comparison_table').children('tbody').find('tr:not(.colspan10)').each(function(item){
+                $(this).find('td').eq(number_td).toggleClass("hightlighted td_selected");
+
+                //always select the nextcloud column = column nr. 2
+                $(this).find('td').eq(1).addClass("hightlighted td_selected");
+            });
         });
+
+
+        //add class filtered to the table on button click
+        comparison_table_container.find("button.filter").click(function(){
+            comparison_table_container.find('.comparison_table').addClass('filtered');
+        });
+
+        //reset table comparison on button click
+        comparison_table_container.find("button.reset").click(function(){
+            $('button.filter').attr('disabled', true);
+            comparison_table_container.find('.comparison_table').removeClass('filtered');
+            comparison_table_container.find('.check').removeClass("selected");
+            comparison_table_container.find('.hightlighted').removeClass("hightlighted");
+            comparison_table_container.find('.td_selected').removeClass("td_selected");
+        });
+
+
     });
 
+    
 
-    //add class filtered to the table on button click
-    $("button.filter").click(function(){
-        $('.comparison_table').addClass('filtered');
-    });
 
-    //reset table comparison on button click
-    $("button.reset").click(function(){
-        $('button.filter').attr('disabled', true);
-        $('.comparison_table').removeClass('filtered');
-        $('.check').removeClass("selected");
-        $('.hightlighted').removeClass("hightlighted");
-        $('.td_selected').removeClass("td_selected");
-    });
 
+    
     var animate_iconboxes = function(){
-
         $('.animated_iconboxes').each(function(list_index){
             
             var elementTop = $(this).offset().top;
@@ -422,25 +548,220 @@ jQuery(document).ready(function ($) {
 
     });
 
->>>>>>> Stashed changes
 
     //set language switcher short lang as text
-    var curr_lang_a = $('.menu-primary-menu-container .wpml-ls-current-language > a');
+    /*
+    var curr_lang_a = $('.wpml-ls-current-language > a');
     var curr_lang = curr_lang_a.find('.wpml-ls-native').attr('lang');
     console.log(curr_lang);
     curr_lang_a.find('.wpml-ls-native').html(curr_lang);
+    */
+
 
 
     $('.nextcloud-hub-accordion .product_tab').click(function(){
         var id = $(this).attr('id');
         var relative_preview_id = id + "_preview";  
-        
         //console.log(relative_preview_id);
         $("#"+relative_preview_id).show();
         $("#"+relative_preview_id).siblings('.vc_row ').hide();
-        
     });
 
+
+    //livestream tabs view
+    $('.livestream_row').each(function(index){
+        /*
+        if(!$(this).hasClass('opened')) {
+            $(this).hide();
+        }
+        */
+        
+        if(index != 0) {
+            $(this).hide();
+        }
+        
+    });
+    $('.nc_vertical_tabs li:first-child').addClass("opened");
+
+    $('.nc_vertical_tabs .vertical_tab_link').click(function(e){
+        e.preventDefault();
+
+        var id = $(this).attr('href');
+        var relative_preview_id = id;  
+        
+        var li_parent = $(this).parents('li');
+        if(li_parent.hasClass("opened")){
+            li_parent.removeClass("opened");
+        } else {
+            li_parent.siblings().removeClass("opened");
+            li_parent.addClass("opened");
+        }
+
+        //console.log(relative_preview_id);
+        $(relative_preview_id).show();
+        $(relative_preview_id).siblings('.vc_row ').hide();
+    });
+
+
+    //.features_carousel product pages
+    $('.features_carousel').owlCarousel({
+        loop:false,
+        autoplay: false,
+        margin:30,
+        dots: false,
+        nav:true,
+        //autoWidth:true,
+        //stagePadding: 150,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
+
+    //.single_quotes_carousel
+    var single_quotes_carousel = $('.single_quotes_carousel').owlCarousel({
+        //loop:true,
+        autoplay: true,
+        autoplayTimeout: 3500,
+        onDragged: owl_stop_autoplay,
+        autoplayHoverPause:true,
+        margin:15,
+        dots: false,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            800:{
+                items:1
+            },
+            1000:{
+                items: 1
+            }
+        },
+        rewind: true
+    });
+    single_quotes_carousel.on('click', function(e) {
+            owl_stop_autoplay();
+            //owl_simple_slider.trigger('stop.owl.autoplay');
+    });
+
+    function owl_stop_autoplay() {
+        //console.log('autoplay stopped.');
+        single_quotes_carousel.trigger('stop.owl.autoplay');
+    }		
+
+
+
+    //.quotes_carousel product pages
+    var items_desktop = 3;
+    if($('.quotes_carousel').data('items-desktop')) {
+        items_desktop = $('.quotes_carousel').data('items-desktop');
+    }
+
+    $('.quotes_carousel').owlCarousel({
+        loop:false,
+        autoplay: false,
+        margin:15,
+        dots: false,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            800:{
+                items:2
+            },
+            1000:{
+                items: items_desktop
+            }
+        }
+    });
+
+
+
+
+    //iconboxes_carousel
+    var iconboxes_carousel = $('.iconboxes_carousel');
+    iconboxes_carousel.each(function(){
+        var items_desktop = 2;
+        if(iconboxes_carousel.data('items-desktop')) {
+            items_desktop = iconboxes_carousel.data('items-desktop');
+        }
+
+        iconboxes_carousel.owlCarousel({
+            loop:false,
+            autoplay: true,
+            margin:30,
+            dots: false,
+            nav: true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:1
+                },
+                800:{
+                    items:2
+                },
+                1000:{
+                    items: items_desktop
+                }
+            },
+            autoplayHoverPause:true,
+        });
+    });
+
+    
+
+    
+
+
+
+    //testimonials_carousel
+    $('.testimonials_carousel').owlCarousel({
+        loop:false,
+        autoplay: true,
+        margin:30,
+        dots: false,
+        nav:false,
+        //autoHeight: true,
+        //autoWidth:true,
+        //stagePadding: 150,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            800:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
+
+    $('.simple_slider_slideshow a').magnificPopup({
+        gallery: {
+          enabled: true
+        },
+        type: 'image' // this is default type
+    });
+
+    //clients carousel
     $('.clients_carousel').owlCarousel({
             loop:true,
             autoplay: true,
@@ -448,13 +769,20 @@ jQuery(document).ready(function ($) {
             dots: false,
             nav:true,
             //autoWidth:true,
+            lazyLoad:true,
             stagePadding: 15,
             responsive:{
                 0:{
                     items:1
                 },
+                300:{
+                    items:2
+                },
                 600:{
                     items:3
+                },
+                800:{
+                    items:5
                 },
                 1000:{
                     items:6
@@ -462,8 +790,22 @@ jQuery(document).ready(function ($) {
             }
     });
 
+    //add popup for single image
+    $('.popup-screenshot').magnificPopup({
+        type: 'image'
+        // other options
+    });
 
-    $('.wp-block-gallery').each(function() { // the containers for all your galleries
+    //add popup for gallery
+    $('.popup-screenshot-gal').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled:true
+        }
+    });
+
+    //click on gallery items will open a popup
+    $('.wp-block-gallery:not(.no_popup)').each(function() { // the containers for all your galleries
         $(this).magnificPopup({
             delegate: 'a', // the selector for gallery item
             type: 'image',
@@ -473,15 +815,54 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    //click on gallery items will open a popup
+    $('.wp-block-image').each(function() { // the containers for all your galleries
+        if(  isUriImage($(this).find('a').attr('href')) ) {
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                  enabled:true
+                }
+            });
+        } else {
+            //console.log('not an image');
+        }
+        
+    });
+
+
+    //click on gallery items will open a popup
+    $('.wp-block-media-text .wp-block-media-text__media').each(function() { // the containers for all your galleries 
+        //console.log($(this).find('a').attr('href'));
+        
+        if(  isUriImage($(this).find('a').attr('href')) ) {
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                  enabled:true
+                }
+            });
+        } else {
+            //console.log('not an image');
+        }
+        
+        
+    });
+
+
     $('.scroll_up').hide();
     //.scroll_up show
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) { // Wenn 100 Pixel gescrolled wurde
+        if ($(this).scrollTop() > 300) { // When 300 pixels of page is scrolle
         $('.scroll_up').fadeIn();
         } else {
         $('.scroll_up').fadeOut();
         }
     });
+
+
 
     //smooth scroll
   	$(document).on('click', 'a.scroll_up', function(e) {
@@ -523,9 +904,6 @@ jQuery(document).ready(function ($) {
     });
 
 
-<<<<<<< Updated upstream
-    $('.popup-video a').magnificPopup({
-=======
     $('.open-popup-link').magnificPopup({
         delegate: 'a', // child items selector, by clicking on it popup will open
         type:'inline',
@@ -534,9 +912,47 @@ jQuery(document).ready(function ($) {
 
 
     $('.popup-video a, a.popup-video').magnificPopup({
->>>>>>> Stashed changes
         //disableOn: 700,
         type: 'iframe',
+        callbacks: {
+            open: function() {
+                var iframe_content = $.magnificPopup.instance.content[0].childNodes[1];
+                var popup_element = $.magnificPopup.instance.content[0];
+                //console.log('Popup is opened');
+
+                //if(!Cookies.get('nc_cookie_banner')){
+                    replace_this_iframe(iframe_content, popup_element);
+                //}
+            },
+        },
+        iframe: {
+            markup: '<div class="mfp-iframe-scaler">'+
+            '<div class="mfp-close"></div>'+
+            '<iframe id="" class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+            '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+            
+            patterns: {
+              youtube: {
+                index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+          
+                id: 'v=', // String that splits URL in a two parts, second part should be %id%
+                src: '//www.youtube.com/embed/%id%?autoplay=1' // URL that will be set as a source for iframe.
+              },
+              vimeo: {
+                index: 'vimeo.com/',
+                id: '/',
+                src: '//player.vimeo.com/video/%id%?autoplay=1'
+              },
+              gmaps: {
+                index: '//maps.google.',
+                src: '%id%&output=embed'
+              }
+              // you may add here more sources
+            },
+            srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+        },
+        
+
         mainClass: 'mfp-fade',
         removalDelay: 160,
         preloader: false,
@@ -545,35 +961,37 @@ jQuery(document).ready(function ($) {
 
 
 
+    //sticky sidebar
     if ($(window).width() > 990) {
-        
+
+        $('#pricing_plans_head').stickySidebar({
+            topSpacing: 94,
+            bottomSpacing: 60
+        });
+
+        $('#request_quote_left_sidebar').stickySidebar({
+            topSpacing: 115,
+            bottomSpacing: 60
+        });
+
         $('#advantages-left-sticky').stickySidebar({
             topSpacing: 60,
             bottomSpacing: 60
         });
-    
-    
+
         $('#thead_advantages').stickySidebar({
             topSpacing: 90,
             bottomSpacing: 60,
             innerWrapperSelector: "tr"
         });
-
      }
-
-
 
 });
 
 
 
 jQuery(document).ready(function () {
-<<<<<<< Updated upstream
-
-    fixedMeni();
-=======
     fixedMenu();
->>>>>>> Stashed changes
 
 
     document.querySelectorAll('.menu-footer .menu-item-has-children > a').forEach(menuSection => {
@@ -582,29 +1000,11 @@ jQuery(document).ready(function () {
         //menuSection.removeAttribute('tab-index');
     })
 
-<<<<<<< Updated upstream
-    const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children')
-
-=======
     
     const menuItems = document.querySelectorAll('.primary-menu > .menu-item-has-children > a');
->>>>>>> Stashed changes
     Array.prototype.forEach.call(menuItems, function (el, i) {
         el.setAttribute('aria-haspopup', 'true');
         let timer;
-<<<<<<< Updated upstream
-        el.addEventListener("mouseover", (event) => {
-            document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
-            el.classList.add('open')
-            clearTimeout(timer)
-        })
-        el.addEventListener("mouseout", (event) => {
-            timer = setTimeout((event) => {
-                document.querySelector(".menu-item-has-children.open").classList.remove('open')
-            }, 1000)
-        })
-        el.querySelector('a').addEventListener("click", function(event) {
-=======
 
         el.addEventListener("mouseover", function(){
             document.querySelector(".menu-item-has-children.open")?.classList.remove('open');
@@ -645,7 +1045,6 @@ jQuery(document).ready(function () {
         });
 
         el.addEventListener("click", function(event) {
->>>>>>> Stashed changes
             if (this.parentNode.className.includes('menu-item-has-children')) {
                 document.querySelector(".menu-item-has-children.open")?.classList.remove('open')
                 this.parentNode.classList.add('open')
@@ -687,6 +1086,50 @@ jQuery(document).ready(function () {
         }
 
     });
+
+
+
+    
+    var windowsize = jQuery(window).width();
+    if (windowsize < 1200) {
+        jQuery(".menu-item-has-children").click(function () {
+                jQuery(this).siblings('li').children('.sub-menu').slideUp();
+                jQuery(this).siblings('li').removeClass('mobile-submenu-open');
+    
+                jQuery(this).children('.sub-menu').slideToggle();
+                jQuery(this).toggleClass('mobile-submenu-open');
+            });
+    }
+    
+
+
+    
+    jQuery( window ).on( "resize", function() {
+        var windowsize = jQuery(window).width();
+        if (windowsize > 1200) {
+
+            jQuery('.header-items').show();
+
+            if(jQuery('header').hasClass('active')) {
+                jQuery('header').removeClass('active');
+            }
+
+            if(jQuery('.phone-menu').hasClass('change')) {
+                jQuery('.phone-menu').removeClass('change');
+            }
+
+        } else {
+            if(jQuery('.phone-menu').hasClass('change')) {
+                jQuery('header').addClass('active');
+            } else {
+                jQuery('.header-items').hide();
+            }
+
+        }
+
+    } );
+    
+
 
     jQuery('.card-btn').click(function () {
         var box = jQuery(this).parent('.accordion-card');
@@ -747,20 +1190,6 @@ jQuery(document).ready(function () {
     });
 
 
-    /*
-    jQuery(".news-container").slice(0, 9).show();
-    if (jQuery(".news-item:hidden").length != 0) {
-        jQuery("#loadNews").show();
-    }
-    jQuery("#loadNews").on('click', function (e) {
-        e.preventDefault();
-        jQuery(".news-container:hidden").slice(0, 9).slideDown();
-        if (jQuery(".news-container:hidden").length == 0) {
-            jQuery("#loadNews").fadeOut('slow');
-        }
-    });
-    */
-
     setTimeout(function() {
         jQuery('.post-holder').each(function() {
             var what = jQuery(this).find('.head').text()
@@ -773,6 +1202,7 @@ jQuery(document).ready(function () {
     jQuery('a[href*="#"]')
         // Remove links that don't actually link to anything
         .not('[href="#"]')
+        .not('[href="#no_scroll"]')
         .not('[href="#trialModal"]')
         .not('[href="#0"]')
         .not('[href="#hidden_header_anchor"]')
@@ -780,20 +1210,47 @@ jQuery(document).ready(function () {
         .not('[href="#nextcloud_talk_tab"]')
         .not('[href="#nextcloud_groupware_tab"]')
         .not('[href="#nextcloud_office_tab"]')
-        .click(function (event) {
+        .not('.no_scroll')
+        .not('[href="#nextcloud_outlook_integration_tab"]')
+        .not('[href="#nextcloud_ad_integration_tab"]')
+        .not('[href="#nextcloud_sharepoint_integration_tab"]')
+        .not('[href="#nextcloud_teams_integration_tab"]')  
+        .not('[href="#nextcloud_mail_tab"]')
+        .not('[href="#nextcloud_calendar_tab"]')
+        .not('[href="#nextcloud_contacts_tab"]')
+        .not('[href="#nextcloud_deck_tab"]')
+        .not('[href="#nextcloud_tab1"]')
+        .not('[href="#nextcloud_tab2"]')
+        .not('[href="#nextcloud_tab3"]')
+        .not('[href="#nextcloud_tab4"]')
+        .not('[data-vc-accordion]').click(function (event) {
             // On-page links
+            //event.preventDefault();
+
             if (
                 location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
                 &&
                 location.hostname == this.hostname
             ) {
+
+                targetsArray = [
+                    '#no_scroll',
+                    '#conf-form-popup',
+                    '#submit_proposal',
+                    '#premiere_tab',
+                    '#conf_day1_tab',
+                    '#conf_day2_tab',
+                ];
+
                 // Figure out element to scroll to
                 var target = jQuery(this.hash);
                 target = target.length ? target : jQuery('[name=' + this.hash.slice(1) + ']');
                 // Does a scroll target exist?
-                if (target.length) {
+                if (target.length && jQuery.inArray(target, targetsArray) !== -1 ) {
                     // Only prevent default if animation is actually gonna happen
                     event.preventDefault();
+                    //console.log(target);
+
                     jQuery('html, body').animate({
                         scrollTop: target.offset().top - 95
                     }, 1000, function () {
@@ -804,7 +1261,7 @@ jQuery(document).ready(function () {
                         if ($target.is(":focus")) { // Checking if the target was focused
                             return false;
                         } else {
-                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            //$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
                             $target.focus(); // Set focus again
                         }
                         ;
@@ -812,6 +1269,9 @@ jQuery(document).ready(function () {
                 }
             }
         });
+
+
+
     if (jQuery('.needs-slider').width() > 1) {
         jQuery('.needs-slider').slick({
             infinite: false,
@@ -1118,6 +1578,22 @@ jQuery(document).ready(function () {
         });
     }
 
+
+
+    /*
+    function resetFilter() {
+    jQuery('#services').val('All services');
+    jQuery('#services').data('value', 'all-dev');
+    jQuery('#certificates').val('All levels');
+    jQuery('#certificates').data('value', 'all-cert');
+    jQuery('#country').val('All');
+    jQuery('#country').data('value', 'all-comp');
+    jQuery('input[type="checkbox"]').each(function () {
+        jQuery(this).prop('checked', false);
+    });
+}
+
+
     var filter1 = 'all-dev';
     var filter2 = 'all-cert';
     var filter3 = 'all-comp';
@@ -1125,9 +1601,11 @@ jQuery(document).ready(function () {
     jQuery('#services').val('All services');
     jQuery('#certificates').val('All levels');
     jQuery('#country').val('All');
+
     jQuery('input[type="checkbox"]').each(function () {
         jQuery(this).prop('checked', false);
     });
+
     jQuery('#filtersearch').val('');
 
     jQuery('.tab-link').click(function () {
@@ -1152,6 +1630,7 @@ jQuery(document).ready(function () {
         var select = jQuery(this).next('.select-list');
         jQuery('.select-list').not(select).slideUp();
         select.slideToggle();
+        select.focus();
     });
 
     jQuery('input[name="servi"]').change(function () {
@@ -1159,21 +1638,90 @@ jQuery(document).ready(function () {
         var valArray = [];
         var count = jQuery('input[name="servi"]:checked').length;
         var i = 1;
-        jQuery('input[name="servi"]:checked').each(function () {
-            var labeltext = jQuery(this).next('label').text();
-            var valuefilter = jQuery(this).val();
-            valArray.push(valuefilter);
-            if (count == i) {
-                textArray += labeltext;
-            } else {
-                textArray += labeltext + ', ';
-            }
-            i++;
-        });
+
+
+        var selected_cb = jQuery(this).val();
+        if(selected_cb == 'all-dev') {
+            textArray = 'All services';
+            valArray.push(selected_cb);
+
+            jQuery('input[name="servi"]').prop('checked', false);
+            jQuery('input[name="servi"][id="shk00"]').prop('checked', true);
+            
+
+        } else {
+
+            //deselect All option when everything else is checked
+            jQuery('input[name="servi"][id="shk00"]').prop('checked', false);
+
+            jQuery('input[name="servi"]:checked').each(function () {
+                var labeltext = jQuery(this).next('label').text();
+                var labeltext2 = jQuery.trim( labeltext );
+                var valuefilter = jQuery(this).val();
+                
+                
+
+                valArray.push(valuefilter);
+
+                if (count == i) {
+                    textArray += labeltext2;
+                } else {
+                    textArray += labeltext2 + ', ';
+                }
+                i++;
+
+                console.log("textArray: "+textArray);
+
+            });
+
+        }
+
         jQuery('#services').val(textArray);
         jQuery('#services').data('value', valArray);
+
         iniFilter();
+
+
+        //close select menu when changing service input checkboxes
+        jQuery(this).closest('.selection').toggleClass('active');
+        jQuery(this).closest('.select-list').slideUp();
+        //jQuery(this).closest('.select-list').focus();
+
     });
+
+
+    //close menu selection when clicked outside
+    jQuery('ul.select-list').blur(function() {
+        console.log('select list blurred');
+        //if(jQuery(this).css('display') == 'block') {
+            jQuery(this).slideUp();
+        //}
+    });
+
+
+    //close country select div when clicked outside of it
+    var country_select = jQuery('#country_select');
+    var region_select_list = country_select.find('.region_select_list');
+    jQuery(document).click(function (event) {
+        if (!country_select.is(event.target) && country_select.has(event.target).length === 0) {      
+            //console.log('clicking outside the div');
+            jQuery('.selection.active').removeClass('active');
+            region_select_list.slideUp();
+        }
+    });
+
+
+    //service_select
+    var service_select = jQuery('#service_select');
+    var service_select_list = service_select.find('.select-list');
+    jQuery(document).click(function (event) {
+        if (!service_select.is(event.target) && service_select.has(event.target).length === 0) {      
+            //console.log('clicking outside the div');
+            jQuery('.selection.active').removeClass('active');
+            service_select_list.slideUp();
+        }
+    });
+    
 
 
     jQuery('.cert-list li').click(function () {
@@ -1189,21 +1737,55 @@ jQuery(document).ready(function () {
     jQuery('input[name="country"]').change(function () {
         var textArray = '';
         var valArray = '';
+        var valArray2 = [];
         var count = jQuery('input[name="country"]:checked').length;
         var i = 1;
-        jQuery('input[name="country"]:checked').each(function () {
-            var labeltext = jQuery(this).next('label').text();
-            var valuefilter = jQuery(this).val();
-            valArray += valuefilter + ' ';
-            if (count == i) {
-                textArray += labeltext;
-            } else {
-                textArray += labeltext + ', ';
-            }
-            i++;
-        });
+
+        var selected_cb = jQuery(this).val();
+        if(selected_cb == 'all-comp') {
+            textArray = 'All';
+            valArray = selected_cb;
+            //valArray2.push(selected_cb);
+
+            jQuery('#country').data('country_value_test', 'all-comp');
+
+            jQuery('input[name="country"]').prop('checked', false);
+            jQuery('input[name="country"][id="chk01"]').prop('checked', true);
+
+        } else {
+
+            //deselect All option when everything else is checked
+            jQuery('input[name="country"][id="chk01"]').prop('checked', false);
+
+            jQuery('input[name="country"]:checked').each(function () {
+                var labeltext = jQuery(this).next('label').text();
+                var valuefilter = jQuery(this).val();
+
+                //console.log("valuefilter: "+valuefilter);
+    
+                    valArray += valuefilter + ',';
+                    //valArray.push(valuefilter);
+
+                    if (count == i) {
+                            textArray += labeltext;
+                    } else {
+                            textArray += labeltext + ',';
+                    }
+
+                    valArray2.push(valuefilter);
+    
+                i++;
+            });
+
+            jQuery('#country').data('country_value_test', valArray2);
+
+        }
+
+
         jQuery('#country').val(textArray);
         jQuery('#country').data('value', valArray);
+        
+
         iniFilter();
     });
 
@@ -1214,11 +1796,14 @@ jQuery(document).ready(function () {
     });
 
     jQuery('#filtersearch').keyup(function () {
-        resetFilter();
-        jQuery('.partner-col').hide();
-        var value = jQuery(this).val();
-        jQuery('.partner-col:containsIN("' + value + '")').show();
+        iniFilter();
     });
+    */
+
+
+
+
+
 
     jQuery('#fieldname').change( function (){
         doCalculation2();
@@ -1307,28 +1892,76 @@ jQuery(window).scroll(function () {
 
 
 
-function fixedMeni() {
+function fixedMenu() {
     var windowWidth = jQuery(window).innerWidth();
-    if (windowWidth > 111) {
-        jQuery(window).on('load scroll resize orientationchange', function () {
+
+    if(!jQuery("header").hasClass('simplified')) {
+        if (windowWidth > 111) {
             if (jQuery(document).scrollTop() > 1) {
                 jQuery("header").addClass('scrolled');
             } else {
                 jQuery("header").removeClass('scrolled');
             }
-        });
-    } else {
-        jQuery(window).on('load scroll resize orientationchange', function () {
-            jQuery("header").removeClass('scrolled');
-        });
+    
+    
+            jQuery(window).on('load scroll resize orientationchange', function () {
+                if (jQuery(document).scrollTop() > 1) {
+                    jQuery("header").addClass('scrolled');
+                } else {
+                    jQuery("header").removeClass('scrolled');
+                }
+            });
+        } else {
+            jQuery(window).on('load scroll resize orientationchange', function () {
+                jQuery("header").removeClass('scrolled');
+            });
+        }
     }
+
 }
-;
+
+
+// Function definition with passing two arrays
+// Function definition with passing two arrays
+function findCommonElement(array1, array2) {
+    // Loop for array1
+    for(let i = 0; i < array1.length; i++) {
+        
+        // Loop for array2
+        for(let j = 0; j < array2.length; j++) {
+            
+            // Compare the element of each and
+            // every element from both of the
+            // arrays
+            if(array1[i] === array2[j]) {
+            
+                // Return if common element found
+                return true;
+            }
+        }
+    }
+    // Return if no common element exist
+    return false;
+}
+
+
 
 function iniFilter() {
     var filter1 = jQuery('#services').data('value');
     var filter2 = jQuery('#certificates').data('value');
-    var filter3 = jQuery('#country').data('value');
+    //var filter3 = jQuery('#country').data('value');
+    //var filter3_array = filter3.split(',');
+    //console.log("Countries searched: "+filter3_array);
+
+
+    if(jQuery('#country').data('country_value_test')) {
+        var filter3 = jQuery('#country').data('country_value_test');
+    } else {
+        var filter3 = 'all-comp';
+    }
+
+    var filter4 = jQuery('#filtersearch').val();
+
     if (jQuery.inArray("all-dev", filter1) !== -1 || filter1.length === 0) {
         var allDev = 1;
     }
@@ -1336,41 +1969,72 @@ function iniFilter() {
         filter2 = '';
     }
     if (filter3.includes('all-comp') || filter3 == '') {
-        filter3 = 'x';
+        filter3 = '';
+        //countries_included = true;
     }
+    if(filter4 != '') {
+        //jQuery('.partner-col:containsIN("' + filter4 + '")').show();
+        //jQuery(this).containsIN(filter4);
+        //console.log(filter4);
+    }
+
+    //console.log("test findCommonElement: "+findCommonElement(['south korea', 'Japan', 'China'], ['south korea', 'brazil'] ));
+
     jQuery('.partner-col').each(function () {
+        var countries_included = false;
+
+        var partner_id = jQuery(this).attr('id');
         var values = jQuery(this).data('type');
-        if (filter3 == 'x') {
-            var country = 'x';
+        var country = jQuery(this).data('country');
+        var countries_of_this_partner_array = country.split(",");
+        //console.log("countries_of_this_partner: "+countries_of_this_partner);
+
+
+        if(filter3 != '') {
+            if(findCommonElement(countries_of_this_partner_array, filter3)){
+                countries_included = true;
+           }
         } else {
-            var country = jQuery(this).data('country');
+            countries_included = true;
         }
-        if (allDev == 1) {
-            if (values.includes(filter2) && filter3.includes(country)) {
+
+        
+
+
+        if (allDev == 1) { // if selected all services
+            //console.log("All services are selected.");
+
+            if (
+                //values.includes(filter2) && countries_included && 
+                jQuery(this).find('.partner-text').text().toLowerCase().match(filter4.toLowerCase()) 
+                || 
+                country.toLowerCase().match(filter4.toLowerCase())
+            ) {
                 jQuery(this).show();
+
             } else {
                 jQuery(this).hide();
             }
-        } else {
-            if (filter1.every(item => values.includes(item)) && values.includes(filter2) && filter3.includes(country)) {
+
+
+        } else { // if selected specific serivce
+            //console.log("Specific serivce is selected.");
+
+            if (filter1.every(item => values.includes(item)) && values.includes(filter2) 
+            && countries_included 
+            && jQuery(this).find('.partner-text').text().toLowerCase().match(filter4)
+            ) {
                 jQuery(this).show();
             } else {
                 jQuery(this).hide();
             }
         }
     });
+
+
+
 }
-function resetFilter() {
-    jQuery('#services').val('All services');
-    jQuery('#services').data('value', 'all-dev');
-    jQuery('#certificates').val('All levels');
-    jQuery('#certificates').data('value', 'all-cert');
-    jQuery('#country').val('All');
-    jQuery('#country').data('value', 'all-comp');
-    jQuery('input[type="checkbox"]').each(function () {
-        jQuery(this).prop('checked', false);
-    });
-}
+
 
 
 // if we need to do something when the user number is changed...
@@ -1685,7 +2349,7 @@ function checkSubscription() {
             yourName.classList.remove('error');
             yourNameError.html('');
         } else {
-            var message = '<?php echo $l->t("The name you entered does not appear to be valid.");?>';
+            var message = 'The name you entered does not appear to be valid.';
             yourNameError.html('<br />' + message);
             yourName.classList.add('error');
             enableSubmitButton = false;
@@ -1703,7 +2367,7 @@ function checkSubscription() {
             email.classList.remove('error');
             emailError.html('');
         } else {
-            var message = '<?php echo $l->t("The email address you entered does not appear to be valid.");?>';
+            var message = 'The email address you entered does not appear to be valid.';
             emailError.html('<br />' + message);
             email.classList.add('error');
             enableSubmitButton = false;
@@ -2024,7 +2688,7 @@ function checkSubscription2() {
             yourName.classList.remove('error');
             yourNameError.html('');
         } else {
-            var message = '<?php echo $l->t("The name you entered does not appear to be valid. Please only use characters a-z and A-Z.");?>';
+            var message = 'The name you entered does not appear to be valid. Please only use characters a-z and A-Z.';
             yourNameError.html('<br />' + message);
             yourName.classList.add('error');
             enableSubmitButton = false;
@@ -2042,7 +2706,7 @@ function checkSubscription2() {
             email.classList.remove('error');
             emailError.html('');
         } else {
-            var message = '<?php echo $l->t("The email address you entered does not appear to be valid. Please only use characters a-z and A-Z and numbers.");?>';
+            var message = 'The email address you entered does not appear to be valid. Please only use characters a-z and A-Z and numbers.';
             emailError.html('<br />' + message);
             email.classList.add('error');
             enableSubmitButton = false;

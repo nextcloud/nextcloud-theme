@@ -23,63 +23,47 @@ get_header();
 	<section class="blog-section">
 		<div class="container">
 			<div class="row row-list-blog">
-				<?php 
+				<?php
+				
+				
 				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-				add_query_arg( 'paged', $paged );
+				add_query_arg('paged', $paged);
+				//add_query_arg('post_type', 'post');
 				
 				if (have_posts()) : ?>
 				<?php
 					// Start the Loop
 					while (have_posts()) : the_post();
 
-						/*
-						$img = wp_get_attachment_url(get_post_thumbnail_id() ?: 0) ?: '';
-						$title = get_the_title();
-						$ex = get_the_excerpt();
-						$link = get_permalink() ?: '';
-						echo '<div class="col-lg-4 col-md-6 spacer">';
-						echo '<div class="post-box">';
-						echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
-						echo '<div class="post-body">';
-						echo '<h4>' . $title . '</h4>';
-						echo '<p>' . $ex . '</p>';
-						echo '<a class="c-btn" href="' . $link . '">Read More</a>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-						*/
-
-						$post_id = get_the_ID();
-						//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
-						$title = get_the_title();
-						$post_excerpt = get_the_excerpt();
-						$link = get_permalink();
-						$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
-
-						echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
-						echo '<div class="post-box">';
-						echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
-						echo '<div class="post-body">';
-						echo '<h4><a href="'.$link.'" title="'.$title.'">' . $title . '</a></h4>';
-						echo '<p>' . $post_excerpt . '</p>';
-						echo '<a class="c-btn" href="' . $link . '">'.__('Read More', 'nextcloud').'</a>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
-
+						if(get_post_type()!='acf-field-group') {
+							get_template_part('inc/blog_loop_single');
+						}
 
 					endwhile;
 				endif;
 
-				$category = get_category( get_query_var( 'cat' ) );
-				$cat_id = $category->cat_ID;
+				$category = get_category(get_query_var('cat'));
+				if(isset($category)){
+					if(isset($category->cat_ID)) {
+						$cat_id = $category->cat_ID;
+					}
+					
+				}
+
+				if(get_post_type() == 'event') {
+					$cat_id = get_queried_object()->term_id;
+				}
+
 				?>
 			</div>
 
-			<div class="row">
+			<div class="row loadNews_row">
 				<div class="col-12">
 					<div class="section-button">
-						<button class="c-btn btn-blue" data-category="<?php echo $cat_id; ?>" id="loadNews">Load More</button>
+						<button class="c-btn btn-main loadNews" data-post-type="<?php echo get_post_type(); ?>" data-category="<?php 
+						if(isset($cat_id)) {
+							echo $cat_id;
+						} ?>" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 					</div>
 				</div>
 			</div>

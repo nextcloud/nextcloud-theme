@@ -1,0 +1,53 @@
+@media print { 
+    /* All your print styles go here */
+    //#header, #footer, #nav { display: none !important; } 
+
+
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 90vw !important;
+    }
+
+    header, .scroll_up, .cookie_banner {
+        //position: absolute;
+        display: none !important;
+    }
+
+
+    .case_studies .case_study .vc_column-inner .vc_btn3-container {
+        position: relative !important;
+        bottom: 0 !important;
+    }
+
+
+    .comparison_table_container {
+
+        .filtering_buttons {
+            display: none;
+        }
+
+
+        .comparison_table_container_inner{
+            max-height: 100% !important;
+            overflow: visible !important;
+            display: block;
+
+            table.comparison_table {
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                thead tr.platform_logos th {
+                    position: relative;
+                    padding-top: 2rem;
+    
+                    .check {
+                        display: none;
+                    }
+                }
+
+            }
+    
+        }
+    }
+
+}

@@ -11,7 +11,21 @@ $title = get_field('title');
 		if (!empty($title)) {
 			echo '<div class="col-lg-6">';
 			echo '<div class="section-title">';
-			echo '<h3>' . $title . '</h3>';
+			echo '<h3>';
+
+			if(isset($_GET['webinars'])) {
+
+				if( strip_tags($_GET['webinars']) == 'upcoming') {
+					echo __('Upcoming webinars','nextcloud');
+				} else {
+					echo __('Webinar recordings','nextcloud');
+				}
+				
+			} else {
+				echo $title;
+			}
+			
+			echo '</h3>';
 			echo '</div>';
 			echo '</div>';
 		}
@@ -28,20 +42,83 @@ $title = get_field('title');
 		?>
 		<div class="row row-list-blog">
 			<?php
+			$default_posts_per_page = get_option( 'posts_per_page' );
 
 			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 			// The Query
 			$args = array(
-				'post_type' => 'post',
-				//'posts_per_page' => -1,
+				//'post_type' => array('post', 'event'),
+				'posts_per_page' => $default_posts_per_page,
 				'post_status' => 'publish',
 				'orderby' => 'date',
-				'order' => 'DESC',
-				'paged=' . $paged
+				//'order' => 'DESC',
+				'paged=' . $paged,
+				'tag__not_in' => array(269),
+				'category__not_in'=> array(225, 226) //exclude Private category
 			);
+			date_default_timezone_set('Europe/Berlin');
+			$current_date_time = date('Y-m-d H:i:s', time());
+
+
+			if( isset($_GET['webinars'])) {
+
+				$args['post_type'] = array('event');
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'event_categories',
+						'field'    => 'slug',
+						'terms'    => 'webinars',
+					)
+				);
+
+				if( strip_tags($_GET['webinars']) == 'upcoming'){
+					
+					$args['meta_query'] = array(
+						array(
+							'key' => 'event_start_date_and_time',
+							'value'   => $current_date_time,
+							'compare' => '>=',
+							'type'	=> 'DATETIME'
+						),
+					);
+					$args['order'] = 'DESC';
+
+				} else if ( strip_tags($_GET['webinars']) == 'past') {
+
+					$args['meta_query'] = array(
+						'relation' => 'AND',
+						
+						array(
+							'key' => 'event_start_date_and_time',
+							'value'   => $current_date_time,
+							'compare' => '<',
+							'type'	=> 'DATETIME'
+						),
+						
+			
+						array(
+							'key'     => 'download_available',
+							'value'	  => '',
+							'compare' => '!=',
+						),
+						
+						
+					);
+					$args['order'] = 'ASC';
+
+				}
+
+
+			}
+			else {
+				$args['post_type'] = array('post', 'event');
+				$args['order'] = 'DESC';
+			}
+
 			
 			$the_query = new WP_Query($args);
-			
+			$count = $the_query->found_posts;
+
 			// The Loop
 			if ($the_query->have_posts()) {
 				while ($the_query->have_posts()) {
@@ -51,53 +128,31 @@ $title = get_field('title');
 				}
 			} else {
 				// no posts found
+				?>
+
+			<div class="col-12">
+				<div class="section-button">
+					<h3><?php echo __('No posts found.','nextcloud'); ?></h3>
+				</div>
+			</div>
+
+			<?php
 			}
 			/* Restore original Post Data */
 			wp_reset_postdata();
 
-
-
-			/*
-			$my_wp_query = new WP_Query();
-			$onepost = $my_wp_query->query(array(
-				'post_type' => 'post',
-				'posts_per_page' => -1,
-				'post_status' => 'publish',
-				'orderby' => 'date',
-				'order' => 'DSC',
-			));
-
-			foreach ($onepost as $onepostsingle) {
-				$post_id = $onepostsingle->ID;
-				$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
-				$title = $onepostsingle->post_title;
-				$post_excerpt = $onepostsingle->post_excerpt;
-				$link = get_permalink($post_id) ?: '';
-				$featured_image = get_the_post_thumbnail( $post_id, 'large', array( 'class' => 'feat_img' ) );
-
-				echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="display: none;">';
-				echo '<div class="post-box">';
-				//echo '<div class="post-img" style="background-image: url(' . $img . ');"></div>';
-				echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
-				echo '<div class="post-body">';
-				echo '<h4><a href="'.$link.'" title="'.$title.'">' . $title . '</a></h4>';
-				echo '<p>' . $post_excerpt . '</p>';
-				echo '<a class="c-btn" href="' . $link . '">Read More</a>';
-				echo '</div>';
-				echo '</div>';
-				echo '</div>';
-			}
-			wp_reset_query();
-			*/
-
 			?>
 		</div>
+
+		<?php if($count > $default_posts_per_page) { ?>
 		<div class="row">
 			<div class="col-12">
 				<div class="section-button">
-					<button class="c-btn btn-blue" id="loadNews">Load More</button>
+					<button class="c-btn btn-main" id="loadNews"><?php echo __('Load More','nextcloud'); ?></button>
 				</div>
 			</div>
 		</div>
+		<?php } ?>
+
 	</div>
 </section>

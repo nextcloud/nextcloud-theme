@@ -18,8 +18,9 @@
             align-items: center;
 
             li {
-                flex: 0 0 270px;
-                max-width: 270px;
+                //flex: 0 0 270px;
+                //max-width: 270px;
+                padding: 0 15px;
 
                 .tab-link {
                     display: block;
@@ -30,15 +31,21 @@
                     border: none;
                     border-bottom: 2px solid #f9f9f9;
                     background-color: transparent;
-                    color: #555555;
+                    //color: #555555;
                     font-size: 22px;
                     margin-bottom: -2px;
                     transition: all 0.3s ease;
                     -webkit-transition: all 0.3s ease;
 
+                    @media screen and (max-width: $sm-breakpoint) {
+                        & {
+                            font-size: 16px;
+                        }
+                    }
+
                     &.active {
-                        color: #0082C9;
-                        border-color: #0082C9;
+                        color: $mainColor;
+                        border-color: $mainColor;
                     }
 
                     svg {
@@ -94,7 +101,7 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         flex-wrap: wrap;
         padding: 30px 0px 55px;
         margin-left: -15px;
@@ -103,9 +110,26 @@
         .input-outer {
             position: relative;
             flex: 0 0 50%;
-            max-width: 50%;
+            //max-width: 50%;
             margin-bottom: 20px;
             padding: 0px 15px;
+
+
+            @media screen and (max-width: $md-breakpoint) {
+                & {
+                    flex: 0 0 75%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+
+            @media screen and (max-width: $sm-breakpoint) {
+                & {
+                    flex: 0 0 100%;
+                }
+            }
+
 
             &:nth-child(1) {
                 z-index: 99;
@@ -164,8 +188,8 @@
                 }
 
                 .label {
-                    flex: 0 0 125px;
-                    max-width: 125px;
+                    flex: 0 0 151px;
+                    max-width: 151px;
                     display: block;
                     padding-left: 20px;
                     border-right: 1px solid #D7D7D7;
@@ -303,7 +327,7 @@
                     input[type=checkbox]+label {
                         position: relative;
                         display: inline-block;
-                        padding-left: 35px;
+                        padding-left: 25px;
                         background-color: transparent;
                         color: #6C6C6C;
                         font-size: 16px;
@@ -350,21 +374,31 @@
                 margin-left: -15px;
                 margin-right: -15px;
 
-                .partner-col {
+                .partner-col, .partner2-col {
                     flex: 0 0 33.33333333333333%;
-                    max-width: 33.33333333333333%;
+                    //max-width: 33.33333333333333%;
                     padding-left: 15px;
                     padding-right: 15px;
                     margin-bottom: 30px;
+
+                    @media screen and (max-width: $tablet-breakpoint) {
+                        & {
+                            flex: 0 0 50%;
+                        }
+                    }
+
+                    
+                    @media screen and (max-width: $sm-breakpoint) {
+                        & {
+                            flex: 0 0 100%;
+                        }
+                    }
+
+                    
+
                 }
 
-                .partner2-col {
-                    flex: 0 0 33.33333333333333%;
-                    max-width: 33.33333333333333%;
-                    padding-left: 15px;
-                    padding-right: 15px;
-                    margin-bottom: 30px;
-                }
+                
             }
 
             &.active {
@@ -378,23 +412,25 @@
                 display: flex;
                 flex-direction: column;
                 border: 1px solid #D7D7D7;
+                border-radius: $borderRadius;
 
                 .certificate-line {
                     display: block;
-                    width: 170px;
+                    //width: 170px;
                     position: absolute;
                     top: -1px;
                     right: -1px;
                     color: #fff;
                     font-size: 14px;
                     text-transform: capitalize;
-                    padding: 7px 10px 7px 40px;
+                    padding: 7px 15px 7px 40px;
                     border: 1px solid #D7D7D7;
                     border-bottom-left-radius: 5px;
                     -webkit-border-bottom-left-radius: 5px;
                     background-image: url('../img/subtract.svg');
                     background-repeat: no-repeat;
                     background-position: left 13px center;
+                    border-radius: 0 $borderRadius;
 
                     &.platinum {
                         background-color: #204C65;
@@ -442,6 +478,15 @@
                         line-height: 17px;
                         margin: 0px;
                     }
+
+                    ul {
+                        color: #6C6C6C;
+                        font-size: 12px;
+                        line-height: 17px;
+                        margin: 0px;
+                        padding-left: 11px;
+                        margin-top: 8px;
+                    }
                 }
 
                 .partner-info {
@@ -453,16 +498,17 @@
                     flex-direction: row;
 
                     li {
-                        &:nth-child(1) {
+
+                        &.service_text {
                             margin: 0px auto 20px 0px;
                             color: rgba(108, 108, 108, 0.5);
                             font-size: 14px;
                             line-height: 17px;
                         }
 
-                        &:nth-child(2) {
-                            flex: 0 0 110px;
-                            max-width: 110px;
+                        &.website_link {
+                            flex: 0 0 130px;
+                            max-width: 130px;
                             margin: 0px 0px 20px auto;
 
                             a {

@@ -6,43 +6,45 @@
 get_header();
 ?>
 <div class="wrapper">
-	<section class="single-hero-section" style="background-color: #1cafff;">
+	<section class="single-hero-section" style="">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h1><?php _e('Search results for: '); ?><?php echo '<green>' . get_search_query() . '</green>'; ?></h1>
+						<h1><?php echo __('Search results for: ', 'nextcloud'); ?><?php echo '<green>' . get_search_query() . '</green>'; ?></h1>
 					</div>
 				</div>
 			</div>
 	</section>
+
 	<section class="blog-section">
 		<div class="container">
-			<div class="row">
+			<div class="row search-row">
+				<div class="col-lg-4"></div>
+			<?php
+			if (function_exists('wpes_search_form')) {
+				$search_id = isset($_GET['wpessid']) ? $_GET['wpessid'] : 1612;
+
+				echo '<div class="col-lg-4">';
+				echo '<div class="form-holder">';
+				wpes_search_form(array(
+					'wpessid' => $search_id
+				));
+				echo '</div>';
+				echo '</div>';
+			}
+			?>
+			<div class="col-lg-4"></div>
+			</div>
+			<div class="row row-list-blog">
 				<?php
-				if (have_posts()) {
-					while (have_posts()) {
-						the_post();
+				$default_posts_per_page = get_option( 'posts_per_page' ); // should be 9
+				$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
-						$post_id = get_the_ID();
-						//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
-						$title = get_the_title();
-						$post_excerpt = get_the_excerpt();
-						$link = get_permalink();
-						$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
-						echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
-						echo '<div class="post-box">';
-						echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">'.$featured_image.'</a></div>';
-						echo '<div class="post-body">';
-						echo '<h4><a href="'.$link.'" title="'.$title.'">' . $title . '</a></h4>';
-						echo '<p>' . $post_excerpt . '</p>';
-						echo '<a class="c-btn" href="' . $link . '">'.__('Read More', 'nextcloud').'</a>';
-						echo '</div>';
-						echo '</div>';
-						echo '</div>';
+				echo '<div class="post_type" style="display:none;">';
+				print_r($post_type);
+				echo "</div>";
 
-<<<<<<< Updated upstream
-=======
 				$limit = $default_posts_per_page;
 
 				$search_query = new WP_Query(array(
@@ -64,19 +66,18 @@ get_header();
 					while ($search_query->have_posts()) {
 						$search_query->the_post();
 						get_template_part('inc/blog_loop_single');
->>>>>>> Stashed changes
 					}
 				} else {
 					echo '<div class="col-12">';
 					echo '<div class="not-found">';
-					echo '<h3>No search results for: ' . get_search_query() . '</h3>';
+					echo '<h3 class="text-center">'.__('No search results for: ', 'nextcloud') . get_search_query() . '</h3>';
 					echo '</div>';
 					echo '</div>';
 				}
+				// Restore original Post Data.
+				wp_reset_postdata();
 				?>
 			</div>
-<<<<<<< Updated upstream
-=======
 
 			
 			<?php 
@@ -105,9 +106,9 @@ get_header();
 			<?php } ?>
 
 
->>>>>>> Stashed changes
 		</div>
 	</section>
+
 </div>
 
 <?php get_footer(); ?>
