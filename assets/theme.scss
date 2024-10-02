@@ -8461,6 +8461,7 @@ ol {
             font-weight: 600;
             line-height: 22px;
             min-width: 215px;
+            border-radius: $borderRadius !important;
 
             &:hover {
                 background-color: #fff;
@@ -10016,7 +10017,7 @@ ol {
                 color: #fff;
                 font-weight: 700;
                 font-size: 3rem;
-                line-height: 100%;
+                line-height: 130%;
 
                 @media screen and (max-width: $md-breakpoint) {
                     &{
@@ -14103,7 +14104,7 @@ ul.list_compliance {
 
 
 .rounded {
-    border-radius: $borderRadius !important;
+    border-radius: $borderRadiusSection !important;
 }
 
 
@@ -14380,9 +14381,43 @@ $line: 4px;
 
 
         &.rating_platform {
+
+            &.with_stars {
+                .vc_column-inner {
+                    padding-bottom: 3.5rem !important;
+                    position: relative;
+                }
+                
+            }
+
             .vc_column-inner {
+                background-color: $lightBG;
+
                 .image {
                      margin-top: 1.5rem;
+                }
+
+                .link {
+                    padding: 2rem 1.5rem;
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                }
+
+                .rating_container {
+                    padding-bottom: 2rem;
+                    font-size: 1.2rem;
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0;
+                    right: 0;
+
+                    .rating {
+                        
+                    }
+
+                    .rating_stars {
+                        color: $starsColor;
+                    }
                 }
             }
         }
@@ -16854,7 +16889,7 @@ blockquote.wp-block-quote {
 
 .nc_single_quote {
     background: $communityColor;
-    border-radius: $borderRadius;
+    border-radius: $borderRadiusSection;
     padding: 1.5rem 10rem;
     margin: 1.5rem 8rem;
     position: relative;

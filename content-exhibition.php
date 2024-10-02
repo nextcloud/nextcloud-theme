@@ -1,7 +1,6 @@
 <?php 
         wp_enqueue_script('custom-nf-code');
         $my_current_lang = apply_filters( 'wpml_current_language', NULL );
-        
 
         $post_date = (string)get_the_date('F d, Y');
 		$date_format = get_option( 'date_format' ); // e.g. "F j, Y"

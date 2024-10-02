@@ -61,13 +61,16 @@ function file_scripts() {
 
 	//searchable select
 	wp_register_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
-	if ( 
-		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
-		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets', 'event'))
-		|| str_contains($post->post_content, 'ninja')
-	) {
-		wp_enqueue_style('selectizeStyle');
+	if(isset($post)) {
+		if ( 
+			(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
+			|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets', 'event'))
+			|| str_contains($post->post_content, 'ninja')
+		) {
+			wp_enqueue_style('selectizeStyle');
+		}
 	}
+	
 
 	//js
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/dist/js/jquery-3.6.0.min.js', [], true);
