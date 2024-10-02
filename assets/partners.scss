@@ -412,23 +412,25 @@
                 display: flex;
                 flex-direction: column;
                 border: 1px solid #D7D7D7;
+                border-radius: $borderRadius;
 
                 .certificate-line {
                     display: block;
-                    width: 170px;
+                    //width: 170px;
                     position: absolute;
                     top: -1px;
                     right: -1px;
                     color: #fff;
                     font-size: 14px;
                     text-transform: capitalize;
-                    padding: 7px 10px 7px 40px;
+                    padding: 7px 15px 7px 40px;
                     border: 1px solid #D7D7D7;
                     border-bottom-left-radius: 5px;
                     -webkit-border-bottom-left-radius: 5px;
                     background-image: url('../img/subtract.svg');
                     background-repeat: no-repeat;
                     background-position: left 13px center;
+                    border-radius: 0 $borderRadius;
 
                     &.platinum {
                         background-color: #204C65;
@@ -475,6 +477,15 @@
                         font-size: 12px;
                         line-height: 17px;
                         margin: 0px;
+                    }
+
+                    ul {
+                        color: #6C6C6C;
+                        font-size: 12px;
+                        line-height: 17px;
+                        margin: 0px;
+                        padding-left: 11px;
+                        margin-top: 8px;
                     }
                 }
 

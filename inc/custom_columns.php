@@ -3,8 +3,9 @@ add_filter( 'manage_partner_posts_posts_columns', 'set_custom_edit_partner_posts
 function set_custom_edit_partner_posts_columns($columns) {
     //unset( $columns['author'] );
     $columns['partner_level'] = __( 'Level', 'nextcloud' );
-    $columns['partner_region'] = __( 'Region', 'nextcloud' );
+    //$columns['partner_region'] = __( 'Region', 'nextcloud' );
     $columns['partner_services'] = __( 'Services', 'nextcloud' );
+    $columns['service_text'] = __( 'Service type', 'nextcloud' );
     return $columns;
 }
 
@@ -23,6 +24,7 @@ add_action( 'manage_partner_posts_posts_custom_column' , 'partner_posts_custom_b
                 break;
 
 
+            /*
             case 'partner_region' :
                 $region = get_post_meta( $post_id , 'region' , true );
                 if(is_array($region)) {
@@ -31,6 +33,7 @@ add_action( 'manage_partner_posts_posts_custom_column' , 'partner_posts_custom_b
                     echo $region;
                 }
                 break;
+            */
             
             case 'partner_services' :
                     $services = get_post_meta( $post_id , 'services' , true );
@@ -39,8 +42,14 @@ add_action( 'manage_partner_posts_posts_custom_column' , 'partner_posts_custom_b
                     } else {
                         echo $services;
                     }
-                    break;
+            break;
 
+
+            case 'service_text' :
+                echo get_post_meta( $post_id , 'service_text' , true );
+                break;
+
+            
 
             //break;
         }

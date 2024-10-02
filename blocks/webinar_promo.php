@@ -25,7 +25,9 @@ if($wide) { echo " full-width "; }
 if($custom_css_classes) {
 	echo " ".$custom_css_classes." ";
 }
-?>" id="<?php echo $id; ?>" style="<?php
+?>" id="<?php if($id) { 
+	echo $id;
+} ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">

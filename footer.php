@@ -4,17 +4,26 @@
  */
 $flogo = get_field('footer_logo', 'options');
 ?>
-<footer>
+<footer class="<?php
+	if(
+		is_page_template('page-simplified.php') || 'single-simplified.php' == get_current_template()) {
+		echo ' footer-simplified ';
+	} ?>">
 	<div class="container">
+
 		<div class="row">
 			<div class="col-12">
-				
 			</div>
 		</div>
+
+		<?php if(
+			!is_page_template('page-simplified.php')
+			&& 'single-simplified.php' != get_current_template()
+			) { ?>
+
+		
 		<div class="row">
-
 			<div class="col-lg-4">
-
 			<div class="footer-logo">
 			<?php if (is_active_sidebar('footer-widget-area')) : ?>
 					<?php dynamic_sidebar('footer-widget-area'); ?>
@@ -34,11 +43,17 @@ $flogo = get_field('footer_logo', 'options');
 				?>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-12">
 				<div class="line"></div>
 			</div>
 		</div>
+		<?php } ?>
+
+
+
+		
 		<div class="row align-items-center">
 			<div class="col-lg-6 order-lg-2">
 				<div class="social-media-holder">
@@ -47,18 +62,29 @@ $flogo = get_field('footer_logo', 'options');
 						echo '<ul class="social-menu">';
 
 						echo '<li><a id="cookies_preferences" title="'.__('Cookies preferences','nextcloud').'" href="#">'.__('Cookies preferences','nextcloud').'</a></li>';
-						
-						while (have_rows('social_media', 'options')): the_row();
-							$socialicon = get_sub_field('social_media_icon');
-							$sociallink = get_sub_field('social_media_link');
-							$social_title = get_sub_field('social_media_title');
-							$rel = '';
-							if($social_title == 'Mastodon') {
-								$rel = ' rel="me" ';
-							}
 
-							echo '<li><a '.$rel.' title="'.$social_title.'" href="' . $sociallink . '" target="_blank"><img src="' . $socialicon . '" alt="'.$social_title.'"/></a></li>';
-						endwhile;
+						if(
+							is_page_template('page-simplified.php') 
+							|| 'single-simplified.php' == get_current_template()) {
+							echo '<li><a target="_blank" href="'.get_permalink(2371).'">'.get_the_title(2371).'</a></li>';
+						}
+						
+						
+						if(!is_page_template('page-simplified.php')
+						&& 'single-simplified.php' != get_current_template()) {
+							while (have_rows('social_media', 'options')): the_row();
+								$socialicon = get_sub_field('social_media_icon');
+								$sociallink = get_sub_field('social_media_link');
+								$social_title = get_sub_field('social_media_title');
+								$rel = '';
+								if($social_title == 'Mastodon') {
+									$rel = ' rel="me" ';
+								}
+
+								echo '<li><a '.$rel.' title="'.$social_title.'" href="' . $sociallink . '" target="_blank"><img src="' . $socialicon . '" alt="'.$social_title.'"/></a></li>';
+							endwhile;
+						}
+
 						echo '</ul>';
 					endif;
 					?>

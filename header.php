@@ -19,12 +19,30 @@ if (!defined('WPINC')) {
 	wp_body_open();
 	?>
 	<div id="hidden_header_anchor"></div>
-	<header class="<?php if (get_field('header_promo_activation', 'option') ) { echo "with-promo-banner"; }?>" id="header"><?php //class with-promo-banner ?>
-		
+	<header class="<?php 
+	if (
+		get_field('header_promo_activation', 'option') 
+		&& !is_page_template('page-simplified.php') 
+		&& 'single-simplified.php' != get_current_template()
+		) 
+		{
+			echo "with-promo-banner";
+		}
+		if(
+			is_page_template('page-simplified.php') 
+			|| 'single-simplified.php' == get_current_template()
+		) {
+			echo " simplified scrolled ";
+		}
+		?>" id="header">
 		<a href="#main" class="skip"><?php echo __('Skip to main content','nextcloud'); ?></a>
 
 		<?php
+		if(!is_page_template('page-simplified.php')
+		&& 'single-simplified.php' != get_current_template()
+		){
 			get_template_part("inc/header-promo-banner");
+		}
 		?>
 
 		<div class="container" id="">
@@ -50,12 +68,22 @@ if (!defined('WPINC')) {
 						</div>
 						<div class="header-items">
 							<?php
-							wp_nav_menu(array(
+							$menu_name = 'primary-menu';
+							
+							if(
+								is_page_template('page-simplified.php')
+								|| 'single-simplified.php' == get_current_template()
+							) {
+								$menu_name = 'simplified-menu';
+							}
+
+							$args = array(
 								'theme_location' => 'primary',
-								'menu' => 'primary-menu',
+								'menu' => $menu_name,
 								'menu_class' => 'primary-menu',
 								'container_id' => 'menu-primary-menu-container',
-							));
+							);
+							wp_nav_menu($args);
 							?>
 						</div>
 					</div>

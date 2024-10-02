@@ -43,12 +43,18 @@ function nc_custom_ninja_forms_submit_data($form_data)
                             68,// exclude Events newsletter form
                             72,// exclude  Events lead collection form
                             85,// exclude Hub announcements form
-                            95// exclude Conference 2024 form
+                            95,// exclude Conference 2024 form
+                            96,// exclude call for proposals form for Conference 2024
+                            98,// exclude Test Newsletters form
+                            100,// exclude developer-webinar-registration
+                            
                         ))
                     ){
 
                         //basic forms validation
-                        if( !$arrayValidator['valid_mx_records'] || $arrayValidator['disposable_email_provider'] 
+                        if( 
+                        !$arrayValidator['valid_mx_records'] ||
+                        $arrayValidator['disposable_email_provider'] 
                         /* || !$arrayValidator['valid_host'] */
                         ){
                             $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
@@ -69,6 +75,7 @@ function nc_custom_ninja_forms_submit_data($form_data)
                         90 // testing form
                     ))) {
 
+
                         /*
                         if( !$arrayValidator['valid_mx_records'] ){ 
                             $form_data['errors']['fields'][$field_id] = __('The MX records are not valid.', 'nextcloud');
@@ -85,23 +92,35 @@ function nc_custom_ninja_forms_submit_data($form_data)
                         if( isDisposableEmail_private_list($field_value) ){ 
                             $form_data['errors']['fields'][$field_id] = __('Email is disposable (private list)', 'nextcloud');
                         }
-
                         
                         $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
-
                         */
+
+                        if( 
+                            !$arrayValidator['valid_mx_records'] ||
+                            $arrayValidator['disposable_email_provider'] 
+                            /* || !$arrayValidator['valid_host'] */
+                            ){
+                                $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
+                            }
+
 
                     }
                     else{
+                        //all checks enabled for all the other forms
 
-                        if( !$arrayValidator['valid_mx_records'] 
-                        || $arrayValidator['disposable_email_provider']
+                        
+                        if( 
+                        !$arrayValidator['valid_mx_records'] ||
+                        $arrayValidator['disposable_email_provider']
                         || $arrayValidator['free_email_provider']
                         || isDisposableEmail_private_list($field_value)
-                        /* || !$arrayValidator['valid_host'] */
+                        // || !$arrayValidator['valid_host']
                         ){ 
                             $form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
                         }
+                        
+                        
 
 
                     }
@@ -223,13 +242,14 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
     $email = '';
     $name = '';
     $phone = '';
-    $mailing_list_ids = array();
+    $mailing_list_ids = array(7647); // default ID 7647
     $subscribed = false;
     $select_mailing_lists_checkboxes = array();
 
     if(isset($form_id)) {
             if( 
                     $form_id == 27 // Newsletter form
+                    || $form_id == 98 // Newsletter form TEST
                     ||  $form_id == 68  // Events newsletter form
                     // ||  $form_id == 4 // whitepapers and case studies
                     // ||  $form_id == 49 // Case study Meiji university
@@ -266,17 +286,15 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                 }
 
 
-                if(str_contains($field['key'], 'mailing_list_id')){
-                    $mailing_list_ids[] = $field[ 'value' ];
-                } else {
-                    //default mailing list ID
-                    $mailing_list_ids[] = 7647; // Nextcloud Newsletter subscribers
-                }
-
-
+                //used for newsletter form
                 if( 'select_mailing_lists_checkboxes' == $field[ 'key' ] ){
                     $mailing_list_ids = $field[ 'value' ];
                 }
+
+                if(str_contains($field['key'], 'mailing_list_id')){
+                    $mailing_list_ids[] = $field[ 'value' ];
+                }
+ 
 
             }
 
@@ -289,7 +307,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
         $db = 'nextcloud-crm-odoo-main-4730113';
         $username = "jos.poortvliet@nextcloud.com";
         $password = ODOO_API_KEY; // api key
-        //$password = ''; // password
 
         //logging in
         $common = ripcord::client("$url/xmlrpc/2/common");
@@ -297,8 +314,8 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
         //authenticate
         $uid = $common->authenticate($db, $username, $password, array());
 
-                $models = ripcord::client("$url/xmlrpc/2/object");
-                $sub_id = $models->execute_kw($db, $uid, $password,
+        $models = ripcord::client("$url/xmlrpc/2/object");
+        $sub_id = $models->execute_kw($db, $uid, $password,
                 'mailing.contact', 'create',
                 array(
                     array(
@@ -307,10 +324,86 @@ function nc_ninja_forms_processing_save_to_newsletter_callback( $form_data ){
                         'list_ids' => $mailing_list_ids
                     )
                 )
-            );
+        );
 
-         //debug
-         //setcookie("nc_sub_id", $sub_id , time() + (86400 * 30), "/" );
+
+        if($sub_id) {
+            $args = [
+                ['id', '=', $sub_id ]
+            ];
+            $kwargs = [
+                'fields' => ['name', 'opt_out', 'email', 'subscription_list_ids', 'list_ids']
+            ];
+            $subs = $models->execute_kw($db, $uid, $password, 'mailing.contact', 'search_read', [$args], $kwargs);
+            $subscription_list_ids = $subs[0]['subscription_list_ids'];
+    
+            //update opt out status to enabled initially
+            foreach($subscription_list_ids as $subscription_list_id){
+                $args = [
+                    ['id', '=', $subscription_list_id]
+                ];
+                $kwargs = [
+                    'fields' => ['contact_id', 'list_id', 'opt_out']
+                ];
+                $subscription = $models->execute_kw($db, $uid, $password, 'mailing.contact.subscription', 'search_read', [$args], $kwargs);
+    
+                $list_id = $subscription[0]['list_id'][0];
+                $subscription_id_single = $subscription[0]['id'];
+                $opt_out = $subscription[0]['opt_out'];
+
+
+                foreach($mailing_list_ids as $mailing_list_id) {
+                    if( $list_id == $mailing_list_id && $opt_out == false  ) {
+                        $update_sub = $models->execute_kw($db, $uid, $password,
+                                    'mailing.contact.subscription', 'update',
+                                    array(array($subscription_id_single), array(
+                                        'opt_out' => true
+                                    ))
+                        );
+                    }
+                }
+            }
+
+
+            //send the double opt in email
+            $headers = array();
+            // Override the default 'From' address if 'Force Sender Email' is not enabled
+            $headers['From'] = 'Nextcloud <no-reply@e.nextcloud.com>';
+            // Send the message as HTML
+
+            add_filter('wp_mail_content_type', function( $content_type ) {
+                return 'text/html';
+            });
+            $headers['Content-Type'] = 'text/html; charset=ISO-8859-1';
+
+            $lang = apply_filters( 'wpml_current_language', null );
+            if($lang == 'en') {
+                $curr_lang = "";
+            } else {
+                $curr_lang = apply_filters( 'wpml_current_language', null )."/";
+            }
+            
+
+            $to = $email;
+            $subject = __('Please confirm your subscription', 'nextcloud');
+            $message = __('Hello', 'nextcloud').",<br />
+            ".__('Please confirm your mailing subscription by clicking', 'nextcloud')."
+             <a href='https://nextcloud.com/".$curr_lang."manage-subscription/?action=subscribe&sub=".$sub_id."&subs_ids=".implode(",",$subscription_list_ids)."'>".__('here', 'nextcloud')."</a>.<br />
+            ".__('Or by accessing this link in your URL bar:', 'nextcloud')."
+            https://nextcloud.com/".$curr_lang."/manage-subscription/?action=subscribe&sub=".$sub_id."&subs_ids=".implode(",",$subscription_list_ids)."<br />
+            <br />
+            ".__('If this wasn\'t requested by you, please ignore this email.', 'nextcloud')."
+            <br />
+            <br />
+            ".__('Kind regards,', 'nextcloud')."
+            <br />
+            ".__('Nextcloud team.', 'nextcloud');
+
+
+            // Send the email
+            $response = wp_mail( $to, $subject, $message, $headers );
+
+        }
 
     }
 
@@ -519,7 +612,7 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 }, 10, 2 );
 
 
-//populate event name field with names of event post types and Activity IDs
+//populate event names Activity IDs on the Events lead collection form - https://nextcloud.com/events-lead-collection-form/
 add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
 
     $events_list = array();
@@ -546,7 +639,7 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
             $now_timestamp = new DateTime("now");
             $event_end_datetime_timestamp = new DateTime($event_end_datetime);
             $interval = $now_timestamp->diff($event_end_datetime_timestamp);
-
+            $interval_days = $interval->format('%R%a');
 
 			$activity_id = get_field('activity_id');
             if( isset($activity_id) && str_contains($activity_id, '-apt-'))
@@ -559,12 +652,21 @@ add_filter( 'ninja_forms_render_options', function( $options, $settings ) {
                 $title = get_field('event_short_title');
             }
 
-            
+            /*
             if($interval->days < 30) {
                 $events_list[$activity_id]=$title;
             }
-            //$events_list[$activity_id]=$title;
-            
+            */
+
+            if($interval_days >= 0 ) { // upcoming event
+                $events_list[$activity_id]=$title;
+            } else {
+				//past event
+				if($interval->days < 30){
+					$events_list[$activity_id]=$title;
+				}
+			}
+
 
 		}
 	} else {

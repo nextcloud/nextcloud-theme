@@ -219,8 +219,8 @@
             height: 61px;
             top: -156px;
             border: none;
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
+            border-radius: $borderRadiusSmall;
+
             background-color: #004871;
             background-repeat: no-repeat;
             background-position: left 26px center;
@@ -685,7 +685,7 @@
 }
 
 .promo-section {
-    padding: 55px 0px;
+    padding: 2rem 0;
     background-image: url("https://nextcloud.com/wp-content/uploads/2022/12/nc-people-microsoft-integrations-titlebar.jpg");
     background-repeat: no-repeat;
     background-position: center center;
@@ -743,6 +743,21 @@
         padding-bottom: 6rem;
     }
 
+
+    &.lightBG {
+        background-image: none;
+        
+        .text-block {
+            h2 {
+                color: $textColor;
+            }
+    
+            p {
+                color: $textColor;
+            }
+        }
+    }
+
     &.promo_webinar {
         .nf-form-title {
             display: none;
@@ -776,7 +791,7 @@
     }
 
 
-    &.has_custom_bg_image {
+    &.has_custom_bg_image:not(.lightBG) {
         &:before {
             position: absolute;
             top: 0;
@@ -994,6 +1009,14 @@
                 a {
                     width: 100%;
                     display: flex;
+                    align-items: center;
+
+                    .title {
+                        height: fit-content;
+                        margin: 0;
+                        text-align: center;
+                        font-size: 1rem;
+                    }
                     
                     &:focus {
                         filter: grayscale(0);
@@ -1006,14 +1029,11 @@
 
                 img {
                     transition: all 0.3s ease;
-                    //max-height: 100px;
-                    //width: auto !important;
                     margin: auto;
                     opacity: 0.5;
                     max-width: 100%;
+                    width: auto;
                     align-self: center;
-                    //max-height: 100px;
-                    //min-width: 100px;
                     max-height: 75px;
 
                     @media screen and (min-width: $tablet-breakpoint) and (max-width: $xl-breakpoint) {
@@ -1122,24 +1142,45 @@
 
             ul{
                 list-style-type: none;
-                //text-align: center;
                 padding-left: 0;
                 width: fit-content;
                 margin: auto;
-
+                
 
                 @media screen and (min-width:$tablet-breakpoint) {
                     & {
-                        padding-left: 3rem;
-                        padding-right: 3rem;
+                        padding-left: 2rem;
+                        padding-right: 1rem;
                     }
                 }
+
+
+                &.three_cols {
+                    li{
+                        
+                        @media screen and (min-width:$tablet-breakpoint) {
+                            & {
+                                width: calc(31% - 5px) !important;
+                            }
+                        }
+
+                    }
+
+                    @media screen and (min-width:$tablet-breakpoint) {
+                        & {
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
+                    }
+                    
+                }
+
 
                 li{
                     padding: 9px 0;
                     display: block;
                     width: fit-content;
-                    
+
 
                     @media screen and (min-width:$tablet-breakpoint) {
                         & {
@@ -1170,6 +1211,7 @@
                         width: 100% !important;
                     }
                 }
+
             }
         }
 
@@ -1178,9 +1220,9 @@
 
 }
 
+
+
 .nextcloud-hub-accordion {
-
-
     .product_tab {
 
         &:not(:last-child){
@@ -1221,7 +1263,7 @@
                     height: 48px;
                     position: absolute;
                     padding: 10px;
-                    border-radius: 10px;
+                    border-radius: $borderRadius;
                     background-color: $mainColor;
                     opacity: 0.25;
                     background-size: 22px auto;
@@ -1254,6 +1296,7 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2022/09/nc-groupware-icon.svg');
+                    background-size: 66%;
                 }
             }
         }
@@ -1273,6 +1316,15 @@
                 }
             }
         }
+
+        &.nextcloud_assistant_tab{
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
+                }
+            }
+        }
+        
 
         &.nc_integration_tab {
             .vc_tta-panel-title {
@@ -1398,6 +1450,15 @@
             .vc_tta-panel-title {
                 &:before {
                     background-image: url('/wp-content/uploads/2024/01/nc-enterprise-custom-functionality-white.svg');
+                }
+            }
+        }
+
+
+        &.context_write_tab, &.context_chat_tab, &.transcribe_tab, &.generate_text_tab {
+            .vc_tta-panel-title {
+                &:before {
+                    background-image: url('/wp-content/uploads/2024/04/assistant-logo-white.svg');
                 }
             }
         }
@@ -1633,6 +1694,8 @@
 
 
         &:hover, &:focus {
+            color: #fff;
+            
             .overlay {
                 background-color: rgba(0,130,201,0.75);
             }

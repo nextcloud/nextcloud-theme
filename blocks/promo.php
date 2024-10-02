@@ -9,13 +9,17 @@ $link = get_field('link');
 $wide = get_field('wide_section');
 $image_icon = get_field('image_icon');
 $bg_image = get_field('background_image');
+$css_classes = get_field('custom_css_classes');
+
 
 if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
     echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
 else : /* rendering in editor body */
 ?>
-<section class="promo-section has_custom_bg_image <?php if($wide) echo "full-width"; ?>" id="<?php echo $id; ?>" style="<?php
+<section class="promo-section has_custom_bg_image <?php 
+if(isset($css_classes)) echo $css_classes; 
+if($wide) echo " full-width "; ?>" id="<?php echo $id; ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">

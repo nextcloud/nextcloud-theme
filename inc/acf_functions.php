@@ -47,30 +47,35 @@ function nc_populate_countries_field( $field ) {
         //europe  
         'Europe'    => 'Europe',
         'eu_countries' => get_countries('Europe'),
+		//'eu_countries' => array("Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina", "Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Iceland","Ireland","Italy","Kazakhstan","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Ukraine","United Kingdom","Vatican City"),
 
         //north america
         'North America' => 'North America',
-        'north_america_countries' => get_countries('North America'),
+        //'north_america_countries' => get_countries('North America'),
+		'north_america_countries' => array("Antigua and Barbuda","Bahamas","Barbados","Belize","Canada","Costa Rica","Cuba","Dominica","Dominican Republic","El Salvador","Grenada","Guatemala","Haiti","Honduras","Jamaica","Mexico","Nicaragua","Panama","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Trinidad and Tobago","United States of America"),
         
         //latin america
         'South America' => 'South America',
-        'south_america_countries' => get_countries('South America'),
+        //'south_america_countries' => get_countries('South America'),
+		'south_america_countries' => array("Argentina", "Bolivia","Brazil","Chile","Colombia","Ecuador","Guyana","Paraguay","Peru","Suriname","Uruguay","Venezuela"),
 
         //africa
         'Africa' => 'Africa',
-        'africa_countries' => get_countries('Africa'),
+        //'africa_countries' => get_countries('Africa'),
+		'africa_countries' => array("Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cabo Verde","Cameroon","Central African Republic","Chad","Comoros","Democratic Republic of the Congo","Republic of the Congo","Cote d'Ivoire","Djibouti","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"),
 
         //asia
         'Asia'    => 'Asia',
-        'asia_countries' => get_countries('Asia'),
+        //'asia_countries' => get_countries('Asia'),
+		'asia_countries' => array("Afghanistan", "Armenia","Azerbaijan","Bangladesh","Bhutan","Brunei", "Cambodia","China","Georgia","India","Indonesia", "Japan","Kazakhstan","Kyrgyzstan","Laos","Malaysia","Maldives","Mongolia","Myanmar","Nepal","North Korea","Pakistan","Philippines","Russia","Singapore","South Korea","Sri Lanka","Taiwan","Tajikistan","Thailand","Timor Leste","Turkmenistan","Uzbekistan","Vietnam"),
 
         //middle east
         'Middle East' => 'Middle East',
-        'middle_east_countries' => get_countries('Middle East'),
+        'middle_east_countries' => array("Bahrain","Cyprus","Egypt","Iran","Iraq","Israel","Jordan","Kuwait","Lebanon","Oman","Palestine","Qatar","Saudi Arabia","Syria","Turkey","United Arab Emirates","Yemen"),
 
         //pacific
         'Ocean Pacific'    => 'Ocean Pacific',
-        'pacific_countries' => get_countries('Ocean Pacific'),
+        'pacific_countries' => array("Australia","Federated Islands of Micronesia","Fiji","French Polynesia","Guam","Kiribati","Marshall Islands","Nauru","New Zealand","Paulau","Papua New Guinea","Samoa","Solomon Islands","Tonga","Tuvala","Vanuata"),
 
         'other' => 'Other'
     );

@@ -281,10 +281,6 @@ jQuery(document).ready(function ($) {
         setCookie('nc_cookie_banner', nc_cookie_banner_str, 30);
 
 
-
-
-
-
         //convenience
         if(nc_cookie_banner.convenience == true){
             var nc_form_fields_str = JSON.stringify(nc_form_fields);
@@ -293,17 +289,14 @@ jQuery(document).ready(function ($) {
 
         //statistics
         if(nc_cookie_banner.statistics.matomo == true){
-            //Cookies.set('statistics', true, { expires: 30 });
-            console.log("load complete Matomo code here...");
-            // load complete Matomo code
-            //_paq.push(['setSiteId', '1']); // _pk_id.1.7a80 - unique visit tracked, not working without trackPageView
-            
-            //loadMatomo(true); //load full matomo
             _paq.push(['setCookieConsentGiven']);
 
+            if(!getCookie('mtm_cookie_consent')){
+                console.log("mtm_cookie_consent not set, so set new.")
+                _paq.push(['rememberCookieConsentGiven']); // sets the mtm_cookie_consent cookie
+            }
+
         }
-
-
 
         $('#cookie_banner').hide();
 

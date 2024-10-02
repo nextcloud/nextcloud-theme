@@ -1,10 +1,27 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-.nf-form-cont {
+select {
+    &.users_select {
+        padding: 5px 15px;
+        border-radius: 10px;
+        background: #f7f7f7;
+        border: 1px solid #c4c4c4;
+    }
+}
 
+
+.nf-form-cont {
     .nf-field-container {
-        margin-bottom: 25px !important;
+        
+        &.textbox-container{
+            margin-bottom: 8px !important;
+        }
+
+        &.checkbox-container {
+            margin: 20px 0 !important;
+        }
+        
 
         input[type=submit]:focus {
             color: $mainColor !important;
@@ -69,6 +86,10 @@
     .nf-error.field-wrap .nf-field-element:after {
         border-bottom-right-radius: 9px;
         border-top-right-radius: 9px;
+    }
+
+    select.ninja-forms-field {
+        color: initial !important;
     }
 }
 
@@ -157,8 +178,7 @@
                     padding: 0px 160px 0px 20px;
                     border: 1px solid rgba(0, 0, 0, 0.25);
                     background-color: transparent;
-                    border-radius: 24px !important;
-                    -webkit-border-radius: 24px;
+                    border-radius: $borderRadius !important;
                     color: #000;
                     font-size: 16px;
                 }
@@ -181,8 +201,7 @@
                     height: 48px;
                     border: 1px solid #0F0833;
                     background-color: #0F0833;
-                    border-radius: 24px;
-                    -webkit-border-radius: 24px;
+                    border-radius: $borderRadius;
                     color: #FFF;
                     font-size: 16px;
                     font-weight: 600;
@@ -262,7 +281,7 @@
         background: $mainColor !important;
         color: #fff;
         transition: all .3s;
-        border-radius: 25px !important;
+        border-radius: $borderRadius !important;
         padding: 12px 2rem;
         border: 2px solid $mainColor !important;
         line-height: initial;
@@ -331,13 +350,20 @@
                     @media screen and (min-width: $tablet-breakpoint ) {
                         & {
                             display: flex;
+                            flex-wrap: wrap;
                         }
                     }
 
                     li {
+                        margin-bottom: 15px;
 
                         &:not(:last-child) {
                             margin-right: 10px !important;
+                            flex: 0 0 48%;
+                        }
+
+                        &:last-child {
+                            //flex-basis: 100%;
                         }
 
                         label {
@@ -356,10 +382,6 @@
                                 cursor: pointer;
                                 height: 20px;
                                 width: 20px;
-                            }
-
-                            &:before {
-                                
                             }
 
                             &::after {

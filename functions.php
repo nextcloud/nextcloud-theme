@@ -14,27 +14,41 @@ require_once(get_stylesheet_directory() . '/inc/acf_functions.php');
 require_once(get_stylesheet_directory() . '/inc/custom_columns.php');
 
 
-add_theme_support('post-thumbnails');
 
+/*
+ * Sets up theme defaults and registers support for various WordPress features.
+*/
+add_theme_support('post-thumbnails');
 //Adding Post Feeds to the Header
 add_theme_support( 'automatic-feed-links' );
-
 //add custom code to the header based on the post meta of that specific page/post
 add_action('wp_head', 'add_custom_code_header');
 function add_custom_code_header(){
 	echo get_post_meta(get_the_ID(), 'custom_header_code', true);
 };
-
 add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
 
-/*
- * Sets up theme defaults and registers support for various WordPress features.
- */
 
+
+//registers and enqueues CSS and JS files for the backend 
+function nc_enqueue_file_scripts_admin( $hook ) {
+	wp_register_style( 'jquery-ui', get_stylesheet_directory_uri().'/dist/css/jquery-ui.css' );
+	wp_enqueue_style( 'jquery-ui' ); 
+    wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
+	wp_enqueue_style( 'admin-theme-style', get_stylesheet_directory_uri().'/dist/css/admin-theme.css' );
+	//enqueue NF scripts too to avoid console errors when adding forms to the backend
+	//wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', array());
+	//wp_enqueue_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', array());
+}
+add_action( 'admin_enqueue_scripts', 'nc_enqueue_file_scripts_admin' );
+
+
+//registers and enqueues CSS and JS files for the frontend 
 function file_scripts() {
 	global $post;
-
+	
 	// Load our main stylesheet.
 	wp_enqueue_style('style-bootstrap', get_stylesheet_directory_uri() . '/dist/css/bootstrap.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/bootstrap.min.css'), 'all');
 	wp_enqueue_style('css-slick', get_stylesheet_directory_uri() . '/dist/css/slick.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/slick.css'), 'all');
@@ -50,10 +64,10 @@ function file_scripts() {
 	if ( 
 		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
 		|| in_array(get_post_type($post), array('case_studies','whitepapers', 'data_sheets', 'event'))
+		|| str_contains($post->post_content, 'ninja')
 	) {
 		wp_enqueue_style('selectizeStyle');
 	}
-
 
 	//js
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/dist/js/jquery-3.6.0.min.js', [], true);
@@ -67,12 +81,14 @@ function file_scripts() {
 	'1.2', true);
 	
 	wp_register_script('nc_loadmore', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
+	
+	
 	// Localize the script with new data
 	$translation_array = array(
 		'loading' => __( 'Loading...', 'nextcloud' ),
+		'ajaxurl' => admin_url('admin-ajax.php')
 	);
 	wp_localize_script( 'nc_loadmore', 'nc_loadmore_strings', $translation_array );
-	// Enqueued script with localized data.
 	wp_enqueue_script( 'nc_loadmore' );
 
 
@@ -103,7 +119,6 @@ function file_scripts() {
 		wp_enqueue_script('intlTelInput');
 	}
 
-
 	wp_register_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['nf-front-end', 'jquery'], true);
 	if ( 
 		(is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'ninja_form'))
@@ -112,7 +127,7 @@ function file_scripts() {
 		wp_enqueue_script('selectize');
 	}
 
-	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end', 'intlTelInput_utils'], true);
+	wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['nf-front-end', 'intlTelInput_utils', 'intlTelInput', 'selectize'], true);
 	wp_enqueue_script('custom-nf-code');
 	
 	
@@ -122,30 +137,21 @@ function file_scripts() {
 		'see_more' => __( 'See more', 'nextcloud' ),
 		'copied' => __( 'Copied!', 'nextcloud' ),
 		'copy_url' => __( 'Copy URL', 'nextcloud' ),
+		'events' => __( 'Events', 'nextcloud' ),
 		'see_less' => __( 'See less', 'nextcloud' ),
-		'hide_past_events' => __('Hide past events','nextcloud'),
-		'show_past_events' => __('Show past events','nextcloud')
+		'hide_past_events' => __('Hide all events','nextcloud'),
+		'show_past_events' => __('All events in','nextcloud'),
+		'hide_older_years_events' => __('Hide previous years','nextcloud'),
+		'show_older_years_events' => __('Show previous years','nextcloud')
 	);
 	wp_localize_script( 'main', 'main_js_strings', $main_js_strings_array );
 	wp_enqueue_script( 'main' );
-
-
 
 	if (is_singular() && comments_open() && get_option('thread_comments') ) {
 		wp_enqueue_script('comment-reply');
 	}
 }
 add_action('wp_enqueue_scripts', 'file_scripts');
-
-function nc_enqueue_file_scripts_admin( $hook ) {
-	wp_register_style( 'jquery-ui', get_stylesheet_directory_uri().'/dist/css/jquery-ui.css' );
-	wp_enqueue_style( 'jquery-ui' ); 
-    wp_enqueue_script('jquery-ui-datepicker');
-	wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
-
-	wp_enqueue_style( 'admin-theme-style', get_stylesheet_directory_uri().'/dist/css/admin-theme.css' );
-}
-add_action( 'admin_enqueue_scripts', 'nc_enqueue_file_scripts_admin' );
 
 
 
@@ -518,7 +524,7 @@ function enqueue_unused_style_scripts(){
 			wp_enqueue_script( 'podlove-web-player-player-cache');
 		}
 
-		if(get_post_type()=='post') {
+		if(get_post_type()=='post' ) {
 			wp_enqueue_style( 'comment_styles' );
 			wp_enqueue_script( 'load_comments_js');
 		}
@@ -551,30 +557,34 @@ add_action('phpmailer_init', 'remove_phpmailer_x_mailer_header');
 //alter search query when searching for webinar recordings
 function webinar_recordings_search_filter($query) {
     if ( $query->is_search && !is_admin() ) {
-		if($_GET['custom_type'] == 'webinar_recordings') {
-		date_default_timezone_set('Europe/Berlin');
-		$current_date_time = date('Y-m-d H:i:s', time());
-		
-		$query->set('tax_query', array(
-			array(
-				'taxonomy' => 'event_categories',
-				'field'    => 'slug',
-				'terms'    => 'webinars',
-			)
-		));
 
-        $query->set('meta_query', array(
-			'relation' => 'AND',
-                array(
-                    'key'     => 'download_available',
-                    'value'	  => '',
-                    'compare' => '!=',
-                )
-		));
-    } else if ( in_array($_GET['custom_type'], array('case_studies', 'whitepapers','data_sheets')) )
-	{
-		$query->set('post_type', strip_tags($_GET['custom_type']));
-	}
+		if(isset($_GET['custom_type'])){
+			if($_GET['custom_type'] == 'webinar_recordings') {
+				date_default_timezone_set('Europe/Berlin');
+				$current_date_time = date('Y-m-d H:i:s', time());
+				
+				$query->set('tax_query', array(
+					array(
+						'taxonomy' => 'event_categories',
+						'field'    => 'slug',
+						'terms'    => 'webinars',
+					)
+				));
+	
+				$query->set('meta_query', array(
+					'relation' => 'AND',
+						array(
+							'key'     => 'download_available',
+							'value'	  => '',
+							'compare' => '!=',
+						)
+				));
+			} else if ( in_array($_GET['custom_type'], array('case_studies', 'whitepapers','data_sheets')) )
+			{
+				$query->set('post_type', strip_tags($_GET['custom_type']));
+			}
+		}
+
     }
 }
 add_action('pre_get_posts','webinar_recordings_search_filter', 99);
@@ -586,4 +596,49 @@ add_filter( 'wp_discourse_excerpt', 'nc_discourse_forum_remove_ninja_form_shortc
 function nc_discourse_forum_remove_ninja_form_shortcodes( $excerpt ) {
     $excerpt = preg_replace( '/\[ninja.*\]/', '', $excerpt );
     return $excerpt;
+}
+
+
+//add global variable "current_theme_template" used to check post template
+add_filter( 'template_include', 'var_template_include', 1000 );
+function var_template_include( $t ){
+    $GLOBALS['current_theme_template'] = basename($t);
+    return $t;
+}
+//define get_current_template used to check the post template
+function get_current_template( $echo = false ) {
+    if( !isset( $GLOBALS['current_theme_template'] ) )
+        return false;
+    if( $echo )
+        echo $GLOBALS['current_theme_template'];
+    else
+        return $GLOBALS['current_theme_template'];
+}
+
+
+//overwrite email templates for the wordpress-email-templates plugin - https://github.com/wpexpertsio/wordpress-email-templates
+/*
+	add_filter('mailtpl/customizer_template', function(){
+    return get_stylesheet_directory() . '/inc/email-templates/admin/templates/default.php';
+});
+*/
+
+
+//Get Featured Image from WordPress REST API
+add_action('rest_api_init', 'register_rest_images' );function register_rest_images(){
+    register_rest_field( array('post', 'event'),
+        'featured_media_url',
+        array(
+            'get_callback'    => 'get_rest_featured_image',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+}
+function get_rest_featured_image( $object, $field_name, $request ) {
+    if( $object['featured_media'] ){
+        $img = wp_get_attachment_image_src( $object['featured_media'], 'app-thumb' );
+        return $img[0];
+    }
+    return false;
 }
