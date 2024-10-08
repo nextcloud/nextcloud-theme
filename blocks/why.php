@@ -15,23 +15,23 @@ $subtext = get_field('subtext');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($subtext)) {
-						echo '<h3>' . $subtext . '</h3>';
-					}
-					if (have_rows('links')) {
-						while (have_rows('links')) {
-							the_row();
-							$link = get_sub_field('link');
-							$type = get_sub_field('button_type');
-							if ($link) {
-								$link_url = $link['url'];
-								$link_title = $link['title'];
-								$link_target = $link['target'] ? $link['target'] : '_self';
-								echo '<a class="c-btn btn-main ' . $type . '" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-							}
-						}
-					}
-					?>
+if (!empty($subtext)) {
+	echo '<h3>' . $subtext . '</h3>';
+}
+if (have_rows('links')) {
+	while (have_rows('links')) {
+		the_row();
+		$link = get_sub_field('link');
+		$type = get_sub_field('button_type');
+		if ($link) {
+			$link_url = $link['url'];
+			$link_title = $link['title'];
+			$link_target = $link['target'] ? $link['target'] : '_self';
+			echo '<a class="c-btn btn-main ' . $type . '" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+		}
+	}
+}
+?>
 				</div>
 			</div>
 			<?php
@@ -56,7 +56,7 @@ $subtext = get_field('subtext');
 					echo '</div>';
 				}
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

@@ -15,10 +15,10 @@ $text = get_field('text');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -49,6 +49,6 @@ $text = get_field('text');
 			}
 			echo '</div>';
 		}
-		?>
+?>
 	</div>
 </section>

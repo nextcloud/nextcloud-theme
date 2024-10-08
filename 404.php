@@ -30,8 +30,8 @@ get_header();
 		<div class="row align-items-center">
 			<div class="col-12">
 				<div class="text-block">
-					<h1><?php echo __('404 - Page not Found','nextcloud'); ?></h1>
-					<a href="<?php echo site_url(); ?>" class="c-btn"><?php echo __('Back','nextcloud'); ?></a>
+					<h1><?php echo __('404 - Page not Found', 'nextcloud'); ?></h1>
+					<a href="<?php echo site_url(); ?>" class="c-btn"><?php echo __('Back', 'nextcloud'); ?></a>
 				</div>
 			</div>
 		</div>

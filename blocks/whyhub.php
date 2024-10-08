@@ -16,10 +16,10 @@ $img = get_field('image');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 			 <?php
@@ -30,7 +30,7 @@ $img = get_field('image');
 				echo '</div>';
 				echo '</div>';
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

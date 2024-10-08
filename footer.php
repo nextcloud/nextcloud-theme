@@ -4,17 +4,26 @@
  */
 $flogo = get_field('footer_logo', 'options');
 ?>
-<footer>
+<footer class="<?php
+	if(
+		is_page_template('page-simplified.php') || get_current_template() == 'single-simplified.php') {
+		echo ' footer-simplified ';
+	} ?>">
 	<div class="container">
+
 		<div class="row">
 			<div class="col-12">
-				
 			</div>
 		</div>
+
+		<?php if(
+			!is_page_template('page-simplified.php')
+			&& get_current_template() != 'single-simplified.php'
+		) { ?>
+
+		
 		<div class="row">
-
 			<div class="col-lg-4">
-
 			<div class="footer-logo">
 			<?php if (is_active_sidebar('footer-widget-area')) : ?>
 					<?php dynamic_sidebar('footer-widget-area'); ?>
@@ -25,29 +34,44 @@ $flogo = get_field('footer_logo', 'options');
 
 			<div class="col-lg-8">
 				<?php
-				wp_nav_menu(array(
-					'theme_location' => 'footer',
-					'menu' => 'footer-menu',
-					'menu_class' => 'footer-menu',
-					'container_id' => 'menu-footer-menu-container',
-				));
-				?>
+			wp_nav_menu([
+				'theme_location' => 'footer',
+				'menu' => 'footer-menu',
+				'menu_class' => 'footer-menu',
+				'container_id' => 'menu-footer-menu-container',
+			]);
+			?>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-12">
 				<div class="line"></div>
 			</div>
 		</div>
+		<?php } ?>
+
+
+
+		
 		<div class="row align-items-center">
 			<div class="col-lg-6 order-lg-2">
 				<div class="social-media-holder">
 					<?php
-					if (have_rows('social_media', 'options')):
-						echo '<ul class="social-menu">';
+				if (have_rows('social_media', 'options')):
+					echo '<ul class="social-menu">';
 
-						echo '<li><a id="cookies_preferences" title="'.__('Cookies preferences','nextcloud').'" href="#">'.__('Cookies preferences','nextcloud').'</a></li>';
+					echo '<li><a id="cookies_preferences" title="'.__('Cookies preferences', 'nextcloud').'" href="#">'.__('Cookies preferences', 'nextcloud').'</a></li>';
+
+					if(
+						is_page_template('page-simplified.php')
+						|| get_current_template() == 'single-simplified.php') {
+						echo '<li><a target="_blank" href="'.get_permalink(2371).'">'.get_the_title(2371).'</a></li>';
+					}
 						
+						
+					if(!is_page_template('page-simplified.php')
+					&& get_current_template() != 'single-simplified.php') {
 						while (have_rows('social_media', 'options')): the_row();
 							$socialicon = get_sub_field('social_media_icon');
 							$sociallink = get_sub_field('social_media_link');
@@ -59,9 +83,11 @@ $flogo = get_field('footer_logo', 'options');
 
 							echo '<li><a '.$rel.' title="'.$social_title.'" href="' . $sociallink . '" target="_blank"><img src="' . $socialicon . '" alt="'.$social_title.'"/></a></li>';
 						endwhile;
-						echo '</ul>';
-					endif;
-					?>
+					}
+
+					echo '</ul>';
+				endif;
+?>
 				</div>
 			</div>
 			<div class="col-lg-6 order-lg-1">

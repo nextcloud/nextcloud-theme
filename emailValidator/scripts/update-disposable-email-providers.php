@@ -11,11 +11,15 @@ $disposableEmailProvidersLocation = 'https://raw.githubusercontent.com/ivolo/dis
 
 $disposableEmailProvidersJson = file_get_contents($disposableEmailProvidersLocation);
 
-if (!is_string($disposableEmailProvidersJson)) { die('Failed to fetch providers'); }
+if (!is_string($disposableEmailProvidersJson)) {
+	die('Failed to fetch providers');
+}
 
 $disposableEmailProviders = json_decode($disposableEmailProvidersJson, true);
 
-if (!is_array($disposableEmailProviders)) { die('Unable to decode JSON'); }
+if (!is_array($disposableEmailProviders)) {
+	die('Unable to decode JSON');
+}
 
 $exportedArray = var_export($disposableEmailProviders, true);
 
@@ -34,7 +38,9 @@ TEMPLATE;
 
 $writeToFile = file_put_contents('../src/data/disposable-email-providers.php', $phpFileTemplate);
 
-if (!$writeToFile) { die('Failed to write to file'); }
+if (!$writeToFile) {
+	die('Failed to write to file');
+}
 
 echo "Successfully Fetched Disposable Email Providers";
 exit();

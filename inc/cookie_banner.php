@@ -10,7 +10,7 @@
             <div class="text">
                 <?php echo __("We save some cookies to count visitors and make the site easier to use. This doesn't leave our server and isn't to track you personally!
                 See our <a target='_blank' href='/privacy/'>Privacy Policy</a> for more information.", "nextcloud"); ?>
-                <a href="#no_scroll" id="open_details" class="open_details"><?php echo __('Customize','nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
+                <a href="#no_scroll" id="open_details" class="open_details"><?php echo __('Customize', 'nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
             </div>
             
         </div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="customize_btn_container">
-            <a href="#no_scroll" id="open_details2" class="open_details"><?php echo __('Customize','nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
+            <a href="#no_scroll" id="open_details2" class="open_details"><?php echo __('Customize', 'nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
         </div>
 
     </div>
@@ -128,7 +128,7 @@
                     <div class="cookie_cat_name"><?php echo __('Statistics', 'nextcloud'); ?>
                         <a href="#" class="cookies_more_details" id=""><?php echo __('More details', 'nextcloud'); ?> <i class="icon fas fa-angle-down"></i></a>
                     </div>
-                    <div class="cookie_cat_desc"><?php echo __('Statistics cookies collect information anonymously and help us understand how our visitors use our website. We use on-premises <a href="https://matomo.org/" target="_blank">Matomo</a>','nextcloud')?>
+                    <div class="cookie_cat_desc"><?php echo __('Statistics cookies collect information anonymously and help us understand how our visitors use our website. We use cloud-hosted <a href="https://matomo.org/matomo-cloud/" target="_blank">Matomo</a>', 'nextcloud')?>
                     </div>
                     <div class="cookie_cat_cb">
                         
@@ -148,11 +148,13 @@
                         <div class="cookie_desc">
                             <label for=""><?php echo __('Cookies description:', 'nextcloud'); ?></label>
                         _pk_ses*: <?php echo __('Counts the first visit of the user', 'nextcloud'); ?><br>
-                        _pk_id*: <?php echo __('Helps not to double count the visits.', 'nextcloud'); ?>
+                        _pk_id*: <?php echo __('Helps not to double count the visits.', 'nextcloud'); ?><br>
+                        mtm_cookie_consent: <?php echo __('Remembers that consent for storing and using cookies was given by the user.', 'nextcloud'); ?>
                         </div>
                         
                         <div class="cookie_duration"><label for=""><?php echo __('Cookies expiry:', 'nextcloud'); ?></label>_pk_ses*: 30 <?php echo __('minutes', 'nextcloud'); ?><br>
-                        _pk_id*: 28 <?php echo __('days', 'nextcloud'); ?>
+                        _pk_id*: 28 <?php echo __('days', 'nextcloud'); ?><br>
+                        mtm_cookie_consent: 30 <?php echo __('days', 'nextcloud'); ?>
                         </div>
                         
                         <div class="cookie_checkbox" style="visibility: hidden;height: 0;">
@@ -234,53 +236,36 @@
 
 
 
-<!-- Matomo -->
+<!-- Matomo Tag Manager -->
 <script id="matomo_script" type="text/javascript">
-//var loadMatomo = function(fullReload = false) {
-//console.log("matomo full reload? "+fullReload);
-    var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-  _paq.push(["setCookieDomain", "*.nextcloud.com"]);
-  _paq.push(["setDomains", ["*.nextcloud.com"]]);
-  _paq.push(['trackPageView']); //_pk_ses matomo general cookie
-  _paq.push(['enableLinkTracking']);
-  _paq.push(['setSiteId', '1']);//live
-  //_paq.push(['setSiteId', '7']);//staging
-  _paq.push(['requireCookieConsent']);
+  var _mtm = window._mtm = window._mtm || [];
+  var _paq = window._paq = window._paq || [];
+  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+  
+  setTimeout(() => {
+    if(getCookie('nc_cookie_banner') ) {
+        const cookieBanner = JSON.parse(getCookie('nc_cookie_banner'));
+        if (cookieBanner.statistics && cookieBanner.statistics.matomo) {
+            
+            if(!getCookie('mtm_cookie_consent')){
+                // set cookie only if not recently set
+                _paq.push(['rememberCookieConsentGiven', 720]);
+            }
 
-
-  if(getCookie('nc_cookie_banner') ) {
-    //console.log(getCookie('nc_cookie_banner'));
-    //console.log("Matomo: "+JSON.parse(getCookie('nc_cookie_banner')).statistics.matomo);
-    //if (typeof getCookie('nc_cookie_banner').statistics.matomo !== 'undefined') {
-        if(JSON.parse(getCookie('nc_cookie_banner')).statistics.matomo){
-            _paq.push(['setCookieConsentGiven']);
+        } else {
+            //console.log("Stats consent NOT given, do NOT load rememberCookieConsentGiven");
+            _paq.push(['forgetCookieConsentGiven']); // Ensure Matomo forgets the consent
+            _paq.push(['deleteCookies']); // Delete all Matomo cookies
         }
-    //}
-  }
-
-(function() {
-	var u="https://stats.nextcloud.com/";
-	_paq.push(['setTrackerUrl', u+'matomo.php']);
-
-	var d=document, 
-    g=d.createElement('script'), 
-    s=d.getElementsByTagName('script')[0];
-
-	g.type='text/javascript';
+    }
+  }, 500);
+  
+  (function() {
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true;
     g.id='matomo_js';
-    g.async=true; 
-    g.src=u+'matomo.js';
+    g.src='https://cdn.matomo.cloud/nextcloud.matomo.cloud/container_wlmEL4w2.js';
     s.parentNode.insertBefore(g,s);
-
-
-})();
-
-/*
-};
-loadMatomo();
-*/
+  })();
 </script>
-<noscript><p><img src="https://stats.nextcloud.com/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="matomo" /></p></noscript>
-<!-- End Matomo Code -->
+<!-- End Matomo Tag Manager -->

@@ -51,47 +51,47 @@ function get_device() {
 
 function registration_register_routes(): void {
 	// signup post method
-	register_rest_route('signup', '/account', array(
+	register_rest_route('signup', '/account', [
 		'methods' => WP_REST_Server::CREATABLE,
 		'callback' => 'request_account',
-		'args' => array(
-			'id' => array(
+		'args' => [
+			'id' => [
 				'validate_callback' => function ($param) {
 					return is_numeric($param);
 				}
-			),
-			'email' => array(
+			],
+			'email' => [
 				'validate_callback' => function ($param) {
 					return filter_var($param, FILTER_VALIDATE_EMAIL);
 				}
-			)
-		)
-	));
+			]
+		]
+	]);
 
 	// providers json
-	register_rest_route('signup', '/providers', array(
+	register_rest_route('signup', '/providers', [
 		'methods' => WP_REST_Server::READABLE,
 		'callback' => 'get_providers_list'
-	));
+	]);
 
 	// get statistics
-	register_rest_route('signup', '/stats', array(
+	register_rest_route('signup', '/stats', [
 		'methods' => WP_REST_Server::READABLE,
 		'callback' => 'get_statistics',
-		'args' => array(
-			'key' => array(
+		'args' => [
+			'key' => [
 				'required' => true,
 				'validate_callback' => function ($key) {
 					return strlen($key) === 32;
 				}
-			),
-			'time' => array(
+			],
+			'time' => [
 				'validate_callback' => function ($time) {
 					return is_numeric($time);
 				}
-			)
-		)
-	));
+			]
+		]
+	]);
 }
 
 function request_account($request) {
@@ -117,14 +117,14 @@ function request_account($request) {
 		if ($minutes === 1) {
 			$text = "Please retry in 1 minute";
 		}
-		return new WP_Error('rate_limit_exceeded', 'Too many requests - ' . $text, array('status' => 429));
+		return new WP_Error('rate_limit_exceeded', 'Too many requests - ' . $text, ['status' => 429]);
 	}
 
 	$request = json_decode($request->get_body(), true);
 
 	// verify data
 	if (!array_key_exists('email', $request) || !array_key_exists('id', $request)) {
-		return new WP_Error('rest_invalid_param', 'Invalid parameter(s)', array('status' => 400));
+		return new WP_Error('rest_invalid_param', 'Invalid parameter(s)', ['status' => 400]);
 	}
 
 	// init vars
@@ -142,19 +142,19 @@ function request_account($request) {
 	// get providers list && check provider id
 	$json = json_decode(file_get_contents(PROVIDERS_FILE));
 	if (!array_key_exists($providerId, $json)) {
-		return new WP_Error('rest_invalid_param', 'Invalid parameter(s)', array('status' => 400));
+		return new WP_Error('rest_invalid_param', 'Invalid parameter(s)', ['status' => 400]);
 	}
 
 	// init post request
 	$provider = $json[$providerId];
 	$url = $provider->locations[$locationId]->url . '/ocs/v2.php/account/request/' . $provider->locations[$locationId]->key;
-	$data = array(
-		'headers' => array(
+	$data = [
+		'headers' => [
 			'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8'
-		),
+		],
 		'body' => 'email=' . $email,
 		'timeout' => 30
-	);
+	];
 
 	// request account && consume one rate token
 	$post = wp_remote_post($url, $data);
@@ -165,27 +165,27 @@ function request_account($request) {
 
 	if (!is_array($post) || !array_key_exists('response', $post)) {
 		error_log('Provider did not returned 201: ' . json_encode($post));
-		return new WP_Error('unknown_error', 'Something happened', array('status' => 400));
+		return new WP_Error('unknown_error', 'Something happened', ['status' => 400]);
 	} elseif ($post['response']['code'] !== 201) {
 		if ($post['response']['code'] === 400 && $post['response']['message'] === 'invalid mail address') {
-			return new WP_Error('invalid_mail_address', 'invalid mail address', array('status' => 400));
+			return new WP_Error('invalid_mail_address', 'invalid mail address', ['status' => 400]);
 		}
 		if ($post['response']['code'] === 400 && $post['response']['message'] === 'Bad Request') {
 			$decodedBody = json_decode($post['body'], true);
 			if ($decodedBody !== null &&
 				isset($decodedBody['data']['message']) &&
 				$decodedBody['data']['message'] === 'user already exists') {
-				return new WP_Error('username_already_used', 'User already exists', array('status' => 400));
+				return new WP_Error('username_already_used', 'User already exists', ['status' => 400]);
 			}
 		}
 		error_log('Provider did not returned 201: ' . json_encode($post));
-		return new WP_Error('unknown_error', 'Something happened', array('status' => 400));
+		return new WP_Error('unknown_error', 'Something happened', ['status' => 400]);
 	}
 
 	$response = json_decode($post['body'])->data;
 
 	if (!is_string($response->setPassword)) {
-		return new WP_Error('rest_invalid_param', 'An unknown error occured', array('status' => 400));
+		return new WP_Error('rest_invalid_param', 'An unknown error occured', ['status' => 400]);
 	}
 
 	// SUCCESS let's continue
@@ -224,7 +224,7 @@ function get_providers_list() {
 	$json = json_decode(file_get_contents(PROVIDERS_FILE));
 
 	if (!is_array($json)) {
-		return new WP_Error('unknown_error', 'Invalid provider file', array('status' => 400, 'json' => PROVIDERS_FILE));
+		return new WP_Error('unknown_error', 'Invalid provider file', ['status' => 400, 'json' => PROVIDERS_FILE]);
 	}
 
 	// obfuscate keys
@@ -242,13 +242,13 @@ function get_providers_list() {
 }
 
 function subscribe($email) {
-	$data = array(
-		'headers' => array(
+	$data = [
+		'headers' => [
 			'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8'
-		),
+		],
 		'body' => 'login=' . NEWSLETTER_API_USER . '&password=' . NEWSLETTER_API_TOKEN,
 		'timeout' => 5
-	);
+	];
 
 	// login
 	$post = wp_remote_post(NEWSLETTER_API_URL . '&cmd=login', $data);
@@ -291,5 +291,5 @@ function get_statistics() {
 		return $data;
 	}
 
-	return new WP_Error('forbidden', 'Forbidden', array('status' => 403));
+	return new WP_Error('forbidden', 'Forbidden', ['status' => 403]);
 }

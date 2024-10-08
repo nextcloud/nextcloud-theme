@@ -20,7 +20,7 @@ $link = get_field('link');
 					if (!empty($text)) {
 						echo wpautop($text);
 					}
-					?>
+?>
 				</div>
 			</div>
 
@@ -28,16 +28,16 @@ $link = get_field('link');
 				<div class="col-lg-3">
 					<div class="img_container">
 				<?php
-					if($link) {
-						echo '<a href="'.$link.'" target="_blank">';
-					}
+if($link) {
+	echo '<a href="'.$link.'" target="_blank">';
+}
 
-                	echo wp_get_attachment_image( $image_id, 'full' );
+				echo wp_get_attachment_image($image_id, 'full');
 
-					if($link) {
-						echo '</a>';
-					}	
-                ?>
+				if($link) {
+					echo '</a>';
+				}
+				?>
 					</div>
 				</div>
 			<?php } ?>

@@ -16,10 +16,10 @@ get_header();
 		}
 		echo '</ul>';
 	}
-	while (have_posts()) : the_post();
-		echo do_shortcode(apply_filters('the_content', get_the_content()));
-	endwhile; // End of the loop.
-	?>
+while (have_posts()) : the_post();
+	echo do_shortcode(apply_filters('the_content', get_the_content()));
+endwhile; // End of the loop.
+?>
 </div>
 <?php
 get_footer();

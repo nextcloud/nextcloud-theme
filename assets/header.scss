@@ -98,10 +98,6 @@ header {
         }
 
         .row {
-            background: url("../img/confetti-background.svg");
-            background-size: 320px auto;
-            background-position: right 13% top 42%;
-            background-repeat: no-repeat;
 
             @media screen and (max-width: $sm-breakpoint) {
                 & {
@@ -219,6 +215,10 @@ header {
 
                     p {
                         margin: 0 !important;
+                        
+                        strong {
+                            display: inline-block;
+                        }
                     }
                 }
                 
@@ -382,7 +382,6 @@ header {
                     flex-direction: row;
 
                     &>li {
-
                         transition: all 0.3s ease;
                         position: relative;
                         padding: 16px 5px;
@@ -390,8 +389,7 @@ header {
 
                         &:not(.nav-btn) > a {
                             padding: 16px 12px;
-                            border-radius: 27px;
-                            -webkit-border-radius: 27px;
+                            border-radius: $borderRadius;
                         }
 
                         &.nav-btn {
@@ -401,8 +399,7 @@ header {
                                 background-color: #fff;
                                 color: $textColor;
                                 padding: 10px 20px;
-                                border-radius: 27px;
-                                -webkit-border-radius: 27px;
+                                border-radius: $borderRadius;
                                 transition: all 0.3s ease;
                                 margin: 6px auto;
                                 white-space: nowrap;
@@ -410,6 +407,10 @@ header {
                                 &:hover {
                                     background-color: $mainColor;
                                     color: #fff;
+                                }
+
+                                &:before {
+                                    transition: all 0.3s ease;
                                 }
 
                             }
@@ -434,6 +435,7 @@ header {
                                     font-weight: 900;
                                     margin-right: 10px;
                                     color: $textColor;
+                                    transition: all 0.3s ease;
                                 }
 
                                 &:hover {

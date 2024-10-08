@@ -8,6 +8,10 @@ footer {
     padding: 50px 0px 20px;
     background-color: #0F0833;
 
+    &.footer-simplified {
+        padding-top: 20px;
+    } 
+
     .footer-logo {
         width: 100%;
         //max-width: 105px;
@@ -223,6 +227,14 @@ footer {
         }
     }
 }
+
+
+footer.footer-simplified {
+    .foot-text, .social-media-holder {
+        padding-top: 15px !important;
+    }
+}
+
 
 .scroll_up {
     position: fixed;

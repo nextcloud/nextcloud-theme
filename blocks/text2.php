@@ -17,13 +17,13 @@ $content = get_field('content');
 					if (!empty($tagline)) {
 						echo '<h6>' . $tagline . '</h6>';
 					}
-					if (!empty($title)) {
-						echo '<h2>' . $title . '</h2>';
-					}
-					if (!empty($subtext)) {
-						echo '<p>' . $subtext . '</p>';
-					}
-					?>
+if (!empty($title)) {
+	echo '<h2>' . $title . '</h2>';
+}
+if (!empty($subtext)) {
+	echo '<p>' . $subtext . '</p>';
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -31,8 +31,8 @@ $content = get_field('content');
 			<div class="col-12">
 				<div class="text-block">
 					<?php
-					echo $content;
-					?>
+echo $content;
+?>
 				</div>
 			</div>
 		</div>

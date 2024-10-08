@@ -40,7 +40,7 @@ $id = get_field('section_id');
 					echo '</div>';
 				}
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

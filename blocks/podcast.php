@@ -111,33 +111,33 @@ $dir = get_stylesheet_directory_uri();
 			echo '</div>';
 			echo '</div>';
 		}
-		?>
+?>
 		<div class="row justify-content-center">
 			<div class="col-lg-9">
 				<div id="podcast-player"></div>
 			</div>
 		</div>
 		<?php
-		if (have_rows('subs_links')) {
-			echo '<div class="row justify-content-center">';
-			echo '<div class="col-lg-10">';
-			echo '<ul class="links">';
-			echo '<li><h4>Subscribe now!</h4></li>';
-			while (have_rows('subs_links')) {
-				the_row();
-				$link = get_sub_field('link');
-				if ($link) {
-					$link_url = $link['url'];
-					$link_title = $link['title'];
-					$link_target = $link['target'] ? $link['target'] : '_self';
-					echo '<li><a href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a></li>';
-				}
-			}
-			echo '</ul>';
-			echo '</div>';
-			echo '</div>';
+if (have_rows('subs_links')) {
+	echo '<div class="row justify-content-center">';
+	echo '<div class="col-lg-10">';
+	echo '<ul class="links">';
+	echo '<li><h4>Subscribe now!</h4></li>';
+	while (have_rows('subs_links')) {
+		the_row();
+		$link = get_sub_field('link');
+		if ($link) {
+			$link_url = $link['url'];
+			$link_title = $link['title'];
+			$link_target = $link['target'] ? $link['target'] : '_self';
+			echo '<li><a href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a></li>';
 		}
-		?>
+	}
+	echo '</ul>';
+	echo '</div>';
+	echo '</div>';
+}
+?>
 	</div>
 </section>
 
@@ -146,55 +146,55 @@ $dir = get_stylesheet_directory_uri();
 <section class="whitepaper-list-section">
 	<div class="container">
 		<?php
-		echo '<div class="row">';
-		echo '<div class="col-12">';
-		echo '<div class="section-title">';
-		echo '<h2>Previous episodes</h2>';
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
-		?>
+echo '<div class="row">';
+	echo '<div class="col-12">';
+	echo '<div class="section-title">';
+	echo '<h2>Previous episodes</h2>';
+	echo '</div>';
+	echo '</div>';
+	echo '</div>';
+	?>
 		<div class="row">
 			<?php
-			$my_wp_query = new WP_Query();
-			/** @var WP_Post[] $onepost */
-			$onepost = $my_wp_query->query(array(
-				'post_type' => 'post',
-				'category_name' => 'podcast',
-				'posts_per_page' => -1,
-				'post_status' => 'publish',
-				'orderby' => 'date',
-				'order' => 'DSC',
-			));
-			foreach ($onepost as $onepostsingle) {
-				$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
-				$title = $onepostsingle->post_title;
-				$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
-				$cat = get_the_category($onepostsingle->ID);
-				$link = get_permalink($onepostsingle->ID) ?: '';
-				$author_id = (int)$onepostsingle->post_author;
-				echo '<div class="col-lg-4 col-md-6 spacer">';
-				echo '<div class="post-box">';
-				echo '<div class="paper-box">';
-				echo '<ul class="cats">';
-				echo '<li>posted in </li>';
-				foreach ($cat as $c) {
-					//	$category_link = get_category_link($c->term_id);
-					echo '<li>' . $c->cat_name . ', </li>';
-				}
-				echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
-				echo '</ul>';
-				echo '<h4>' . $title . '</h4>';
-				echo '<ul class="info">';
-				echo '<li>' . $date . '</li>';
-				echo '<li><a class="c-btn" href="' . $link . '">Read More</a></li>';
-				echo '</ul>';
-				echo '</div>';
-				echo '</div>';
-				echo '</div>';
-			}
-			wp_reset_query();
-			?>
+		$my_wp_query = new WP_Query();
+	/** @var WP_Post[] $onepost */
+	$onepost = $my_wp_query->query([
+		'post_type' => 'post',
+		'category_name' => 'podcast',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
+		'orderby' => 'date',
+		'order' => 'DSC',
+	]);
+	foreach ($onepost as $onepostsingle) {
+		$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
+		$title = $onepostsingle->post_title;
+		$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
+		$cat = get_the_category($onepostsingle->ID);
+		$link = get_permalink($onepostsingle->ID) ?: '';
+		$author_id = (int)$onepostsingle->post_author;
+		echo '<div class="col-lg-4 col-md-6 spacer">';
+		echo '<div class="post-box">';
+		echo '<div class="paper-box">';
+		echo '<ul class="cats">';
+		echo '<li>posted in </li>';
+		foreach ($cat as $c) {
+			//	$category_link = get_category_link($c->term_id);
+			echo '<li>' . $c->cat_name . ', </li>';
+		}
+		echo '<li>by ' . get_the_author_meta('display_name', $author_id) . '</li>';
+		echo '</ul>';
+		echo '<h4>' . $title . '</h4>';
+		echo '<ul class="info">';
+		echo '<li>' . $date . '</li>';
+		echo '<li><a class="c-btn" href="' . $link . '">Read More</a></li>';
+		echo '</ul>';
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
+	}
+	wp_reset_query();
+	?>
 		</div>
 	</div>
 </section>

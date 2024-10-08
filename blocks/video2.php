@@ -17,14 +17,14 @@ $video = get_field('video_code');
 				echo '</div>';
 				echo '</div>';
 			}
-			?>
+?>
 			<div class="col-lg-5 order-lg-1">
 				<div class="text-block">
 					<?php
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+		if (!empty($text)) {
+			echo wpautop($text);
+		}
+?>
 				</div>
 			</div>
 		</div>

@@ -1535,7 +1535,7 @@
         },
         {
             "name": "php-cs-fixer/shim",
-            "version": "v3.50.0",
+            "version": "v3.64.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/shim.git",

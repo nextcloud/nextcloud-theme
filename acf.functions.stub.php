@@ -13,7 +13,7 @@
 *  @param   n/a
 *  @return  n/a
 */
-function acf_add_loop($loop = array()) {
+function acf_add_loop($loop = []) {
 }
 /*
 *  acf_update_loop
@@ -69,7 +69,7 @@ function acf_remove_loop($i = 'active') {
  *
  * @return  array
  */
-function acf_setup_meta($meta = array(), $post_id = 0, $is_main = \false) {
+function acf_setup_meta($meta = [], $post_id = 0, $is_main = \false) {
 }
 /**
  * acf_reset_meta
@@ -406,7 +406,7 @@ function acf_get_metaref($post_id = 0, $type = 'fields', $name = '') {
  * @param   array                                          $references An array of references.
  * @return  (int|bool) Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function acf_update_metaref($post_id = 0, $type = 'fields', $references = array()) {
+function acf_update_metaref($post_id = 0, $type = 'fields', $references = []) {
 }
 /**
  * Returns a WordPress object type.
@@ -610,7 +610,7 @@ function acf_add_admin_notice($text = '', $type = 'info', $dismissible = \true) 
  * @param   array $args The query args.
  * @return  array
  */
-function acf_get_users($args = array()) {
+function acf_get_users($args = []) {
 }
 /**
  * acf_get_user_result
@@ -636,7 +636,7 @@ function acf_get_user_result($user) {
  * @param   array $roles A specific array of roles.
  * @return  array
  */
-function acf_get_user_role_labels($roles = array()) {
+function acf_get_user_role_labels($roles = []) {
 }
 /**
  * acf_allow_unfiltered_html
@@ -714,7 +714,7 @@ function acf_is_field_key($id = '') {
  * @param   array $field The field array.
  * @return  array
  */
-function acf_validate_field($field = array()) {
+function acf_validate_field($field = []) {
 }
 /**
  * acf_get_valid_field
@@ -740,7 +740,7 @@ function acf_get_valid_field($field = \false) {
  * @param   array $field The field array.
  * @return  array
  */
-function acf_translate_field($field = array()) {
+function acf_translate_field($field = []) {
 }
 /**
  * acf_get_fields
@@ -920,7 +920,7 @@ function acf_render_field_setting($field, $setting, $global = \false) {
  * @param   array $specific An array of specific field attributes to update.
  * @return  void
  */
-function acf_update_field($field, $specific = array()) {
+function acf_update_field($field, $specific = []) {
 }
 /**
  * _acf_apply_unique_field_slug
@@ -1086,7 +1086,7 @@ function acf_get_field_ancestors($field) {
  * @param   int   $parent_id The new parent ID.
  * @return  array
  */
-function acf_duplicate_fields($fields = array(), $parent_id = 0) {
+function acf_duplicate_fields($fields = [], $parent_id = 0) {
 }
 /**
  * acf_duplicate_field
@@ -1113,7 +1113,7 @@ function acf_duplicate_field($id = 0, $parent_id = 0) {
  * @param   array $fields An array of fields.
  * @return  array
  */
-function acf_prepare_fields_for_export($fields = array()) {
+function acf_prepare_fields_for_export($fields = []) {
 }
 /**
  * acf_prepare_field_for_export
@@ -1139,7 +1139,7 @@ function acf_prepare_field_for_export($field) {
  * @param   array $fields An array of fields.
  * @return  array
  */
-function acf_prepare_fields_for_import($fields = array()) {
+function acf_prepare_fields_for_import($fields = []) {
 }
 /**
  * acf_prepare_field_for_import
@@ -1208,7 +1208,7 @@ function acf_get_location_rule_types() {
  * @param   array $rule The location rule.
  * @return  array
  */
-function acf_validate_location_rule($rule = array()) {
+function acf_validate_location_rule($rule = []) {
 }
 /**
  * Returns an array of operators for a given rule.
@@ -1255,7 +1255,7 @@ function acf_match_location_rule($rule, $screen, $field_group) {
  * @param   array $deprecated The field group array.
  * @return  array
  */
-function acf_get_location_screen($screen = array(), $deprecated = \false) {
+function acf_get_location_screen($screen = [], $deprecated = \false) {
 }
 /**
  * Alias of acf_register_location_type().
@@ -1502,7 +1502,7 @@ function acf_cache_key($key = '') {
  * @param   array $args An array of args.
  * @return  array
  */
-function acf_request_args($args = array()) {
+function acf_request_args($args = []) {
 }
 /**
  * Returns a single $_REQUEST arg with fallback.
@@ -1579,7 +1579,7 @@ function acf_get_filters() {
  * @param   array $filters An Array of modifers
  * @return  array
  */
-function acf_set_filters($filters = array()) {
+function acf_set_filters($filters = []) {
 }
 /**
  * acf_disable_filters
@@ -1605,7 +1605,7 @@ function acf_disable_filters() {
  * @param   array $filters An Array of modifers
  * @return  array
  */
-function acf_enable_filters($filters = array()) {
+function acf_enable_filters($filters = []) {
 }
 /**
  * acf_idval
@@ -2043,7 +2043,7 @@ function _acf_kses_allowed_html($tags, $context) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_hidden_input($attrs = array()) {
+function acf_hidden_input($attrs = []) {
 }
 /**
  * acf_get_hidden_input
@@ -2056,7 +2056,7 @@ function acf_hidden_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_hidden_input($attrs = array()) {
+function acf_get_hidden_input($attrs = []) {
 }
 /**
  * acf_text_input
@@ -2069,7 +2069,7 @@ function acf_get_hidden_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_text_input($attrs = array()) {
+function acf_text_input($attrs = []) {
 }
 /**
  * acf_get_text_input
@@ -2082,7 +2082,7 @@ function acf_text_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_text_input($attrs = array()) {
+function acf_get_text_input($attrs = []) {
 }
 /**
  * acf_file_input
@@ -2095,7 +2095,7 @@ function acf_get_text_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_file_input($attrs = array()) {
+function acf_file_input($attrs = []) {
 }
 /**
  * acf_get_file_input
@@ -2108,7 +2108,7 @@ function acf_file_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_file_input($attrs = array()) {
+function acf_get_file_input($attrs = []) {
 }
 /**
  * acf_textarea_input
@@ -2121,7 +2121,7 @@ function acf_get_file_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_textarea_input($attrs = array()) {
+function acf_textarea_input($attrs = []) {
 }
 /**
  * acf_get_textarea_input
@@ -2134,7 +2134,7 @@ function acf_textarea_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_textarea_input($attrs = array()) {
+function acf_get_textarea_input($attrs = []) {
 }
 /**
  * acf_checkbox_input
@@ -2147,7 +2147,7 @@ function acf_get_textarea_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_checkbox_input($attrs = array()) {
+function acf_checkbox_input($attrs = []) {
 }
 /**
  * acf_get_checkbox_input
@@ -2160,7 +2160,7 @@ function acf_checkbox_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_checkbox_input($attrs = array()) {
+function acf_get_checkbox_input($attrs = []) {
 }
 /**
  * acf_radio_input
@@ -2173,7 +2173,7 @@ function acf_get_checkbox_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_radio_input($attrs = array()) {
+function acf_radio_input($attrs = []) {
 }
 /**
  * acf_get_radio_input
@@ -2186,7 +2186,7 @@ function acf_radio_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_radio_input($attrs = array()) {
+function acf_get_radio_input($attrs = []) {
 }
 /**
  * acf_select_input
@@ -2199,7 +2199,7 @@ function acf_get_radio_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_select_input($attrs = array()) {
+function acf_select_input($attrs = []) {
 }
 /**
  * acf_select_input
@@ -2212,7 +2212,7 @@ function acf_select_input($attrs = array()) {
  * @param   array $attrs The array of attrs.
  * @return  string
  */
-function acf_get_select_input($attrs = array()) {
+function acf_get_select_input($attrs = []) {
 }
 /**
  * acf_walk_select_input
@@ -2227,7 +2227,7 @@ function acf_get_select_input($attrs = array()) {
  * @param   array $depth The current walk depth.
  * @return  string
  */
-function acf_walk_select_input($choices = array(), $values = array(), $depth = 0) {
+function acf_walk_select_input($choices = [], $values = [], $depth = 0) {
 }
 /**
  * acf_clean_atts
@@ -2770,7 +2770,7 @@ function acf_filter_post_id($post_id) {
 *  @param   array $args An array of args used in the get_taxonomies() function.
 *  @return  array An array of taxonomy names.
 */
-function acf_get_taxonomies($args = array()) {
+function acf_get_taxonomies($args = []) {
 }
 /**
  *  acf_get_taxonomies_for_post_type
@@ -2796,7 +2796,7 @@ function acf_get_taxonomies_for_post_type($post_types = 'post') {
 *  @param   array $taxonomies Optional. An array of specific taxonomies to return.
 *  @return  array
 */
-function acf_get_taxonomy_labels($taxonomies = array()) {
+function acf_get_taxonomy_labels($taxonomies = []) {
 }
 /**
  *  acf_get_term_title
@@ -2848,7 +2848,7 @@ function _acf_terms_clauses($pieces, $taxonomies, $args) {
  *  @since       5.0.0
  *  @deprecated  5.7.2
  */
-function acf_get_pretty_taxonomies($taxonomies = array()) {
+function acf_get_pretty_taxonomies($taxonomies = []) {
 }
 /**
  *  acf_get_term
@@ -3179,7 +3179,7 @@ function acf_plugin_dir_url($file) {
 *  @param   $defaults (array)
 *  @return  $args (array)
 */
-function acf_parse_args($args, $defaults = array()) {
+function acf_parse_args($args, $defaults = []) {
 }
 /*
 *  acf_parse_types
@@ -3220,7 +3220,7 @@ function acf_parse_type($v) {
  *
  *  @return void
  */
-function acf_get_view($view_path = '', $view_args = array()) {
+function acf_get_view($view_path = '', $view_args = []) {
 }
 /*
 *  acf_merge_atts
@@ -3234,7 +3234,7 @@ function acf_get_view($view_path = '', $view_args = array()) {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_merge_atts($atts, $extra = array()) {
+function acf_merge_atts($atts, $extra = []) {
 }
 /*
 *  acf_nonce_input
@@ -3304,9 +3304,9 @@ function acf_get_sub_array($array, $keys) {
  *  @param   array $args Optional. An array of key => value arguments to match against the post type objects. Default empty array.
  *  @return  array A list of post type names.
  */
-function acf_get_post_types($args = array()) {
+function acf_get_post_types($args = []) {
 }
-function acf_get_pretty_post_types($post_types = array()) {
+function acf_get_pretty_post_types($post_types = []) {
 }
 /*
 *  acf_get_post_type_label
@@ -3422,7 +3422,7 @@ function acf_get_terms($args) {
 *  @param   $taxonomies (array)
 *  @return  (array)
 */
-function acf_get_taxonomy_terms($taxonomies = array()) {
+function acf_get_taxonomy_terms($taxonomies = []) {
 }
 /*
 *  acf_decode_taxonomy_terms
@@ -3463,7 +3463,7 @@ function acf_decode_taxonomy_term($value) {
  * @param   mixed $val The value to cast.
  * @return  array
  */
-function acf_array($val = array()) {
+function acf_array($val = []) {
 }
 /**
  * Returns a non-array value.
@@ -3515,7 +3515,7 @@ function acf_get_numeric($value = '') {
  * @param   array $args The query args.
  * @return  array
  */
-function acf_get_posts($args = array()) {
+function acf_get_posts($args = []) {
 }
 /*
 *  _acf_query_remove_post_type
@@ -3580,7 +3580,7 @@ function acf_get_pretty_user_roles($allowed = \false) {
 *  @param   $args (array)
 *  @return  (array)
 */
-function acf_get_grouped_users($args = array()) {
+function acf_get_grouped_users($args = []) {
 }
 /**
  * acf_json_encode
@@ -3640,7 +3640,7 @@ function acf_debug_end() {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_encode_choices($array = array(), $show_keys = \true) {
+function acf_encode_choices($array = [], $show_keys = \true) {
 }
 function acf_decode_choices($string = '', $array_keys = \false) {
 }
@@ -3658,7 +3658,7 @@ function acf_decode_choices($string = '', $array_keys = \false) {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_str_replace($string = '', $search_replace = array()) {
+function acf_str_replace($string = '', $search_replace = []) {
 }
 /*
 *  acf_split_date_time
@@ -3838,7 +3838,7 @@ function acf_isset_termmeta($taxonomy = '') {
 *  @param   $ancestors (array) an internal parameter, not required
 *  @return  n/a
 */
-function acf_upload_files($ancestors = array()) {
+function acf_upload_files($ancestors = []) {
 }
 /*
 *  acf_upload_file
@@ -3898,7 +3898,7 @@ function acf_is_screen($id = '') {
 *  @param   $default (mixed) the value returned if not found
 *  @return  $post_id (int)
 */
-function acf_maybe_get($array = array(), $key = 0, $default = \null) {
+function acf_maybe_get($array = [], $key = 0, $default = \null) {
 }
 function acf_maybe_get_POST($key = '', $default = \null) {
 }
@@ -4457,7 +4457,7 @@ function acf_str_camel_case($string = '') {
  *  @param   array $array The array to convert.
  *  @return  array
  */
-function acf_array_camel_case($array = array()) {
+function acf_array_camel_case($array = []) {
 }
 /**
  * Returns true if the current screen is using the block editor.
@@ -4482,7 +4482,7 @@ function acf_is_block_editor() {
  * @param   int    $index The param index to find variation values.
  * @return  void
  */
-function acf_add_filter_variations($filter = '', $variations = array(), $index = 0) {
+function acf_add_filter_variations($filter = '', $variations = [], $index = 0) {
 }
 /**
  * acf_add_action_variations
@@ -4497,7 +4497,7 @@ function acf_add_filter_variations($filter = '', $variations = array(), $index =
  * @param   int    $index The param index to find variation values.
  * @return  void
  */
-function acf_add_action_variations($action = '', $variations = array(), $index = 0) {
+function acf_add_action_variations($action = '', $variations = [], $index = 0) {
 }
 /**
  * _acf_apply_hook_variations
@@ -4596,7 +4596,7 @@ function acf_enqueue_script($name) {
  * @param   array $args See ACF_Assets::enqueue_scripts() for a list of args.
  * @return  void
  */
-function acf_enqueue_scripts($args = array()) {
+function acf_enqueue_scripts($args = []) {
 }
 /**
  * Enqueues the WP media uploader scripts and styles.
@@ -4742,7 +4742,7 @@ function acf_include($filename = '') {
 */
 function acf_form_head() {
 }
-function acf_form($args = array()) {
+function acf_form($args = []) {
 }
 function acf_get_form($id = '') {
 }
@@ -4811,7 +4811,7 @@ function acf_is_field_group_key($id = '') {
  * @param   array $field The field group array.
  * @return  array
  */
-function acf_validate_field_group($field_group = array()) {
+function acf_validate_field_group($field_group = []) {
 }
 /**
  * acf_get_valid_field_group
@@ -4837,7 +4837,7 @@ function acf_get_valid_field_group($field_group = \false) {
  * @param   array $field_group The field group array.
  * @return  array
  */
-function acf_translate_field_group($field_group = array()) {
+function acf_translate_field_group($field_group = []) {
 }
 /**
  * acf_get_field_groups
@@ -4850,7 +4850,7 @@ function acf_translate_field_group($field_group = array()) {
  * @param   array $filter An array of args to filter results by.
  * @return  array
  */
-function acf_get_field_groups($filter = array()) {
+function acf_get_field_groups($filter = []) {
 }
 /**
  * acf_get_raw_field_groups
@@ -4877,7 +4877,7 @@ function acf_get_raw_field_groups() {
  * @param   array $args An array of location args.
  * @return  array
  */
-function acf_filter_field_groups($field_groups, $args = array()) {
+function acf_filter_field_groups($field_groups, $args = []) {
 }
 /**
  * acf_get_field_group_visibility
@@ -4891,7 +4891,7 @@ function acf_filter_field_groups($field_groups, $args = array()) {
  * @param   array $args An array of location args.
  * @return  bool
  */
-function acf_get_field_group_visibility($field_group, $args = array()) {
+function acf_get_field_group_visibility($field_group, $args = []) {
 }
 /**
  * acf_update_field_group
@@ -5054,7 +5054,7 @@ function acf_get_field_group_edit_link($post_id) {
  * @param   array $field_group The field group array.
  * @return  array
  */
-function acf_prepare_field_group_for_export($field_group = array()) {
+function acf_prepare_field_group_for_export($field_group = []) {
 }
 /**
  * acf_prepare_field_group_for_import
@@ -5137,7 +5137,7 @@ function acf_get_field_type($name) {
 *  @param   n/a
 *  @return  n/a
 */
-function acf_get_field_types($args = array()) {
+function acf_get_field_types($args = []) {
 }
 /**
  *  acf_get_field_types_info
@@ -5150,7 +5150,7 @@ function acf_get_field_types($args = array()) {
  *  @param   type $var Description. Default.
  *  @return  type Description.
  */
-function acf_get_field_types_info($args = array()) {
+function acf_get_field_types_info($args = []) {
 }
 /*
 *  acf_is_field_type
@@ -5293,7 +5293,7 @@ function acf_get_form_data($name = '') {
  * @param   void
  * @return  void
  */
-function acf_form_data($data = array()) {
+function acf_form_data($data = []) {
 }
 /**
  * acf_save_post
@@ -5516,7 +5516,7 @@ function acf_get_local_field_group($key = '') {
  * @param   array $fields An array of un prepared fields.
  * @return  array
  */
-function acf_add_local_fields($fields = array()) {
+function acf_add_local_fields($fields = []) {
 }
 /**
  * acf_get_local_fields
@@ -5647,7 +5647,7 @@ function acf_get_local_field($key = '') {
  * @param   array $field_groups An array of field groups.
  * @return  array
  */
-function _acf_apply_get_local_field_groups($groups = array()) {
+function _acf_apply_get_local_field_groups($groups = []) {
 }
 /**
  * _acf_apply_is_local_field_key
@@ -5826,7 +5826,7 @@ function acf_add_options_page($page = '') {
 }
 function acf_add_options_sub_page($page = '') {
 }
-function acf_update_options_page($slug = '', $data = array()) {
+function acf_update_options_page($slug = '', $data = []) {
 }
 function acf_get_options_page($slug) {
 }
