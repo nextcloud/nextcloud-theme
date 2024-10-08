@@ -16,10 +16,10 @@ $studies = get_field('whitepaper_selection');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($subtext)) {
-						echo wpautop($subtext);
-					}
-					?>
+if (!empty($subtext)) {
+	echo wpautop($subtext);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -33,7 +33,7 @@ $studies = get_field('whitepaper_selection');
 				$post_id = $study->ID;
 				$link = get_the_permalink($study->ID);
 				//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
-				$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
+				$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
 
 
 				$img = wp_get_attachment_url(get_post_thumbnail_id($study->ID) ?: 0) ?: '';
@@ -57,7 +57,7 @@ $studies = get_field('whitepaper_selection');
 				
 
 				echo '<div class="btn_container">';
-				echo '<a href="'.get_the_permalink($study->ID).'" class="c-btn btn-top btn-small btn_see_whitepaper">'.__('Download','nextcloud').'</a>';
+				echo '<a href="'.get_the_permalink($study->ID).'" class="c-btn btn-top btn-small btn_see_whitepaper">'.__('Download', 'nextcloud').'</a>';
 				echo '</div>';
 
 				echo '</div>';
@@ -78,6 +78,6 @@ $studies = get_field('whitepaper_selection');
 			echo '</div>';
 			echo '</div>';
 		}
-		?>
+?>
 	</div>
 </section>

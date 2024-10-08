@@ -14,17 +14,17 @@ $caption = get_field('caption');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-                    
-			if (!empty($video)) {
-				?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+					
+if (!empty($video)) {
+	?>
                 <figure class="wp-block-embed is-type-video wp-block-embed-vimeo wp-embed-aspect-16-9 wp-has-aspect-ratio">
                     <div class="wp-block-embed__wrapper">
                         <?php
-                        echo $video;
-                        ?>
+			echo $video;
+	?>
                     </div>
 					<?php if (!empty($caption)) { ?>
 						<div class="caption">
@@ -34,8 +34,8 @@ $caption = get_field('caption');
 
                 </figure>
                 <?php
-			}
-			?>
+}
+?>
 		
 	
 

@@ -10,7 +10,7 @@
             <div class="text">
                 <?php echo __("We save some cookies to count visitors and make the site easier to use. This doesn't leave our server and isn't to track you personally!
                 See our <a target='_blank' href='/privacy/'>Privacy Policy</a> for more information.", "nextcloud"); ?>
-                <a href="#no_scroll" id="open_details" class="open_details"><?php echo __('Customize','nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
+                <a href="#no_scroll" id="open_details" class="open_details"><?php echo __('Customize', 'nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
             </div>
             
         </div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="customize_btn_container">
-            <a href="#no_scroll" id="open_details2" class="open_details"><?php echo __('Customize','nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
+            <a href="#no_scroll" id="open_details2" class="open_details"><?php echo __('Customize', 'nextcloud');?> <i class="icon fas fa-angle-down"></i></a>
         </div>
 
     </div>
@@ -128,7 +128,7 @@
                     <div class="cookie_cat_name"><?php echo __('Statistics', 'nextcloud'); ?>
                         <a href="#" class="cookies_more_details" id=""><?php echo __('More details', 'nextcloud'); ?> <i class="icon fas fa-angle-down"></i></a>
                     </div>
-                    <div class="cookie_cat_desc"><?php echo __('Statistics cookies collect information anonymously and help us understand how our visitors use our website. We use cloud-hosted <a href="https://matomo.org/matomo-cloud/" target="_blank">Matomo</a>','nextcloud')?>
+                    <div class="cookie_cat_desc"><?php echo __('Statistics cookies collect information anonymously and help us understand how our visitors use our website. We use cloud-hosted <a href="https://matomo.org/matomo-cloud/" target="_blank">Matomo</a>', 'nextcloud')?>
                     </div>
                     <div class="cookie_cat_cb">
                         

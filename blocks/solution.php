@@ -17,14 +17,14 @@ $center = get_field('center');
 				} else {
 					echo '<div class="section-title">';
 				}
-				if (!empty($title)) {
-					echo '<h2>' . $title . '</h2>';
-				}
-				if (!empty($text)) {
-					echo wpautop($text);
-				}
-				echo '</div>';
-				?>
+if (!empty($title)) {
+	echo '<h2>' . $title . '</h2>';
+}
+if (!empty($text)) {
+	echo wpautop($text);
+}
+echo '</div>';
+?>
 			</div>
 		</div>
 		<div class="row justify-content-center">
@@ -66,7 +66,7 @@ $center = get_field('center');
 					}
 				}
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

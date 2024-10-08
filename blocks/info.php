@@ -12,10 +12,10 @@ $text = get_field('text');
 				<div class="text-block gr">
 					<?php
 					echo '<img src="' . get_stylesheet_directory_uri() . '/dist/img/info_circle2.svg" alt=""/>';
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>

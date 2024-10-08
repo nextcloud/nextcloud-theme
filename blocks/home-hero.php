@@ -21,25 +21,25 @@ if (!empty($bg)) {
 				if (!empty($title)) {
 					echo '<h1>' . $title . '</h1>';
 				}
-				if (!empty($text)) {
-					echo '<p>' . $text . '</p>';
-				}
-				if ($link) {
-					$link_url = $link['url'];
-					$link_title = $link['title'];
-					$link_target = $link['target'] ? $link['target'] : '_self';
-					echo '<a class="c-btn" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-				}
-				?>
+if (!empty($text)) {
+	echo '<p>' . $text . '</p>';
+}
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<a class="c-btn" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+}
+?>
 			</div>
 		</div>
 		<div class="col-lg-7">
 			<div class="image-block">
 				<?php
-				if (!empty($img)) {
-					echo '<img src="' . $img . '" alt=""/>';
-				}
-				?>
+if (!empty($img)) {
+	echo '<img src="' . $img . '" alt=""/>';
+}
+?>
 			</div>
 		</div>
 	</div>

@@ -13,7 +13,7 @@ $text = get_field('content');
 					if (!empty($text)) {
 						echo $text;
 					}
-					?>
+?>
 				</div>
 			</div>
 		</div>

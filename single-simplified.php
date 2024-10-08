@@ -9,7 +9,7 @@ get_header();
 <div class="wrapper" id="main">
 	<?php
 	$ids = [];
-	while (have_posts()) : the_post();
+while (have_posts()) : the_post();
 	?>
 		<section class="post-single-section">
 			<div class="container">
@@ -18,8 +18,8 @@ get_header();
 						<div class="text-block">
 						<?php
 						echo do_shortcode(apply_filters('the_content', get_the_content()));
-						endwhile; // End of the loop.
-						?>
+endwhile; // End of the loop.
+?>
 						</div>
 					</div>
 				</div>

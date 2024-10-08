@@ -16,10 +16,10 @@ $link = get_field('link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -49,7 +49,7 @@ $link = get_field('link');
 					}
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>

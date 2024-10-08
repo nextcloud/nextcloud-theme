@@ -7,7 +7,9 @@
  * @package	Wordpress Social Invitations
  * @author wpexpert
  */
-if ( ! defined( 'ABSPATH' ) ) exit; 
+if (! defined('ABSPATH')) {
+	exit;
+}
 
 
 $wrapper = "
@@ -90,21 +92,22 @@ $header_content_h1_a = "
                                         <tr>
                                             <td>
                                             	<h1 style="<?php echo $header_content_h1; ?>" id="logo">
-		                                            <a style="<?php echo $header_content_h1_a;?>" href="<?php echo apply_filters( 'mailtpl/templates/header_logo_url', home_url());?>" title="<?php echo apply_filters( 'mailtpl/templates/header_logo_url_title', !empty($settings['header_logo_text']) ? do_shortcode( strip_tags($settings['header_logo_text']) ) : get_bloginfo('name') );?>"><?php
-		                                            if( !empty($settings['header_logo']) ) {
+		                                            <a style="<?php echo $header_content_h1_a;?>" href="<?php echo apply_filters('mailtpl/templates/header_logo_url', home_url());?>" title="<?php echo apply_filters('mailtpl/templates/header_logo_url_title', !empty($settings['header_logo_text']) ? do_shortcode(strip_tags($settings['header_logo_text'])) : get_bloginfo('name'));?>"><?php
+													if(!empty($settings['header_logo'])) {
 
-		                                            	$attrs = apply_filters( 'mailtpl/templates/header_logo_attr', array('style' => 'max-width:100%;'));
+														$attrs = apply_filters('mailtpl/templates/header_logo_attr', ['style' => 'max-width:100%;']);
 
-		                                            	$header_logo_attr = [];
-		                                            	foreach($attrs as $attr_key => $attr_value)
-		                                            		$header_logo_attr[] = sanitize_key($attr_key).'='.sanitize_text_field($attr_value);
+														$header_logo_attr = [];
+														foreach($attrs as $attr_key => $attr_value) {
+															$header_logo_attr[] = sanitize_key($attr_key).'='.sanitize_text_field($attr_value);
+														}
 
-			                                            echo '<img '.implode(' ', $header_logo_attr).' src="'.apply_filters( 'mailtpl/templates/header_logo', $settings['header_logo'] ).'" alt="'. apply_filters( 'mailtpl/templates/header_logo_alt', !empty($settings['header_logo_text']) ? do_shortcode( strip_tags($settings['header_logo_text']) ) : get_bloginfo( 'description' ) ) .'"/>';
-		                                            } elseif ( !empty( $settings['header_logo_text'] ) ) {
+														echo '<img '.implode(' ', $header_logo_attr).' src="'.apply_filters('mailtpl/templates/header_logo', $settings['header_logo']).'" alt="'. apply_filters('mailtpl/templates/header_logo_alt', !empty($settings['header_logo_text']) ? do_shortcode(strip_tags($settings['header_logo_text'])) : get_bloginfo('description')) .'"/>';
+													} elseif (!empty($settings['header_logo_text'])) {
 														echo do_shortcode($settings['header_logo_text']);
-		                                            } else {
+													} else {
 														echo get_bloginfo('name');
-		                                            }  ?>
+													}  ?>
 		                                            </a>
 	                                            </h1>
 

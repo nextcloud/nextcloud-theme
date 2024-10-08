@@ -12,14 +12,18 @@ $bg_image = get_field('background_image');
 $css_classes = get_field('custom_css_classes');
 
 
-if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
-    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+if(isset($block['data']['preview_image_help'])) :    /* rendering in inserter preview  */
+	echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
 else : /* rendering in editor body */
-?>
-<section class="promo-section has_custom_bg_image <?php 
-if(isset($css_classes)) echo $css_classes; 
-if($wide) echo " full-width "; ?>" id="<?php echo $id; ?>" style="<?php
+	?>
+<section class="promo-section has_custom_bg_image <?php
+if(isset($css_classes)) {
+	echo $css_classes;
+}
+	if($wide) {
+		echo " full-width ";
+	} ?>" id="<?php echo $id; ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">
@@ -32,19 +36,19 @@ if($bg_image) {
 						echo '<div class="icon"><img src="'.$image_icon.'" alt="Nextcloud - '.$title.'"/></div>';
 					}
 
-					if (!empty($title)) {
-						echo '<h2>' . $title . '</h2>';
-					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					if ($link) {
-						$link_url = $link['url'];
-						$link_title = $link['title'];
-						$link_target = $link['target'] ? $link['target'] : '_self';
-						echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-					}
-					?>
+	if (!empty($title)) {
+		echo '<h2>' . $title . '</h2>';
+	}
+	if (!empty($text)) {
+		echo wpautop($text);
+	}
+	if ($link) {
+		$link_url = $link['url'];
+		$link_title = $link['title'];
+		$link_target = $link['target'] ? $link['target'] : '_self';
+		echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+	}
+	?>
 				</div>
 			</div>
 		</div>

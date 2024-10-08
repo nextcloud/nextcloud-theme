@@ -14,7 +14,7 @@ $text = get_field('text');
 					if (!empty($text)) {
 						echo wpautop($text);
 					}
-					?>
+?>
 				</div>
 			</div>
 		</div>

@@ -16,10 +16,10 @@ $img = get_field('image');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo $text;
-					}
-					?>
+if (!empty($text)) {
+	echo $text;
+}
+?>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -29,7 +29,7 @@ $img = get_field('image');
 					echo '<img src="' . $img . '" alt=""/>';
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>

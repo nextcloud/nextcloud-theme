@@ -5,15 +5,16 @@
 get_header();
 
 while (have_posts()) : the_post();
-?>
-<div id="event-<?php echo get_the_ID(); ?>" class="wrapper wrapper_single_event <?php 
-	if( has_term('exhibition', 'event_categories') 
-	//&& !has_block('ninja-forms/form')
-	)
-	{ echo " exhibition ";  }
+	?>
+<div id="event-<?php echo get_the_ID(); ?>" class="wrapper wrapper_single_event <?php
+		if(has_term('exhibition', 'event_categories')
+			//&& !has_block('ninja-forms/form')
+		) {
+			echo " exhibition ";
+		}
 	?>">
 	<?php
-		if( has_term('webinars', 'event_categories') ){
+		if(has_term('webinars', 'event_categories')) {
 			get_template_part('content-webinar');
 		} else {
 			get_template_part('content-exhibition');
@@ -21,6 +22,6 @@ while (have_posts()) : the_post();
 	?>
 </div>
 <?php
-endwhile; // End of the loop. 
+endwhile; // End of the loop.
 
 get_footer();

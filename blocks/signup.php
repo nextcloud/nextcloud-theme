@@ -32,15 +32,15 @@ $officialApps = [
 	'files' => __('Files', 'nextcloud'),
 	'calendar' => __('Calendar', 'nextcloud'),
 	'contacts' => __('Contacts', 'nextcloud'),
-	'spreed' => __('Talk' , 'nextcloud'),
+	'spreed' => __('Talk', 'nextcloud'),
 	'mail' => __('Mail', 'nextcloud'),
 	'tasks' => __('Tasks', 'nextcloud'),
 	'notes' => __('Notes', 'nextcloud'),
 	'news' => __('News', 'nextcloud'),
 	'twofactor_totp' => __('Two-factor authentication', 'nextcloud'),
 	'twofactor_u2f' => __('Two-factor U2F', 'nextcloud'),
-	'gallery' => __('Gallery','nextcloud'),
-	'photos' => __('Photos','nextcloud'),
+	'gallery' => __('Gallery', 'nextcloud'),
+	'photos' => __('Photos', 'nextcloud'),
 	'collabora' => __('Collabora Online', 'nextcloud'),
 	'onlyoffice' => __('Onlyoffice', 'nextcloud'),
 	'deck' => __('Deck', 'nextcloud'),
@@ -63,7 +63,7 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 			<div class="col-md-6">
 				<h1><?php echo __('Sign up for a free Nextcloud account', 'nextcloud');?></h1>
 				<h3><?php echo __('Sign up with one of our providers!', 'nextcloud');?></h3>
-				<p><?php echo __('Get a free home user account at one of our certified providers.','nextcloud'); ?></p>
+				<p><?php echo __('Get a free home user account at one of our certified providers.', 'nextcloud'); ?></p>
 			</div>
 		</div>
 	</div>

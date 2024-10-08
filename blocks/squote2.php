@@ -20,28 +20,28 @@ $link = get_field('link');
 						echo wpautop($quote);
 						echo '</div>';
 					}
-					echo '<div class="rest">';
-					if (!empty($img)) {
-						echo '<img src="' . $img . '" alt=""/>';
-					}
-					echo '</div>';
-					?>
+echo '<div class="rest">';
+if (!empty($img)) {
+	echo '<img src="' . $img . '" alt=""/>';
+}
+echo '</div>';
+?>
 				</div>
 			</div>
 			<div class="col-lg-5 order-lg-1">
 				<div class="round-block">
 					<div class="round-inner">
 						<?php
-						if (!empty($text)) {
-							echo '<p>' . $text . '</p>';
-						}
-						if ($link) {
-							$link_url = $link['url'];
-							$link_title = $link['title'];
-							$link_target = $link['target'] ? $link['target'] : '_self';
-							echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-						}
-						?>
+	if (!empty($text)) {
+		echo '<p>' . $text . '</p>';
+	}
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+}
+?>
 					</div>
 				</div>
 			</div>

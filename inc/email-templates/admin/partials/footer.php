@@ -7,7 +7,9 @@
  * @package	Wordpress Social Invitations
  * @author wpexpert
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+	exit;
+}
 $border_radius = $settings['template'] == 'boxed' ? '6px' : '0px';
 $template_footer = "
 	border-top:1px solid #E2E2E2;
@@ -50,7 +52,7 @@ $credit = "
                             <tr>
                                 <td colspan="2" valign="middle" id="credit" style="<?php echo $credit; ?>">
                                 
-                                	<?php echo apply_filters( 'mailtpl/templates/footer_text', do_shortcode($settings['footer_text'] )); ?>
+                                	<?php echo apply_filters('mailtpl/templates/footer_text', do_shortcode($settings['footer_text'])); ?>
                                 </td>
                             </tr>
                         </table>
@@ -61,12 +63,14 @@ $credit = "
         </td>
     </tr>
             </table>
-			<?php if( $settings['footer_powered_by'] != 'off' ): ?>
+			<?php if($settings['footer_powered_by'] != 'off'): ?>
 			    <p id="powered">Powered by <a href="https://wp.timersys.com/email-templates/?utm_source=emails_template_plugin&utm_medium=powered_link&utm_campaign=Email%20Templates">Email Templates Plugin</a></p>
             <?php endif;?>
         </td>
     </tr>
 </table>
-        </div> <?php if( is_customize_preview() ) wp_footer();?>
+        </div> <?php if(is_customize_preview()) {
+        	wp_footer();
+        }?>
     </body>
 </html>

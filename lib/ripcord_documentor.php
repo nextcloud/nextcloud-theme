@@ -1,6 +1,6 @@
 <?php
 /**
- * Ripcord is an easy to use XML-RPC library for PHP. 
+ * Ripcord is an easy to use XML-RPC library for PHP.
  * @package Ripcord
  * @author Auke van Slooten <auke@muze.nl>
  * @copyright Copyright (C) 2010, Muze <www.muze.nl>
@@ -12,10 +12,9 @@
  * This interface defines the minimum methods any documentor needs to implement.
  * @package Ripcord
  */
-interface Ripcord_Documentor_Interface 
-{
-	public function setMethodData( $methods );
-	public function handle( $rpcServer );
+interface Ripcord_Documentor_Interface {
+	public function setMethodData($methods);
+	public function handle($rpcServer);
 	public function getIntrospectionXML();
 }
 
@@ -24,8 +23,7 @@ interface Ripcord_Documentor_Interface
  * without a request_xml is handled by the documentor.
  * @package Ripcord
  */
-class Ripcord_Documentor implements Ripcord_Documentor_Interface
-{
+class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 	/**
 	 * The object to parse the docComments.
 	 */
@@ -34,12 +32,12 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	/**
 	 * The name of the rpc server, used as the title and heading of the default HTML page.
 	 */
-	public $name     = 'Ripcord: Simple RPC Server';
+	public $name = 'Ripcord: Simple RPC Server';
 	
 	/**
 	 * A url to an optional css file or a css string for an inline stylesheet.
 	 */
-	public $css      = "
+	public $css = "
 		html {
 			font-family: georgia, times, serif;
 			font-size: 79%;
@@ -153,32 +151,32 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	/**
 	 * The wsdl 1.0 description.
 	 */
-	public $wsdl     = false;
+	public $wsdl = false;
 	
 	/**
 	 * The wsdl 2.0 description
 	 */
-	public $wsdl2    = false;
+	public $wsdl2 = false;
 	
 	/**
 	 * Which version of the XML vocabulary the server implements. Either 'xmlrpc', 'soap 1.1', 'simple' or 'auto'.
 	 */
-	public $version  = 'auto';
+	public $version = 'auto';
 	
 	/**
 	 * The root URL of the rpc server.
 	 */
-	public $root     = '';
+	public $root = '';
 
 	/**
 	 * Optional header text for the online documentation.
 	 */
-	public $header     = '';
+	public $header = '';
 
 	/**
 	 * Optional footer text for the online documentation.
 	 */
-	public $footer     = '';	
+	public $footer = '';
 	
 	/**
 	 * A list of method data, containing all the user supplied methods the rpc server implements.
@@ -186,16 +184,13 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	private $methods = null;
 	
 	/**
-	 * The constructor for the Ripcord_Documentor class. 
+	 * The constructor for the Ripcord_Documentor class.
 	 * @param array $options. Optional. Allows you to set the public properties of this class upon construction.
 	 */
-	public function __construct( $options = null, $docCommentParser = null ) 
-	{
-		$check = array( 'name', 'css', 'wsdl', 'wsdl2', 'root', 'version', 'header', 'footer' );
-		foreach ( $check as $name )
-		{
-			if ( isset($options[$name]) ) 
-			{
+	public function __construct($options = null, $docCommentParser = null) {
+		$check = [ 'name', 'css', 'wsdl', 'wsdl2', 'root', 'version', 'header', 'footer' ];
+		foreach ($check as $name) {
+			if (isset($options[$name])) {
 				$this->{$name} = $options[$name];
 			}
 		}
@@ -206,8 +201,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	 * This method fills the list of method data with all the user supplied methods of the rpc server.
 	 * @param array $methodData A list of methods with name and callback information.
 	 */
-	public function setMethodData( $methodData )
-	{
+	public function setMethodData($methodData) {
 		$this->methods = $methodData;
 	}
 
@@ -215,14 +209,12 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	 * This method handles any request which isn't a valid rpc request.
 	 * @param object $rpcServer A reference to the active rpc server.
 	 */
-	public function handle( $rpcServer ) 
-	{
+	public function handle($rpcServer) {
 		$methods = $rpcServer->call('system.listMethods');
 		echo '<!DOCTYPE html>';
 		echo '<html><head><title>' . $this->name . '</title>';
-		if ( isset($this->css) ) 
-		{
-			if (strpos($this->css, "\n")!==false) {
+		if (isset($this->css)) {
+			if (strpos($this->css, "\n") !== false) {
 				echo '<style type="text/css">'.$this->css.'</style>';
 			} else {
 				echo '<link rel="stylesheet" type="text/css" href="' . $this->css . '">';
@@ -234,57 +226,50 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 		echo $this->header;
 		echo '<p>';
 		$showWSDL = false;
-		switch ( $this->version ) 
-		{
+		switch ($this->version) {
 			case 'xmlrpc':
 				echo 'This server implements the <a href="http://www.xmlrpc.com/spec">XML-RPC specification</a>';
-			break;
+				break;
 			case 'simple':
 				echo 'This server implements the <a href="http://sites.google.com/a/simplerpc.org/simplerpc/Home/simplerpc-specification-v09">SimpleRPC 1.0 specification</a>';
-			break;
-			case 'auto';
+				break;
+			case 'auto':
 				echo 'This server implements the <a href="http://www.w3.org/TR/2000/NOTE-SOAP-20000508/">SOAP 1.1</a>, <a href="http://www.xmlrpc.com/spec">XML-RPC</a> and <a href="http://sites.google.com/a/simplerpc.org/simplerpc/Home/simplerpc-specification-v09">SimpleRPC 1.0</a> specification.';
 				$showWSDL = true;
-			break;
+				break;
 			case 'soap 1.1':
 				echo 'This server implements the <a href="http://www.w3.org/TR/2000/NOTE-SOAP-20000508/">SOAP 1.1 specification</a>.';
 				$showWSDL = true;
-			break;
+				break;
 		}
 		echo '</p>';
-		if ( $showWSDL && ( $this->wsdl || $this->wsdl2 ) ) 
-		{
+		if ($showWSDL && ($this->wsdl || $this->wsdl2)) {
 			echo '<ul>';
-			if ($this->wsdl) 
-			{
+			if ($this->wsdl) {
 				echo '<li><a href="' . $this->root . '?wsdl">WSDL 1.1 Description</a></li>';
 			}
-			if ($this->wsdl2) 
-			{
+			if ($this->wsdl2) {
 				echo '<li><a href="' . $this->root . '?wsdl2">WSDL 2.0 Description</a></li>';
-			}					
+			}
 			echo '</ul>';
 		}
 
-		$methods = $rpcServer->call( 'system.describeMethods' );
-		$allMethods = array();
-		$allFunctions = array();
-		foreach( $methods['methodList'] as $index => $method ) 
-		{
-			if ( strpos( $method['name'], '.' ) !== false ) 
-			{
+		$methods = $rpcServer->call('system.describeMethods');
+		$allMethods = [];
+		$allFunctions = [];
+		foreach($methods['methodList'] as $index => $method) {
+			if (strpos($method['name'], '.') !== false) {
 				$allMethods[ $method['name'] ] = $index;
 			} else {
 				$allFunctions[ $method['name'] ] = $index;
 			}
 		}
-		ksort( $allMethods );
-		ksort( $allFunctions );
+		ksort($allMethods);
+		ksort($allFunctions);
 		$allMethods = $allFunctions + $allMethods;
 		
 		echo '<div class="index"><h2>Methods</h2><ul>';
-		foreach ( $allMethods as $methodName => $methodIndex )
-		{
+		foreach ($allMethods as $methodName => $methodIndex) {
 			echo '<li><a href="#method_' . (int)$methodIndex . '">' . $methodName . '</a></li>';
 		}
 		echo '</ul></div>';
@@ -292,49 +277,40 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 		$currentClass = '';
 		$class = '';
 		echo '<div class="functions">';
-		foreach ( $allMethods as $methodName => $methodIndex ) 
-		{
+		foreach ($allMethods as $methodName => $methodIndex) {
 			$method = $methods['methodList'][$methodIndex];
-			$pos = strpos( $methodName, '.');
-			if ( $pos !== false ) 
-			{
-				$class = substr( $methodName, 0, $pos );
+			$pos = strpos($methodName, '.');
+			if ($pos !== false) {
+				$class = substr($methodName, 0, $pos);
 			}
-			if ( $currentClass != $class ) 
-			{
+			if ($currentClass != $class) {
 				echo '</div>';
 				echo '<div class="class_'.$class.'">';
 				$currentClass = $class;
 			}
 			echo '<h2 id="method_'.$methodIndex.'">' . $method['name'] . '</h2>';
-			if ( isset( $method['signatures'] ) ) 
-			{
+			if (isset($method['signatures'])) {
 				
-				foreach ( $method['signatures'] as $signature ) 
-				{
+				foreach ($method['signatures'] as $signature) {
 					echo '<div class="signature">';
-					if ( is_array( $signature['returns'] ) ) {
+					if (is_array($signature['returns'])) {
 						$return = $signature['returns'][0];
 						echo '(' . $return['type'] . ') ';
 					}
 					echo $method['name'] . '(';
 					$paramInfo = false;
-					if ( is_array( $signature['params'] ) )
-					{
+					if (is_array($signature['params'])) {
 						$paramInfo = $signature['params'];
 						$params = '';
-						foreach ( $signature['params'] as $param )
-						{
+						foreach ($signature['params'] as $param) {
 							$params .= ', (' . $param['type'] . ') ' . $param['name'] . ' ';
 						}
 						echo substr($params, 1);
 					}
 					echo ')</div>';
-					if ( is_array( $paramInfo ) )
-					{
+					if (is_array($paramInfo)) {
 						echo '<div class="params"><h3>Parameters</h3><ul>';
-						foreach ( $paramInfo as $param ) 
-						{
+						foreach ($paramInfo as $param) {
 							echo '<li class="param">';
 							echo '<label>(' . $param['type'] . ') ' . $param['name'] . '</label> ';
 							echo '<span>' . $param['description'] . '</span>';
@@ -344,33 +320,27 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 					}
 				}
 				
-			}	
+			}
 
-			if ( $method['purpose'] )
-			{
+			if ($method['purpose']) {
 				echo '<div class="purpose">' . $method['purpose'] . '</div>';
 			}
 			
-			if ( isset( $method['notes'] ) && is_array( $method['notes'] ) ) 
-			{
+			if (isset($method['notes']) && is_array($method['notes'])) {
 				echo '<div class="notes"><h3>Notes</h3><ol>';
-				foreach ( $method['notes'] as $note ) 
-				{
+				foreach ($method['notes'] as $note) {
 					echo '<li><span>' . $note. '</span></li>';
 				}
 				echo '</ol></div>';
 			}
 			
-			if ( isset( $method['see'] ) && is_array( $method['see'] ) ) 
-			{
+			if (isset($method['see']) && is_array($method['see'])) {
 				echo '<div class="see">';
 				echo '<h3>See</h3>';
 				echo '<ul>';
-				foreach ( $method['see'] as $link => $description) 
-				{
+				foreach ($method['see'] as $link => $description) {
 					echo '<li>';
-					if ( isset( $allMethods[$link] ) ) 
-					{
+					if (isset($allMethods[$link])) {
 						echo '<a href="#method_' . (int)$allMethods[$link] .'">' . $link . '</a> <span>' . $description . '</span>';
 					} else {
 						echo '<span>' . $link . ' ' . $description . '</span>';
@@ -390,92 +360,75 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
 	}
 
 	/**
-	 * This method returns an XML document in the introspection format expected by 
-	 * xmlrpc_server_register_introspection_callback. It uses the php Reflection 
-	 * classes to gather information from the registered methods. 
+	 * This method returns an XML document in the introspection format expected by
+	 * xmlrpc_server_register_introspection_callback. It uses the php Reflection
+	 * classes to gather information from the registered methods.
 	 * Descriptions are added from phpdoc docblocks if found.
 	 * @return string XML string with the introspection data.
 	 */
-	function getIntrospectionXML() 
-	{
+	public function getIntrospectionXML() {
 		$xml = "<?xml version='1.0' ?><introspection version='1.0'><methodList>";
-		if ( isset($this->methods) && is_array( $this->methods ) )
-		{
-			foreach ($this->methods as $method => $methodData )
-			{
-				if ( is_array( $methodData['call'] ) )
-				{
-					$reflection = new ReflectionMethod( 
-						$methodData['call'][0], 
-						$methodData['call'][1] 
+		if (isset($this->methods) && is_array($this->methods)) {
+			foreach ($this->methods as $method => $methodData) {
+				if (is_array($methodData['call'])) {
+					$reflection = new ReflectionMethod(
+						$methodData['call'][0],
+						$methodData['call'][1]
 					);
-				}
-				else
-				{
-					$reflection = new ReflectionFunction( $methodData['call'] );
+				} else {
+					$reflection = new ReflectionFunction($methodData['call']);
 				}
 				$description = $reflection->getDocComment();
-				if ( $description && $this->docCommentParser ) 
-				{
-					$data = $this->docCommentParser->parse( $description );
-					if ($data['description']) 
-					{
+				if ($description && $this->docCommentParser) {
+					$data = $this->docCommentParser->parse($description);
+					if ($data['description']) {
 						$description = $data['description'];
 					}
 				}
-				if ($description) 
-				{
-					$description = '<p>' . str_replace( array( "\r\n\r\n", "\n\n") , '</p><p>', $description) 
+				if ($description) {
+					$description = '<p>' . str_replace([ "\r\n\r\n", "\n\n"], '</p><p>', $description)
 						. '</p>';
 				}
-				if ( is_array( $data ) ) 
-				{
-					foreach( $data as $key => $value ) 
-					{
-						switch( $key ) 
-						{
-							case 'category' :
-							case 'deprecated' :
-							case 'package' :
-								$description .= '<div class="' . $key . '"><span class="tag">' 
+				if (is_array($data)) {
+					foreach($data as $key => $value) {
+						switch($key) {
+							case 'category':
+							case 'deprecated':
+							case 'package':
+								$description .= '<div class="' . $key . '"><span class="tag">'
 									. $key . '</span>' . $value .'</div>';
-							break;
+								break;
 							
-							default :
-							break;
+							default:
+								break;
 						}
 					}
 				}
-				$xml .= '<methodDescription name="' . $method . '"><purpose><![CDATA[' 
+				$xml .= '<methodDescription name="' . $method . '"><purpose><![CDATA['
 					. $description . ']]></purpose>';
-				if ( is_array( $data ) && ( isset( $data['arguments'] ) || isset( $data['return'] ) ) ) 
-				{
+				if (is_array($data) && (isset($data['arguments']) || isset($data['return']))) {
 					$xml .= '<signatures><signature>';
-					if ( isset( $data['arguments'] ) && is_array($data['arguments']) ) 
-					{
+					if (isset($data['arguments']) && is_array($data['arguments'])) {
 						$xml .= '<params>';
-						foreach ( $data['arguments'] as $name => $argument ) 
-						{
-							if ( $name[0] == '$' ) 
-							{
-								$name = substr( $name, 1 );
+						foreach ($data['arguments'] as $name => $argument) {
+							if ($name[0] == '$') {
+								$name = substr($name, 1);
 							}
-							$xml .= '<value type="' . htmlspecialchars( $argument['type'] ) 
-								. '" name="' . htmlspecialchars( $name ) . '"><![CDATA[' . $argument['description'] 
+							$xml .= '<value type="' . htmlspecialchars($argument['type'])
+								. '" name="' . htmlspecialchars($name) . '"><![CDATA[' . $argument['description']
 								. ']]></value>';
 						}
 						$xml .= '</params>';
 					}
-					if ( isset( $data['return'] ) && is_array( $data['return'] ) ) 
-					{
-						$xml .= '<returns><value type="' . htmlspecialchars($data['return']['type']) 
+					if (isset($data['return']) && is_array($data['return'])) {
+						$xml .= '<returns><value type="' . htmlspecialchars($data['return']['type'])
 						. '"><![CDATA[' . $data['return']['description'] . ']]></value></returns>';
 					}
 					$xml .= '</signature></signatures>';
 				}
-				$xml .=  '</methodDescription>';
+				$xml .= '</methodDescription>';
 			}
-		}	
+		}
 		$xml .= "</methodList></introspection>";
 		return $xml;
 	}
@@ -486,14 +439,13 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface
  * Ripcord_Documentor
  * @package Ripcord
  */
-interface Ripcord_Documentor_Parser 
-{
+interface Ripcord_Documentor_Parser {
 	/**
 	 * This method parses a given docComment block and returns an array with information.
 	 * @param string $commentBlock The docComment block.
 	 * @return array The parsed information.
 	 */
-	public function parse( $commentBlock );
+	public function parse($commentBlock);
 }
 
 /**
@@ -501,22 +453,20 @@ interface Ripcord_Documentor_Parser
  * as a phpdoc style docComment.
  * @package Ripcord
  */
-class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser 
-{
+class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser {
 	
 	/**
 	 * This method parses a given docComment block and returns an array with information.
 	 * @param string $commentBlock The docComment block.
 	 * @return array The parsed information.
 	 */
-	public function parse( $commentBlock) 
-	{
+	public function parse($commentBlock) {
 		$this->currentTag = 'description';
 		$description = preg_replace('/^(\s*(\/\*\*|\*\/|\*))/m', '', $commentBlock);
-		$info = array();
-		$lines = explode( "\n", $description );
-		foreach ( $lines as $line ) {
-			$info = $this->parseLine( $line, $info );
+		$info = [];
+		$lines = explode("\n", $description);
+		foreach ($lines as $line) {
+			$info = $this->parseLine($line, $info);
 		}
 		return $info; //array( 'description' => $description );
 	}
@@ -524,57 +474,52 @@ class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser
 	/**
 	 * This method parses a single line from the comment block.
 	 */
-	private function parseLine( $line, $info ) 
-	{
+	private function parseLine($line, $info) {
 		$handled = false;
-		if (preg_match('/^\s*(@[a-z]+)\s(.*)$/i', $line, $matches)) 
-		{
+		if (preg_match('/^\s*(@[a-z]+)\s(.*)$/i', $line, $matches)) {
 			$this->currentTag = substr($matches[1], 1);
-			$line = trim( substr($line, strlen($this->currentTag)+2 ) );
-			switch( $this->currentTag ) 
-			{
-				case 'param' :
-					if ( preg_match('/^\s*([[:alpha:]|]+)\s([[:alnum:]$_]+)(.*)$/i', $line, $matches) ) 
-					{
-						if ( !isset($info['arguments']) ) {
-							$info['arguments'] = array();
+			$line = trim(substr($line, strlen($this->currentTag) + 2));
+			switch($this->currentTag) {
+				case 'param':
+					if (preg_match('/^\s*([[:alpha:]|]+)\s([[:alnum:]$_]+)(.*)$/i', $line, $matches)) {
+						if (!isset($info['arguments'])) {
+							$info['arguments'] = [];
 						}
-						if ( !isset($info['arguments'][$matches[2]]) ) {
-							$info['arguments'][$matches[2]] = array('description' => '');
+						if (!isset($info['arguments'][$matches[2]])) {
+							$info['arguments'][$matches[2]] = ['description' => ''];
 						}
 						$info['arguments'][$matches[2]]['type'] = $matches[1];
 						$info['arguments'][$matches[2]]['description'] .= $this->parseDescription($matches[3]);
 					}
 					$handled = true;
-				break;
-				case 'return' :
-					if ( preg_match('/^\s*([[:alpha:]|]+)\s(.*)$/i', $line, $matches) ) 
-					{
-						if ( !isset($info['return']) ) {
-							$info['return'] = array( 'description' => '' );
+					break;
+				case 'return':
+					if (preg_match('/^\s*([[:alpha:]|]+)\s(.*)$/i', $line, $matches)) {
+						if (!isset($info['return'])) {
+							$info['return'] = [ 'description' => '' ];
 						}
 						$info['return']['type'] = $matches[1];
 						$info['return']['description'] .= $this->parseDescription($matches[2]);
 					}
 					$handled = true;
-				break;
+					break;
 			}
 		}
 		if (!$handled) {
-			switch( $this->currentTag) {
+			switch($this->currentTag) {
 				case 'param' :
 				case 'return' :
-					if ( !isset( $info[$this->currentTag] ) ) {
-						$info[$this->currentTag] = array();
+					if (!isset($info[$this->currentTag])) {
+						$info[$this->currentTag] = [];
 					}
 					$info[$this->currentTag]['description'] .= $this->parseDescription($line);
-				break;
+					break;
 				default:
-					if ( !isset( $info[$this->currentTag] ) ) {
+					if (!isset($info[$this->currentTag])) {
 						$info[$this->currentTag] = '';
 					}
 					$info[$this->currentTag] .= $this->parseDescription($line);
-				break;
+					break;
 			}
 		}
 		return $info;
@@ -583,20 +528,18 @@ class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser
 	/**
 	 * This method parses only the text description part of a line of the comment block.
 	 */
-	private function parseDescription( $line ) {
-		while ( preg_match('/{@([^}]*)}/', $line, $matches) ) {
-			switch( $matches[1] ) {
-				case 'internal' : 
-					$line = str_replace( $matches[0], '', $line );
-				break;
-				default :
-					$line = str_replace( $matches[0], $matches[1], $line );
-				break;
+	private function parseDescription($line) {
+		while (preg_match('/{@([^}]*)}/', $line, $matches)) {
+			switch($matches[1]) {
+				case 'internal':
+					$line = str_replace($matches[0], '', $line);
+					break;
+				default:
+					$line = str_replace($matches[0], $matches[1], $line);
+					break;
 			}
 		}
-		$line = str_replace( array( '\@', '{@*}' ), array( '@', '*/' ), $line );
+		$line = str_replace([ '\@', '{@*}' ], [ '@', '*/' ], $line);
 		return $line;
 	}
 }
-
-?>

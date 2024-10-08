@@ -4,39 +4,38 @@ $title = get_the_title();
 $post_excerpt_full = get_the_excerpt();
 $post_excerpt = word_count(get_the_excerpt(), '45');
 $link = get_permalink();
-$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
+$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
 $timezone = new DateTimeZone('Europe/Berlin');
 
-$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+$my_current_lang = apply_filters('wpml_current_language', null);
 $date_format = "F j";
-if($my_current_lang != 'en'){
+if($my_current_lang != 'en') {
 	$date_format = "j F";
 }
 
 $webinar_recording = false;
-if('event' == get_post_type() && get_post_meta($post_id, 'download_available', true) ){
+if(get_post_type() == 'event' && get_post_meta($post_id, 'download_available', true)) {
 	$webinar_recording = true;
 }
 
-$cat = wp_get_object_terms( $post_id, 'event_categories', array() );
+$cat = wp_get_object_terms($post_id, 'event_categories', []);
 $event_start_datetime = get_field('event_start_date_and_time', $post_id, false);
 $event_start_unix = strtotime($event_start_datetime);
 
 $date = $date_start = date_create($event_start_datetime);
 $date_formatted = date_format($date, $date_format);
-$date_custom_datetime = new DateTime($event_start_datetime, $timezone );
+$date_custom_datetime = new DateTime($event_start_datetime, $timezone);
 $time_start_format = $date_custom_datetime->format('g:i a');
 $date_custom_datetime->setTimezone(new DateTimeZone('America/New_York'));
 $time_start_format_us = $date_custom_datetime->format('g:i a');
-		
+
 //get CET/CEST
 //$date_start_utc = date_format($date_start,"Z");
-$date_start_utc = wp_date("Z", $event_start_unix, $timezone );
+$date_start_utc = wp_date("Z", $event_start_unix, $timezone);
 $utc_offset = $date_start_utc / 3600;
 $cet_cest = "(CET)";
 $edt_est = "(EST)";
-if($utc_offset>1) // 2 = CEST, 1 = CET
-{
+if($utc_offset > 1) { // 2 = CEST, 1 = CET
 	$cet_cest = "(CEST)";
 	$edt_est = "(EDT)";
 }
@@ -44,7 +43,7 @@ if($utc_offset>1) // 2 = CEST, 1 = CET
 $cats = '';
 if($cat) {
 	foreach ($cat as $c) {
-		if($c->term_id != 243 && $c->term_id != 1 ) { // exclude Uncategorized
+		if($c->term_id != 243 && $c->term_id != 1) { // exclude Uncategorized
 			$category_link = get_category_link($c->term_id);
 			$cats .= '<a href="'.$category_link.'">' . $c->name . ' </a>';
 		}
@@ -52,10 +51,10 @@ if($cat) {
 }
 
 $meta_icon = "far fa-calendar-alt";
-if($webinar_recording){
+if($webinar_recording) {
 	$meta_icon = "fa fa-video";
 }
-$webinar_language_details = apply_filters( 'wpml_post_language_details', NULL, $post_id );
+$webinar_language_details = apply_filters('wpml_post_language_details', null, $post_id);
 $flag_path = "https://nextcloud.com/p/sitepress-multilingual-cms/res/flags/";
 $flag_full_url = $flag_path.$webinar_language_details['language_code'].".png";
 
@@ -68,10 +67,10 @@ echo '<div class="post-body">';
 echo '<ul class="post-meta">';
 
 /*
-echo '<li class="date"><i class="'.$meta_icon.'"></i>'; 
+echo '<li class="date"><i class="'.$meta_icon.'"></i>';
 echo $date;
 if(!$webinar_recording){
-    echo " @ ".$time;
+	echo " @ ".$time;
 }
 echo '</li>';
 */

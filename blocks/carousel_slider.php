@@ -5,22 +5,24 @@
 $id = get_field('id');
 $autoplay_options = get_field_object('autoplay');
 $autoplay = $autoplay_options['value'];
-if (!$autoplay) $autoplay = 'false';
+if (!$autoplay) {
+	$autoplay = 'false';
+}
 
 $boxed_layout_options = get_field_object('boxed_layout');
 $boxed_layout = $boxed_layout_options['value'];
 $num_of_items = 6;
 
 if($boxed_layout) {
-    $num_of_items = 4;
+	$num_of_items = 4;
 }
 
 
-if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
-    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+if(isset($block['data']['preview_image_help'])) :    /* rendering in inserter preview  */
+	echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
 else : /* rendering in editor body */
-?>
+	?>
 <section class="carousel-slider-section" id="<?php echo $id; ?>">
 
 <?php if($boxed_layout) { ?>
@@ -28,26 +30,28 @@ else : /* rendering in editor body */
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-12">
 <?php } ?>
-            <?php if( have_rows('carousel_item') ): ?>
+            <?php if(have_rows('carousel_item')): ?>
             <div class="box-repeater">
                 <div class="box-repeater-items post_clients_carousel owl-carousel owl-theme">
-                <?php while( have_rows('carousel_item') ): the_row(); 
-                    $image = get_sub_field('image');
-                    $title = get_sub_field('title');
-                    $link = get_sub_field('link');
-                    ?>
+                <?php while(have_rows('carousel_item')): the_row();
+                	$image = get_sub_field('image');
+                	$title = get_sub_field('title');
+                	$link = get_sub_field('link');
+                	?>
                         <div class="client_item">
                             <div class="client_item_inner">
 
-                                <?php if ( isset($link) && $link != '' ) { ?>
-                                <a href="<?php echo $link; ?>" target="_blank" title="<?php if(isset($title)) echo $title; ?>">
+                                <?php if (isset($link) && $link != '') { ?>
+                                <a href="<?php echo $link; ?>" target="_blank" title="<?php if(isset($title)) {
+                                	echo $title;
+                                } ?>">
                                 <?php } ?>
 
                                 <?php
-                                    echo wp_get_attachment_image( $image, 'full' );
-                                ?>
+									echo wp_get_attachment_image($image, 'full');
+                	?>
 
-                                <?php if ( isset($link) && $link != '' ) { ?>
+                                <?php if (isset($link) && $link != '') { ?>
                                 </a>
                                 <?php } ?>
 
