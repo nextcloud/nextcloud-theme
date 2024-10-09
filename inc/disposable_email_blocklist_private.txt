@@ -19,6 +19,7 @@ asda.com
 asdf.asdf
 b.com
 bar.com
+bb.com
 bla.com
 businessman.com
 c.de
@@ -161,7 +162,12 @@ passinbox.com
 passmail.net
 pm.me
 poplk.com
+posteo.at
+posteo.ca
+posteo.co
 posteo.de
+posteo.net
+posteo.org
 proton.ch
 proton.com
 proton.me
@@ -208,6 +214,7 @@ wants.dicksinmyan.us
 web.de
 wi.twcbc.com
 windowslive.com
+xyz.com
 y7mail.com
 yahoo.co.id
 yahoo.de
