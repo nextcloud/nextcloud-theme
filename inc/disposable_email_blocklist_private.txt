@@ -1,4 +1,6 @@
 1.com
+123123.com
+123789.org
 126.com
 33mail.com
 420blaze.it
@@ -7,6 +9,7 @@ a.com
 aa.com
 aaa.com
 aaathats3as.com
+abc.com
 admin.com
 airmail.cc
 aleeas.com
@@ -20,6 +23,7 @@ asdf.asdf
 b.com
 bar.com
 bb.com
+belgianairways.com
 bla.com
 businessman.com
 c.de
@@ -38,6 +42,7 @@ cumallover.me
 currently.com
 d.com
 da.com
+darius.email
 ddd.com
 dicksinhisan.us
 dicksinmyan.us
@@ -52,6 +57,7 @@ email.ml
 email1.io
 emailabox.pro
 emailfoxi.pro
+emailtesting.in
 ethermail.io
 example.com
 example123.com
@@ -85,6 +91,7 @@ gmail.fr
 gmail.it
 gmailer.com
 gmaim.com
+gmx.eu
 gmx.it
 gmx.net
 google.com
@@ -97,6 +104,7 @@ horsefucker.org
 hotmail.com.br
 hpost.com
 hraifi.com
+hthlm.com
 ik.me
 inbox.eu
 inbox.lv
@@ -127,6 +135,7 @@ mailpass.co.uk
 mailtub.com
 mcatag.com
 mdz.email
+mein.gmx
 memeware.net
 microsoft.com
 minhlun.com
@@ -135,6 +144,8 @@ msn.cn
 msn.cok
 msn.com
 muellmail.com
+murena.com
+myyahoo.com
 national.shitposting.agency
 nextcloud.com
 nextcloud.de
@@ -151,6 +162,7 @@ o.com
 ok.com
 ok.de
 omeie.com
+openmail.pro
 outlook.be
 outlook.co.th
 outlook.com
@@ -158,14 +170,17 @@ outlook.com.br
 outlook.com.ua
 own.com
 owncloud.com
+passfwd.com
 passinbox.com
 passmail.net
+petalmail.com
 pm.me
 poplk.com
 posteo.at
 posteo.ca
 posteo.co
 posteo.de
+posteo.eu
 posteo.net
 posteo.org
 proton.ch
@@ -174,7 +189,9 @@ proton.me
 protonamil.com
 protonmail.ch
 protonmail.com
+psmail.net
 putz.me
+q.com
 qmail.re
 qq.com
 relay.firefox.com
@@ -185,14 +202,18 @@ skiff.com
 skymail.com.br
 slmail.me
 spam.de
+sync.com
 t-online.de
 t.com
 temp.mailbox.org
 tempmails.info
+tempmailto.org
 temporary-mail.net
+tempumail.show
 test.com
 test.de
 test.fr
+test.io
 test.net
 test.org
 test.ru
@@ -204,6 +225,7 @@ tut.by
 tuta.com
 tutamail.com
 tutanota.com
+tutanota.de
 tutanote.com
 user.com
 v.com
@@ -214,6 +236,7 @@ wants.dicksinmyan.us
 web.de
 wi.twcbc.com
 windowslive.com
+x.com
 xyz.com
 y7mail.com
 yahoo.co.id
@@ -223,6 +246,8 @@ yes.com
 you.com
 ytnhy.com
 z.com
+zeeinbox.com
 zoho.com
 zohomail.com
 zohomail.eu
+zohomail.in
