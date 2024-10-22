@@ -16,6 +16,7 @@ aleeas.com
 allfreemail.net
 americaonline.com
 anonadddy.me
+anonaddy.me
 anonbox.net
 aol.de
 asda.com
@@ -25,6 +26,7 @@ bar.com
 bb.com
 belgianairways.com
 bla.com
+boxomail.live
 businessman.com
 c.de
 cazlg.com
@@ -43,12 +45,14 @@ currently.com
 d.com
 da.com
 darius.email
+dcobe.com
 ddd.com
 dicksinhisan.us
 dicksinmyan.us
 dietrich.net
 disroot.org
 duck.com
+dumpedmail.com
 e.com
 e.email
 ecomail.fr
@@ -75,6 +79,7 @@ funkoo.xyz
 g.mail.com
 gamil.com
 gargamail.com
+gav.anonaddy.me
 gettempmail.com
 gmaik.com
 gmail.ca
@@ -91,6 +96,7 @@ gmail.fr
 gmail.it
 gmailer.com
 gmaim.com
+gmx.de
 gmx.eu
 gmx.it
 gmx.net
@@ -105,10 +111,13 @@ hotmail.com.br
 hpost.com
 hraifi.com
 hthlm.com
+icloud.de
 ik.me
 inbox.eu
 inbox.lv
 inboxmail.life
+instmail.uk
+jollyfree.com
 kabelbw.de
 keemail.me
 km.com
@@ -132,6 +141,7 @@ mailo.com
 mailo.fr
 mailoo.org
 mailpass.co.uk
+mailservice.com
 mailtub.com
 mcatag.com
 mdz.email
@@ -200,6 +210,7 @@ shehermail.com
 simplelogin.com
 skiff.com
 skymail.com.br
+skymail.de
 slmail.me
 spam.de
 sync.com
@@ -210,6 +221,7 @@ tempmails.info
 tempmailto.org
 temporary-mail.net
 tempumail.show
+test.be
 test.com
 test.de
 test.fr
@@ -220,6 +232,7 @@ test.ru
 testemail.com
 tfwno.gf
 tocomail.com
+toroll-net.de
 tresorit.com
 tut.by
 tuta.com
@@ -230,6 +243,7 @@ tutanote.com
 user.com
 v.com
 vivaldi.net
+vk.com
 waifu.club
 wants.dicksinhisan.us
 wants.dicksinmyan.us
