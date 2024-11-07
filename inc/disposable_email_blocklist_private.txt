@@ -61,6 +61,7 @@ dietrich.net
 disroot.org
 duck.com
 dumpedmail.com
+e-mail.de
 e.com
 e.email
 ecomail.fr
@@ -193,6 +194,7 @@ o.com
 ok.com
 ok.de
 omeie.com
+oneline.de
 onionmail.com
 onionmail.org
 openmail.pro
