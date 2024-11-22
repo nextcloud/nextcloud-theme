@@ -110,6 +110,7 @@ gmail.con
 gmail.de
 gmail.fr
 gmail.it
+gmail.ma
 gmailer.com
 gmaim.com
 gmx.de
@@ -153,6 +154,7 @@ m.com
 maha.email
 mail.bg
 mail.de
+mail.fr
 mail.lv
 mail.ru
 mail2tor.co
@@ -182,6 +184,7 @@ msn.cok
 msn.com
 muellmail.com
 murena.com
+murena.io
 myyahoo.com
 national.shitposting.agency
 nextcloud.com
@@ -236,12 +239,14 @@ putz.me
 q.com
 qmail.re
 qq.com
+qq.com.cn
 relay.firefox.com
 riseup.net
 ruhtan.com
 s.mailinator.com
 shehermail.com
 silomails.com
+simplelogin.co
 simplelogin.com
 simplelogin.fr
 skiff.com
@@ -256,6 +261,7 @@ t-online.de
 t.com
 teleport.ch
 temp.mailbox.org
+tempmail.cn
 tempmails.info
 tempmailto.org
 temporary-mail.net
@@ -274,6 +280,7 @@ thankyou.com
 tocomail.com
 toroll-net.de
 tozya.com
+trashmail.top
 tresorit.com
 tupmail.com
 tut.by
@@ -301,6 +308,7 @@ y7mail.com
 yahoo.co.id
 yahoo.de
 yandex.by
+yandex.kz
 yeah.net
 yes.com
 you.com
