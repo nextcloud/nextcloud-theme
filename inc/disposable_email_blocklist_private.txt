@@ -29,6 +29,7 @@ asda.com
 asdf.asdf
 b.com
 b.de
+baidu.com
 bar.com
 bb.com
 bc.de
@@ -46,6 +47,7 @@ cazlp.com
 cazlq.com
 cazlv.com
 centralmail.cloud
+chosenx.com
 ckuer.com
 cloak.id
 cloud.com
@@ -57,6 +59,7 @@ com.com
 company.com
 cumallover.me
 currently.com
+cyber-security.lat
 d.com
 da.com
 darius.email
@@ -67,6 +70,7 @@ dicksinhisan.us
 dicksinmyan.us
 dietrich.net
 disroot.org
+domain.com
 dralias.com
 duck.com
 dummy.com
@@ -81,6 +85,7 @@ email.ml
 email1.io
 emailabox.pro
 emailfoxi.pro
+emailn.de
 emailtesting.in
 emailvb.pro
 eoilup.com
@@ -91,12 +96,15 @@ facebook.com
 facebookmail.com
 fakel.xyz
 fatamail.com
+femailtor.com
 filecloud.com
 files.com
 finmail.com
 firemail.cc
 fivermail.com
 flymail.tk
+foo.com
+freesourcecodes.com
 fryshare.com
 fuck.com
 fukaru.com
@@ -106,6 +114,7 @@ gamil.com
 gargamail.com
 gav.anonaddy.me
 gettempmail.com
+gholar.com
 gimail.com
 gmaik.com
 gmail.ca
@@ -140,6 +149,7 @@ hotmail.com.br
 hpost.com
 hraifi.com
 hthlm.com
+icloud.com
 icloud.de
 ik.me
 ikmail.com
@@ -151,18 +161,22 @@ infinitummail.com
 instantletter.net
 instmail.uk
 internet.ru
+jaga.email
 jollyfree.com
 kabelbw.de
 keemail.me
 km.com
 ko.no
 lemail.pro
+li.com
+li.ru
 lilo.org
 live.com.mx
 live.ru
 loves.dicksinhisan.us
 loves.dicksinmyan.us
 m.com
+m.evernote.com
 maha.email
 mail.bg
 mail.de
@@ -173,6 +187,7 @@ mail2tor.co
 mailbox.org
 mailcurity.com
 mailfast.pro
+mailfence.com
 mailmaxy.one
 mailnuo.com
 mailo.com
@@ -194,9 +209,11 @@ mozmail.com
 msn.cn
 msn.cok
 msn.com
+msssg.com
 muellmail.com
 murena.com
 murena.io
+myweblaw.com
 myyahoo.com
 national.shitposting.agency
 nbmbb.com
@@ -209,6 +226,8 @@ no.com
 no.de
 nomad.com
 none.com
+none.no
+nongnue.com
 nope.com
 nope.fr
 nope.nope
@@ -235,6 +254,7 @@ passfwd.com
 passinbox.com
 passmail.net
 petalmail.com
+pixdd.com
 pm.me
 pokeline.com
 poplk.com
@@ -248,6 +268,7 @@ posteo.org
 proton.ch
 proton.com
 proton.me
+proton.pm
 protonamil.com
 protonmail.ch
 protonmail.com
@@ -292,6 +313,7 @@ test.fr
 test.io
 test.net
 test.org
+test.pl
 test.ru
 testemail.com
 tfwno.gf
@@ -304,6 +326,7 @@ tresorit.com
 tupmail.com
 tut.by
 tuta.com
+tuta.io
 tutamail.com
 tutamail.ru
 tutanota.com
