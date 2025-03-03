@@ -22,6 +22,7 @@ ag.aq
 airmail.cc
 aleeas.com
 allfreemail.net
+alo.ne
 altaddress.org
 americaonline.com
 anonadddy.me
@@ -38,7 +39,9 @@ bar.com
 bb.com
 bc.de
 belgianairways.com
+bitflirt.com
 bla.com
+blackkb.co
 boxfi.uk
 boxomail.live
 bulatox.com
@@ -60,6 +63,7 @@ cocaine.ninja
 cock.email
 cock.li
 cock.lu
+codverts.com
 com.com
 company.com
 corn.holio.day
@@ -98,6 +102,7 @@ emailfoxi.pro
 emailn.de
 emailtesting.in
 emailvb.pro
+envoes.com
 eoilup.com
 ethermail.io
 example.com
@@ -117,6 +122,7 @@ fivermail.com
 fliegender.fish
 flymail.tk
 foo.com
+foogle.com
 freesourcecodes.com
 fryshare.com
 fuck.com
@@ -154,6 +160,7 @@ gmx.org
 google.com
 google.fr
 grassdev.com
+great1.anonaddy.me
 gtfcy37qyzor7kb6blz2buwuu5u7qjkycasjdf3yaslibkbyhsxub4yd.onion
 gufum.com
 gvmail.com
@@ -200,6 +207,7 @@ live.com.mx
 live.ru
 loves.dicksinhisan.us
 loves.dicksinmyan.us
+lxheir.com
 m.com
 m.evernote.com
 magspam.net
@@ -259,6 +267,7 @@ nomad.com
 none.com
 none.no
 nongnue.com
+noomlocs.com
 nope.com
 nope.fr
 nope.nope
@@ -286,6 +295,7 @@ papierkorb.me
 pariag.com
 passfwd.com
 passinbox.com
+passmail.com
 passmail.net
 petalmail.com
 pixdd.com
@@ -314,11 +324,15 @@ qmail.re
 qq.com
 qq.com.cn
 ramenmail.de
+reese.tools
 relay.firefox.com
 riseup.net
 ruhtan.com
 s.mailinator.com
 sad.com
+sam16.de
+sdf.com
+semp26.com
 shehermail.com
 silomails.com
 simplelogin.co
@@ -333,6 +347,7 @@ slmails.com
 smartnator.com
 spam.care
 spam.de
+spamfr.ee
 stacys.mom
 startmail.com
 sudern.de
