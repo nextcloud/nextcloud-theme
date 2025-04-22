@@ -157,8 +157,6 @@ gmx.eu
 gmx.it
 gmx.net
 gmx.org
-google.com
-google.fr
 grassdev.com
 great1.anonaddy.me
 gtfcy37qyzor7kb6blz2buwuu5u7qjkycasjdf3yaslibkbyhsxub4yd.onion
@@ -237,7 +235,6 @@ mdz.email
 mein.gmx
 memeware.net
 metalmailbox.com
-microsoft.com
 minhlun.com
 mozmail.com
 msn.cn
@@ -318,6 +315,7 @@ protonamil.com
 protonmail.ch
 protonmail.com
 psmail.net
+ptct.net
 putz.me
 q.com
 qmail.re
@@ -416,7 +414,6 @@ you.com
 ytnhy.com
 z.com
 zeeinbox.com
-zoho.com
 zohomail.com
 zohomail.eu
 zohomail.in
