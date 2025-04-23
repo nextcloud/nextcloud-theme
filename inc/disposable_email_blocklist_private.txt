@@ -5,6 +5,7 @@
 123123.com
 123789.org
 126.com
+139.com
 2mail.co
 33mail.com
 420blaze.it
@@ -16,11 +17,13 @@ aa.com
 aaa.com
 aaathats3as.com
 abc.com
+abv.bg
 addy.io
 admin.com
 ag.aq
 airmail.cc
 aleeas.com
+aliyun.com
 allfreemail.net
 alo.ne
 altaddress.org
@@ -83,6 +86,7 @@ disroot.org
 doe.com
 domain.com
 dralias.com
+drmail.in
 dsgvo.party
 duck.com
 dummy.com
@@ -91,6 +95,7 @@ e-mail.de
 e.com
 e.email
 e.mail.de
+easymailer.live
 ecomail.fr
 email.cn
 email.de
@@ -141,6 +146,7 @@ gmail.cm
 gmail.co
 gmail.co.in
 gmail.com.ar
+gmail.com.br
 gmail.com.mx
 gmail.com.ua
 gmail.comm
@@ -152,6 +158,7 @@ gmail.it
 gmail.ma
 gmailer.com
 gmaim.com
+gmx-topmail.de
 gmx.de
 gmx.eu
 gmx.it
@@ -166,6 +173,7 @@ gvocorp.com
 hello.com
 hihi.lol
 holio.day
+home.nl
 horsefucker.org
 hotmai.com
 hotmail.com.br
@@ -182,6 +190,7 @@ inbox.eu
 inbox.lv
 inboxmail.life
 infinitummail.com
+info.com
 instantletter.net
 instmail.uk
 internet.ru
@@ -190,12 +199,14 @@ ji5.de
 ji6.de
 ji7.de
 jollyfree.com
+jwpub.org
 kabelbw.de
 keemail.me
 kein.date
 km.com
 knickerbockerban.de
 ko.no
+kpnmail.nl
 lambsauce.de
 lemail.pro
 li.com
@@ -252,6 +263,7 @@ murena.io
 myweblaw.com
 myyahoo.com
 national.shitposting.agency
+naver.com
 nbmbb.com
 nextcloud.com
 nextcloud.de
@@ -278,14 +290,21 @@ omeie.com
 oneline.de
 onionmail.com
 onionmail.org
+online.de
 openmail.pro
 otpku.com
 outlook.be
 outlook.co.th
 outlook.com
 outlook.com.br
+outlook.com.tr
 outlook.com.ua
+outlook.cz
+outlook.es
 outlook.in
+outlook.jp
+outlook.net
+outlook.sa
 own.com
 owncloud.com
 papierkorb.me
@@ -303,6 +322,7 @@ posteo.at
 posteo.ca
 posteo.ch
 posteo.co
+posteo.com
 posteo.de
 posteo.eu
 posteo.net
@@ -321,10 +341,13 @@ q.com
 qmail.re
 qq.com
 qq.com.cn
+rambler.ru
 ramenmail.de
+real.com
 reese.tools
 relay.firefox.com
 riseup.net
+ro.ru
 ruhtan.com
 s.mailinator.com
 sad.com
@@ -336,6 +359,7 @@ silomails.com
 simplelogin.co
 simplelogin.com
 simplelogin.fr
+sina.com
 sinenomine.email
 skiff.com
 skymail.com.br
@@ -343,6 +367,7 @@ skymail.de
 slmail.me
 slmails.com
 smartnator.com
+sohu.com
 spam.care
 spam.de
 spamfr.ee
@@ -371,6 +396,7 @@ test.ru
 testemail.com
 tfwno.gf
 thankyou.com
+tmail.link
 tocomail.com
 tonne.to
 toroll-net.de
@@ -392,11 +418,15 @@ use.startmail.com
 user.com
 v.com
 vafyxh.com
+vip.qq.com
 vivaldi.net
 vk.com
+vodafonemail.de
 waifu.club
+wanadoo.fr
 wants.dicksinhisan.us
 wants.dicksinmyan.us
+wearehackerone.com
 web.de
 wegwerfemail.de
 wi.twcbc.com
