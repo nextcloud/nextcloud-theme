@@ -52,6 +52,7 @@ bung.holio.day
 business.com
 businessman.com
 c.de
+calmpros.com
 cashbn.com
 cazlg.com
 cazlp.com
@@ -97,6 +98,7 @@ e.email
 e.mail.de
 easymailer.live
 ecomail.fr
+edny.net
 email.cn
 email.de
 email.ml
@@ -107,6 +109,7 @@ emailfoxi.pro
 emailn.de
 emailtesting.in
 emailvb.pro
+emaily.pro
 envoes.com
 eoilup.com
 ethermail.io
@@ -379,6 +382,7 @@ sync.com
 t-online.de
 t.com
 teleport.ch
+temp-mail-pro.com
 temp.mailbox.org
 tempmail.cn
 tempmails.info
