@@ -6,8 +6,10 @@
 123789.org
 126.com
 139.com
+2200freefonts.com
 2mail.co
 33mail.com
+3ischn.de
 420blaze.it
 88.com
 8alias.com
@@ -17,6 +19,7 @@ aa.com
 aaa.com
 aaathats3as.com
 abc.com
+abrikos.mozmail.com
 abv.bg
 addy.io
 admin.com
@@ -35,6 +38,7 @@ aol.de
 apple.com
 asda.com
 asdf.asdf
+asdf.com
 b.com
 b.de
 baidu.com
@@ -50,6 +54,7 @@ boxomail.live
 bulatox.com
 bung.holio.day
 business.com
+businessmail.com
 businessman.com
 c.de
 calmpros.com
@@ -76,6 +81,7 @@ currently.com
 cyber-security.lat
 d.com
 da.com
+daouse.com
 darius.email
 dcobe.com
 ddd.com
@@ -88,6 +94,7 @@ doe.com
 domain.com
 dralias.com
 drmail.in
+dropeso.com
 dsgvo.party
 duck.com
 dummy.com
@@ -110,16 +117,20 @@ emailn.de
 emailtesting.in
 emailvb.pro
 emaily.pro
+enotj.com
 envoes.com
 eoilup.com
 ethermail.io
 example.com
+example.org
 example123.com
 existiert.net
 facebook.com
 facebookmail.com
 fakel.xyz
+fandoe.com
 fanicle.com
+fantastu.com
 fatamail.com
 femailtor.com
 filecloud.com
@@ -175,6 +186,8 @@ gufum.com
 gvmail.com
 gvocorp.com
 hello.com
+hh7f.com
+hi.com
 hihi.lol
 holio.day
 home.nl
@@ -216,6 +229,7 @@ lemail.pro
 li.com
 li.ru
 lilo.org
+limtu.com
 live.com.mx
 live.ru
 loves.dicksinhisan.us
@@ -232,6 +246,7 @@ mail.lv
 mail.ru
 mail2tor.co
 mailbox.org
+mailcc.xyz
 mailcurity.com
 mailfast.pro
 mailfence.com
@@ -269,11 +284,13 @@ myyahoo.com
 national.shitposting.agency
 naver.com
 nbmbb.com
+next.com
 nextcloud.com
 nextcloud.de
 nextcloud.org
 nextmail.ru
 nezid.com
+nicemail.eu
 no.com
 no.de
 nomad.com
@@ -402,6 +419,7 @@ testemail.com
 tfwno.gf
 thankyou.com
 tmail.link
+tmpmailtor.com
 tocomail.com
 tonne.to
 toroll-net.de
