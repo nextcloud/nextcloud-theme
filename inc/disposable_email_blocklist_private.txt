@@ -50,6 +50,7 @@ bitflirt.com
 bla.com
 blackkb.co
 boxfi.uk
+boxmach.com
 boxomail.live
 bulatox.com
 bung.holio.day
@@ -78,6 +79,7 @@ company.com
 corn.holio.day
 cumallover.me
 currently.com
+cv.com
 cyber-security.lat
 d.com
 da.com
@@ -136,6 +138,7 @@ femailtor.com
 filecloud.com
 files.com
 finmail.com
+fireboxmail.lol
 firemail.cc
 fivermail.com
 fliegender.fish
@@ -200,6 +203,8 @@ hraifi.com
 hthlm.com
 icloud.com
 icloud.de
+idwager.com
+ihnpo.com
 ik.me
 ikmail.com
 iminko.com
@@ -211,12 +216,15 @@ info.com
 instantletter.net
 instmail.uk
 internet.ru
+iwatermail.com
 jaga.email
 ji5.de
 ji6.de
 ji7.de
+jioso.com
 jollyfree.com
 jwpub.org
+jzxcloud.com.cn
 kabelbw.de
 keemail.me
 kein.date
@@ -283,6 +291,7 @@ myyahoo.com
 national.shitposting.agency
 naver.com
 nbmbb.com
+nespf.com
 next.com
 nextcloud.com
 nextcloud.de
@@ -373,6 +382,7 @@ s.mailinator.com
 sad.com
 sam16.de
 sdf.com
+sds.com
 semp26.com
 shehermail.com
 silomails.com
@@ -399,6 +409,7 @@ t-online.de
 t.com
 teleport.ch
 temp-mail-pro.com
+temp-mail.io
 temp.mailbox.org
 tempmail.cn
 tempmails.info
@@ -454,6 +465,7 @@ wegwerfemail.de
 wi.twcbc.com
 windowslive.com
 x.com
+xfavaj.com
 xyz.com
 y7mail.com
 yahoo.co.id
