@@ -477,6 +477,7 @@ test.net
 test.org
 test.pl
 test.ru
+testcompany.com
 testemail.com
 tfwno.gf
 thankyou.com
