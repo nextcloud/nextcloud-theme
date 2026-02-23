@@ -7,6 +7,7 @@
 126.com
 139.com
 2200freefonts.com
+2925.com
 2mail.co
 33mail.com
 3ischn.de
@@ -46,6 +47,7 @@ asda.com
 asdf.asdf
 asdf.com
 ask.com
+atomicmail.io
 b.com
 b.de
 baidu.com
@@ -101,6 +103,7 @@ darius.email
 dcobe.com
 ddd.com
 deitada.com
+demo.com
 dewittehaas.anonaddy.com
 dicksinhisan.us
 dicksinmyan.us
@@ -138,6 +141,7 @@ emaily.pro
 enotj.com
 envoes.com
 eoilup.com
+epg5.xyz
 ethermail.io
 example.com
 example.org
@@ -217,6 +221,7 @@ hi.com
 hihi.lol
 holio.day
 home.nl
+homuno.com
 horsefucker.org
 hostemail.eu
 hotmai.com
@@ -292,6 +297,7 @@ mailo.fr
 mailoo.org
 mailpass.co.uk
 mailservice.com
+mailto.plus
 mailtub.com
 manyme.com
 matsch.mozmail.com
@@ -437,6 +443,7 @@ sohu.com
 spam.care
 spam.de
 spamfr.ee
+ss-automates.slack.com
 stacys.mom
 startmail.com
 sudern.de
@@ -447,8 +454,17 @@ teleport.ch
 temp-mail-pro.com
 temp-mail.io
 temp.mailbox.org
+tempemail.de
+tempmail.at
 tempmail.cn
+tempmail.io.vn
+tempmail.us.com
+tempmail1s.icu
+tempmaila.pro
+tempmaill.net
+tempmailo.org
 tempmails.info
+tempmailsplus.com
 tempmailto.org
 temporary-mail.net
 tempumail.show
@@ -461,6 +477,7 @@ test.net
 test.org
 test.pl
 test.ru
+testcompany.com
 testemail.com
 tfwno.gf
 thankyou.com
@@ -472,6 +489,7 @@ tocomail.com
 tonne.to
 toroll-net.de
 tozya.com
+trashmail.de
 trashmail.top
 tresorit.com
 tupmail.com
@@ -506,6 +524,7 @@ wegwerfemail.de
 wi.twcbc.com
 windowslive.com
 wp.pl
+www.tempmail.cn
 x.com
 xfavaj.com
 xyz.com
@@ -518,6 +537,7 @@ yeah.net
 yes.com
 yopmail.com
 you.com
+yourcompany.com
 ytnhy.com
 z.com
 zeeinbox.com
