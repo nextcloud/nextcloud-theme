@@ -90,6 +90,7 @@ com.com
 company.com
 companyname.com
 corn.holio.day
+creteanu.com
 cumallover.me
 currently.com
 cv.com
@@ -132,6 +133,7 @@ email.ml
 email.webhook.site
 email1.io
 emailabox.pro
+emailax.pro
 emailboxi.live
 emailfoxi.pro
 emailn.de
@@ -264,6 +266,7 @@ ko.no
 kpnmail.nl
 kvhrw.com
 lambsauce.de
+laoia.com
 lemail.pro
 letterprotect.net
 li.com
@@ -360,6 +363,7 @@ onionmail.com
 onionmail.org
 online.de
 openmail.pro
+ostahie.com
 otpku.com
 outlook.be
 outlook.co.th
@@ -447,7 +451,6 @@ ss-automates.slack.com
 stacys.mom
 startmail.com
 sudern.de
-sync.com
 t-online.de
 t.com
 teleport.ch
