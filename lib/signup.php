@@ -129,6 +129,7 @@ function request_account($request) {
 
 	// init vars
 	$email = $request['email'];
+	$flow = $request['flow'];
 	$providerId = intval($request['id']);
 
 	$locationId = 0; //default
@@ -152,7 +153,10 @@ function request_account($request) {
 		'headers' => array(
 			'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8'
 		),
-		'body' => 'email=' . $email,
+		'body' => http_build_query(array(
+			'email' => $email,
+			'flow'  => $flow
+		)),
 		'timeout' => 30
 	);
 
@@ -211,10 +215,15 @@ function request_account($request) {
 		error_log($e->getMessage());
 	}
 
-	// return nc://url
+	// return nc://login/server:{server}&user:{email}&password:{appPassword} 
+	// for existing login flow for mobile clients and old desktop clients
 	if (array_key_exists('ocsapi', $request) && $request['ocsapi'] === true) {
 		return $response->setPassword . '/ocs';
 	}
+
+	// the new login flow V3 used in the desktop client will return
+	// nc://login/server:{server}
+	// no extra URL handling is required, because /flow/V3 is already attached to the response
 
 	return $response->setPassword;
 }
