@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="80" height="80" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 80 80">
+  <!-- Generator: Adobe Illustrator 29.7.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 8)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="17.458" y1="16.387" x2="62.542" y2="61.471" gradientTransform="translate(0 78.929) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+  </defs>
+  <circle id="Small_ellipse_right" class="st0" cx="40" cy="40" r="31.879"/>
+</svg>

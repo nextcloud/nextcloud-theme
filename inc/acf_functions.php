@@ -4,6 +4,7 @@ add_filter('acf/format_value/type=textarea', 'do_shortcode');
 
 
 //get countries function to append on the region field for partners
+/*
 function get_countries($continent) {
     $continents = [
         "Europe" => array("Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Iceland","Ireland","Italy","Kazakhstan","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Ukraine","United Kingdom","Vatican City"),
@@ -36,12 +37,117 @@ function get_countries($continent) {
     }
     
 }
+*/
+
+function get_countries($continent) {
+    $continents = [
+		"Europe" => [
+			"Albania","Andorra","Austria","Belarus","Belgium","Bosnia and Herzegovina",
+			"Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland",
+			"France","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo",
+			"Latvia","Liechtenstein","Lithuania","Luxembourg","Malta","Moldova","Monaco",
+			"Montenegro","Netherlands","North Macedonia","Norway","Poland","Portugal",
+			"Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden",
+			"Switzerland","Ukraine","United Kingdom","Vatican City"
+		],
+
+		"North America" => [
+			"Antigua and Barbuda","Bahamas","Barbados","Belize","Canada","Costa Rica","Cuba",
+			"Dominica","Dominican Republic","El Salvador","Grenada","Guatemala","Haiti",
+			"Honduras","Jamaica","Mexico","Nicaragua","Panama","Saint Kitts and Nevis",
+			"Saint Lucia","Saint Vincent and the Grenadines","Trinidad and Tobago",
+			"United States of America"
+		],
+
+		"South America" => [
+			"Argentina","Bolivia","Brazil","Chile","Colombia","Ecuador","Guyana","Paraguay",
+			"Peru","Suriname","Uruguay","Venezuela"
+		],
+
+		"Africa" => [
+			"Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cabo Verde",
+			"Cameroon","Central African Republic","Chad","Comoros","Democratic Republic of the Congo",
+			"Republic of the Congo","Cote d'Ivoire","Djibouti","Egypt","Equatorial Guinea",
+			"Eritrea","Eswatini","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau",
+			"Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania",
+			"Mauritius","Morocco","Mozambique","Namibia","Niger","Nigeria","Rwanda",
+			"Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia",
+			"South Africa","South Sudan","Sudan","Tanzania","Togo","Tunisia","Uganda",
+			"Zambia","Zimbabwe"
+		],
+
+		"Asia" => [
+			"Afghanistan","Armenia","Azerbaijan","Bangladesh","Bhutan","Brunei",
+			"Cambodia","China","Georgia", "Hong Kong SAR", "India","Indonesia","Iran","Iraq","Japan","Kazakhstan","Kyrgyzstan","Laos","Malaysia",
+			"Maldives","Mongolia","Myanmar","Nepal","North Korea","Pakistan","Philippines","Singapore","South Korea",
+			"Sri Lanka","Taiwan","Tajikistan","Thailand","Timor Leste","Turkey",
+			"Turkmenistan","Uzbekistan","Vietnam"
+		],
+
+		"Middle East" => ["Bahrain","Israel","Jordan","Kuwait","Lebanon","Oman","Palestine","Qatar","Saudi Arabia","Syria","United Arab Emirates","Yemen"],
+
+		/*
+		"Oceania" => [
+			"Australia","Federated States of Micronesia","Fiji","French Polynesia","Guam",
+			"Kiribati","Marshall Islands","Nauru","New Zealand","Palau","Papua New Guinea",
+			"Samoa","Solomon Islands","Tonga","Tuvalu","Vanuatu"
+		]
+		*/
+		
+        "Ocean Pacific" => [
+			"Australia","Federated States of Micronesia","Fiji","French Polynesia","Guam",
+			"Kiribati","Marshall Islands","Nauru","New Zealand","Palau","Papua New Guinea",
+			"Samoa","Solomon Islands","Tonga","Tuvalu","Vanuatu"
+		]
+
+	];
+
+    if ($continent !== 'all') {
+        $countries = $continents[$continent] ?? [];
+        // Map each label to itself: "France" => "France"
+        return array_combine($countries, $countries);
+    } else {
+        // Return all as value=>label maps
+        $out = [];
+        foreach ($continents as $name => $list) {
+            $out[$name] = array_combine($list, $list);
+        }
+        return $out;
+    }
+}
 
 
 // Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
 add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
 function nc_populate_countries_field( $field ) {
-    //$field['required'] = true;
+
+    $field['choices'] = [
+        'Europe'         => 'Europe',
+		'eu_countries'	 => get_countries('Europe'),
+        'North America'  => 'North America',
+		'north_america_countries'  => get_countries('North America'),
+        'South America'  => 'South America',
+		'south_america_countries'  => get_countries('South America'),
+        'Africa'         => 'Africa',
+		'africa_countries'         => get_countries('Africa'),
+        'Asia'           => 'Asia',
+		'asia_countries' => get_countries('Asia'),
+        'Middle East'    => 'Middle East',
+		'middle_east_countries' => get_countries('Middle East'),
+        'Ocean Pacific'  => 'Ocean Pacific',
+		'pacific_countries' => get_countries('Ocean Pacific'),
+        //'Other'          => ['Other' => 'Other'],
+    ];
+
+    return $field;
+}
+
+
+/*
+// Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
+add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
+function nc_populate_countries_field( $field ) {
+
 
     $field['choices'] = array(
         //europe  
@@ -66,16 +172,17 @@ function nc_populate_countries_field( $field ) {
 
         //middle east
         'Middle East' => 'Middle East',
-        'middle_east_countries' => get_countries('Middle East'),
+		'middle_east_countries' => get_countries('Middle East'),
 
         //pacific
         'Ocean Pacific'    => 'Ocean Pacific',
-        'pacific_countries' => get_countries('Ocean Pacific'),
+		'pacific_countries' => get_countries('Ocean Pacific'),
 
         'other' => 'Other'
     );
     return $field;
 }
+*/
 
 
 function my_acf_input_admin_footer() {
@@ -122,22 +229,22 @@ function my_acf_input_admin_footer() {
 
     <script type="text/javascript">
     (function($) {
-        
-        // JS here
-        //console.log("ACF test");
+
+		//add CSS classes if the LIs contains ULs
         $('.acf-field[data-key=field_6266caac1a171] ul.acf-checkbox-list > li').each(function(){
-            
             if($(this).find('ul').length !== 0) {
-                //console.log('it has ul inside');
-                $(this).hide();
+                //it's a parent
+
+                if($(this).find('ul').find('input[type="checkbox"]:checked').length === 0) {
+					$(this).hide();
+				}
+
                 $(this).addClass('children_list');
-                $(this).prev().addClass('parent');
-                $(this).prev().append('<div class="opener fa fa-angle-down"></div>');
-            } else {
-                //console.log('it doesnt have ul inside');
-                //$(this).addClass('parent');
+                $(this).prev('li').addClass('parent');
+                $(this).prev('li.parent').append('<div class="opener fa fa-angle-down"></div>');
             }
         });
+		
 
         $('.acf-field[data-key=field_6266caac1a171] li.parent .opener').click(function(){
             $(this).toggleClass('fa-angle-up');
@@ -145,23 +252,48 @@ function my_acf_input_admin_footer() {
             $(this).parents('li').next('li.children_list').toggleClass('opened');
         });
 
-        //when selecting or deselecting the parent checkbox, children checkboxes will be also selected or deselected 
+        //when selecting or deselecting the parent checkbox, ALL children checkboxes will be also selected or deselected 
         $('.acf-field[data-key=field_6266caac1a171] li.parent input[type="checkbox"]').change(function(){
             if(this.checked) {
+				//check all children
                 $(this).parents('li.parent').next('.children_list').find('input[type="checkbox"]').prop( "checked", true );
             } else {
+				//uncheck all children
                 $(this).parents('li.parent').next('.children_list').find('input[type="checkbox"]').prop( "checked", false );
             }
         });
 
-        //select parent checkbox when one of the children is selected
+        //select parent checkbox when ALL of the children are selected
+		/*
         $('.acf-field[data-key=field_6266caac1a171] li.children_list input[type="checkbox"]').change(function(){
             if(this.checked) {
-                $(this).parents('li.children_list').prev('.parent').find('input[type="checkbox"]').prop( "checked", true );
-            }
+				if ($(this).parents('li.children_list').find('input[type="checkbox"]').length === $(this).parents('li.children_list').find('input[type="checkbox"]:checked').length) {
+					//console.log('✅ All checkboxes are checked!');
+					$(this).parents('li.children_list').prev('li.parent').find('input[type="checkbox"]').prop( "checked", true );
+				}
+            } else {
+				$(this).parents('li.children_list').prev('li.parent').find('input[type="checkbox"]').prop( "checked", false );
+			}
+        });
+		*/
+
+		//select parent checkbox when at least one of the children are selected
+        $('.acf-field[data-key=field_6266caac1a171] li.children_list input[type="checkbox"]').change(function(){
+            if(this.checked) {
+				$(this).parents('li.children_list').prev('li.parent').find('input[type="checkbox"]').prop( "checked", true );
+            } else {
+
+				//deselect parent ONLY IF there are no children selected
+				if($(this).parents('li.children_list').find('input[type="checkbox"]:checked').length == 0) {
+					$(this).parents('li.children_list').prev('li.parent').find('input[type="checkbox"]').prop( "checked", false );
+				} 
+				
+			}
         });
 
-        
+
+
+
     })(jQuery); 
     </script>
     <?php
@@ -333,6 +465,19 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('columns', 'content'),
 	));
+
+	// register a Columns 4 Block (no repeater)
+	acf_register_block_type(array(
+		'name' => 'columns4-block-norepeater',
+		'title' => __('Columns 4 Block (no repeater)'),
+		'description' => __('Columns 4 Block (no repeater)'),
+		'render_template' => 'blocks/columns4-norepeater.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('columns', 'content'),
+	));
+
 	// register a Columns 5 Block
 	acf_register_block_type(array(
 		'name' => 'columns5-block',
@@ -820,6 +965,7 @@ function register_acf_block_types() {
 		'mode' => 'edit',
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('quote', 'content'),
+		/*
 		'example'  => array(
 			'attributes' => array(
 				'mode' => 'preview',
@@ -827,7 +973,7 @@ function register_acf_block_types() {
 					'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/single-quote-3-preview.png',
 				)
 			)
-		)
+		)*/
 	));
 
 
@@ -1125,6 +1271,27 @@ function register_acf_block_types() {
 			)
 		)
 	));
+
+	// register a Industries Content Block
+	acf_register_block_type(array(
+		'name' => 'videos-tabs-block',
+		'title' => __('NC Videos tab view Block'),
+		'description' => __('Nextcloud videos tab view block'),
+		'render_template' => 'blocks/nc_videos_tabs.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('tabs', 'tab', 'nextcloud', 'videos', 'iconbox'),
+		'example'  => array(
+			'attributes' => array(
+				'mode' => 'preview',
+				'data' => array(
+					//'preview_image_help' => get_stylesheet_directory_uri().'/blocks/previews/industries-block-preview.png',
+				)
+			)
+		)
+	));
+
 	// register a Analysis Block
 	acf_register_block_type(array(
 		'name' => 'analysis-block',
@@ -1347,6 +1514,19 @@ function register_acf_block_types() {
 		'mode' => 'edit',
 		'icon' => 'welcome-write-blog',
 		'keywords' => array('podcast', 'content'),
+	));
+
+
+	// register a Hub release changelog block
+	acf_register_block_type(array(
+		'name' => 'release-changelog',
+		'title' => __('Hub release changelog Block'),
+		'description' => __('Hub release changelog'),
+		'render_template' => 'blocks/release-changelog.php',
+		'category' => 'theme-blocks',
+		'mode' => 'edit',
+		'icon' => 'welcome-write-blog',
+		'keywords' => array('hub', 'release', 'changelog', 'content'),
 	));
 }
 

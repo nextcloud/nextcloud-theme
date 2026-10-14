@@ -6,25 +6,43 @@ $sm-breakpoint: 575.98px;
 $sm-breakpoint600: 600px;
 $md-breakpoint: 767.98px;
 $tablet-breakpoint: 991px;
-$menu-custom-breakpoint: 1200px;
-$menu-custom-breakpoint-min: 1201px;
 $xl-breakpoint: 1199.98px;
+$menu-custom-breakpoint: 1400px;
+$menu-custom-breakpoint-min: 1401px;
+$xxl-breakpoint: 2199.98px;
+$container_width: 1320px;
+$container_width_xl: 1400px;
 $mainColor: #0082c9; //rgb(0, 130, 201)
-$primary: #007bbd; // darker blue for accessibility
-$mainColorDarker: #00659b;
-$lightColor: #1cafff; // rgb(28, 175, 255)
-$textColor: #050404;
+//$mainColor: #007bbd; //rgb(0, 123, 189) // darker blue for accessibility
+$lightColor: #1cafff; // rgb(28, 175, 255) - used for gradient
+//$mainColorDarker: #00659b;
+$mainColorDarker: #006da8; // for accessibility on lighter blue BG
+//$summitDeepBlue: #1b1464; //rgb
+$summitDarkBlue: #0f0833; //rgb
+$textColor: #000000;
 $communityColor: rgb(219, 237, 248); //hex: #DBEDF8 // rgba(0, 130, 201, 0.14)
+$lightBG: rgba(0,130,201,0.14); // 14% of the main blue color 
+$veryLightBG: rgba(0,130,201,0.05); // 14% of the main blue color 
+//$communityColor: rgb(219, 236, 246); //hex: #dbecf6 // rgba(0, 123, 189, 0.14)
 $successColor: #42E553;
 $successBGColor: #00ce48;
+$successBGColorLight: #a5ffc4;
+$starsColor: #f49d07;
 $labelColor: #ffc28d;
 $errorColor: #FE5252;
 $warningColor: #ffe3b0;
 $youtube: #FF0000;
-$lightBG: rgba(0,130,201,0.14);
-$borderRadius:15px;
-$borderRadiusLarger:25px;
-$boxShadow: 0 0 25px rgba(0,130, 201, 0.12);
+$boxShadow: 0 0 25px rgba(0, 130, 201, 0.12);
+$boxShadowBlack: 0 12px 25px rgba(0,0,0, 0.25);
 $youtubeColor: #c4302b;
-$blueGradient: linear-gradient(45deg, #0082c9 20%, #1cafff);
-$blueGradient2: linear-gradient(45deg, #0082c9, #1CAFFF);
+$blueGradient: linear-gradient(45deg, $mainColor 20%, #1cafff);
+//$summitGradient: linear-gradient(90deg, #001d64 -50%, $mainColor);
+$summitGradient: linear-gradient(0deg, #0f0833, $lightColor);
+$blueGradient2: linear-gradient(45deg, $mainColor, $lightColor);
+$pageHeroGradient: linear-gradient(45deg, $mainColor 20%, rgba(0, 130, 201, 0.15));
+$lightBlueGradient: linear-gradient(45deg, #DBEDF8 40%, rgba(0, 130, 201, 0.1));
+$lightBlueGradientMobile: linear-gradient(90deg, #DBEDF8 40%, rgba(0, 130, 201, 0.1));
+$borderRadius: 8px;
+$borderRadiusSmall: 5px;
+$borderRadiusSection:15px;
+$borderRadiusLarger:25px;

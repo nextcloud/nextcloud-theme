@@ -1,5 +1,3 @@
-=== This GitHub repository is dedicated to the development of our nextcloud.com WordPress-based website ===
-
 === Twenty Twenty ===
 Contributors: the WordPress team
 Tested up to: 5.5

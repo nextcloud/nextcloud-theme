@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1080 1080">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: url(#radial-gradient);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0" y1="540" x2="1080" y2="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".3" stop-color="#0082c9"/>
+      <stop offset=".511" stop-color="#0a93dd"/>
+      <stop offset=".814" stop-color="#17a7f6"/>
+      <stop offset="1" stop-color="#1cafff"/>
+    </linearGradient>
+    <clipPath id="clippath">
+      <rect class="st0" width="1080" height="1080"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="1080" cy="540" fx="1080" fy="540" r="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dbedf7"/>
+      <stop offset=".096" stop-color="#dbedf7" stop-opacity=".823"/>
+      <stop offset=".226" stop-color="#dbedf7" stop-opacity=".607"/>
+      <stop offset=".359" stop-color="#dbedf7" stop-opacity=".421"/>
+      <stop offset=".491" stop-color="#dbedf7" stop-opacity=".269"/>
+      <stop offset=".621" stop-color="#dbedf7" stop-opacity=".151"/>
+      <stop offset=".751" stop-color="#dbedf7" stop-opacity=".067"/>
+      <stop offset=".878" stop-color="#dbedf7" stop-opacity=".017"/>
+      <stop offset="1" stop-color="#dbedf7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st2" width="1080" height="1080"/>
+  <g class="st3">
+    <circle class="st1" cx="1080" cy="540" r="540"/>
+  </g>
+</svg>

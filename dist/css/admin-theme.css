@@ -2,6 +2,10 @@
     display: none;
 }
 
+.wpb_nc_text_with_icon img {
+    max-width: 30px;
+}
+
 .wpb_nc_iconbox .image_icon {
     max-width: 100%;
     max-height: 35px;
@@ -24,4 +28,21 @@
 .nc_single_feature .textarea_html
 {
     display: none;
+}
+
+.wpb_nc_app_iconbox .image_icon {
+    max-width: 100%;
+}
+
+.wpb_nc_custom_button img {
+    max-width: 24px;
+}
+
+.compare_group_section_title {
+    font-size: 1.5em;
+    margin-top: 2rem;
+}
+
+.platform_comparison_feature {
+    margin-top: 2rem;
 }

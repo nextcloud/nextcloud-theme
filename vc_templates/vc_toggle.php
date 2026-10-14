@@ -24,6 +24,11 @@ $inverted = false;
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
+$disable_toggle = isset($atts['disable_toggle']) ? $atts['disable_toggle'] : '';
+if ( $disable_toggle === 'yes' ) {
+    return ''; // Do not render anything if disabled
+}
+
 // checking is color inverted
 $style = str_replace( '_outline', '', $style, $inverted );
 /**
@@ -50,6 +55,15 @@ $heading_output = apply_filters( 'wpb_toggle_heading', $this->getHeading( $atts 
 	'title' => $title,
 	'open' => $open,
 ) );
-$output = '<div ' . ( isset( $el_id ) && ! empty( $el_id ) ? 'id="' . esc_attr( $el_id ) . '"' : '' ) . ' class="' . esc_attr( $css_class ) . '" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" ><div itemprop="name" class="vc_toggle_title">' . $heading_output . '<i class="vc_toggle_icon"></i></div><div class="vc_toggle_content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">' . wpb_js_remove_wpautop( apply_filters( 'the_content', $content ), true ) . '</div></div>';
+
+$custom_title_id = strtolower(trim($title));
+// Replace spaces and underscores with dashes
+$custom_title_id = preg_replace('/[\s_]+/', '-', $custom_title_id);
+// Remove invalid characters (keep letters, digits, dashes, colons, periods)
+$custom_title_id = preg_replace('/[^a-z0-9\-:.]/', '', $custom_title_id);
+
+$custom_id = ( isset( $el_id ) && ! empty( $el_id ) ) ? esc_attr( $el_id ) : "toggle_id_".$custom_title_id;
+$content_id = $custom_id."-content";
+$output = '<div id="'.$custom_id.'" class="' . esc_attr( $css_class ) . '" itemscope tabindex="-1" itemprop="mainEntity" itemtype="https://schema.org/Question" ><div itemprop="name" class="vc_toggle_title"><button id="'.$custom_id.'-btn" aria-expanded="false" aria-controls="'.$content_id.'" class="faq_opener">' . $heading_output . '<i class="vc_toggle_icon"></i></button></div><div class="vc_toggle_content" aria-labelledby="'.$custom_id.'-btn" id="'.$content_id.'" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">' . wpb_js_remove_wpautop( apply_filters( 'the_content', $content ), true ) . '</div></div>';
 
 return $output;
