@@ -17,7 +17,7 @@ $text = get_field('text');
 			echo '</div>';
 			echo '</div>';
 		}
-		?>
+?>
 		<div class="row justify-content-center">
 			<div class="col-lg-6">
 				<?php echo do_shortcode('[contact-form-7 id="16229" title="Partner program"]');  ?>

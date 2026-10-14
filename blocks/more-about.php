@@ -14,7 +14,7 @@ $title = get_field('title');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					?>
+?>
 				</div>
 			</div>
 		</div>
@@ -47,18 +47,18 @@ $title = get_field('title');
 					echo '</div>';
 				}
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>
 <?php
 if (have_rows('more_boxes')) {
-				$x = 1;
-				while (have_rows('more_boxes')) {
-					the_row();
-					$the_video = get_sub_field('box_video');
-					if (!empty($the_video)) {
-						?>
+	$x = 1;
+	while (have_rows('more_boxes')) {
+		the_row();
+		$the_video = get_sub_field('box_video');
+		if (!empty($the_video)) {
+			?>
 			<div class="modal video-modal fade" id="videoModal<?php echo $x; ?>" tabindex="-1" aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
@@ -75,7 +75,7 @@ if (have_rows('more_boxes')) {
 			</div>
 			<?php
 			$x++;
-					}
-				}
-			}
+		}
+	}
+}
 ?>

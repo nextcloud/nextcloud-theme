@@ -15,7 +15,7 @@ $video = get_field('video');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					?>
+?>
 				</div>
 				<?php
 				if (have_rows('products')) {
@@ -60,7 +60,7 @@ $video = get_field('video');
 					}
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 			<?php
 			if (!empty($video)) {
@@ -70,13 +70,13 @@ $video = get_field('video');
 				echo '</div>';
 				echo '</div>';
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>
 <?php
 if (!empty($video)) {
-				?>
+	?>
 	<div class="modal video-modal fade" id="productvideoModal" tabindex="-1" aria-labelledby="productvideoModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
@@ -92,5 +92,5 @@ if (!empty($video)) {
 		</div>
 	</div>
 	<?php
-			}
+}
 ?>

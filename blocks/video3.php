@@ -17,16 +17,16 @@ $video = get_field('video');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					if ($link) {
-						$link_url = $link['url'];
-						$link_title = $link['title'];
-						$link_target = $link['target'] ? $link['target'] : '_self';
-						echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@ $video = get_field('video');
 				echo '</div>';
 				echo '</div>';
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

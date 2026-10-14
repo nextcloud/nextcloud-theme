@@ -16,10 +16,10 @@ $subtext = get_field('subtext');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -59,15 +59,15 @@ $subtext = get_field('subtext');
 			}
 			echo '</div>';
 		}
-		if (!empty($subtext)) {
-			echo '<div class="row">';
-			echo '<div class="col-12">';
-			echo '<div class="sub-text">';
-			echo wpautop($subtext);
-			echo '</div>';
-			echo '</div>';
-			echo '</div>';
-		}
-		?>
+if (!empty($subtext)) {
+	echo '<div class="row">';
+	echo '<div class="col-12">';
+	echo '<div class="sub-text">';
+	echo wpautop($subtext);
+	echo '</div>';
+	echo '</div>';
+	echo '</div>';
+}
+?>
 	</div>
 </section>

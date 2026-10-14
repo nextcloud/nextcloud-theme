@@ -21,13 +21,13 @@ if (!empty($bg_top)) {
 				if (!empty($title)) {
 					echo '<h1>' . $title . '</h1>';
 				}
-				if ($link) {
-					$link_url = $link['url'];
-					$link_title = $link['title'];
-					$link_target = $link['target'] ? $link['target'] : '_self';
-					echo '<a class="c-btn" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-				}
-				?>
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<a class="c-btn" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+}
+?>
 			</div>
 		</div>
 	</div>
@@ -35,8 +35,8 @@ if (!empty($bg_top)) {
 </section>
 <?php
 if (!empty($bg_bottom)) {
-					echo '<section class="page-hero-bottom-section" style="background-image: url(' . $bg_bottom . ');">';
-					if (!empty($text)) { ?>
+	echo '<section class="page-hero-bottom-section" style="background-image: url(' . $bg_bottom . ');">';
+	if (!empty($text)) { ?>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-9">
@@ -48,5 +48,5 @@ if (!empty($bg_bottom)) {
 		</div>
 	<?php
 	}
-					echo '</section>';
-				}
+	echo '</section>';
+}

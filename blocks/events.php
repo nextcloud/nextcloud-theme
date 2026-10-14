@@ -16,10 +16,10 @@ $link = get_field('link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -42,20 +42,20 @@ $link = get_field('link');
 			}
 			echo '</div>';
 		}
-		?>
+?>
 		<?php
-		if ($link) {
-			$link_url = $link['url'];
-			$link_title = $link['title'];
-			$link_target = $link['target'] ? $link['target'] : '_self';
-			echo '<div class="row">';
-			echo '<div class="col-12">';
-			echo '<div class="button-block">';
-			echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-			echo '</div>';
-			echo '</div>';
-			echo '</div>';
-		}
-		?>
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<div class="row">';
+	echo '<div class="col-12">';
+	echo '<div class="button-block">';
+	echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+	echo '</div>';
+	echo '</div>';
+	echo '</div>';
+}
+?>
 	</div>
 </section>

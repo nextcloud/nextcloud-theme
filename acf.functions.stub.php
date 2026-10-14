@@ -13,7 +13,7 @@
 *  @param   n/a
 *  @return  n/a
 */
-function acf_add_loop($loop = array()) {
+function acf_add_loop($loop = []) {
 }
 /*
 *  acf_update_loop
@@ -67,9 +67,9 @@ function acf_remove_loop($i = 'active') {
  * @since   5.8.0
  * @see     ACF_Local_Meta::add() for list of parameters.
  *
- * @return  array
+ * @return array
  */
-function acf_setup_meta($meta = array(), $post_id = 0, $is_main = \false) {
+function acf_setup_meta($meta = [], $post_id = 0, $is_main = \false) {
 }
 /**
  * acf_reset_meta
@@ -80,7 +80,7 @@ function acf_setup_meta($meta = array(), $post_id = 0, $is_main = \false) {
  * @since   5.8.0
  * @see     ACF_Local_Meta::remove() for list of parameters.
  *
- * @return  void
+ * @return void
  */
 function acf_reset_meta($post_id = 0) {
 }
@@ -122,9 +122,9 @@ function acf_register_plugin_update($plugin) {
  * @date    26/1/18
  * @since   5.6.5
  *
- * @param   string $field_name The name of the field. eg 'sub_heading'.
- * @param   mixed  $post_id The post_id of which the value is saved against.
- * @return  string The field key.
+ * @param string $field_name The name of the field. eg 'sub_heading'.
+ * @param mixed $post_id The post_id of which the value is saved against.
+ * @return string The field key.
  */
 function acf_get_reference($field_name, $post_id) {
 }
@@ -134,9 +134,9 @@ function acf_get_reference($field_name, $post_id) {
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   int|string $post_id The post id.
- * @param   array      $field The field array.
- * @return  mixed
+ * @param int|string $post_id The post id.
+ * @param array $field The field array.
+ * @return mixed
  */
 function acf_get_value($post_id, $field) {
 }
@@ -148,10 +148,10 @@ function acf_get_value($post_id, $field) {
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   mixed        $value The field value.
- * @param   (int|string) $post_id The post id.
- * @param   array        $field The field array.
- * @return  mixed.
+ * @param mixed $value The field value.
+ * @param (int|string) $post_id The post id.
+ * @param array $field The field array.
+ * @return mixed.
  */
 function acf_format_value($value, $post_id, $field) {
 }
@@ -163,10 +163,10 @@ function acf_format_value($value, $post_id, $field) {
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   mixed        $value The new value.
- * @param   (int|string) $post_id The post id.
- * @param   array        $field The field array.
- * @return  bool.
+ * @param mixed $value The new value.
+ * @param (int|string) $post_id The post id.
+ * @param array $field The field array.
+ * @return bool.
  */
 function acf_update_value($value, $post_id, $field) {
 }
@@ -179,8 +179,8 @@ function acf_update_value($value, $post_id, $field) {
  * @since   5.7.13
  *
  * @param   array values The array of values.
- * @param   (int|string)                     $post_id The post id.
- * @return  void
+ * @param (int|string) $post_id The post id.
+ * @return void
  */
 function acf_update_values($values, $post_id) {
 }
@@ -192,9 +192,9 @@ function acf_update_values($values, $post_id) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $post_id The post id.
- * @param   string       $field_name The field name.
- * @return  void
+ * @param (int|string) $post_id The post id.
+ * @param string $field_name The field name.
+ * @return void
  */
 function acf_flush_value_cache($post_id = 0, $field_name = '') {
 }
@@ -206,9 +206,9 @@ function acf_flush_value_cache($post_id = 0, $field_name = '') {
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   (int|string) $post_id The post id.
- * @param   array        $field The field array.
- * @return  bool.
+ * @param (int|string) $post_id The post id.
+ * @param array $field The field array.
+ * @return bool.
  */
 function acf_delete_value($post_id, $field) {
 }
@@ -220,17 +220,17 @@ function acf_delete_value($post_id, $field) {
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   mixed        $value The new value.
- * @param   (int|string) $post_id The post id.
- * @param   array        $field The field array.
- * @return  bool.
+ * @param mixed $value The new value.
+ * @param (int|string) $post_id The post id.
+ * @param array $field The field array.
+ * @return bool.
  */
 function acf_preview_value($value, $post_id, $field) {
 }
 /**
  * Potentially log an error if a field doesn't exist when we expect it to.
  *
- * @param array  $field    An array representing the field that a value was requested for.
+ * @param array $field An array representing the field that a value was requested for.
  * @param string $function The function that noticed the problem.
  *
  * @return void
@@ -286,8 +286,8 @@ function acf_get_meta($post_id = 0) {
  * @date    9/10/18
  * @since   5.8.0
  *
- * @param   string $prefix The wp_option name prefix.
- * @return  array
+ * @param string $prefix The wp_option name prefix.
+ * @return array
  */
 function acf_get_option_meta($prefix = '') {
 }
@@ -297,11 +297,11 @@ function acf_get_option_meta($prefix = '') {
  * @date    16/10/2015
  * @since   5.2.3
  *
- * @param   int|string $post_id The post id.
- * @param   string     $name    The meta name.
- * @param   bool       $hidden  If the meta is hidden (starts with an underscore).
+ * @param int|string $post_id The post id.
+ * @param string $name The meta name.
+ * @param bool $hidden If the meta is hidden (starts with an underscore).
  *
- * @return  mixed
+ * @return mixed
  */
 function acf_get_metadata($post_id = 0, $name = '', $hidden = \false) {
 }
@@ -311,12 +311,12 @@ function acf_get_metadata($post_id = 0, $name = '', $hidden = \false) {
  * @date    16/10/2015
  * @since   5.2.3
  *
- * @param   int|string $post_id The post id.
- * @param   string     $name    The meta name.
- * @param   mixed      $value   The meta value.
- * @param   bool       $hidden  If the meta is hidden (starts with an underscore).
+ * @param int|string $post_id The post id.
+ * @param string $name The meta name.
+ * @param mixed $value The meta value.
+ * @param bool $hidden If the meta is hidden (starts with an underscore).
  *
- * @return  int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
+ * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
 function acf_update_metadata($post_id = 0, $name = '', $value = '', $hidden = \false) {
 }
@@ -326,11 +326,11 @@ function acf_update_metadata($post_id = 0, $name = '', $value = '', $hidden = \f
  * @date    16/10/2015
  * @since   5.2.3
  *
- * @param   int|string $post_id The post id.
- * @param   string     $name The meta name.
- * @param   bool       $hidden If the meta is hidden (starts with an underscore).
+ * @param int|string $post_id The post id.
+ * @param string $name The meta name.
+ * @param bool $hidden If the meta is hidden (starts with an underscore).
  *
- * @return  bool
+ * @return bool
  */
 function acf_delete_metadata($post_id = 0, $name = '', $hidden = \false) {
 }
@@ -342,9 +342,9 @@ function acf_delete_metadata($post_id = 0, $name = '', $hidden = \false) {
  * @date    25/06/2016
  * @since   5.3.8
  *
- * @param   (int|string) $from_post_id The post id to copy from.
- * @param   (int|string) $to_post_id The post id to paste to.
- * @return  void
+ * @param (int|string) $from_post_id The post id to copy from.
+ * @param (int|string) $to_post_id The post id to paste to.
+ * @return void
  */
 function acf_copy_metadata($from_post_id = 0, $to_post_id = 0) {
 }
@@ -357,9 +357,9 @@ function acf_copy_metadata($from_post_id = 0, $to_post_id = 0) {
  * @since   5.3.8
  * @deprecated 5.7.11
  *
- * @param   int $from_post_id The post id to copy from.
- * @param   int $to_post_id The post id to paste to.
- * @return  void
+ * @param int $from_post_id The post id to copy from.
+ * @param int $to_post_id The post id to paste to.
+ * @return void
  */
 function acf_copy_postmeta($from_post_id = 0, $to_post_id = 0) {
 }
@@ -372,9 +372,9 @@ function acf_copy_postmeta($from_post_id = 0, $to_post_id = 0) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   string       $key The meta name (field name).
- * @param   (int|string) $post_id The post_id where this field's value is saved.
- * @return  (array|false) The field array.
+ * @param string $key The meta name (field name).
+ * @param (int|string) $post_id The post_id where this field's value is saved.
+ * @return (array|false) The field array.
  */
 function acf_get_meta_field($key = 0, $post_id = 0) {
 }
@@ -386,10 +386,10 @@ function acf_get_meta_field($key = 0, $post_id = 0) {
  * @date    16/10/2015
  * @since   5.2.3
  *
- * @param   (int|string)                                   $post_id The post id.
+ * @param (int|string) $post_id The post id.
  * @param   string type The reference type (fields|groups).
- * @param   string                                         $name An optional specific name
- * @return  mixed
+ * @param string $name An optional specific name
+ * @return mixed
  */
 function acf_get_metaref($post_id = 0, $type = 'fields', $name = '') {
 }
@@ -401,12 +401,12 @@ function acf_get_metaref($post_id = 0, $type = 'fields', $name = '') {
  * @date    16/10/2015
  * @since   5.2.3
  *
- * @param   (int|string)                                   $post_id The post id.
+ * @param (int|string) $post_id The post id.
  * @param   string type The reference type (fields|groups).
- * @param   array                                          $references An array of references.
- * @return  (int|bool) Meta ID if the key didn't exist, true on successful update, false on failure.
+ * @param array $references An array of references.
+ * @return (int|bool) Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function acf_update_metaref($post_id = 0, $type = 'fields', $references = array()) {
+function acf_update_metaref($post_id = 0, $type = 'fields', $references = []) {
 }
 /**
  * Returns a WordPress object type.
@@ -414,9 +414,9 @@ function acf_update_metaref($post_id = 0, $type = 'fields', $references = array(
  * @date    1/4/20
  * @since   5.9.0
  *
- * @param   string $object_type The object type (post, term, user, etc).
- * @param   string $object_subtype Optional object subtype (post type, taxonomy).
- * @return  object
+ * @param string $object_type The object type (post, term, user, etc).
+ * @param string $object_subtype Optional object subtype (post type, taxonomy).
+ * @return object
  */
 function acf_get_object_type($object_type, $object_subtype = '') {
 }
@@ -426,8 +426,8 @@ function acf_get_object_type($object_type, $object_subtype = '') {
  * @date    25/1/19
  * @since   5.7.11
  *
- * @param   (int|string) $post_id The post id.
- * @return  array
+ * @param (int|string) $post_id The post id.
+ * @return array
  */
 function acf_decode_post_id($post_id = 0) {
 }
@@ -566,8 +566,8 @@ function acf_get_admin_tool_url($tool = '') {
  *  @date    23/12/18
  *  @since   5.8.0
  *
- *  @param   array $data Optional data to set.
- *  @return  ACF_Admin_Notice
+ * @param array $data Optional data to set.
+ * @return ACF_Admin_Notice
  */
 function acf_new_admin_notice($data = \false) {
 }
@@ -580,7 +580,7 @@ function acf_new_admin_notice($data = \false) {
  * @since   5.7.10
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_render_admin_notices() {
 }
@@ -592,10 +592,10 @@ function acf_render_admin_notices() {
  * @date        17/10/13
  * @since       5.0.0
  *
- * @param   string $text The admin notice text.
- * @param   string $class The type of notice (warning, error, success, info).
- * @param   string $dismissable Is this notification dismissible (default true) (since 5.11.0)
- * @return  ACF_Admin_Notice
+ * @param string $text The admin notice text.
+ * @param string $class The type of notice (warning, error, success, info).
+ * @param string $dismissable Is this notification dismissible (default true) (since 5.11.0)
+ * @return ACF_Admin_Notice
  */
 function acf_add_admin_notice($text = '', $type = 'info', $dismissible = \true) {
 }
@@ -607,10 +607,10 @@ function acf_add_admin_notice($text = '', $type = 'info', $dismissible = \true) 
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   array $args The query args.
- * @return  array
+ * @param array $args The query args.
+ * @return array
  */
-function acf_get_users($args = array()) {
+function acf_get_users($args = []) {
 }
 /**
  * acf_get_user_result
@@ -620,8 +620,8 @@ function acf_get_users($args = array()) {
  * @date    21/5/19
  * @since   5.8.1
  *
- * @param   WP_User $user The user object.
- * @return  array
+ * @param WP_User $user The user object.
+ * @return array
  */
 function acf_get_user_result($user) {
 }
@@ -633,10 +633,10 @@ function acf_get_user_result($user) {
  * @date    20/5/19
  * @since   5.8.1
  *
- * @param   array $roles A specific array of roles.
- * @return  array
+ * @param array $roles A specific array of roles.
+ * @return array
  */
-function acf_get_user_role_labels($roles = array()) {
+function acf_get_user_role_labels($roles = []) {
 }
 /**
  * acf_allow_unfiltered_html
@@ -647,7 +647,7 @@ function acf_get_user_role_labels($roles = array()) {
  * @since   5.7.10
  *
  * @param   void
- * @return  bool
+ * @return bool
  */
 function acf_allow_unfiltered_html() {
 }
@@ -659,8 +659,8 @@ function acf_allow_unfiltered_html() {
  * @date    17/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  (array|false) The field array.
+ * @param (int|string) $id The field ID, key or name.
+ * @return (array|false) The field array.
  */
 function acf_get_field($id = 0) {
 }
@@ -672,8 +672,8 @@ function acf_get_field($id = 0) {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  (array|false) The field array.
+ * @param (int|string) $id The field ID, key or name.
+ * @return (array|false) The field array.
  */
 function acf_get_raw_field($id = 0) {
 }
@@ -685,8 +685,8 @@ function acf_get_raw_field($id = 0) {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  (array|false) The field array.
+ * @param (int|string) $id The field ID, key or name.
+ * @return (array|false) The field array.
  */
 function acf_get_field_post($id = 0) {
 }
@@ -698,8 +698,8 @@ function acf_get_field_post($id = 0) {
  * @date    6/12/2013
  * @since   5.0.0
  *
- * @param   string $id The identifier.
- * @return  bool
+ * @param string $id The identifier.
+ * @return bool
  */
 function acf_is_field_key($id = '') {
 }
@@ -711,10 +711,10 @@ function acf_is_field_key($id = '') {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
-function acf_validate_field($field = array()) {
+function acf_validate_field($field = []) {
 }
 /**
  * acf_get_valid_field
@@ -724,8 +724,8 @@ function acf_validate_field($field = array()) {
  * @date        28/09/13
  * @since       5.0.0
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
 function acf_get_valid_field($field = \false) {
 }
@@ -737,10 +737,10 @@ function acf_get_valid_field($field = \false) {
  * @date    8/03/2016
  * @since   5.3.2
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
-function acf_translate_field($field = array()) {
+function acf_translate_field($field = []) {
 }
 /**
  * acf_get_fields
@@ -750,8 +750,8 @@ function acf_translate_field($field = array()) {
  * @date    30/09/13
  * @since   5.0.0
  *
- * @param   (int|string|array) $parent The field group or field settings. Also accepts the field group ID or key.
- * @return  array
+ * @param (int|string|array) $parent The field group or field settings. Also accepts the field group ID or key.
+ * @return array
  */
 function acf_get_fields($parent) {
 }
@@ -763,8 +763,8 @@ function acf_get_fields($parent) {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   int $id The field group or field id.
- * @return  array
+ * @param int $id The field group or field id.
+ * @return array
  */
 function acf_get_raw_fields($id = 0) {
 }
@@ -776,8 +776,8 @@ function acf_get_raw_fields($id = 0) {
  * @date    17/10/13
  * @since   5.0.0
  *
- * @param   array $parent The field group or field array.
- * @return  int
+ * @param array $parent The field group or field array.
+ * @return int
  */
 function acf_get_field_count($parent) {
 }
@@ -789,9 +789,9 @@ function acf_get_field_count($parent) {
  * @date    8/03/2016
  * @since   5.3.2
  *
- * @param   array $field The field being cloned.
- * @param   array $clone_field The clone field.
- * @return  array
+ * @param array $field The field being cloned.
+ * @param array $clone_field The clone field.
+ * @return array
  */
 function acf_clone_field($field, $clone_field) {
 }
@@ -803,8 +803,8 @@ function acf_clone_field($field, $clone_field) {
  * @date    20/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
 function acf_prepare_field($field) {
 }
@@ -817,11 +817,11 @@ function acf_prepare_field($field) {
  * @since   5.0.0
  * @since   5.6.9 Changed parameter order.
  *
- * @param   array        $fields An array of fields.
- * @param   (int|string) $post_id The post ID to load values from.
- * @param   string       $element The wrapping element type.
- * @param   string       $instruction The instruction render position (label|field).
- * @return  void
+ * @param array $fields An array of fields.
+ * @param (int|string) $post_id The post ID to load values from.
+ * @param string $element The wrapping element type.
+ * @param string $instruction The instruction render position (label|field).
+ * @return void
  */
 function acf_render_fields($fields, $post_id = 0, $el = 'div', $instruction = 'label') {
 }
@@ -833,10 +833,10 @@ function acf_render_fields($fields, $post_id = 0, $el = 'div', $instruction = 'l
  * @date    28/09/13
  * @since   5.0.0
  *
- * @param   array  $field The field array.
- * @param   string $element The wrapping element type.
- * @param   string $instruction The instruction render position (label|field).
- * @return  void
+ * @param array $field The field array.
+ * @param string $element The wrapping element type.
+ * @param string $instruction The instruction render position (label|field).
+ * @return void
  */
 function acf_render_field_wrap($field, $element = 'div', $instruction = 'label') {
 }
@@ -848,8 +848,8 @@ function acf_render_field_wrap($field, $element = 'div', $instruction = 'label')
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_render_field($field) {
 }
@@ -861,8 +861,8 @@ function acf_render_field($field) {
  * @date    19/9/17
  * @since   5.6.3
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_render_field_label($field) {
 }
@@ -874,9 +874,9 @@ function acf_render_field_label($field) {
  * @date    4/11/2013
  * @since   5.0.0
  *
- * @param   array  $field The field array.
- * @param   string $context The output context (admin).
- * @return  void
+ * @param array $field The field array.
+ * @param string $context The output context (admin).
+ * @return void
  */
 function acf_get_field_label($field, $context = '') {
 }
@@ -888,8 +888,8 @@ function acf_get_field_label($field, $context = '') {
  * @date    19/9/17
  * @since   5.6.3
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_render_field_instructions($field) {
 }
@@ -901,10 +901,10 @@ function acf_render_field_instructions($field) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @param   array $setting The settings field array.
- * @param   bool  $global Whether this setting is a global or field type specific one.
- * @return  void
+ * @param array $field The field array.
+ * @param array $setting The settings field array.
+ * @param bool $global Whether this setting is a global or field type specific one.
+ * @return void
  */
 function acf_render_field_setting($field, $setting, $global = \false) {
 }
@@ -916,11 +916,11 @@ function acf_render_field_setting($field, $setting, $global = \false) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @param   array $specific An array of specific field attributes to update.
- * @return  void
+ * @param array $field The field array.
+ * @param array $specific An array of specific field attributes to update.
+ * @return void
  */
-function acf_update_field($field, $specific = array()) {
+function acf_update_field($field, $specific = []) {
 }
 /**
  * _acf_apply_unique_field_slug
@@ -930,11 +930,11 @@ function acf_update_field($field, $specific = array()) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param string $slug          The post slug.
- * @param int    $post_ID       Post ID.
- * @param string $post_status   The post status.
- * @param string $post_type     Post type.
- * @param int    $post_parent   Post parent ID
+ * @param string $slug The post slug.
+ * @param int $post_ID Post ID.
+ * @param string $post_status The post status.
+ * @param string $post_type Post type.
+ * @param int $post_parent Post parent ID
  * @param string $original_slug The original post slug.
  */
 function _acf_apply_unique_field_slug($slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug) {
@@ -947,8 +947,8 @@ function _acf_apply_unique_field_slug($slug, $post_ID, $post_status, $post_type,
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_flush_field_cache($field) {
 }
@@ -960,8 +960,8 @@ function acf_flush_field_cache($field) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  bool True if field was deleted.
+ * @param (int|string) $id The field ID, key or name.
+ * @return bool True if field was deleted.
  */
 function acf_delete_field($id = 0) {
 }
@@ -973,8 +973,8 @@ function acf_delete_field($id = 0) {
  * @date    2/10/13
  * @since   5.0.0
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  bool True if field was trashed.
+ * @param (int|string) $id The field ID, key or name.
+ * @return bool True if field was trashed.
  */
 function acf_trash_field($id = 0) {
 }
@@ -986,8 +986,8 @@ function acf_trash_field($id = 0) {
  * @date    2/10/13
  * @since   5.0.0
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  bool True if field was trashed.
+ * @param (int|string) $id The field ID, key or name.
+ * @return bool True if field was trashed.
  */
 function acf_untrash_field($id = 0) {
 }
@@ -998,8 +998,8 @@ function acf_untrash_field($id = 0) {
  *
  * @since 5.9.5
  *
- * @param string $new_status      The new status of the post being restored.
- * @param int    $post_id         The ID of the post being restored.
+ * @param string $new_status The new status of the post being restored.
+ * @param int $post_id The ID of the post being restored.
  * @param string $previous_status The status of the post at the point where it was trashed.
  * @return string.
  */
@@ -1013,9 +1013,9 @@ function _acf_untrash_field_post_status($new_status, $post_id, $previous_status)
  * @date    5/9/17
  * @since   5.6.0
  *
- * @param   array  $fields An array of fields.
- * @param   string $prefix The new prefix.
- * @return  void
+ * @param array $fields An array of fields.
+ * @param string $prefix The new prefix.
+ * @return void
  */
 function acf_prefix_fields(&$fields, $prefix = 'acf') {
 }
@@ -1027,9 +1027,9 @@ function acf_prefix_fields(&$fields, $prefix = 'acf') {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @param   array        $field The parent field array.
- * @return  (array|false)
+ * @param (int|string) $id The field ID, key or name.
+ * @param array $field The parent field array.
+ * @return (array|false)
  */
 function acf_get_sub_field($id, $field) {
 }
@@ -1041,9 +1041,9 @@ function acf_get_sub_field($id, $field) {
  * @date    12/2/19
  * @since   5.7.11
  *
- * @param   (int|string) $id The field ID, key or name.
- * @param   array        $haystack The array of fields.
- * @return  (int|false)
+ * @param (int|string) $id The field ID, key or name.
+ * @param array $haystack The array of fields.
+ * @return (int|false)
  */
 function acf_search_fields($id, $fields) {
 }
@@ -1055,9 +1055,9 @@ function acf_search_fields($id, $fields) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @param   mixed $id An optional identifier to search for.
- * @return  bool
+ * @param array $field The field array.
+ * @param mixed $id An optional identifier to search for.
+ * @return bool
  */
 function acf_is_field($field = \false, $id = '') {
 }
@@ -1069,8 +1069,8 @@ function acf_is_field($field = \false, $id = '') {
  * @date    22/06/2016
  * @since   5.3.8
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
 function acf_get_field_ancestors($field) {
 }
@@ -1082,11 +1082,11 @@ function acf_get_field_ancestors($field) {
  * @date    16/06/2014
  * @since   5.0.0
  *
- * @param   array $fields An array of fields.
- * @param   int   $parent_id The new parent ID.
- * @return  array
+ * @param array $fields An array of fields.
+ * @param int $parent_id The new parent ID.
+ * @return array
  */
-function acf_duplicate_fields($fields = array(), $parent_id = 0) {
+function acf_duplicate_fields($fields = [], $parent_id = 0) {
 }
 /**
  * acf_duplicate_field
@@ -1096,9 +1096,9 @@ function acf_duplicate_fields($fields = array(), $parent_id = 0) {
  * @date    16/06/2014
  * @since   5.0.0
  *
- * @param   (int|string) $id The field ID, key or name.
- * @param   int          $parent_id The new parent ID.
- * @return  bool True if field was duplicated.
+ * @param (int|string) $id The field ID, key or name.
+ * @param int $parent_id The new parent ID.
+ * @return bool True if field was duplicated.
  */
 function acf_duplicate_field($id = 0, $parent_id = 0) {
 }
@@ -1110,10 +1110,10 @@ function acf_duplicate_field($id = 0, $parent_id = 0) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $fields An array of fields.
- * @return  array
+ * @param array $fields An array of fields.
+ * @return array
  */
-function acf_prepare_fields_for_export($fields = array()) {
+function acf_prepare_fields_for_export($fields = []) {
 }
 /**
  * acf_prepare_field_for_export
@@ -1123,8 +1123,8 @@ function acf_prepare_fields_for_export($fields = array()) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
 function acf_prepare_field_for_export($field) {
 }
@@ -1136,10 +1136,10 @@ function acf_prepare_field_for_export($field) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $fields An array of fields.
- * @return  array
+ * @param array $fields An array of fields.
+ * @return array
  */
-function acf_prepare_fields_for_import($fields = array()) {
+function acf_prepare_fields_for_import($fields = []) {
 }
 /**
  * acf_prepare_field_for_import
@@ -1150,8 +1150,8 @@ function acf_prepare_fields_for_import($fields = array()) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $field The field array.
- * @return  array
+ * @param array $field The field array.
+ * @return array
  */
 function acf_prepare_field_for_import($field) {
 }
@@ -1161,8 +1161,8 @@ function acf_prepare_field_for_import($field) {
  * @date    8/4/20
  * @since   5.9.0
  *
- * @param   string $class_name The location class name.
- * @return  (ACF_Location|false)
+ * @param string $class_name The location class name.
+ * @return (ACF_Location|false)
  */
 function acf_register_location_type($class_name) {
 }
@@ -1173,7 +1173,7 @@ function acf_register_location_type($class_name) {
  * @since   5.9.0
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_location_types() {
 }
@@ -1183,8 +1183,8 @@ function acf_get_location_types() {
  * @date    18/2/19
  * @since   5.7.12
  *
- * @param   string $name The location type name.
- * @return  (ACF_Location|null)
+ * @param string $name The location type name.
+ * @return (ACF_Location|null)
  */
 function acf_get_location_type($name) {
 }
@@ -1195,7 +1195,7 @@ function acf_get_location_type($name) {
  * @since   5.9.0
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_location_rule_types() {
 }
@@ -1205,10 +1205,10 @@ function acf_get_location_rule_types() {
  * @date    8/4/20
  * @since   5.9.0
  *
- * @param   array $rule The location rule.
- * @return  array
+ * @param array $rule The location rule.
+ * @return array
  */
-function acf_validate_location_rule($rule = array()) {
+function acf_validate_location_rule($rule = []) {
 }
 /**
  * Returns an array of operators for a given rule.
@@ -1216,8 +1216,8 @@ function acf_validate_location_rule($rule = array()) {
  * @date    30/5/17
  * @since   5.6.0
  *
- * @param   array $rule The location rule.
- * @return  array
+ * @param array $rule The location rule.
+ * @return array
  */
 function acf_get_location_rule_operators($rule) {
 }
@@ -1227,8 +1227,8 @@ function acf_get_location_rule_operators($rule) {
  * @date    30/5/17
  * @since   5.6.0
  *
- * @param   array $rule The location rule.
- * @return  array
+ * @param array $rule The location rule.
+ * @return array
  */
 function acf_get_location_rule_values($rule) {
 }
@@ -1238,10 +1238,10 @@ function acf_get_location_rule_values($rule) {
  * @date    30/5/17
  * @since   5.6.0
  *
- * @param   array $rule The location rule.
- * @param   array $screen The screen args.
- * @param   array $field The field group array.
- * @return  bool
+ * @param array $rule The location rule.
+ * @param array $screen The screen args.
+ * @param array $field The field group array.
+ * @return bool
  */
 function acf_match_location_rule($rule, $screen, $field_group) {
 }
@@ -1251,11 +1251,11 @@ function acf_match_location_rule($rule, $screen, $field_group) {
  * @date    8/4/20
  * @since   5.9.0
  *
- * @param   array $screen The screen args.
- * @param   array $deprecated The field group array.
- * @return  array
+ * @param array $screen The screen args.
+ * @param array $deprecated The field group array.
+ * @return array
  */
-function acf_get_location_screen($screen = array(), $deprecated = \false) {
+function acf_get_location_screen($screen = [], $deprecated = \false) {
 }
 /**
  * Alias of acf_register_location_type().
@@ -1263,8 +1263,8 @@ function acf_get_location_screen($screen = array(), $deprecated = \false) {
  * @date    31/5/17
  * @since   5.6.0
  *
- * @param   string $class_name The location class name.
- * @return  (ACF_Location|false)
+ * @param string $class_name The location class name.
+ * @return (ACF_Location|false)
  */
 function acf_register_location_rule($class_name) {
 }
@@ -1274,8 +1274,8 @@ function acf_register_location_rule($class_name) {
  * @date    31/5/17
  * @since   5.6.0
  *
- * @param   string $class_name The location class name.
- * @return  (ACF_Location|false)
+ * @param string $class_name The location class name.
+ * @return (ACF_Location|false)
  */
 function acf_get_location_rule($name) {
 }
@@ -1285,8 +1285,8 @@ function acf_get_location_rule($name) {
  * @date    30/5/17
  * @since   5.6.0
  *
- * @param   array $rule The location rule.
- * @return  array
+ * @param array $rule The location rule.
+ * @return array
  */
 function acf_get_valid_location_rule($rule) {
 }
@@ -1297,8 +1297,8 @@ function acf_get_valid_location_rule($rule) {
  * @date    14/4/20
  * @since   5.9.0
  *
- * @param   type $var Description. Default.
- * @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
 function acf_get_local_json_files() {
 }
@@ -1308,8 +1308,8 @@ function acf_get_local_json_files() {
  * @date    5/12/2014
  * @since   5.1.5
  *
- * @param   array $field_group The field group.
- * @return  bool
+ * @param array $field_group The field group.
+ * @return bool
  */
 function acf_write_json_field_group($field_group) {
 }
@@ -1319,8 +1319,8 @@ function acf_write_json_field_group($field_group) {
  * @date    5/12/2014
  * @since   5.1.5
  *
- * @param   string $key The field group key.
- * @return  bool True on success.
+ * @param string $key The field group key.
+ * @return bool True on success.
  */
 function acf_delete_json_field_group($key) {
 }
@@ -1347,8 +1347,8 @@ function acf_get_compatibility($name) {
  * @since   5.6.3
  * @deprecated 5.6.5
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_render_field_wrap_label($field) {
 }
@@ -1361,8 +1361,8 @@ function acf_render_field_wrap_label($field) {
  * @since   5.6.3
  * @deprecated 5.6.5
  *
- * @param   array $field The field array.
- * @return  void
+ * @param array $field The field array.
+ * @return void
  */
 function acf_render_field_wrap_description($field) {
 }
@@ -1389,10 +1389,10 @@ function acf_get_fields_by_id($parent_id = 0) {
  * @since   5.0.0
  * @deprecated  5.7.11
  *
- * @param   string $option The option name.
- * @param   string $value The option value.
- * @param   string $autoload An optional autoload value.
- * @return  bool
+ * @param string $option The option name.
+ * @param string $value The option value.
+ * @param string $autoload An optional autoload value.
+ * @return bool
  */
 function acf_update_option($option = '', $value = '', $autoload = \null) {
 }
@@ -1405,9 +1405,9 @@ function acf_update_option($option = '', $value = '', $autoload = \null) {
  * @since   5.6.5
  * @deprecated  5.6.8
  *
- * @param   string $field_name The name of the field. eg 'sub_heading'
- * @param   mixed  $post_id    The post_id of which the value is saved against
- * @return  string  $reference  The field key
+ * @param string $field_name The name of the field. eg 'sub_heading'
+ * @param mixed $post_id The post_id of which the value is saved against
+ * @return string $reference  The field key
  */
 function acf_get_field_reference($field_name, $post_id) {
 }
@@ -1420,8 +1420,8 @@ function acf_get_field_reference($field_name, $post_id) {
  * @since   5.0.0
  * @deprecated  5.6.8
  *
- * @param   string $filename The specified file.
- * @return  string
+ * @param string $filename The specified file.
+ * @return string
  */
 function acf_get_dir($filename = '') {
 }
@@ -1446,8 +1446,8 @@ function acf_is_empty($var) {
  * @date    15/7/19
  * @since   5.8.1
  *
- * @param   mixed $var The value to check.
- * @return  bool
+ * @param mixed $var The value to check.
+ * @return bool
  */
 function acf_not_empty($var) {
 }
@@ -1459,8 +1459,8 @@ function acf_not_empty($var) {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   string $prefix The id prefix. Defaults to 'acf'.
- * @return  string
+ * @param string $prefix The id prefix. Defaults to 'acf'.
+ * @return string
  */
 function acf_uniqid($prefix = 'acf') {
 }
@@ -1472,9 +1472,9 @@ function acf_uniqid($prefix = 'acf') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $array1 An array of attributes.
- * @param   array $array2 An array of attributes.
- * @return  array
+ * @param array $array1 An array of attributes.
+ * @param array $array2 An array of attributes.
+ * @return array
  */
 function acf_merge_attributes($array1, $array2) {
 }
@@ -1486,8 +1486,8 @@ function acf_merge_attributes($array1, $array2) {
  * @date    25/1/19
  * @since   5.7.11
  *
- * @param   string $key The cache key.
- * @return  string
+ * @param string $key The cache key.
+ * @return string
  */
 function acf_cache_key($key = '') {
 }
@@ -1499,10 +1499,10 @@ function acf_cache_key($key = '') {
  * @date    28/2/19
  * @since   5.7.13
  *
- * @param   array $args An array of args.
- * @return  array
+ * @param array $args An array of args.
+ * @return array
  */
-function acf_request_args($args = array()) {
+function acf_request_args($args = []) {
 }
 /**
  * Returns a single $_REQUEST arg with fallback.
@@ -1510,9 +1510,9 @@ function acf_request_args($args = array()) {
  * @date    23/10/20
  * @since   5.9.2
  *
- * @param   string $key The property name.
- * @param   mixed  $default The default value to fallback to.
- * @return  mixed
+ * @param string $key The property name.
+ * @param mixed $default The default value to fallback to.
+ * @return mixed
  */
 function acf_request_arg($name = '', $default = \null) {
 }
@@ -1525,7 +1525,7 @@ function acf_request_arg($name = '', $default = \null) {
  * @since   5.4.0
  *
  * @param   string name The modifer name.
- * @return  void
+ * @return void
  */
 function acf_enable_filter($name = '') {
 }
@@ -1538,7 +1538,7 @@ function acf_enable_filter($name = '') {
  * @since   5.4.0
  *
  * @param   string name The modifer name.
- * @return  void
+ * @return void
  */
 function acf_disable_filter($name = '') {
 }
@@ -1551,7 +1551,7 @@ function acf_disable_filter($name = '') {
  * @since   5.4.0
  *
  * @param   string name The modifer name.
- * @return  array
+ * @return array
  */
 function acf_is_filter_enabled($name = '') {
 }
@@ -1564,7 +1564,7 @@ function acf_is_filter_enabled($name = '') {
  * @since   5.4.0
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_filters() {
 }
@@ -1576,10 +1576,10 @@ function acf_get_filters() {
  * @date    14/7/16
  * @since   5.4.0
  *
- * @param   array $filters An Array of modifers
- * @return  array
+ * @param array $filters An Array of modifers
+ * @return array
  */
-function acf_set_filters($filters = array()) {
+function acf_set_filters($filters = []) {
 }
 /**
  * acf_disable_filters
@@ -1590,7 +1590,7 @@ function acf_set_filters($filters = array()) {
  * @since   5.4.0
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_disable_filters() {
 }
@@ -1602,10 +1602,10 @@ function acf_disable_filters() {
  * @date    14/7/16
  * @since   5.4.0
  *
- * @param   array $filters An Array of modifers
- * @return  array
+ * @param array $filters An Array of modifers
+ * @return array
  */
-function acf_enable_filters($filters = array()) {
+function acf_enable_filters($filters = []) {
 }
 /**
  * acf_idval
@@ -1615,8 +1615,8 @@ function acf_enable_filters($filters = array()) {
  * @date    29/3/19
  * @since   5.7.14
  *
- * @param   mixed $value A value to parse.
- * @return  int
+ * @param mixed $value A value to parse.
+ * @return int
  */
 function acf_idval($value) {
 }
@@ -1628,8 +1628,8 @@ function acf_idval($value) {
  * @date    6/4/19
  * @since   5.7.14
  *
- * @param   mixed $value A value to parse.
- * @return  mixed
+ * @param mixed $value A value to parse.
+ * @return mixed
  */
 function acf_maybe_idval($value) {
 }
@@ -1650,8 +1650,8 @@ function acf_format_numerics($value) {
  * @date    11/4/19
  * @since   5.7.14
  *
- * @param   mixed $value A value to parse.
- * @return  (int|float)
+ * @param mixed $value A value to parse.
+ * @return (int|float)
  */
 function acf_numval($value) {
 }
@@ -1663,8 +1663,8 @@ function acf_numval($value) {
  * @date    24/12/17
  * @since   5.6.5
  *
- * @param   string $str The string to convert.
- * @return  string
+ * @param string $str The string to convert.
+ * @return string
  */
 function acf_idify($str = '') {
 }
@@ -1674,9 +1674,9 @@ function acf_idify($str = '') {
  * @date    24/12/17
  * @since   5.6.5
  *
- * @param   string $str The string to convert.
- * @param   string $glue The glue between each slug piece.
- * @return  string
+ * @param string $str The string to convert.
+ * @param string $glue The glue between each slug piece.
+ * @return string
  */
 function acf_slugify($str = '', $glue = '-') {
 }
@@ -1686,8 +1686,8 @@ function acf_slugify($str = '', $glue = '-') {
  * @date    12/7/19
  * @since   5.8.2
  *
- * @param   string $str The string to format.
- * @return  string
+ * @param string $str The string to format.
+ * @return string
  */
 function acf_punctify($str = '') {
 }
@@ -1699,8 +1699,8 @@ function acf_punctify($str = '') {
  * @date    30/8/19
  * @since   5.8.1
  *
- * @param   string $name The name of the event.
- * @return  bool
+ * @param string $name The name of the event.
+ * @return bool
  */
 function acf_did($name) {
 }
@@ -1716,8 +1716,8 @@ function acf_did($name) {
  * @date    04/06/2020
  * @since   5.9.0
  *
- * @param   string $str The string to review.
- * @return  int
+ * @param string $str The string to review.
+ * @return int
  */
 function acf_strlen($str) {
 }
@@ -1727,9 +1727,9 @@ function acf_strlen($str) {
  * @date    6/4/20
  * @since   5.9.0
  *
- * @param   mixed $value The value.
- * @param   mixed $default_value The default value.
- * @return  mixed
+ * @param mixed $value The value.
+ * @param mixed $default_value The default value.
+ * @return mixed
  */
 function acf_with_default($value, $default_value) {
 }
@@ -1739,8 +1739,8 @@ function acf_with_default($value, $default_value) {
  * @date    14/07/2020
  * @since   5.9.0
  *
- * @param   string $action The action name.
- * @return  int|bool
+ * @param string $action The action name.
+ * @return int|bool
  */
 function acf_doing_action($action) {
 }
@@ -1751,7 +1751,7 @@ function acf_doing_action($action) {
  * @since   5.1.5
  *
  * @param   void
- * @return  string
+ * @return string
  */
 function acf_get_current_url() {
 }
@@ -1778,8 +1778,8 @@ function acf_get_locale() {
  * @date    8/1/19
  * @since   5.7.10
  *
- * @param   string $locale The plugin's current locale.
- * @return  void
+ * @param string $locale The plugin's current locale.
+ * @return void
  */
 function acf_load_textdomain($domain = 'acf') {
 }
@@ -1791,8 +1791,8 @@ function acf_load_textdomain($domain = 'acf') {
  * @date    23/1/19
  * @since   5.7.11
  *
- * @param   string $key The cache key.
- * @return  string
+ * @param string $key The cache key.
+ * @return string
  */
 function _acf_apply_language_cache_key($key) {
 }
@@ -1805,7 +1805,7 @@ function _acf_apply_language_cache_key($key) {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  bool
+ * @return bool
  */
 function acf_has_upgrade() {
 }
@@ -1818,7 +1818,7 @@ function acf_has_upgrade() {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  bool
+ * @return bool
  */
 function acf_upgrade_all() {
 }
@@ -1831,7 +1831,7 @@ function acf_upgrade_all() {
  *  @since   5.4.0
  *
  *  @param   void
- *  @return  string
+ * @return string
  */
 function acf_get_db_version() {
 }
@@ -1857,7 +1857,7 @@ function acf_update_db_version($version = '') {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  void
+ * @return void
  */
 function acf_upgrade_500() {
 }
@@ -1870,7 +1870,7 @@ function acf_upgrade_500() {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  void
+ * @return void
  */
 function acf_upgrade_500_field_groups() {
 }
@@ -1882,8 +1882,8 @@ function acf_upgrade_500_field_groups() {
  *  @date    23/8/18
  *  @since   5.7.4
  *
- *  @param   object $ofg The old field group post object.
- *  @return  array $nfg  The new field group array.
+ * @param object $ofg The old field group post object.
+ * @return array $nfg  The new field group array.
  */
 function acf_upgrade_500_field_group($ofg) {
 }
@@ -1895,9 +1895,9 @@ function acf_upgrade_500_field_group($ofg) {
  *  @date    23/8/18
  *  @since   5.7.4
  *
- *  @param   object $ofg The old field group post object.
- *  @param   array  $nfg  The new field group array.
- *  @return  void
+ * @param object $ofg The old field group post object.
+ * @param array $nfg The new field group array.
+ * @return void
  */
 function acf_upgrade_500_fields($ofg, $nfg) {
 }
@@ -1909,8 +1909,8 @@ function acf_upgrade_500_fields($ofg, $nfg) {
  *  @date    23/8/18
  *  @since   5.7.4
  *
- *  @param   array $field The old field.
- *  @return  array $field The new field.
+ * @param array $field The old field.
+ * @return array $field The new field.
  */
 function acf_upgrade_500_field($field) {
 }
@@ -1923,7 +1923,7 @@ function acf_upgrade_500_field($field) {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  void
+ * @return void
  */
 function acf_upgrade_550() {
 }
@@ -1936,7 +1936,7 @@ function acf_upgrade_550() {
  *  @since   5.7.4
  *
  *  @param   void
- *  @return  void
+ * @return void
  */
 function acf_upgrade_550_termmeta() {
 }
@@ -1962,8 +1962,8 @@ function acf_wp_upgrade_550_termmeta($wp_db_version, $wp_current_db_version) {
  *  @date    24/8/18
  *  @since   5.7.4
  *
- *  @param   string $taxonomy The taxonomy name.
- *  @return  void
+ * @param string $taxonomy The taxonomy name.
+ * @return void
  */
 function acf_upgrade_550_taxonomy($taxonomy) {
 }
@@ -1975,8 +1975,8 @@ function acf_upgrade_550_taxonomy($taxonomy) {
  * @date    11/6/19
  * @since   5.8.1
  *
- * @param   array $attrs The array of attrs.
- * @return  array
+ * @param array $attrs The array of attrs.
+ * @return array
  */
 function acf_filter_attrs($attrs) {
 }
@@ -1988,8 +1988,8 @@ function acf_filter_attrs($attrs) {
  * @date    11/6/19
  * @since   5.8.1
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_esc_attrs($attrs) {
 }
@@ -2001,8 +2001,8 @@ function acf_esc_attrs($attrs) {
  * @date    16/4/21
  * @since   5.9.6
  *
- * @param   string $string
- * @return  string
+ * @param string $string
+ * @return string
  */
 function acf_esc_html($string = '') {
 }
@@ -2012,9 +2012,9 @@ function acf_esc_html($string = '') {
  * @date    16/4/21
  * @since   5.9.6
  *
- * @param   array  $tags An array of allowed tags.
- * @param   string $context The context name.
- * @return  array.
+ * @param array $tags An array of allowed tags.
+ * @param string $context The context name.
+ * @return array.
  */
 function _acf_kses_allowed_html($tags, $context) {
 }
@@ -2026,8 +2026,8 @@ function _acf_kses_allowed_html($tags, $context) {
  * @date    13/6/19
  * @since   5.8.1
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 // function acf_html_input( $attrs = array() ) {
 // return sprintf( '<input %s/>', acf_esc_attrs($attrs) );
@@ -2040,10 +2040,10 @@ function _acf_kses_allowed_html($tags, $context) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_hidden_input($attrs = array()) {
+function acf_hidden_input($attrs = []) {
 }
 /**
  * acf_get_hidden_input
@@ -2053,10 +2053,10 @@ function acf_hidden_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_hidden_input($attrs = array()) {
+function acf_get_hidden_input($attrs = []) {
 }
 /**
  * acf_text_input
@@ -2066,10 +2066,10 @@ function acf_get_hidden_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_text_input($attrs = array()) {
+function acf_text_input($attrs = []) {
 }
 /**
  * acf_get_text_input
@@ -2079,10 +2079,10 @@ function acf_text_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_text_input($attrs = array()) {
+function acf_get_text_input($attrs = []) {
 }
 /**
  * acf_file_input
@@ -2092,10 +2092,10 @@ function acf_get_text_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_file_input($attrs = array()) {
+function acf_file_input($attrs = []) {
 }
 /**
  * acf_get_file_input
@@ -2105,10 +2105,10 @@ function acf_file_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_file_input($attrs = array()) {
+function acf_get_file_input($attrs = []) {
 }
 /**
  * acf_textarea_input
@@ -2118,10 +2118,10 @@ function acf_get_file_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_textarea_input($attrs = array()) {
+function acf_textarea_input($attrs = []) {
 }
 /**
  * acf_get_textarea_input
@@ -2131,10 +2131,10 @@ function acf_textarea_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_textarea_input($attrs = array()) {
+function acf_get_textarea_input($attrs = []) {
 }
 /**
  * acf_checkbox_input
@@ -2144,10 +2144,10 @@ function acf_get_textarea_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_checkbox_input($attrs = array()) {
+function acf_checkbox_input($attrs = []) {
 }
 /**
  * acf_get_checkbox_input
@@ -2157,10 +2157,10 @@ function acf_checkbox_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_checkbox_input($attrs = array()) {
+function acf_get_checkbox_input($attrs = []) {
 }
 /**
  * acf_radio_input
@@ -2170,10 +2170,10 @@ function acf_get_checkbox_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_radio_input($attrs = array()) {
+function acf_radio_input($attrs = []) {
 }
 /**
  * acf_get_radio_input
@@ -2183,10 +2183,10 @@ function acf_radio_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_radio_input($attrs = array()) {
+function acf_get_radio_input($attrs = []) {
 }
 /**
  * acf_select_input
@@ -2196,10 +2196,10 @@ function acf_get_radio_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_select_input($attrs = array()) {
+function acf_select_input($attrs = []) {
 }
 /**
  * acf_select_input
@@ -2209,10 +2209,10 @@ function acf_select_input($attrs = array()) {
  * @date    3/02/2014
  * @since   5.0.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
-function acf_get_select_input($attrs = array()) {
+function acf_get_select_input($attrs = []) {
 }
 /**
  * acf_walk_select_input
@@ -2222,12 +2222,12 @@ function acf_get_select_input($attrs = array()) {
  * @date    27/6/17
  * @since   5.6.0
  *
- * @param   array $choices The choices to walk through.
- * @param   array $values The selected choices.
- * @param   array $depth The current walk depth.
- * @return  string
+ * @param array $choices The choices to walk through.
+ * @param array $values The selected choices.
+ * @param array $depth The current walk depth.
+ * @return string
  */
-function acf_walk_select_input($choices = array(), $values = array(), $depth = 0) {
+function acf_walk_select_input($choices = [], $values = [], $depth = 0) {
 }
 /**
  * acf_clean_atts
@@ -2237,8 +2237,8 @@ function acf_walk_select_input($choices = array(), $values = array(), $depth = 0
  * @date    3/10/17
  * @since   5.6.3
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_clean_atts($attrs) {
 }
@@ -2250,8 +2250,8 @@ function acf_clean_atts($attrs) {
  * @date    27/6/17
  * @since   5.6.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_esc_atts($attrs) {
 }
@@ -2264,8 +2264,8 @@ function acf_esc_atts($attrs) {
  * @since   5.8.1
  * @deprecated  5.6.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_esc_attr($attrs) {
 }
@@ -2278,8 +2278,8 @@ function acf_esc_attr($attrs) {
  * @since   5.8.1
  * @deprecated  5.6.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_esc_attr_e($attrs) {
 }
@@ -2292,8 +2292,8 @@ function acf_esc_attr_e($attrs) {
  * @since   5.8.1
  * @deprecated  5.6.0
  *
- * @param   array $attrs The array of attrs.
- * @return  string
+ * @param array $attrs The array of attrs.
+ * @return string
  */
 function acf_esc_atts_e($attrs) {
 }
@@ -2336,10 +2336,10 @@ function the_field($selector, $post_id = \false, $format_value = \true) {
  * @since 3.6
  * @date  3/02/13
  *
- * @param string $selector     The field name or key.
- * @param mixed  $post_id      The post_id of which the value is saved against.
- * @param bool   $format_value Whether to format the field value.
- * @param bool   $load_value   Whether to load the field value.
+ * @param string $selector The field name or key.
+ * @param mixed $post_id The post_id of which the value is saved against.
+ * @param bool $format_value Whether to format the field value.
+ * @param bool $load_value Whether to load the field value.
  *
  * @return array $field
  */
@@ -2418,9 +2418,9 @@ function get_field_objects($post_id = \false, $format_value = \true, $load_value
  * @date    2/09/13
  * @since   4.3.0
  *
- * @param   string $selector The field name or field key.
- * @param   mixed  $post_id The post ID where the value is saved. Defaults to the current post.
- * @return  bool
+ * @param string $selector The field name or field key.
+ * @param mixed $post_id The post ID where the value is saved. Defaults to the current post.
+ * @return bool
  */
 function have_rows($selector, $post_id = \false) {
 }
@@ -2770,7 +2770,7 @@ function acf_filter_post_id($post_id) {
 *  @param   array $args An array of args used in the get_taxonomies() function.
 *  @return  array An array of taxonomy names.
 */
-function acf_get_taxonomies($args = array()) {
+function acf_get_taxonomies($args = []) {
 }
 /**
  *  acf_get_taxonomies_for_post_type
@@ -2780,8 +2780,8 @@ function acf_get_taxonomies($args = array()) {
  *  @date    7/9/18
  *  @since   5.7.5
  *
- *  @param   string|array $post_types The post types to compare against.
- *  @return  array
+ * @param string|array $post_types The post types to compare against.
+ * @return array
  */
 function acf_get_taxonomies_for_post_type($post_types = 'post') {
 }
@@ -2796,7 +2796,7 @@ function acf_get_taxonomies_for_post_type($post_types = 'post') {
 *  @param   array $taxonomies Optional. An array of specific taxonomies to return.
 *  @return  array
 */
-function acf_get_taxonomy_labels($taxonomies = array()) {
+function acf_get_taxonomy_labels($taxonomies = []) {
 }
 /**
  *  acf_get_term_title
@@ -2806,8 +2806,8 @@ function acf_get_taxonomy_labels($taxonomies = array()) {
  *  @date    10/9/18
  *  @since   5.0.0
  *
- *  @param   object $term The WP_Term object.
- *  @return  string
+ * @param object $term The WP_Term object.
+ * @return string
  */
 function acf_get_term_title($term) {
 }
@@ -2819,8 +2819,8 @@ function acf_get_term_title($term) {
  *  @date    2/8/18
  *  @since   5.7.2
  *
- *  @param   array $args An array of args used in the get_terms() function.
- *  @return  array
+ * @param array $args An array of args used in the get_terms() function.
+ * @return array
  */
 function acf_get_grouped_terms($args) {
 }
@@ -2832,10 +2832,10 @@ function acf_get_grouped_terms($args) {
  *  @date    2/8/18
  *  @since   5.7.2
  *
- *  @param   array $pieces     Terms query SQL clauses.
- *  @param   array $taxonomies An array of taxonomies.
- *  @param   array $args       An array of terms query arguments.
- *  @return  array $pieces
+ * @param array $pieces Terms query SQL clauses.
+ * @param array $taxonomies An array of taxonomies.
+ * @param array $args An array of terms query arguments.
+ * @return array $pieces
  */
 function _acf_terms_clauses($pieces, $taxonomies, $args) {
 }
@@ -2848,7 +2848,7 @@ function _acf_terms_clauses($pieces, $taxonomies, $args) {
  *  @since       5.0.0
  *  @deprecated  5.7.2
  */
-function acf_get_pretty_taxonomies($taxonomies = array()) {
+function acf_get_pretty_taxonomies($taxonomies = []) {
 }
 /**
  *  acf_get_term
@@ -2858,9 +2858,9 @@ function acf_get_pretty_taxonomies($taxonomies = array()) {
  *  @date    19/8/18
  *  @since   5.7.3
  *
- *  @param   mixed  $term_id The term ID or a string of "taxonomy:slug".
- *  @param   string $taxonomy The taxonomyname.
- *  @return  WP_Term
+ * @param mixed $term_id The term ID or a string of "taxonomy:slug".
+ * @param string $taxonomy The taxonomyname.
+ * @return WP_Term
  */
 function acf_get_term($term_id, $taxonomy = '') {
 }
@@ -2872,8 +2872,8 @@ function acf_get_term($term_id, $taxonomy = '') {
  *  @date    27/8/18
  *  @since   5.7.4
  *
- *  @param   WP_Term $term The term object.
- *  @return  string
+ * @param WP_Term $term The term object.
+ * @return string
  */
 function acf_encode_term($term) {
 }
@@ -2885,8 +2885,8 @@ function acf_encode_term($term) {
  *  @date    27/8/18
  *  @since   5.7.4
  *
- *  @param   WP_Term $term The term object.
- *  @return  string
+ * @param WP_Term $term The term object.
+ * @return string
  */
 function acf_decode_term($string) {
 }
@@ -2898,8 +2898,8 @@ function acf_decode_term($string) {
  *  @date    9/9/18
  *  @since   5.7.5
  *
- *  @param   array $values The array of encoded strings.
- *  @return  array
+ * @param array $values The array of encoded strings.
+ * @return array
  */
 function acf_get_encoded_terms($values) {
 }
@@ -2911,9 +2911,9 @@ function acf_get_encoded_terms($values) {
  *  @date    8/9/18
  *  @since   5.7.5
  *
- *  @param   array  $values and array of WP_Terms objects or encoded strings.
- *  @param   string $format The value format (term_id, slug).
- *  @return  array
+ * @param array $values and array of WP_Terms objects or encoded strings.
+ * @param string $format The value format (term_id, slug).
+ * @return array
  */
 function acf_get_choices_from_terms($terms, $format = 'term_id') {
 }
@@ -2925,9 +2925,9 @@ function acf_get_choices_from_terms($terms, $format = 'term_id') {
  *  @date    8/9/18
  *  @since   5.7.5
  *
- *  @param   array  $value A grouped array of WP_Terms objects.
- *  @param   string $format The value format (term_id, slug).
- *  @return  array
+ * @param array $value A grouped array of WP_Terms objects.
+ * @param string $format The value format (term_id, slug).
+ * @return array
  */
 function acf_get_choices_from_grouped_terms($value, $format = 'term_id') {
 }
@@ -2939,9 +2939,9 @@ function acf_get_choices_from_grouped_terms($value, $format = 'term_id') {
  *  @date    10/9/18
  *  @since   5.7.6
  *
- *  @param   object $item The item object such as WP_Post or WP_Term.
- *  @param   string $format The value format (term_id, slug)
- *  @return  array
+ * @param object $item The item object such as WP_Post or WP_Term.
+ * @param string $format The value format (term_id, slug)
+ * @return array
  */
 function acf_get_choice_from_term($term, $format = 'term_id') {
 }
@@ -2953,9 +2953,9 @@ function acf_get_choice_from_term($term, $format = 'term_id') {
  * @since   5.5.6
  * @deprecated 5.9.2
  *
- * @param   $taxonomy (string) The taxonomy type.
- * @param   $term_id (int) The term ID.
- * @return  (string)
+ * @param $taxonomy (string) The taxonomy type.
+ * @param $term_id (int) The term ID.
+ * @return (string)
  */
 function acf_get_term_post_id($taxonomy, $term_id) {
 }
@@ -2982,7 +2982,7 @@ function acf_is_array($array) {
  *  @since   5.6.5
  *
  *  @param   n/a
- *  @return  n/a
+ * @return n/a
  */
 function acf_has_setting($name = '') {
 }
@@ -2995,7 +2995,7 @@ function acf_has_setting($name = '') {
  *  @since   5.6.5
  *
  *  @param   n/a
- *  @return  n/a
+ * @return n/a
  */
 function acf_raw_setting($name = '') {
 }
@@ -3023,7 +3023,7 @@ function acf_update_setting($name, $value) {
  *  @since   5.6.5
  *
  *  @param   n/a
- *  @return  n/a
+ * @return n/a
  */
 function acf_validate_setting($name = '') {
 }
@@ -3064,8 +3064,8 @@ function acf_append_setting($name, $value) {
  *  @date    28/09/13
  *  @since   5.0.0
  *
- *  @param   string $name
- *  @return  mixed
+ * @param string $name
+ * @return mixed
  */
 function acf_get_data($name) {
 }
@@ -3077,9 +3077,9 @@ function acf_get_data($name) {
  *  @date    28/09/13
  *  @since   5.0.0
  *
- *  @param   string $name
- *  @param   mixed  $value
- *  @return  n/a
+ * @param string $name
+ * @param mixed $value
+ * @return n/a
  */
 function acf_set_data($name, $value) {
 }
@@ -3089,8 +3089,8 @@ function acf_set_data($name, $value) {
  * @date    11/06/2020
  * @since   5.9.0
  *
- * @param   string $name The data name.
- * @return  array $data The data array.
+ * @param string $name The data name.
+ * @return array $data The data array.
  */
 function acf_append_data($name, $data) {
 }
@@ -3161,8 +3161,8 @@ function acf_get_external_dir($file, $path = '') {
  *  @date    13/12/17
  *  @since   5.6.8
  *
- *  @param   type $var Description. Default.
- *  @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
 function acf_plugin_dir_url($file) {
 }
@@ -3179,7 +3179,7 @@ function acf_plugin_dir_url($file) {
 *  @param   $defaults (array)
 *  @return  $args (array)
 */
-function acf_parse_args($args, $defaults = array()) {
+function acf_parse_args($args, $defaults = []) {
 }
 /*
 *  acf_parse_types
@@ -3215,12 +3215,12 @@ function acf_parse_type($v) {
  *  @date    28/09/13
  *  @since   5.0.0
  *
- *  @param string $view_path
- *  @param array  $view_args
+ * @param string $view_path
+ * @param array $view_args
  *
- *  @return void
+ * @return void
  */
-function acf_get_view($view_path = '', $view_args = array()) {
+function acf_get_view($view_path = '', $view_args = []) {
 }
 /*
 *  acf_merge_atts
@@ -3234,7 +3234,7 @@ function acf_get_view($view_path = '', $view_args = array()) {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_merge_atts($atts, $extra = array()) {
+function acf_merge_atts($atts, $extra = []) {
 }
 /*
 *  acf_nonce_input
@@ -3301,12 +3301,12 @@ function acf_get_sub_array($array, $keys) {
  *  @date    7/10/13
  *  @since   5.0.0
  *
- *  @param   array $args Optional. An array of key => value arguments to match against the post type objects. Default empty array.
- *  @return  array A list of post type names.
+ * @param array $args Optional. An array of key => value arguments to match against the post type objects. Default empty array.
+ * @return array A list of post type names.
  */
-function acf_get_post_types($args = array()) {
+function acf_get_post_types($args = []) {
 }
-function acf_get_pretty_post_types($post_types = array()) {
+function acf_get_pretty_post_types($post_types = []) {
 }
 /*
 *  acf_get_post_type_label
@@ -3375,10 +3375,10 @@ function acf_get_image_size($s = '') {
  * @date    21/11/16
  * @since   5.5.0
  *
- * @param   string $left The left version number.
- * @param   string $compare The compare operator.
- * @param   string $right The right version number.
- * @return  bool
+ * @param string $left The left version number.
+ * @param string $compare The compare operator.
+ * @param string $right The right version number.
+ * @return bool
  */
 function acf_version_compare($left = '', $compare = '>', $right = '') {
 }
@@ -3422,7 +3422,7 @@ function acf_get_terms($args) {
 *  @param   $taxonomies (array)
 *  @return  (array)
 */
-function acf_get_taxonomy_terms($taxonomies = array()) {
+function acf_get_taxonomy_terms($taxonomies = []) {
 }
 /*
 *  acf_decode_taxonomy_terms
@@ -3460,10 +3460,10 @@ function acf_decode_taxonomy_term($value) {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   mixed $val The value to cast.
- * @return  array
+ * @param mixed $val The value to cast.
+ * @return array
  */
-function acf_array($val = array()) {
+function acf_array($val = []) {
 }
 /**
  * Returns a non-array value.
@@ -3471,8 +3471,8 @@ function acf_array($val = array()) {
  * @date    11/05/2020
  * @since   5.8.10
  *
- * @param   mixed $val The value to review.
- * @return  mixed
+ * @param mixed $val The value to review.
+ * @return mixed
  */
 function acf_unarray($val) {
 }
@@ -3512,10 +3512,10 @@ function acf_get_numeric($value = '') {
  * @date    3/03/15
  * @since   5.1.5
  *
- * @param   array $args The query args.
- * @return  array
+ * @param array $args The query args.
+ * @return array
  */
-function acf_get_posts($args = array()) {
+function acf_get_posts($args = []) {
 }
 /*
 *  _acf_query_remove_post_type
@@ -3580,7 +3580,7 @@ function acf_get_pretty_user_roles($allowed = \false) {
 *  @param   $args (array)
 *  @return  (array)
 */
-function acf_get_grouped_users($args = array()) {
+function acf_get_grouped_users($args = []) {
 }
 /**
  * acf_json_encode
@@ -3590,8 +3590,8 @@ function acf_get_grouped_users($args = array()) {
  * @date    29/4/19
  * @since   5.0.0
  *
- * @param   array $json The array of data to encode.
- * @return  string
+ * @param array $json The array of data to encode.
+ * @return string
  */
 function acf_json_encode($json) {
 }
@@ -3640,7 +3640,7 @@ function acf_debug_end() {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_encode_choices($array = array(), $show_keys = \true) {
+function acf_encode_choices($array = [], $show_keys = \true) {
 }
 function acf_decode_choices($string = '', $array_keys = \false) {
 }
@@ -3658,7 +3658,7 @@ function acf_decode_choices($string = '', $array_keys = \false) {
 *  @param   $post_id (int)
 *  @return  $post_id (int)
 */
-function acf_str_replace($string = '', $search_replace = array()) {
+function acf_str_replace($string = '', $search_replace = []) {
 }
 /*
 *  acf_split_date_time
@@ -3838,7 +3838,7 @@ function acf_isset_termmeta($taxonomy = '') {
 *  @param   $ancestors (array) an internal parameter, not required
 *  @return  n/a
 */
-function acf_upload_files($ancestors = array()) {
+function acf_upload_files($ancestors = []) {
 }
 /*
 *  acf_upload_file
@@ -3898,7 +3898,7 @@ function acf_is_screen($id = '') {
 *  @param   $default (mixed) the value returned if not found
 *  @return  $post_id (int)
 */
-function acf_maybe_get($array = array(), $key = 0, $default = \null) {
+function acf_maybe_get($array = [], $key = 0, $default = \null) {
 }
 function acf_maybe_get_POST($key = '', $default = \null) {
 }
@@ -3911,7 +3911,7 @@ function acf_maybe_get_GET($key = '', $default = \null) {
  * @since   5.1.5
  *
  * @param   int|WP_Post The attachment ID or object.
- * @return  array|false
+ * @return array|false
  */
 function acf_get_attachment($attachment) {
 }
@@ -3921,10 +3921,10 @@ function acf_get_attachment($attachment) {
  *  @date    8/08/2014
  *  @since   5.0.0
  *
- *  @param string $text   The text to truncate.
- *  @param int    $length The number of characters to allow in the string.
+ * @param string $text The text to truncate.
+ * @param int $length The number of characters to allow in the string.
  *
- *  @return  string
+ * @return string
  */
 function acf_get_truncated($text, $length = 64) {
 }
@@ -4121,7 +4121,7 @@ function acf_get_post_thumbnail($post = \null, $size = 'thumbnail') {
  * @since   5.0.0
  *
  * @param   void
- * @return  string
+ * @return string
  */
 function acf_get_browser() {
 }
@@ -4161,8 +4161,8 @@ function acf_format_date($value, $format) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   type $var Description. Default.
- * @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
 function acf_clear_log() {
 }
@@ -4189,7 +4189,7 @@ function acf_log() {
  *  @since   5.7.4
  *
  *  @param   mixed
- *  @return  void
+ * @return void
  */
 function acf_dev_log() {
 }
@@ -4385,8 +4385,8 @@ function acf_decrypt($data = '') {
  *  @date    6/8/18
  *  @since   5.7.2
  *
- *  @param   string $text The string to parse.
- *  @return  string
+ * @param string $text The string to parse.
+ * @return string
  */
 function acf_parse_markdown($text = '') {
 }
@@ -4399,7 +4399,7 @@ function acf_parse_markdown($text = '') {
  *  @since   5.4.0
  *
  *  @param   void
- *  @return  array
+ * @return array
  */
 function acf_get_sites() {
 }
@@ -4411,9 +4411,9 @@ function acf_get_sites() {
  *  @date    25/8/18
  *  @since   5.7.4
  *
- *  @param   array  $rules An array of rules.
- *  @param   string $anyorall The anyorall setting used in ACF4. Defaults to 'any'.
- *  @return  array
+ * @param array $rules An array of rules.
+ * @param string $anyorall The anyorall setting used in ACF4. Defaults to 'any'.
+ * @return array
  */
 function acf_convert_rules_to_groups($rules, $anyorall = 'any') {
 }
@@ -4425,10 +4425,10 @@ function acf_convert_rules_to_groups($rules, $anyorall = 'any') {
  *  @date    5/10/18
  *  @since   5.7.7
  *
- *  @param   string $name The ajax action name.
- *  @param   array  $callback The callback function or array.
- *  @param   bool   $public Whether to allow access to non logged in users.
- *  @return  void
+ * @param string $name The ajax action name.
+ * @param array $callback The callback function or array.
+ * @param bool $public Whether to allow access to non logged in users.
+ * @return void
  */
 function acf_register_ajax($name = '', $callback = \false, $public = \false) {
 }
@@ -4441,8 +4441,8 @@ function acf_register_ajax($name = '', $callback = \false, $public = \false) {
  *  @date    24/10/18
  *  @since   5.8.0
  *
- *  @param   string $string The string ot convert.
- *  @return  string
+ * @param string $string The string ot convert.
+ * @return string
  */
 function acf_str_camel_case($string = '') {
 }
@@ -4454,10 +4454,10 @@ function acf_str_camel_case($string = '') {
  *  @date    24/10/18
  *  @since   5.8.0
  *
- *  @param   array $array The array to convert.
- *  @return  array
+ * @param array $array The array to convert.
+ * @return array
  */
-function acf_array_camel_case($array = array()) {
+function acf_array_camel_case($array = []) {
 }
 /**
  * Returns true if the current screen is using the block editor.
@@ -4477,12 +4477,12 @@ function acf_is_block_editor() {
  * @date    26/1/19
  * @since   5.7.11
  *
- * @param   string $filter The filter name.
- * @param   array  $variations An array variation keys.
- * @param   int    $index The param index to find variation values.
- * @return  void
+ * @param string $filter The filter name.
+ * @param array $variations An array variation keys.
+ * @param int $index The param index to find variation values.
+ * @return void
  */
-function acf_add_filter_variations($filter = '', $variations = array(), $index = 0) {
+function acf_add_filter_variations($filter = '', $variations = [], $index = 0) {
 }
 /**
  * acf_add_action_variations
@@ -4492,12 +4492,12 @@ function acf_add_filter_variations($filter = '', $variations = array(), $index =
  * @date    26/1/19
  * @since   5.7.11
  *
- * @param   string $action The action name.
- * @param   array  $variations An array variation keys.
- * @param   int    $index The param index to find variation values.
- * @return  void
+ * @param string $action The action name.
+ * @param array $variations An array variation keys.
+ * @param int $index The param index to find variation values.
+ * @return void
  */
-function acf_add_action_variations($action = '', $variations = array(), $index = 0) {
+function acf_add_action_variations($action = '', $variations = [], $index = 0) {
 }
 /**
  * _acf_apply_hook_variations
@@ -4508,7 +4508,7 @@ function acf_add_action_variations($action = '', $variations = array(), $index =
  * @since   5.7.11
  *
  * @param   mixed
- * @return  mixed
+ * @return mixed
  */
 function _acf_apply_hook_variations() {
 }
@@ -4520,10 +4520,10 @@ function _acf_apply_hook_variations() {
  * @date    25/1/19
  * @since   5.7.11
  *
- * @param   string $deprecated The deprecated hook.
- * @param   string $version The version this hook was deprecated.
- * @param   string $replacement The replacement hook.
- * @return  void
+ * @param string $deprecated The deprecated hook.
+ * @param string $version The version this hook was deprecated.
+ * @param string $replacement The replacement hook.
+ * @return void
  */
 function acf_add_deprecated_filter($deprecated, $version, $replacement) {
 }
@@ -4535,10 +4535,10 @@ function acf_add_deprecated_filter($deprecated, $version, $replacement) {
  * @date    25/1/19
  * @since   5.7.11
  *
- * @param   string $deprecated The deprecated hook.
- * @param   string $version The version this hook was deprecated.
- * @param   string $replacement The replacement hook.
- * @return  void
+ * @param string $deprecated The deprecated hook.
+ * @param string $version The version this hook was deprecated.
+ * @param string $replacement The replacement hook.
+ * @return void
  */
 function acf_add_deprecated_action($deprecated, $version, $replacement) {
 }
@@ -4549,7 +4549,7 @@ function acf_add_deprecated_action($deprecated, $version, $replacement) {
  * @since   5.7.11
  *
  * @param   mixed
- * @return  mixed
+ * @return mixed
  */
 function _acf_apply_deprecated_hook() {
 }
@@ -4560,8 +4560,8 @@ function _acf_apply_deprecated_hook() {
  * @date    13/4/18
  * @since   5.6.9
  *
- * @param   array $text An array of text for i18n.
- * @return  void
+ * @param array $text An array of text for i18n.
+ * @return void
  */
 function acf_localize_text($text) {
 }
@@ -4571,8 +4571,8 @@ function acf_localize_text($text) {
  * @date    13/4/18
  * @since   5.6.9
  *
- * @param   array $data An array of data for l10n.
- * @return  void
+ * @param array $data An array of data for l10n.
+ * @return void
  */
 function acf_localize_data($data) {
 }
@@ -4582,8 +4582,8 @@ function acf_localize_data($data) {
  * @date    27/4/20
  * @since   5.9.0
  *
- * @param   string $name The script name.
- * @return  void
+ * @param string $name The script name.
+ * @return void
  */
 function acf_enqueue_script($name) {
 }
@@ -4593,10 +4593,10 @@ function acf_enqueue_script($name) {
  * @date    13/4/18
  * @since   5.6.9
  *
- * @param   array $args See ACF_Assets::enqueue_scripts() for a list of args.
- * @return  void
+ * @param array $args See ACF_Assets::enqueue_scripts() for a list of args.
+ * @return void
  */
-function acf_enqueue_scripts($args = array()) {
+function acf_enqueue_scripts($args = []) {
 }
 /**
  * Enqueues the WP media uploader scripts and styles.
@@ -4605,7 +4605,7 @@ function acf_enqueue_scripts($args = array()) {
  * @since   5.0.9
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_enqueue_uploader() {
 }
@@ -4616,7 +4616,7 @@ function acf_enqueue_uploader() {
  * @since   5.6.2
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_post_templates() {
 }
@@ -4628,8 +4628,8 @@ function acf_get_post_templates() {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   string $class The class name.
- * @return  object The instance.
+ * @param string $class The class name.
+ * @return object The instance.
  */
 function acf_new_instance($class = '') {
 }
@@ -4641,8 +4641,8 @@ function acf_new_instance($class = '') {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   string $class The class name.
- * @return  object The instance.
+ * @param string $class The class name.
+ * @return object The instance.
  */
 function acf_get_instance($class = '') {
 }
@@ -4654,9 +4654,9 @@ function acf_get_instance($class = '') {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   string $name The store name.
- * @param   array  $data Array of data to start the store with.
- * @return  ACF_Data
+ * @param string $name The store name.
+ * @param array $data Array of data to start the store with.
+ * @return ACF_Data
  */
 function acf_register_store($name = '', $data = \false) {
 }
@@ -4668,8 +4668,8 @@ function acf_register_store($name = '', $data = \false) {
  * @date    9/1/19
  * @since   5.7.10
  *
- * @param   string $name The store name.
- * @return  ACF_Data
+ * @param string $name The store name.
+ * @return ACF_Data
  */
 function acf_get_store($name = '') {
 }
@@ -4681,9 +4681,9 @@ function acf_get_store($name = '') {
  * @date    13/2/19
  * @since   5.7.11
  *
- * @param   int                           $site_id New blog ID.
+ * @param int $site_id New blog ID.
  * @param   int prev_blog_id Prev blog ID.
- * @return  void
+ * @return void
  */
 function acf_switch_stores($site_id, $prev_site_id) {
 }
@@ -4695,8 +4695,8 @@ function acf_switch_stores($site_id, $prev_site_id) {
  * @date    28/9/13
  * @since   5.0.0
  *
- * @param   string $filename The specified file.
- * @return  string
+ * @param string $filename The specified file.
+ * @return string
  */
 function acf_get_path($filename = '') {
 }
@@ -4709,8 +4709,8 @@ function acf_get_path($filename = '') {
  * @date    12/12/17
  * @since   5.6.8
  *
- * @param   string $filename The specified file.
- * @return  string
+ * @param string $filename The specified file.
+ * @return string
  */
 function acf_get_url($filename = '') {
 }
@@ -4742,7 +4742,7 @@ function acf_include($filename = '') {
 */
 function acf_form_head() {
 }
-function acf_form($args = array()) {
+function acf_form($args = []) {
 }
 function acf_get_form($id = '') {
 }
@@ -4756,8 +4756,8 @@ function acf_register_form($args) {
  * @date    30/09/13
  * @since   5.0.0
  *
- * @param   (int|string) $id The field group ID, key or name.
- * @return  (array|false) The field group array.
+ * @param (int|string) $id The field group ID, key or name.
+ * @return (array|false) The field group array.
  */
 function acf_get_field_group($id = 0) {
 }
@@ -4769,8 +4769,8 @@ function acf_get_field_group($id = 0) {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field ID, key or name.
- * @return  (array|false) The field group array.
+ * @param (int|string) $id The field ID, key or name.
+ * @return (array|false) The field group array.
  */
 function acf_get_raw_field_group($id = 0) {
 }
@@ -4782,8 +4782,8 @@ function acf_get_raw_field_group($id = 0) {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field group's ID, key or name.
- * @return  (array|false) The field group's array.
+ * @param (int|string) $id The field group's ID, key or name.
+ * @return (array|false) The field group's array.
  */
 function acf_get_field_group_post($id = 0) {
 }
@@ -4795,8 +4795,8 @@ function acf_get_field_group_post($id = 0) {
  * @date    6/12/2013
  * @since   5.0.0
  *
- * @param   string $id The identifier.
- * @return  bool
+ * @param string $id The identifier.
+ * @return bool
  */
 function acf_is_field_group_key($id = '') {
 }
@@ -4808,10 +4808,10 @@ function acf_is_field_group_key($id = '') {
  * @date    18/1/19
  * @since   5.7.10
  *
- * @param   array $field The field group array.
- * @return  array
+ * @param array $field The field group array.
+ * @return array
  */
-function acf_validate_field_group($field_group = array()) {
+function acf_validate_field_group($field_group = []) {
 }
 /**
  * acf_get_valid_field_group
@@ -4821,8 +4821,8 @@ function acf_validate_field_group($field_group = array()) {
  * @date        28/09/13
  * @since       5.0.0
  *
- * @param   array $field_group The field group array.
- * @return  array
+ * @param array $field_group The field group array.
+ * @return array
  */
 function acf_get_valid_field_group($field_group = \false) {
 }
@@ -4834,10 +4834,10 @@ function acf_get_valid_field_group($field_group = \false) {
  * @date    8/03/2016
  * @since   5.3.2
  *
- * @param   array $field_group The field group array.
- * @return  array
+ * @param array $field_group The field group array.
+ * @return array
  */
-function acf_translate_field_group($field_group = array()) {
+function acf_translate_field_group($field_group = []) {
 }
 /**
  * acf_get_field_groups
@@ -4847,10 +4847,10 @@ function acf_translate_field_group($field_group = array()) {
  * @date    30/09/13
  * @since   5.0.0
  *
- * @param   array $filter An array of args to filter results by.
- * @return  array
+ * @param array $filter An array of args to filter results by.
+ * @return array
  */
-function acf_get_field_groups($filter = array()) {
+function acf_get_field_groups($filter = []) {
 }
 /**
  * acf_get_raw_field_groups
@@ -4861,7 +4861,7 @@ function acf_get_field_groups($filter = array()) {
  * @since   5.7.10
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_raw_field_groups() {
 }
@@ -4873,11 +4873,11 @@ function acf_get_raw_field_groups() {
  * @date    29/11/2013
  * @since   5.0.0
  *
- * @param   array $field_groups An array of field groups.
- * @param   array $args An array of location args.
- * @return  array
+ * @param array $field_groups An array of field groups.
+ * @param array $args An array of location args.
+ * @return array
  */
-function acf_filter_field_groups($field_groups, $args = array()) {
+function acf_filter_field_groups($field_groups, $args = []) {
 }
 /**
  * acf_get_field_group_visibility
@@ -4887,11 +4887,11 @@ function acf_filter_field_groups($field_groups, $args = array()) {
  * @date    7/10/13
  * @since   5.0.0
  *
- * @param   array $field_groups An array of field groups.
- * @param   array $args An array of location args.
- * @return  bool
+ * @param array $field_groups An array of field groups.
+ * @param array $args An array of location args.
+ * @return bool
  */
-function acf_get_field_group_visibility($field_group, $args = array()) {
+function acf_get_field_group_visibility($field_group, $args = []) {
 }
 /**
  * acf_update_field_group
@@ -4901,8 +4901,8 @@ function acf_get_field_group_visibility($field_group, $args = array()) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field_group The field group array.
- * @return  array
+ * @param array $field_group The field group array.
+ * @return array
  */
 function acf_update_field_group($field_group) {
 }
@@ -4914,11 +4914,11 @@ function acf_update_field_group($field_group) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param string $slug          The post slug.
- * @param int    $post_ID       Post ID.
- * @param string $post_status   The post status.
- * @param string $post_type     Post type.
- * @param int    $post_parent   Post parent ID
+ * @param string $slug The post slug.
+ * @param int $post_ID Post ID.
+ * @param string $post_status The post status.
+ * @param string $post_type Post type.
+ * @param int $post_parent Post parent ID
  * @param string $original_slug The original post slug.
  */
 function _acf_apply_unique_field_group_slug($slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug) {
@@ -4931,8 +4931,8 @@ function _acf_apply_unique_field_group_slug($slug, $post_ID, $post_status, $post
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $field_group The field group array.
- * @return  void
+ * @param array $field_group The field group array.
+ * @return void
  */
 function acf_flush_field_group_cache($field_group) {
 }
@@ -4944,8 +4944,8 @@ function acf_flush_field_group_cache($field_group) {
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   (int|string) $id The field group ID, key or name.
- * @return  bool True if field group was deleted.
+ * @param (int|string) $id The field group ID, key or name.
+ * @return bool True if field group was deleted.
  */
 function acf_delete_field_group($id = 0) {
 }
@@ -4957,8 +4957,8 @@ function acf_delete_field_group($id = 0) {
  * @date    2/10/13
  * @since   5.0.0
  *
- * @param   (int|string) $id The field group ID, key or name.
- * @return  bool True if field group was trashed.
+ * @param (int|string) $id The field group ID, key or name.
+ * @return bool True if field group was trashed.
  */
 function acf_trash_field_group($id = 0) {
 }
@@ -4970,8 +4970,8 @@ function acf_trash_field_group($id = 0) {
  * @date    2/10/13
  * @since   5.0.0
  *
- * @param   (int|string) $id The field_group ID, key or name.
- * @return  bool True if field_group was trashed.
+ * @param (int|string) $id The field_group ID, key or name.
+ * @return bool True if field_group was trashed.
  */
 function acf_untrash_field_group($id = 0) {
 }
@@ -4982,8 +4982,8 @@ function acf_untrash_field_group($id = 0) {
  *
  * @since 5.9.5
  *
- * @param string $new_status      The new status of the post being restored.
- * @param int    $post_id         The ID of the post being restored.
+ * @param string $new_status The new status of the post being restored.
+ * @param int $post_id The ID of the post being restored.
  * @param string $previous_status The status of the post at the point where it was trashed.
  * @return string.
  */
@@ -4997,9 +4997,9 @@ function _acf_untrash_field_group_post_status($new_status, $post_id, $previous_s
  * @date    21/1/19
  * @since   5.7.10
  *
- * @param   array $field_group The field group array.
- * @param   mixed $id An optional identifier to search for.
- * @return  bool
+ * @param array $field_group The field group array.
+ * @param mixed $id An optional identifier to search for.
+ * @return bool
  */
 function acf_is_field_group($field_group = \false) {
 }
@@ -5011,9 +5011,9 @@ function acf_is_field_group($field_group = \false) {
  * @date    16/06/2014
  * @since   5.0.0
  *
- * @param   (int|string) $id The field_group ID, key or name.
- * @param   int          $new_post_id Optional post ID to override.
- * @return  array The new field group.
+ * @param (int|string) $id The field_group ID, key or name.
+ * @param int $new_post_id Optional post ID to override.
+ * @return array The new field group.
  */
 function acf_duplicate_field_group($id = 0, $new_post_id = 0) {
 }
@@ -5025,8 +5025,8 @@ function acf_duplicate_field_group($id = 0, $new_post_id = 0) {
  * @date    20/10/13
  * @since   5.0.0
  *
- * @param   array $field_group The field group array.
- * @return  string.
+ * @param array $field_group The field group array.
+ * @return string.
  */
 function acf_get_field_group_style($field_group) {
 }
@@ -5038,8 +5038,8 @@ function acf_get_field_group_style($field_group) {
  * @date    23/9/18
  * @since   5.7.7
  *
- * @param   int $post_id The field group ID.
- * @return  string
+ * @param int $post_id The field group ID.
+ * @return string
  */
 function acf_get_field_group_edit_link($post_id) {
 }
@@ -5051,10 +5051,10 @@ function acf_get_field_group_edit_link($post_id) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $field_group The field group array.
- * @return  array
+ * @param array $field_group The field group array.
+ * @return array
  */
-function acf_prepare_field_group_for_export($field_group = array()) {
+function acf_prepare_field_group_for_export($field_group = []) {
 }
 /**
  * acf_prepare_field_group_for_import
@@ -5064,8 +5064,8 @@ function acf_prepare_field_group_for_export($field_group = array()) {
  * @date    21/11/19
  * @since   5.8.8
  *
- * @param   array $field_group The field group array.
- * @return  array
+ * @param array $field_group The field group array.
+ * @return array
  */
 function acf_prepare_field_group_for_import($field_group) {
 }
@@ -5077,8 +5077,8 @@ function acf_prepare_field_group_for_import($field_group) {
  * @date    11/03/2014
  * @since   5.0.0
  *
- * @param   array $field_group The field group array.
- * @return  array The new field group.
+ * @param array $field_group The field group array.
+ * @return array The new field group.
  */
 function acf_import_field_group($field_group) {
 }
@@ -5137,7 +5137,7 @@ function acf_get_field_type($name) {
 *  @param   n/a
 *  @return  n/a
 */
-function acf_get_field_types($args = array()) {
+function acf_get_field_types($args = []) {
 }
 /**
  *  acf_get_field_types_info
@@ -5147,10 +5147,10 @@ function acf_get_field_types($args = array()) {
  *  @date    18/6/18
  *  @since   5.6.9
  *
- *  @param   type $var Description. Default.
- *  @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
-function acf_get_field_types_info($args = array()) {
+function acf_get_field_types_info($args = []) {
 }
 /*
 *  acf_is_field_type
@@ -5239,7 +5239,7 @@ function acf_get_field_rest_schema(array $field) {
  * @see https://developer.wordpress.org/rest-api/using-the-rest-api/linking-and-embedding/
  *
  * @param string|int $post_id
- * @param array      $field
+ * @param array $field
  * @return array
  */
 function acf_get_field_rest_links($post_id, array $field) {
@@ -5247,10 +5247,10 @@ function acf_get_field_rest_links($post_id, array $field) {
 /**
  * Format a given field's value for output in the REST API.
  *
- * @param        $value
- * @param        $post_id
- * @param        $field
- * @param string  $format 'light' for normal REST API formatting or 'standard' to apply ACF's normal field formatting.
+ * @param $value
+ * @param $post_id
+ * @param $field
+ * @param string $format 'light' for normal REST API formatting or 'standard' to apply ACF's normal field formatting.
  * @return mixed
  */
 function acf_format_value_for_rest($value, $post_id, $field, $format = 'light') {
@@ -5263,9 +5263,9 @@ function acf_format_value_for_rest($value, $post_id, $field, $format = 'light') 
  * @date    6/10/13
  * @since   5.0.0
  *
- * @param   string $name The store name.
- * @param   array  $data Array of data to start the store with.
- * @return  ACF_Data
+ * @param string $name The store name.
+ * @param array $data Array of data to start the store with.
+ * @return ACF_Data
  */
 function acf_set_form_data($name = '', $data = \false) {
 }
@@ -5277,8 +5277,8 @@ function acf_set_form_data($name = '', $data = \false) {
  * @date    6/10/13
  * @since   5.0.0
  *
- * @param   string $name The store name.
- * @return  mixed
+ * @param string $name The store name.
+ * @return mixed
  */
 function acf_get_form_data($name = '') {
 }
@@ -5291,9 +5291,9 @@ function acf_get_form_data($name = '') {
  * @since   5.0.0
  *
  * @param   void
- * @return  void
+ * @return void
  */
-function acf_form_data($data = array()) {
+function acf_form_data($data = []) {
 }
 /**
  * acf_save_post
@@ -5303,9 +5303,9 @@ function acf_form_data($data = array()) {
  * @date    15/10/13
  * @since   5.0.0
  *
- * @param   int|string $post_id The post id.
- * @param   array      $values An array of values to override $_POST.
- * @return  bool True if save was successful.
+ * @param int|string $post_id The post id.
+ * @param array $values An array of values to override $_POST.
+ * @return bool True if save was successful.
  */
 function acf_save_post($post_id = 0, $values = \null) {
 }
@@ -5318,8 +5318,8 @@ function acf_save_post($post_id = 0, $values = \null) {
  * @date    11/1/19
  * @since   5.7.10
  *
- * @param   int|string $post_id The post id.
- * @return  void
+ * @param int|string $post_id The post id.
+ * @return void
  */
 function _acf_do_save_post($post_id = 0) {
 }
@@ -5332,7 +5332,7 @@ function _acf_do_save_post($post_id = 0) {
  * @since   5.7.10
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_enable_local() {
 }
@@ -5345,7 +5345,7 @@ function acf_enable_local() {
  * @since   5.7.10
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_disable_local() {
 }
@@ -5358,7 +5358,7 @@ function acf_disable_local() {
  * @since   5.7.10
  *
  * @param   void
- * @return  bool
+ * @return bool
  */
 function acf_is_local_enabled() {
 }
@@ -5370,8 +5370,8 @@ function acf_is_local_enabled() {
  * @date    23/1/19
  * @since   5.7.10
  *
- * @param   string $name The store name (fields|groups).
- * @return  ACF_Data
+ * @param string $name The store name (fields|groups).
+ * @return ACF_Data
  */
 function acf_get_local_store($name = '') {
 }
@@ -5384,7 +5384,7 @@ function acf_get_local_store($name = '') {
  * @since   5.7.10
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_reset_local() {
 }
@@ -5397,7 +5397,7 @@ function acf_reset_local() {
  * @since   5.7.10
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_local_field_groups() {
 }
@@ -5409,8 +5409,8 @@ function acf_get_local_field_groups() {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   type $var Description. Default.
- * @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
 function acf_have_local_field_groups() {
 }
@@ -5422,8 +5422,8 @@ function acf_have_local_field_groups() {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   type $var Description. Default.
- * @return  type Description.
+ * @param type $var Description. Default.
+ * @return type Description.
  */
 function acf_count_local_field_groups() {
 }
@@ -5435,8 +5435,8 @@ function acf_count_local_field_groups() {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $field_group The field group array.
- * @return  bool
+ * @param array $field_group The field group array.
+ * @return bool
  */
 function acf_add_local_field_group($field_group) {
 }
@@ -5448,8 +5448,8 @@ function acf_add_local_field_group($field_group) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $field_group The field group array.
- * @return  void
+ * @param array $field_group The field group array.
+ * @return void
  */
 function register_field_group($field_group) {
 }
@@ -5461,8 +5461,8 @@ function register_field_group($field_group) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  bool
+ * @param string $key The field group key.
+ * @return bool
  */
 function acf_remove_local_field_group($key = '') {
 }
@@ -5474,8 +5474,8 @@ function acf_remove_local_field_group($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  bool
+ * @param string $key The field group key.
+ * @return bool
  */
 function acf_is_local_field_group($key = '') {
 }
@@ -5487,8 +5487,8 @@ function acf_is_local_field_group($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group group key.
- * @return  bool
+ * @param string $key The field group group key.
+ * @return bool
  */
 function acf_is_local_field_group_key($key = '') {
 }
@@ -5500,8 +5500,8 @@ function acf_is_local_field_group_key($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  (array|null)
+ * @param string $key The field group key.
+ * @return (array|null)
  */
 function acf_get_local_field_group($key = '') {
 }
@@ -5513,10 +5513,10 @@ function acf_get_local_field_group($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $fields An array of un prepared fields.
- * @return  array
+ * @param array $fields An array of un prepared fields.
+ * @return array
  */
-function acf_add_local_fields($fields = array()) {
+function acf_add_local_fields($fields = []) {
 }
 /**
  * acf_get_local_fields
@@ -5526,8 +5526,8 @@ function acf_add_local_fields($fields = array()) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $parent The parent key.
- * @return  array
+ * @param string $parent The parent key.
+ * @return array
  */
 function acf_get_local_fields($parent = '') {
 }
@@ -5539,8 +5539,8 @@ function acf_get_local_fields($parent = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $parent The parent key.
- * @return  bool
+ * @param string $parent The parent key.
+ * @return bool
  */
 function acf_have_local_fields($parent = '') {
 }
@@ -5552,8 +5552,8 @@ function acf_have_local_fields($parent = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $parent The parent key.
- * @return  int
+ * @param string $parent The parent key.
+ * @return int
  */
 function acf_count_local_fields($parent = '') {
 }
@@ -5565,9 +5565,9 @@ function acf_count_local_fields($parent = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   array $field The field array.
- * @param   bool  $prepared Whether or not the field has already been prepared for import.
- * @return  void
+ * @param array $field The field array.
+ * @param bool $prepared Whether or not the field has already been prepared for import.
+ * @return void
  */
 function acf_add_local_field($field, $prepared = \false) {
 }
@@ -5579,8 +5579,8 @@ function acf_add_local_field($field, $prepared = \false) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field key.
- * @return  bool
+ * @param string $key The field key.
+ * @return bool
  */
 function _acf_generate_local_key($field) {
 }
@@ -5592,8 +5592,8 @@ function _acf_generate_local_key($field) {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field key.
- * @return  bool
+ * @param string $key The field key.
+ * @return bool
  */
 function acf_remove_local_field($key = '') {
 }
@@ -5605,8 +5605,8 @@ function acf_remove_local_field($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  bool
+ * @param string $key The field group key.
+ * @return bool
  */
 function acf_is_local_field($key = '') {
 }
@@ -5618,8 +5618,8 @@ function acf_is_local_field($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  bool
+ * @param string $key The field group key.
+ * @return bool
  */
 function acf_is_local_field_key($key = '') {
 }
@@ -5631,8 +5631,8 @@ function acf_is_local_field_key($key = '') {
  * @date    22/1/19
  * @since   5.7.10
  *
- * @param   string $key The field group key.
- * @return  (array|null)
+ * @param string $key The field group key.
+ * @return (array|null)
  */
 function acf_get_local_field($key = '') {
 }
@@ -5644,10 +5644,10 @@ function acf_get_local_field($key = '') {
  * @date    23/1/19
  * @since   5.7.10
  *
- * @param   array $field_groups An array of field groups.
- * @return  array
+ * @param array $field_groups An array of field groups.
+ * @return array
  */
-function _acf_apply_get_local_field_groups($groups = array()) {
+function _acf_apply_get_local_field_groups($groups = []) {
 }
 /**
  * _acf_apply_is_local_field_key
@@ -5657,9 +5657,9 @@ function _acf_apply_get_local_field_groups($groups = array()) {
  * @date    23/1/19
  * @since   5.7.10
  *
- * @param   bool   $bool The result.
- * @param   string $id The identifier.
- * @return  bool
+ * @param bool $bool The result.
+ * @param string $id The identifier.
+ * @return bool
  */
 function _acf_apply_is_local_field_key($bool, $id) {
 }
@@ -5671,9 +5671,9 @@ function _acf_apply_is_local_field_key($bool, $id) {
  * @date    23/1/19
  * @since   5.7.10
  *
- * @param   bool   $bool The result.
- * @param   string $id The identifier.
- * @return  bool
+ * @param bool $bool The result.
+ * @param string $id The identifier.
+ * @return bool
  */
 function _acf_apply_is_local_field_group_key($bool, $id) {
 }
@@ -5686,7 +5686,7 @@ function _acf_apply_is_local_field_group_key($bool, $id) {
  * @since   5.7.10
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function _acf_do_prepare_local_fields() {
 }
@@ -5706,10 +5706,10 @@ function acf_pro_check_defined_license() {
  *  @date    11/10/2021
  *  @since   5.11.0
  *
- *  @param   string $error_text string containing the error text message.
- *  @param   string $license_key the license key that was used during the failed activation.
+ * @param string $error_text string containing the error text message.
+ * @param string $license_key the license key that was used during the failed activation.
  *
- *  @return void
+ * @return void
  */
 function acf_pro_set_activation_failure_transient($error_text, $license_key) {
 }
@@ -5719,7 +5719,7 @@ function acf_pro_set_activation_failure_transient($error_text, $license_key) {
  *  @date    11/10/2021
  *  @since   5.11.0
  *
- *  @return array|false Activation failure transient array, or false if it's not set.
+ * @return array|false Activation failure transient array, or false if it's not set.
  */
 function acf_pro_get_activation_failure_transient() {
 }
@@ -5734,35 +5734,35 @@ function acf_pro_display_activation_error() {
 /**
  *  This function will return the license
  *
- *  @type    function
- *  @date    20/09/2016
- *  @since   5.4.0
+ * @type function
+ * @date    20/09/2016
+ * @since   5.4.0
  *
- *  @return  $license    Activated license array
+ * @return $license    Activated license array
  */
 function acf_pro_get_license() {
 }
 /**
  *  This function will return the license key
  *
- *  @type    function
- *  @date    20/09/2016
- *  @since   5.4.0
+ * @type function
+ * @date    20/09/2016
+ * @since   5.4.0
  *
- *  @param   boolean $skip_url_check Skip the check of the current site url.
- *  @return  string $license_key
+ * @param boolean $skip_url_check Skip the check of the current site url.
+ * @return string $license_key
  */
 function acf_pro_get_license_key($skip_url_check = \false) {
 }
 /**
  *  This function will update the DB license
  *
- *  @type    function
- *  @date    20/09/2016
- *  @since   5.4.0
+ * @type function
+ * @date    20/09/2016
+ * @since   5.4.0
  *
- *  @param   string $key    The license key
- *  @return  bool           The result of the update_option call
+ * @param string $key The license key
+ * @return bool The result of the update_option call
  */
 function acf_pro_update_license($key = '') {
 }
@@ -5780,9 +5780,9 @@ function acf_pro_get_registered_block_count() {
  * @date    30/09/2021
  * @since   5.11.0
  *
- * @param   string  $license_key    License key to activate
- * @param   boolean $silent         Return errors rather than displaying them
- * @return  mixed   $response       A wp-error instance, or an array with a boolean success key, and string message key
+ * @param string $license_key License key to activate
+ * @param boolean $silent Return errors rather than displaying them
+ * @return mixed $response       A wp-error instance, or an array with a boolean success key, and string message key
  */
 function acf_pro_activate_license($license_key, $silent = \false) {
 }
@@ -5793,8 +5793,8 @@ function acf_pro_activate_license($license_key, $silent = \false) {
  * @date    30/09/2021
  * @since   5.11.0
  *
- * @param   bool $silent     Return errors rather than displaying them
- * @return  mixed   $response   A wp-error instance, or an array with a boolean success key, and string message key
+ * @param bool $silent Return errors rather than displaying them
+ * @return mixed $response   A wp-error instance, or an array with a boolean success key, and string message key
  */
 function acf_pro_deactivate_license($silent = \false) {
 }
@@ -5804,7 +5804,7 @@ function acf_pro_deactivate_license($silent = \false) {
  * @date    14/1/19
  * @since   5.7.10
  *
- * @param   WP_Error $wp_error The error to display.
+ * @param WP_Error $wp_error The error to display.
  */
 function display_wp_activation_error($wp_error) {
 }
@@ -5826,7 +5826,7 @@ function acf_add_options_page($page = '') {
 }
 function acf_add_options_sub_page($page = '') {
 }
-function acf_update_options_page($slug = '', $data = array()) {
+function acf_update_options_page($slug = '', $data = []) {
 }
 function acf_get_options_page($slug) {
 }
@@ -5848,8 +5848,8 @@ function register_options_page($page = '') {
  * @date    18/2/19
  * @since   5.8.0
  *
- * @param   array $block The block settings.
- * @return  (array|false)
+ * @param array $block The block settings.
+ * @return (array|false)
  */
 function acf_register_block_type($block) {
 }
@@ -5861,8 +5861,8 @@ function acf_register_block_type($block) {
  * @date    18/2/19
  * @since   5.7.12
  *
- * @param   array $block The block settings.
- * @return  (array|false)
+ * @param array $block The block settings.
+ * @return (array|false)
  */
 function acf_register_block($block) {
 }
@@ -5874,8 +5874,8 @@ function acf_register_block($block) {
  * @date    18/2/19
  * @since   5.7.12
  *
- * @param   string $name The block type name.
- * @return  bool
+ * @param string $name The block type name.
+ * @return bool
  */
 function acf_has_block_type($name) {
 }
@@ -5888,7 +5888,7 @@ function acf_has_block_type($name) {
  * @since   5.7.12
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_block_types() {
 }
@@ -5900,8 +5900,8 @@ function acf_get_block_types() {
  * @date    18/2/19
  * @since   5.7.12
  *
- * @param   string $name The block type name.
- * @return  (array|null)
+ * @param string $name The block type name.
+ * @return (array|null)
  */
 function acf_get_block_type($name) {
 }
@@ -5913,8 +5913,8 @@ function acf_get_block_type($name) {
  * @date    18/2/19
  * @since   5.7.12
  *
- * @param   string $name The block type name.
- * @return  void
+ * @param string $name The block type name.
+ * @return void
  */
 function acf_remove_block_type($name) {
 }
@@ -5927,7 +5927,7 @@ function acf_remove_block_type($name) {
  * @since   5.8.0
  *
  * @param   void
- * @return  array
+ * @return array
  */
 function acf_get_block_type_default_attributes($block_type) {
 }
@@ -5939,8 +5939,8 @@ function acf_get_block_type_default_attributes($block_type) {
  * @date    10/4/18
  * @since   5.8.0
  *
- * @param   array $block The block settings.
- * @return  array
+ * @param array $block The block settings.
+ * @return array
  */
 function acf_validate_block_type($block) {
 }
@@ -5952,8 +5952,8 @@ function acf_validate_block_type($block) {
  * @date    19/11/18
  * @since   5.8.0
  *
- * @param   array $block The block props.
- * @return  array
+ * @param array $block The block props.
+ * @return array
  */
 function acf_prepare_block($block) {
 }
@@ -5963,10 +5963,10 @@ function acf_prepare_block($block) {
  * @date    28/10/20
  * @since   5.9.2
  *
- * @param   array    $attributes The block attributes.
- * @param   string   $content The block content.
- * @param   WP_Block $wp_block The block instance (since WP 5.5).
- * @return  string The block HTML.
+ * @param array $attributes The block attributes.
+ * @param string $content The block content.
+ * @param WP_Block $wp_block The block instance (since WP 5.5).
+ * @return string The block HTML.
  */
 function acf_render_block_callback($attributes, $content = '', $wp_block = \null) {
 }
@@ -5976,13 +5976,13 @@ function acf_render_block_callback($attributes, $content = '', $wp_block = \null
  * @date    28/2/19
  * @since   5.7.13
  *
- * @param   array    $attributes The block attributes.
- * @param   string   $content The block content.
- * @param   bool     $is_preview Whether or not the block is being rendered for editing preview.
- * @param   int      $post_id The current post being edited or viewed.
- * @param   WP_Block $wp_block The block instance (since WP 5.5).
- * @param   array    $context The block context array.
- * @return  string   The block HTML.
+ * @param array $attributes The block attributes.
+ * @param string $content The block content.
+ * @param bool $is_preview Whether or not the block is being rendered for editing preview.
+ * @param int $post_id The current post being edited or viewed.
+ * @param WP_Block $wp_block The block instance (since WP 5.5).
+ * @param array $context The block context array.
+ * @return string The block HTML.
  */
 function acf_rendered_block($attributes, $content = '', $is_preview = \false, $post_id = 0, $wp_block = \null, $context = \false) {
 }
@@ -5992,13 +5992,13 @@ function acf_rendered_block($attributes, $content = '', $is_preview = \false, $p
  * @date    19/2/19
  * @since   5.7.12
  *
- * @param   array    $attributes The block attributes.
- * @param   string   $content The block content.
- * @param   bool     $is_preview Whether or not the block is being rendered for editing preview.
- * @param   int      $post_id The current post being edited or viewed.
- * @param   WP_Block $wp_block The block instance (since WP 5.5).
- * @param   array    $context The block context array.
- * @return  void
+ * @param array $attributes The block attributes.
+ * @param string $content The block content.
+ * @param bool $is_preview Whether or not the block is being rendered for editing preview.
+ * @param int $post_id The current post being edited or viewed.
+ * @param WP_Block $wp_block The block instance (since WP 5.5).
+ * @param array $context The block context array.
+ * @return void
  */
 function acf_render_block($attributes, $content = '', $is_preview = \false, $post_id = 0, $wp_block = \null, $context = \false) {
 }
@@ -6010,8 +6010,8 @@ function acf_render_block($attributes, $content = '', $is_preview = \false, $pos
  * @date    24/10/18
  * @since   5.8.0
  *
- * @param   array $block The block props.
- * @return  array
+ * @param array $block The block props.
+ * @return array
  */
 function acf_get_block_fields($block) {
 }
@@ -6024,7 +6024,7 @@ function acf_get_block_fields($block) {
  * @since   5.7.13
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_enqueue_block_assets() {
 }
@@ -6036,8 +6036,8 @@ function acf_enqueue_block_assets() {
  * @date    28/2/19
  * @since   5.7.13
  *
- * @param   array $block_type The block type settings.
- * @return  void
+ * @param array $block_type The block type settings.
+ * @return void
  */
 function acf_enqueue_block_type_assets($block_type) {
 }
@@ -6050,7 +6050,7 @@ function acf_enqueue_block_type_assets($block_type) {
  * @since   5.7.13
  *
  * @param   void
- * @return  void
+ * @return void
  */
 function acf_ajax_fetch_block() {
 }
@@ -6062,8 +6062,8 @@ function acf_ajax_fetch_block() {
  * @date    27/2/19
  * @since   5.7.13
  *
- * @param   string $text Content that may contain HTML block comments.
- * @return  string
+ * @param string $text Content that may contain HTML block comments.
+ * @return string
  */
 function acf_parse_save_blocks($text = '') {
 }
@@ -6075,8 +6075,8 @@ function acf_parse_save_blocks($text = '') {
  * @date    1/3/19
  * @since   5.7.13
  *
- * @param   array $matches The preg matches.
- * @return  string
+ * @param array $matches The preg matches.
+ * @return string
  */
 function acf_parse_save_blocks_callback($matches) {
 }

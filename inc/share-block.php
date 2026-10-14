@@ -10,7 +10,7 @@
                             </svg></span><span class="a2a_label">Mastodon</span></a>
 
 
-	<a class="a2a_button_bs" href="<?php echo "https://bsky.app/intent/compose?text=".get_the_title()." ".get_the_permalink(); ?>" title="Bluesky" rel="nofollow noopener" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_x" style="background-color: transparent;">
+	<a class="a2a_button_bs" href="<?php echo 'https://bsky.app/intent/compose?text=' . get_the_title() . ' ' . get_the_permalink(); ?>" title="Bluesky" rel="nofollow noopener" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_x" style="background-color: transparent;">
 								<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32">
 							<path fill="#ffffff" class="st0" d="M29,3.1c-2.4-1.2-5.4.9-6.3,1.5-2.5,1.9-5.1,5.1-6.7,7.7-1.6-2.6-4.2-5.8-6.7-7.7h0c-.9-.7-3.9-2.7-6.3-1.5-.9.4-1.9,1.4-1.9,3.8,0,.8.5,7.1.8,8.3.5,1.9,1.8,3.4,3.5,4.2-.5.5-.9,1.1-1.1,1.8-.3,1-.5,3.1,1.8,5.4,2.1,2.1,4.1,3,6,2.6s3.1-2,4-3.5c.8,1.5,2.1,3.1,4,3.5.3.1.7.1,1,.1,1.6,0,3.3-.9,5.1-2.7,2.3-2.4,2.1-4.4,1.8-5.4-.2-.7-.6-1.3-1.1-1.8,1.7-.8,2.9-2.3,3.5-4.2.3-1.2.8-7.5.8-8.3-.3-2.4-1.3-3.4-2.2-3.8ZM27.2,14.4c-.9,3.3-5,2.8-5.9,2.7l-.5,3h0c2.6.4,3.8,1.4,4.1,2.1.3.9-.5,1.9-1.1,2.4-.9.9-2.2,2-3.2,1.7-.8-.2-1.9-1.1-3-4.5,0-.1-.1-.2-.1-.3v-.9l-1-.2c-.1,0-.3-.1-.5-.1s-.4,0-.5.1l-1,.2v.9c0,.1-.1.2-.1.3-1.2,3.4-2.3,4.3-3,4.5-1,.2-2.3-.8-3.2-1.7-.6-.6-1.4-1.6-1.1-2.4.2-.7,1.4-1.7,4.1-2.1h0l-.5-3h0c-.8.1-4.9.7-5.9-2.7-.2-.8-.7-6.7-.7-7.5s.2-1.1.3-1.2c.3-.1,1.7.2,3.1,1.3h0c2.8,2.1,6,6.7,7.1,9l1.4,2.8,1.4-2.8c1.1-2.3,4.3-6.8,7.1-9,1.4-1.1,2.8-1.4,3.1-1.2.1.1.3.4.3,1.2,0,.7-.5,6.6-.7,7.4Z"/>
 							</svg>

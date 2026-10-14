@@ -14,7 +14,7 @@ $title = get_field('title');
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
-					?>
+?>
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@ $title = get_field('title');
 					}
 				}
 			}
-			?>
+?>
 		</div>
 	</div>
 </section>

@@ -51,9 +51,9 @@ $title = get_field('title');
 							}
 							$i++;
 						endwhile;
-						echo '</div>';
-					endif;
-					?>
+echo '</div>';
+endif;
+?>
 				</div>
 			</div>
 		</div>
