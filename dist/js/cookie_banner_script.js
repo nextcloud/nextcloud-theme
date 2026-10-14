@@ -11,10 +11,18 @@ jQuery(document).ready(function ($) {
         var nc_cookies_banner_saved = JSON.parse(getCookie('nc_cookie_banner'));
 
         //convenience
-        if(nc_cookies_banner_saved.convenience && getCookie('nc_form_fields')) {
+        if( nc_cookies_banner_saved.convenience.nc_form_fields && nc_cookies_banner_saved.convenience.nc_utm_parameters ) {
             document.getElementById("accept_convenience_cookies").checked = true;
             document.getElementById("accept_nc_form_fields").checked = true;
+            document.getElementById("accept_nc_utm_parameters").checked = true;
         }
+        if( nc_cookies_banner_saved.convenience.nc_form_fields) {
+            document.getElementById("accept_nc_form_fields").checked = true;
+        }
+        if( nc_cookies_banner_saved.convenience.nc_utm_parameters) {
+            document.getElementById("accept_nc_utm_parameters").checked = true;
+        }
+
 
         //stats
         if(nc_cookies_banner_saved.statistics.matomo) {
@@ -23,15 +31,24 @@ jQuery(document).ready(function ($) {
         }
 
         //external media
-        if(nc_cookies_banner_saved.external_media.vimeo == true ) {
-            //console.log('vimeo is true');
-            document.getElementById("accept_vimeo").checked = true;
-        }
         if(nc_cookies_banner_saved.external_media.youtube == true) {
             //console.log('youtube is true');
             document.getElementById("accept_youtube").checked = true;
         }
-        if(nc_cookies_banner_saved.external_media.vimeo == true && nc_cookies_banner_saved.external_media.youtube == true) {
+        if(nc_cookies_banner_saved.external_media.vimeo == true ) {
+            //console.log('vimeo is true');
+            document.getElementById("accept_vimeo").checked = true;
+        }
+        if(nc_cookies_banner_saved.external_media.openstreetmap == true ) {
+            //console.log('vimeo is true');
+            document.getElementById("accept_openstreetmap").checked = true;
+        }
+
+        
+        if(nc_cookies_banner_saved.external_media.vimeo == true 
+            && nc_cookies_banner_saved.external_media.youtube == true
+            && nc_cookies_banner_saved.external_media.openstreetmap == true
+        ) {
             document.getElementById("accept_external_media").checked = true;
         }
 
@@ -43,11 +60,22 @@ jQuery(document).ready(function ($) {
     $('#cookies_essentials_cat').find('input[type=checkbox]').prop('disabled', true);
 
 
-    //#cookies_preferences
+    //#cookies_preferences onclick functions
     $('#cookies_preferences').click(function(e){
         e.preventDefault();
+        const cookie_popup = document.querySelector('#cookie_banner');
+        const firstFocusable = cookie_popup.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+
         $('#cookie_banner').show();
-        $('#cookies_details').toggleClass('opened');
+        //$('#cookies_details').toggleClass('opened');
+        $(this).attr('aria-expanded', function (i, attr) {
+            return attr == 'true' ? 'false' : 'true'
+        });
+
+        if (firstFocusable) {
+            firstFocusable.focus();
+        }
+
         $('#open_details').find('i').toggleClass('fa-angle-up');
         $('#save_settings').html(cookie_banner_strings.allow_selection);
     });
@@ -58,7 +86,7 @@ jQuery(document).ready(function ($) {
         $('#cookies_details').toggleClass('opened');
         $(this).find('i').toggleClass('fa-angle-up');
 
-        $('#save_settings').toggleText(cookie_banner_strings.reject_all, cookie_banner_strings.allow_selection);
+        //$('#save_settings').toggleText(cookie_banner_strings.reject_all, cookie_banner_strings.allow_selection);
     });
 
 
@@ -111,73 +139,99 @@ jQuery(document).ready(function ($) {
     //set defaults
     var nc_cookie_banner = {
         essentials: true,
-        convenience: false,
+        //convenience: false,
+        convenience: {
+            nc_form_fields: false,
+            nc_utm_parameters: false
+        },
         statistics: {
             matomo: false
         },
         external_media: {
             youtube: false,
-            vimeo: false
+            vimeo: false,
+            openstreetmap: false
         }
     };
-
     var wpml_current_language = true;
-
-    var nc_form_fields = {
-        nc_form_name: false,
-        nc_form_email: false,
-        nc_form_lang: false,
-        nc_form_phone: false
-    };
-
-    //var matomo_cookie = false;
-    //var nc_youtube_unblocked = false;
-    //var nc_vimeo_unblocked = false;
+    // var nc_form_fields = {
+    //     nc_form_name: '',
+    //     nc_form_email: '',
+    //     nc_form_lang: '',
+    //     nc_form_phone: ''
+    // };
 
 
+    const params = new URLSearchParams(window.location.search);
+    //console.log("UTM campaign: "+params.get('utm_campaign'));
+
+    var nc_utm_parameters = {
+        utm_campaign: params.get('utm_campaign'),
+        utm_medium: params.get('utm_medium'),
+        utm_source: params.get('utm_source'),
+        utm_content: params.get('utm_content'),
+        ref: params.get('ref')
+    }
+
+
+    //functionality on click
     $('.accept_cookie_btn').click(function(){
-
+        $('#cookie_banner').hide();
 
         //button accept all cookies
         if( $(this).attr('id') == 'accept_all_btn') {
-
             //convenience
-            nc_cookie_banner.convenience = true;
-            nc_form_fields.nc_form_name = true;
-            nc_form_fields.nc_form_email = true;
-            nc_form_fields.nc_form_lang = true;
-            nc_form_fields.nc_form_phone = true;
+            nc_cookie_banner.convenience.nc_utm_parameters = true;
+            nc_cookie_banner.convenience.nc_form_fields = true;
+            // nc_form_fields.nc_form_name = '';
+            // nc_form_fields.nc_form_email = '';
+            // nc_form_fields.nc_form_lang = '';
+            // nc_form_fields.nc_form_phone = '';
 
             //statistics
             nc_cookie_banner.statistics.matomo = true;
 
             //external media
-            //nc_cookie_banner.external_media = true;
             nc_cookie_banner.external_media.youtube = true;
             nc_cookie_banner.external_media.vimeo = true;
-
+            nc_cookie_banner.external_media.openstreetmap = true;
 
 
             //convenience
-            if(nc_cookie_banner.convenience) {
-                document.getElementById("accept_convenience_cookies").checked = true;
+            if(nc_cookie_banner.convenience.nc_form_fields) {
                 document.getElementById("accept_nc_form_fields").checked = true;
             }
+            if(nc_cookie_banner.convenience.nc_utm_parameters) {
+                document.getElementById("accept_nc_utm_parameters").checked = true;
+            }
+            //if all convenience cookies are accepted
+            if(nc_cookie_banner.convenience.nc_form_fields && nc_cookie_banner.convenience.nc_utm_parameters) {
+                document.getElementById("accept_convenience_cookies").checked = true;
+            }
+
             //stats
             if(nc_cookie_banner.statistics.matomo) {
                 document.getElementById("accept_statistics").checked = true;
                 document.getElementById("accept_matomo").checked = true;
             }
             //external media
-            if(nc_cookie_banner.external_media.vimeo == true ) {
-                //console.log('vimeo is true');
-                document.getElementById("accept_vimeo").checked = true;
-            }
             if(nc_cookie_banner.external_media.youtube == true) {
                 //console.log('youtube is true');
                 document.getElementById("accept_youtube").checked = true;
             }
-            if(nc_cookie_banner.external_media.vimeo == true && nc_cookie_banner.external_media.youtube == true) {
+            if(nc_cookie_banner.external_media.vimeo == true ) {
+                //console.log('vimeo is true');
+                document.getElementById("accept_vimeo").checked = true;
+            }
+            if(nc_cookie_banner.external_media.openstreetmap == true ) {
+                //console.log('vimeo is true');
+                document.getElementById("accept_openstreetmap").checked = true;
+            }
+            
+            if(nc_cookie_banner.external_media.vimeo == true 
+                && nc_cookie_banner.external_media.youtube == true
+                && nc_cookie_banner.external_media.openstreetmap == true
+            ) {
                 document.getElementById("accept_external_media").checked = true;
             }
 
@@ -200,7 +254,7 @@ jQuery(document).ready(function ($) {
                                 nc_cookie_banner.statistics.matomo = true;
                             } else {
                                 nc_cookie_banner.statistics.matomo = false;
-                                console.log("stats set to false");
+                                //console.log("stats set to false");
                                 //ideally unset the Matomo tracking
 
                             }
@@ -211,11 +265,12 @@ jQuery(document).ready(function ($) {
                             if ($(this).is(':checked')) {
                                 nc_cookie_banner.external_media.youtube = true;
                                 nc_cookie_banner.external_media.vimeo = true;
+                                nc_cookie_banner.external_media.openstreetmap = true;
                             } else {
+                                //console.log("external_media set to false.");
                                 nc_cookie_banner.external_media.youtube = false;
                                 nc_cookie_banner.external_media.vimeo = false;
-                                // ideally block youtube and vimeo again
-                                
+                                nc_cookie_banner.external_media.openstreetmap = false;
                             }
                         }
                     }
@@ -226,47 +281,108 @@ jQuery(document).ready(function ($) {
                         } else {
                             nc_cookie_banner.external_media.youtube = false;
                             //ideally block youtube iframes again
-                            console.log("block youtube iframes");
+                            //console.log("block youtube iframes");
                             block_all_iframes('youtube');
                         }
                         
                     }
 
                     if($(this).attr('name') == 'nc_vimeo_unblocked ') {
-
                         if ($(this).is(':checked')) {
                             nc_cookie_banner.external_media.vimeo = true;
                         } else {
                             nc_cookie_banner.external_media.vimeo = false;
                             //ideally block vimeo iframes again
-                            console.log("block vimeo iframes");
+                            //console.log("block vimeo iframes");
                             block_all_iframes('vimeo');
                         }
+                    }
+
+                    if($(this).attr('name') == 'nc_openstreetmap_unblocked ') {
+                        if ($(this).is(':checked')) {
+                            nc_cookie_banner.external_media.openstreetmap = true;
+                        } else {
+                            nc_cookie_banner.external_media.openstreetmap = false;
+                            //ideally block vimeo iframes again
+                            //console.log("block Open Street Map iframes");
+                            block_all_iframes('openstreetmap');
+                        }
+                    }
+
+                    //convenience
+                    if($(this).attr('name') == 'nc_utm_parameters') {
+                        if ($(this).is(':checked')) {
+                            nc_cookie_banner.convenience.nc_utm_parameters = true;
+                        } else {
+                            nc_cookie_banner.convenience.nc_utm_parameters = false;
+                            setCookie('nc_utm_parameters', '', -1);
+                        }
+                    }
+                    if($(this).attr('name') == 'nc_form_fields') {
+                        if ($(this).is(':checked')) {
+                            nc_cookie_banner.convenience.nc_form_fields = true;
+                        } else {
+                            nc_cookie_banner.convenience.nc_form_fields = false;
+                            setCookie('nc_form_fields', '', -1);
+                        }
+                    }
+                    if($(this).attr('name') == 'nc_cookie_banner[]') {
+                        if($(this).val()=='convenience'){
+                            if ($(this).is(':checked')) {
+                                nc_cookie_banner.convenience.nc_form_fields = true;
+                                nc_cookie_banner.convenience.nc_utm_parameters = true;
+                            } else {
+                                nc_cookie_banner.convenience.nc_form_fields = false;
+                                nc_cookie_banner.convenience.nc_utm_parameters = false;
+                            }
+                        }
+
                         
                     }
 
-                    
 
-                    //convenience
-                    if(nc_cookie_banner.convenience) {
-                        document.getElementById("accept_convenience_cookies").checked = true;
+                    /*
+                    //convenience - Form fields and UTM parameters
+                    if(nc_cookie_banner.convenience.nc_form_fields) {
                         document.getElementById("accept_nc_form_fields").checked = true;
                     }
+                    if(nc_cookie_banner.convenience.nc_utm_parameters) {
+                        document.getElementById("accept_nc_utm_parameters").checked = true;
+                    }
+                    //if all
+                    if (nc_cookie_banner.convenience.nc_form_fields && nc_cookie_banner.convenience.nc_utm_parameters) {
+                        document.getElementById("accept_convenience_cookies").checked = true;
+                    }
+                    */
+
+
+
+
                     //stats
                     if(nc_cookie_banner.statistics.matomo) {
                         document.getElementById("accept_statistics").checked = true;
                         document.getElementById("accept_matomo").checked = true;
                     }
+
+
                     //external media
-                    if(nc_cookie_banner.external_media.vimeo == true ) {
-                        //console.log('vimeo is true');
-                        document.getElementById("accept_vimeo").checked = true;
-                    }
                     if(nc_cookie_banner.external_media.youtube == true) {
                         //console.log('youtube is true');
                         document.getElementById("accept_youtube").checked = true;
                     }
-                    if(nc_cookie_banner.external_media.vimeo == true && nc_cookie_banner.external_media.youtube == true) {
+                    if(nc_cookie_banner.external_media.vimeo == true ) {
+                        //console.log('vimeo is true');
+                        document.getElementById("accept_vimeo").checked = true;
+                    }
+                    if(nc_cookie_banner.external_media.openstreetmap == true ) {
+                        //console.log('vimeo is true');
+                        document.getElementById("accept_openstreetmap").checked = true;
+                    }
+                    
+                    if(nc_cookie_banner.external_media.vimeo == true 
+                        && nc_cookie_banner.external_media.youtube == true
+                        && nc_cookie_banner.external_media.openstreetmap == true
+                    ) {
                         document.getElementById("accept_external_media").checked = true;
             }
 
@@ -281,31 +397,36 @@ jQuery(document).ready(function ($) {
         setCookie('nc_cookie_banner', nc_cookie_banner_str, 30);
 
 
-
-
-
-
         //convenience
-        if(nc_cookie_banner.convenience == true){
+        if(nc_cookie_banner.convenience.nc_form_fields == true){
             var nc_form_fields_str = JSON.stringify(nc_form_fields);
             setCookie('nc_form_fields', nc_form_fields_str, 30);
+        } else {
+            setCookie('nc_form_fields', '', -1);
         }
+
+        if(nc_cookie_banner.convenience.nc_utm_parameters == true){
+            //save UTM parameters
+            var nc_utm_parameters_str = JSON.stringify(nc_utm_parameters);
+            setCookie('nc_utm_parameters', nc_utm_parameters_str, 30);
+        } else {
+            setCookie('nc_utm_parameters', '', -1);
+        }
+
 
         //statistics
         if(nc_cookie_banner.statistics.matomo == true){
-            //Cookies.set('statistics', true, { expires: 30 });
-            console.log("load complete Matomo code here...");
-            // load complete Matomo code
-            //_paq.push(['setSiteId', '1']); // _pk_id.1.7a80 - unique visit tracked, not working without trackPageView
-            
-            //loadMatomo(true); //load full matomo
             _paq.push(['setCookieConsentGiven']);
+
+            if(!getCookie('mtm_cookie_consent')){
+                //console.log("mtm_cookie_consent not set, so set new.")
+                // sets the mtm_cookie_consent cookie
+                _paq.push(['rememberCookieConsentGiven', 720]);
+            }
 
         }
 
-
-
-        $('#cookie_banner').hide();
+        
 
     });
 

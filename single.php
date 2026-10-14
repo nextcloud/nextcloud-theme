@@ -51,7 +51,7 @@ get_header();
 							foreach ($cat as $c) {
 								if(  $c->term_id != 243 && $c->term_id != 241 && $c->term_id != 60 && $c->term_id != 1 ) { // exclude Uncategorized, sin categoria and Sin categorizar
 									$category_link = get_category_link($c->term_id);
-									echo '<a href="'.$category_link.'"> <li>' . $c->name . ' </li></a> ';
+									echo '<li><a href="'.$category_link.'">' . $c->name . '</a></li>';
 								}
 							}
 							echo '</ul>';
@@ -71,24 +71,77 @@ get_header();
 						</div>
 					</div>
 					<div class="col-12">
-						<div class="share-block">
-							<a class="a2a_button_facebook" href="https://www.facebook.com/sharer.php?u=<?php the_permalink();?>&t=<?php the_title(); ?>" title="Facebook" rel="nofollow noopener" target="_blank">
-								<span class="a2a_svg a2a_s__default a2a_s_facebook" style="background-color: transparent;"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="#ffffff" d="M17.78 27.5V17.008h3.522l.527-4.09h-4.05v-2.61c0-1.182.33-1.99 2.023-1.99h2.166V4.66c-.375-.05-1.66-.16-3.155-.16-3.123 0-5.26 1.905-5.26 5.405v3.016h-3.53v4.09h3.53V27.5h4.223z"></path></svg></span><span class="a2a_label">Facebook</span>
-							</a>
-							<a class="a2a_button_twitter" href="https://twitter.com/share?text=<?php the_title(); ?>&url=<?php the_permalink();?>" title="Twitter" rel="nofollow noopener" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_twitter" style="background-color: transparent;"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="#ffffff" d="M28 8.557a9.913 9.913 0 01-2.828.775 4.93 4.93 0 002.166-2.725 9.738 9.738 0 01-3.13 1.194 4.92 4.92 0 00-3.593-1.55 4.924 4.924 0 00-4.794 6.049c-4.09-.21-7.72-2.17-10.15-5.15a4.942 4.942 0 00-.665 2.477c0 1.71.87 3.214 2.19 4.1a4.968 4.968 0 01-2.23-.616v.06c0 2.39 1.7 4.38 3.952 4.83-.414.115-.85.174-1.297.174-.318 0-.626-.03-.928-.086a4.935 4.935 0 004.6 3.42 9.893 9.893 0 01-6.114 2.107c-.398 0-.79-.023-1.175-.068a13.953 13.953 0 007.55 2.213c9.056 0 14.01-7.507 14.01-14.013 0-.213-.005-.426-.015-.637.96-.695 1.795-1.56 2.455-2.55z"></path></svg></span><span class="a2a_label">Twitter</span></a>
-							<a class="a2a_button_linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=<?php the_permalink();?>" title="LinkedIn" rel="nofollow noopener" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_linkedin" style="background-color: transparent;"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M6.227 12.61h4.19v13.48h-4.19V12.61zm2.095-6.7a2.43 2.43 0 010 4.86c-1.344 0-2.428-1.09-2.428-2.43s1.084-2.43 2.428-2.43m4.72 6.7h4.02v1.84h.058c.56-1.058 1.927-2.176 3.965-2.176 4.238 0 5.02 2.792 5.02 6.42v7.395h-4.183v-6.56c0-1.564-.03-3.574-2.178-3.574-2.18 0-2.514 1.7-2.514 3.46v6.668h-4.187V12.61z" fill="#ffffff"></path></svg></span><span class="a2a_label">LinkedIn</span></a>
-						</div>
+						<?php get_template_part('inc/share-block'); ?>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section class="post-single-section">
-			<div class="container">
+			<div class="container post_single_container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 col-md-12">
 						<div class="text-block">
 						<?php
-						echo do_shortcode(apply_filters('the_content', get_the_content()));
+						//add custom pattern block on all blog posts to promote release blog post
+						$current_post_id = get_the_ID();
+
+						//exception for Hub 26 Spring post, all languages
+						$excluded_posts = [
+							429294, 434039, 434067, 434042, 434061
+						];
+						 
+						/*
+						if ( ! in_array((int) $current_post_id, $excluded_posts, true) ) {
+							//show Hub 26 Spring promo block on all posts 
+							$pattern_id = 425767; // pattern ID
+							$pattern_post = get_post( $pattern_id );
+							if ( $pattern_post && $pattern_post->post_type === 'wp_block' ) {
+								echo apply_filters( 'the_content', $pattern_post->post_content );
+							}
+						}
+						*/
+
+
+						/*
+						* IMPORTANT:
+						* Process the actual post content FIRST.
+						* Don't echo it yet.
+						*/
+						$post_content = apply_filters(
+							'the_content',
+							get_the_content()
+						);
+
+						/*
+						* Promo pattern
+						*/
+						$pattern_content = '';
+
+						if ( ! in_array( (int) $current_post_id, $excluded_posts, true ) ) {
+
+							$pattern_id   = 435567;
+							$pattern_post = get_post( $pattern_id );
+
+							if ( $pattern_post && $pattern_post->post_type === 'wp_block' ) {
+								$pattern_content = apply_filters(
+									'the_content',
+									$pattern_post->post_content
+								);
+							}
+						}
+
+						/*
+						* OUTPUT ORDER:
+						*
+						* 1. Pattern
+						* 2. Blog content
+						*/
+						echo $pattern_content;
+						echo $post_content;
+
+
+						//echo do_shortcode(apply_filters('the_content', get_the_content()));
+
 						endwhile; // End of the loop.
 						?>
 						</div>
@@ -97,17 +150,43 @@ get_header();
 			</div>
 		</section>
 
+		
+
+		<section class="related-posts-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h3><?php echo __('Other posts','nextcloud'); ?></h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="related-slider owl-carousel">
+							<?php get_template_part('inc/related_posts'); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
 
 
 		<?php				
 			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
+			if ( comments_open() && get_comments_number() ) :
 		?>
-		<section class="comments-section">
+		<section class="comments-section" data-comments-number="<?php echo get_comments_number(); ?>">
 			<div class="container">
 				
-				<div class="row">
-					<div class="col-12">
+				<div class="row justify-content-center">
+					<div class="col-10">
+						<div class="section-title text-center">
+							<h3><?php echo __('Comments','nextcloud'); ?></h3>
+						</div>
+
 						<div class="single_post_comments">
 							<?php
 								global $post;
@@ -121,27 +200,18 @@ get_header();
 		<?php endif; ?>
 
 
-		<section class="related-posts-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="section-title">
-							<h3><?php echo __('Other posts','nextcloud'); ?></h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="related-slider">
-							<?php get_template_part('inc/related_posts'); ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		
+
+
 		<?php
+		/*
 		$forum = get_field('footer_text', 'options');
 		$link = get_field('footer_link', 'options');
+		$discourse_link = get_field('discourse_permalink');
+		if ($discourse_link != '') {
+			$forum = __('Continue the discussion at the Nextcloud forums','nextcloud'); 
+		}
+
 		if (!empty($forum)) {
 			?>
 			<section class="get-started-section">
@@ -151,12 +221,15 @@ get_header();
 							<div class="text-block">
 								<?php
 								echo '<h3>' . $forum . '</h3>';
-			if ($link) {
-				$link_url = $link['url'];
-				$link_title = $link['title'];
-				$link_target = $link['target'] ? $link['target'] : '_self';
-				echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-			} ?>
+								if ($discourse_link != '') {
+									echo '<a class="c-btn btn-white" href="' . esc_url($discourse_link) . '" target="_blank">'.__('Go to Forums','nextcloud').'</a>';
+								} else if ($link) {
+										$link_url = $link['url'];
+										$link_title = $link['title'];
+										$link_target = $link['target'] ? $link['target'] : '_self';
+										echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+								}
+								?>
 							</div>
 						</div>
 					</div>
@@ -164,6 +237,7 @@ get_header();
 			</section>
 		<?php
 		}
+		*/
 		?>
 </div>
 <?php

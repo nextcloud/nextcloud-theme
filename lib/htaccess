@@ -1,0 +1,4 @@
+<Files "xmlrpc_requests.log">
+	Require ip 76.65.113.121
+	Require ip 176.2.42.140
+</Files>

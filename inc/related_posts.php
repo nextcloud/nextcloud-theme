@@ -124,9 +124,7 @@
                                     $date = (string)get_the_date($date_format, $post_id);
     
                                     if ( 'event' == get_post_type() ) {
-                                        $cat = get_terms( array(
-                                            'taxonomy' => 'event_categories'
-                                        ) );
+										$cat = wp_get_object_terms( $post_id, 'event_categories', array() );
                                     } else {
                                         $cat = get_the_category($post_id);
                                     }
@@ -141,7 +139,7 @@
                                         }
                                     }
     
-                                    echo '<div id="post-'.$post_id.'" class="col-lg-4 col-md-6 spacer news-container news-item" style="">';
+                                    echo '<div id="post-'.$post_id.'" class="spacer news-container news-item" style="">';
                                     echo '<div class="post-box">';
                                     echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$title.'">';
 									

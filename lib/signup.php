@@ -224,7 +224,6 @@ function request_account($request) {
 	// the new login flow V3 used in the desktop client will return
 	// nc://login/server:{server}
 	// no extra URL handling is required, because /flow/V3 is already attached to the response
-
 	return $response->setPassword;
 }
 

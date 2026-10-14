@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Design" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: url(#radial-gradient);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        fill: url(#radial-gradient1);
+      }
+
+      .st4 {
+        fill: url(#radial-gradient2);
+      }
+
+      .st5 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="960" y1="1080" x2="960" y2="0" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1cafff"/>
+      <stop offset=".5" stop-color="#0082c9"/>
+      <stop offset=".582" stop-color="#0172b6"/>
+      <stop offset=".748" stop-color="#064b86"/>
+      <stop offset=".98" stop-color="#0e0d39"/>
+      <stop offset="1" stop-color="#0f0833"/>
+    </linearGradient>
+    <clipPath id="clippath">
+      <rect class="st0" width="1920" height="1080"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="960" cy="1333.248" fx="960" fy="1333.248" r="785.769" gradientTransform="translate(0 824.031) scale(1 -.614)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1cafff"/>
+      <stop offset=".696" stop-color="#088fd9" stop-opacity=".308"/>
+      <stop offset="1" stop-color="#0082c9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient1" cx="0" cy="1080" fx="0" fy="1080" r="785.905" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".143" stop-color="#0082c9"/>
+      <stop offset="1" stop-color="#0082c9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient2" cx="1920" cy="1080" fx="1920" fy="1080" r="785.905" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".143" stop-color="#dbedf7"/>
+      <stop offset="1" stop-color="#0082c9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st2" width="1920" height="1080"/>
+  <g class="st5">
+    <g>
+      <ellipse class="st1" cx="960" cy="5.417" rx="785.905" ry="482.379"/>
+      <circle class="st3" r="785.905"/>
+      <circle class="st4" cx="1920" r="785.905"/>
+    </g>
+  </g>
+</svg>

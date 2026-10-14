@@ -14,18 +14,36 @@ $open_popup_on_button_click = get_field('open_popup_on_button_click');
 $popup_id = get_field('popup_id');
 $popup_content = get_field('popup_content');
 $custom_css_classes = get_field('custom_css_classes');
+$expiration = get_field('expiration_date');
+if($expiration) {
+	$expiration_ts = strtotime($expiration);
+	$now = time();
+}
+
+$show_promo = true;
+if($expiration) {
+	if($expiration_ts < $now) {
+		$show_promo = false;
+	}
+}
+
 
 if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
     echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
 
 else : /* rendering in editor body */
+
+	if($show_promo) {
 ?>
-<section class="promo-section promo_webinar has_custom_bg_image <?php 
+<section class="promo-section promo_webinar  <?php 
+if($bg_image) { echo " has_custom_bg_image "; }
 if($wide) { echo " full-width "; } 
 if($custom_css_classes) {
 	echo " ".$custom_css_classes." ";
 }
-?>" id="<?php echo $id; ?>" style="<?php
+?>" id="<?php if($id) { 
+	echo $id;
+} ?>" style="<?php
 if($bg_image) {
 	echo "background-image: url(".$bg_image.");";
 } ?>">
@@ -75,4 +93,6 @@ if($bg_image) {
 		</div>
 	</div>
 </section>
-<?php endif; ?>
+<?php 
+	}
+endif; ?>

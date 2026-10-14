@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="BG" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 29.7.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 138)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st1 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="1145.288" y1="104.098" x2="1195.382" y2="154.19" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="1830.23" y1="157.946" x2="1987.086" y2="314.802" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="396.502" y1="421.253" x2="478.094" y2="502.845" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient3" x1="92.448" y1="278.431" x2="150.374" y2="336.355" gradientTransform="translate(-29.699 1066.54) rotate(5.655) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+  </defs>
+  <circle class="st3" cx="1170.335" cy="950.856" r="35.421"/>
+  <circle class="st1" cx="1908.658" cy="843.626" r="110.914"/>
+  <circle class="st0" cx="437.298" cy="617.951" r="57.694"/>
+  <circle class="st2" cx="121.411" cy="772.607" r="40.959" transform="translate(-75.54 15.724) rotate(-5.655)"/>
+</svg>

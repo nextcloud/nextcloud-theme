@@ -24,6 +24,10 @@ get_header();
 		<div class="container">
 			<div class="row row-list-blog">
 				<?php
+				global $wp_query;
+				$default_posts_per_page = get_option( 'posts_per_page' ); // should be 9
+				$limit = $default_posts_per_page;
+				$count = $wp_query->found_posts;
 				
 				
 				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -36,7 +40,26 @@ get_header();
 					while (have_posts()) : the_post();
 
 						if(get_post_type()!='acf-field-group') {
-							get_template_part('inc/blog_loop_single');
+
+							$webinar = false;
+							if ( 'event' == get_post_type() ) {
+								$cat = wp_get_object_terms( get_the_ID(), 'event_categories', array() );
+								if($cat) {
+									foreach ($cat as $c) {
+										if($c->term_id == 250 ) { // event_categories Webinars
+											$webinar = true;
+											break;
+										}
+									}
+								}
+							}
+		
+							if($webinar) {
+								get_template_part('inc/webinar_loop_single');
+							} else {
+								get_template_part('inc/blog_loop_single');
+							}
+
 						}
 
 					endwhile;
@@ -57,6 +80,10 @@ get_header();
 				?>
 			</div>
 
+
+			<?php 
+			if ($count > $limit) {
+			?>
 			<div class="row loadNews_row">
 				<div class="col-12">
 					<div class="section-button">
@@ -67,6 +94,9 @@ get_header();
 					</div>
 				</div>
 			</div>
+			<?php 
+			}
+			?>
 
 
 		</div>

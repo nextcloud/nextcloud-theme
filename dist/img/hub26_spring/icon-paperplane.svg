@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Design" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 113 106">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #dbedf7;
+      }
+
+      .st1 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="3342.532" y1="-4538.375" x2="3427.66" y2="-4538.375" gradientTransform="translate(4637.683 3414.349) rotate(-90.324)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".42" stop-color="#fcfdfe"/>
+      <stop offset=".678" stop-color="#f3f9fc"/>
+      <stop offset=".892" stop-color="#e5f2f9"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="3442.094" y1="-4596.596" x2="3402.304" y2="-4527.678" gradientTransform="translate(4637.683 3414.349) rotate(-90.324)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".42" stop-color="#fcfdfe"/>
+      <stop offset=".678" stop-color="#f3f9fc"/>
+      <stop offset=".892" stop-color="#e5f2f9"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="3367.66" y1="-4553.554" x2="3427.66" y2="-4553.554" gradientTransform="translate(4637.683 3414.349) rotate(-90.324)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#dbedf7"/>
+    </linearGradient>
+  </defs>
+  <g id="Plane">
+    <polygon class="st3" points="105.334 12.264 58.87 67.915 55.002 72.549 72.103 97.581 80.193 76.809 99.457 27.352 105.334 12.264"/>
+    <polygon class="st2" points="13.776 12.202 30.874 37.231 36.886 35.214 105.334 12.264 89.142 12.253 36.063 12.217 13.776 12.202"/>
+    <polygon class="st1" points="105.334 12.264 24.614 67.408 55.002 72.549 58.87 67.915 105.334 12.264"/>
+    <polygon class="st0" points="30.874 37.231 24.614 67.408 105.334 12.264 36.886 35.214 30.874 37.231"/>
+    <polygon class="st0" points="13.776 12.202 11.628 13.67 27.674 37.557 22.256 69.02 54.043 75.116 70.253 98.844 72.103 97.581 55.002 72.549 24.614 67.408 30.874 37.231 13.776 12.202"/>
+  </g>
+</svg>

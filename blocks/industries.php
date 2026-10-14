@@ -5,6 +5,7 @@
 $id = get_field('section_id');
 $tagline = get_field('tagline');
 $title = get_field('title');
+$icon = get_field('icon');
 $text = get_field('text');
 $columns = get_field('no_of_columns');
 $css = get_field('custom_css_classes');
@@ -31,7 +32,7 @@ else : /* rendering in editor body */
 		<?php
 		if (!empty($tagline)) {
 			echo '<div class="row justify-content-center">';
-			echo '<div class="col-lg-6">';
+			echo '<div class="col-lg-8">';
 			echo '<div class="section-title">';
 			echo '<p>' . $tagline . '</p>';
 			echo '</div>';
@@ -43,6 +44,10 @@ else : /* rendering in editor body */
 			<div class="col-12">
 				<div class="text-block">
 					<?php
+					if(!empty($icon)) {
+						echo '<div class="icon"><img src="'.$icon['url'].'" alt="Nextcloud - '.$title.'"/></div>';
+					}
+
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
@@ -85,6 +90,13 @@ else : /* rendering in editor body */
 					}
 
 					if (!empty($link)) {
+
+						$label = __('Learn more','nextcloud');
+						if($link['title'] != '') {
+							$label = $link['title'];
+						}
+						echo '<span class="see_more">'.$label.' <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"></path></svg></span>';
+						
 						echo '</a>';
 					}
 

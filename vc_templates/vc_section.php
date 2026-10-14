@@ -143,10 +143,28 @@ $wrapper_attributes[] = 'class="' . esc_attr(trim($css_class)) . '"';
 $output .= '<section ' . implode(' ', $wrapper_attributes) . '>';
 
 if ($has_video_bg) {
-	$output .= '<video preload="metadata" loop autoplay="" muted="" playsinline="" poster="'.get_the_post_thumbnail_url(get_the_ID(),'full').'" style="visibility: visible;" width="1280" height="720"><source src="'.$video_bg_url.'" type="video/mp4"></video>';
+	$loop = "loop";
+	if( str_contains($css_class, 'video-no-loop') ) {
+		$loop = "";
+	}
+
+	$output .= '<video preload="metadata" '.$loop.' autoplay="" muted="" playsinline="" poster="'.get_the_post_thumbnail_url(get_the_ID(),'full').'" style="visibility: visible;" width="1280" height="720"><source src="'.$video_bg_url.'" type="video/mp4"></video>';
 }
 
 $output .= '<div class="overlay-gradient"></div>';
+
+
+$custom_section_div_css = isset($atts['custom_section_div_css']) ? $atts['custom_section_div_css'] : '';
+$custom_section_div_id = isset($atts['custom_section_div_id']) ? $atts['custom_section_div_id'] : '';
+if( isset($atts['custom_section_div_css']) || isset($atts['custom_section_div_id'])) {
+	$output .= '<div id="'.$custom_section_div_id.'" class="'.$custom_section_div_css.'"></div>';
+}
+
+if(isset($atts['custom_html_code'])) {
+	$output .= rawurldecode(base64_decode($atts['custom_html_code']));
+}
+
+
 if (empty($full_width)) {
 	$output .= '<div class="container">';
 }
