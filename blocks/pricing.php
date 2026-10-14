@@ -19,13 +19,13 @@ $link = get_field('link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($subtitle)) {
-						echo '<h5>' . $subtitle . '</h5>';
-					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($subtitle)) {
+	echo '<h5>' . $subtitle . '</h5>';
+}
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -33,10 +33,10 @@ $link = get_field('link');
 			<div class="col-lg-5 order-lg-1">
 				<div class="pricing-block">
 					<?php
-					if (!empty($price)) {
-						echo wpautop($price);
-					}
-					?>
+if (!empty($price)) {
+	echo wpautop($price);
+}
+?>
 				</div>
 			</div>
 			<div class="col-lg-12 order-lg-3">
@@ -49,15 +49,15 @@ $link = get_field('link');
 					echo '<a class="c-btn btn-black" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 			<div class="col-lg-5 order-lg-2">
 				<div class="text-block">
 					<?php
-					if (!empty($desc)) {
-						echo wpautop($desc);
-					}
-					?>
+	if (!empty($desc)) {
+		echo wpautop($desc);
+	}
+?>
 				</div>
 			</div>
 		</div>

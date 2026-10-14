@@ -16,15 +16,15 @@ $appstore = get_field('appstore_link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					echo '<div class="btn-block">';
-					if ($appstore) {
-						echo '<a class="app-btn apple-link" href="' . $appstore . '" target="_blank"></a>';
-					}
-					if ($playstore) {
-						echo '<a class="app-btn google-link" href="' . $playstore . '" target="_blank"></a>';
-					}
-					echo '</div>';
-					?>
+echo '<div class="btn-block">';
+if ($appstore) {
+	echo '<a class="app-btn apple-link" href="' . $appstore . '" target="_blank"></a>';
+}
+if ($playstore) {
+	echo '<a class="app-btn google-link" href="' . $playstore . '" target="_blank"></a>';
+}
+echo '</div>';
+?>
 				</div>
 			</div>
 		</div>

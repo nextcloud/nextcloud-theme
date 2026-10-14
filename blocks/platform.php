@@ -19,10 +19,10 @@ $video = get_field('video');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($subtext)) {
-						echo '<p>' . $subtext . '</p>';
-					}
-					?>
+if (!empty($subtext)) {
+	echo '<p>' . $subtext . '</p>';
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -30,16 +30,16 @@ $video = get_field('video');
 			<div class="col-lg-5">
 				<div class="text-block">
 					<?php
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					if ($link) {
-						$link_url = $link['url'];
-						$link_title = $link['title'];
-						$link_target = $link['target'] ? $link['target'] : '_self';
-						echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+if ($link) {
+	$link_url = $link['url'];
+	$link_title = $link['title'];
+	$link_target = $link['target'] ? $link['target'] : '_self';
+	echo '<a class="c-btn btn-blue" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+}
+?>
 				</div>
 			</div>
 			<div class="col-lg-7">
@@ -53,7 +53,7 @@ $video = get_field('video');
 					echo $video;
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>
