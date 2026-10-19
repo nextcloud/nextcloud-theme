@@ -7,7 +7,6 @@ get_header();
 ?>
 <div class="wrapper" id="main">
 	<?php
-	$ids = [];
 while (have_posts()) : the_post();
 
 	$date_format = get_option('date_format');
@@ -125,7 +124,7 @@ while (have_posts()) : the_post();
 		$pattern_id = 435567;
 		$pattern_post = get_post($pattern_id);
 
-		if ($pattern_post && $pattern_post->post_type === 'wp_block') {
+		if ($pattern_post instanceof WP_Post && $pattern_post->post_type === 'wp_block') {
 			$pattern_content = apply_filters(
 				'the_content',
 				$pattern_post->post_content
@@ -191,7 +190,6 @@ endwhile; // End of the loop.
 
 						<div class="single_post_comments">
 							<?php
-										global $post;
 				comments_template();
 				?>
 						</div>

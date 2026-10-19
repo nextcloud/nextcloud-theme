@@ -15,7 +15,7 @@ if (!empty($title)) {
 
 	if (isset($_GET['webinars'])) {
 
-		if (strip_tags($_GET['webinars']) == 'upcoming') {
+		if (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'upcoming') {
 			echo __('Upcoming webinars', 'nextcloud');
 		} else {
 			echo __('Webinar recordings', 'nextcloud');
@@ -70,7 +70,7 @@ if (isset($_GET['webinars'])) {
 		]
 	];
 
-	if (strip_tags($_GET['webinars']) == 'upcoming') {
+	if (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'upcoming') {
 
 		$args['meta_query'] = [
 			[
@@ -82,7 +82,7 @@ if (isset($_GET['webinars'])) {
 		];
 		$args['order'] = 'DESC';
 
-	} elseif (strip_tags($_GET['webinars']) == 'past') {
+	} elseif (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'past') {
 
 		$args['meta_query'] = [
 			'relation' => 'AND',

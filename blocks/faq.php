@@ -19,7 +19,7 @@ $title = get_field('title');
 						echo '</div>';
 						echo '<div class="accord-flex">';
 						$count = count(get_field('faq'));
-						$half = ceil($count / 2);
+						$half = (int)ceil($count / 2);
 						$i = 0;
 						while (have_rows('faq')) : the_row();
 							$q = get_sub_field('question');

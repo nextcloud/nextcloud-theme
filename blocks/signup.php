@@ -82,12 +82,12 @@ $coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'
 
 <section class="section--providers">
 	<div id="register" class="container"
-		data-ip="<?php echo htmlspecialchars($ip) ?>"
-		data-ll="<?php echo htmlspecialchars(json_encode($location)) ?>"
+		data-ip="<?php echo htmlspecialchars((string)$ip) ?>"
+		data-ll="<?php echo htmlspecialchars((string)json_encode($location)) ?>"
 		data-ocsapi="<?php echo array_key_exists('HTTP_OCS_APIREQUEST', $_SERVER) ?>"
-		data-l10n="<?php echo htmlspecialchars(json_encode($registerL10n)) ?>"
-		data-officialapps="<?php echo htmlspecialchars(json_encode($officialApps)) ?>"
-		data-coreapps="<?php echo htmlspecialchars(json_encode($coreApps)) ?>">
+		data-l10n="<?php echo htmlspecialchars((string)json_encode($registerL10n)) ?>"
+		data-officialapps="<?php echo htmlspecialchars((string)json_encode($officialApps)) ?>"
+		data-coreapps="<?php echo htmlspecialchars((string)json_encode($coreApps)) ?>">
 	</div>
 	<div id="register-details" class="container"><p></p></div>
 </section>

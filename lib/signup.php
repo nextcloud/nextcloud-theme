@@ -14,7 +14,6 @@ const USER_AGENT_TALK_IOS = '/^Mozilla\/5\.0 \(iOS\) Nextcloud\-Talk v.*$/';
 add_action('rest_api_init', 'registration_register_routes');
 
 $redis = new Client(REDIS);
-$readerCity = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-City.mmdb'));
 $readerCountry = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-Country.mmdb'));
 
 // Get proper ip in case of reverse proxy
@@ -137,11 +136,10 @@ function request_account($request) {
 		$locationId = intval($request['location']);
 	}
 
-	$newsletter = array_key_exists('newsletter', $request);
 	$subscribe = boolval($request['subscribe']);
 
 	// get providers list && check provider id
-	$json = json_decode(file_get_contents(PROVIDERS_FILE));
+	$json = json_decode((string)file_get_contents(PROVIDERS_FILE));
 	if (!array_key_exists($providerId, $json)) {
 		return new WP_Error('rest_invalid_param', 'Invalid parameter(s)', ['status' => 400]);
 	}
@@ -167,7 +165,7 @@ function request_account($request) {
 	$redis->expire($rateId, $ttl > 0 ? $ttl : $limit['interval']);
 
 	if (!is_array($post) || !array_key_exists('response', $post)) {
-		error_log('Provider did not returned 201: ' . json_encode($post));
+		error_log('Provider did not returned 201: ' . (string)json_encode($post));
 		return new WP_Error('unknown_error', 'Something happened', ['status' => 400]);
 	} elseif ($post['response']['code'] !== 201) {
 		if ($post['response']['code'] === 400 && $post['response']['message'] === 'invalid mail address') {
@@ -181,7 +179,7 @@ function request_account($request) {
 				return new WP_Error('username_already_used', 'User already exists', ['status' => 400]);
 			}
 		}
-		error_log('Provider did not returned 201: ' . json_encode($post));
+		error_log('Provider did not returned 201: ' . (string)json_encode($post));
 		return new WP_Error('unknown_error', 'Something happened', ['status' => 400]);
 	}
 
@@ -228,7 +226,7 @@ function request_account($request) {
 
 function get_providers_list() {
 	// get providers list
-	$json = json_decode(file_get_contents(PROVIDERS_FILE));
+	$json = json_decode((string)file_get_contents(PROVIDERS_FILE));
 
 	if (!is_array($json)) {
 		return new WP_Error('unknown_error', 'Invalid provider file', ['status' => 400, 'json' => PROVIDERS_FILE]);
@@ -258,7 +256,7 @@ function subscribe($email) {
 	];
 
 	// login
-	$post = wp_remote_post(NEWSLETTER_API_URL . '&cmd=login', $data);
+	wp_remote_post(NEWSLETTER_API_URL . '&cmd=login', $data);
 
 	// subscribe
 	$data['body'] .= '&email=' . $email . '&lists=' . NEWSLETTER_ID;
