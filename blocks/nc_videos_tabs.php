@@ -5,10 +5,10 @@
 $id = get_field('section_id');
 $css = get_field('custom_css_classes');
 
-if( isset( $block['data']['preview_image_help'] )  ) :    /* rendering in inserter preview  */
-    echo '<img src="'. $block['data']['preview_image_help'] .'" style="width:100%; height:auto;">';
+if (isset($block['data']['preview_image_help'])) :    /* rendering in inserter preview  */
+	echo '<img src="' . $block['data']['preview_image_help'] . '" style="width:100%; height:auto;">';
 else : /* rendering in editor body */
-?>
+	?>
 <section class="nc_videos_tabs_section <?php echo $css; ?>" id="<?php echo $id; ?>">
 	<div class="">
 		<div class="row swap-on-tablet">
@@ -21,28 +21,26 @@ else : /* rendering in editor body */
                                             <div class="vc_tta-panels-container">
                                                 <div class="vc_tta-panels">
 
-					<?php 
-                            if (have_rows('videos_list')) {
-                                $i = 1; 
-                                while (have_rows('videos_list')) {
-                                    the_row();
-                                    
-                                    $id = get_sub_field('id');
-                                    $icon = get_sub_field('icon');
-                                    //$title = str_replace('<br>', '\n', get_sub_field( 'title' ));
-                                    $title = str_replace('\n', '<br>', get_sub_field( 'title' ));
-                                    $description = get_sub_field('description');
-                                    $video_url = get_sub_field('video_url');
-                                    $video_preview_image = get_sub_field('video_preview_image');
-                                    $link = get_sub_field('link');
-                                    
-                                    $custom_css = '';
-                                    ?>
+					<?php
+								if (have_rows('videos_list')) {
+									$i = 1;
+									while (have_rows('videos_list')) {
+										the_row();
+
+										$id = get_sub_field('id');
+										//$title = str_replace('<br>', '\n', get_sub_field( 'title' ));
+										$title = str_replace('\n', '<br>', (string)get_sub_field('title'));
+										$description = get_sub_field('description');
+										$link = get_sub_field('link');
+
+										?>
 
 
-                                        <div class="vc_tta-panel product_tab release_video_tab <?php 
-                                        if($i==1) echo " vc_active ";
-                                        echo $id; ?>"
+                                        <div class="vc_tta-panel product_tab release_video_tab <?php
+											if ($i == 1) {
+												echo ' vc_active ';
+											}
+										echo $id; ?>"
                                                         id="<?php echo $id; ?>"
                                                         data-vc-content=".vc_tta-panel-body"
                                                         style="">
@@ -86,7 +84,7 @@ else : /* rendering in editor body */
                                                             </div>
 
 
-                                                            <?php if(isset($link)) {?>
+                                                            <?php if (isset($link)) {?>
                                                             <div class="btn-main btn-small popup-video">
                                                                 <a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-left vc_btn3-color-grey vc_btn3--has-svg"
                                                                 href="<?php echo $link['url']; ?>"
@@ -108,10 +106,10 @@ else : /* rendering in editor body */
                                                     </div>
 
                                     <?php
-                                    $i++;
-                                }
-                            } 
-                    ?> 
+									$i++;
+									}
+								}
+	?> 
                     </div>
                                             </div>
                                         </div>
@@ -123,29 +121,27 @@ else : /* rendering in editor body */
             <div class="col-lg-6 nextcloud_release_overview">
                 <div class="vc_column-inner">
                 <?php
-                if (have_rows('videos_list')) {
-                    while (have_rows('videos_list')) {
-                        the_row();
+				if (have_rows('videos_list')) {
+					while (have_rows('videos_list')) {
+						the_row();
 
-                        $id = get_sub_field('id');
-                        $icon = get_sub_field('icon');
-                        $title = str_replace('\n', '', get_sub_field( 'title' ));
-                        $description = get_sub_field('description');
-                        $video_url = get_sub_field('video_url');
-                        $video_preview_image = get_sub_field('video_preview_image');
-                        $link = get_sub_field('link');
-                        $custom_css = '';
-        
-                        echo '<div id="'.$id.'-preview" class="nc_video_preview_box popup-video release_video">';
-                        ?>
+						$id = get_sub_field('id');
+						$title = str_replace('\n', '', (string)get_sub_field('title'));
+						$video_url = get_sub_field('video_url');
+						$video_preview_image = get_sub_field('video_preview_image');
+
+						echo '<div id="' . $id . '-preview" class="nc_video_preview_box popup-video release_video">';
+						?>
                         
-                        <a href="<?php if(!empty($video_url)) { echo $video_url; }?>" title="<?php echo $title; ?>" class="">
+                        <a href="<?php if (!empty($video_url)) {
+                        	echo $video_url;
+                        }?>" title="<?php echo $title; ?>" class="">
                             <div class="overlay"></div>
-                            <?php 
-                            if(!empty($video_preview_image)) {
-                            echo '<img src="'.$video_preview_image['url'].'" alt="Nextcloud - '.$title.'"/>';
-                            }
-                            ?>
+                            <?php
+                        	if (!empty($video_preview_image)) {
+                        		echo '<img src="' . $video_preview_image['url'] . '" alt="Nextcloud - ' . $title . '"/>';
+                        	}
+						?>
 
                             <div class="video_text">
                                 <div class="icon">
@@ -161,10 +157,10 @@ else : /* rendering in editor body */
                         </a>
 
                     <?php
-                        echo '</div>'; // nc_video_preview_box
-                    }
-                }
-                ?>
+						echo '</div>'; // nc_video_preview_box
+					}
+				}
+	?>
                 </div>
             </div> <!-- .col --> 
 		</div> <!-- .row --> 

@@ -7,24 +7,27 @@ get_header();
 ?>
 <div class="wrapper" id="main">
 	<?php
-	$ids = [];
-	while (have_posts()) : the_post();
+while (have_posts()) : the_post();
 
-		$date_format = get_option( 'date_format' );
-		$date = (string)get_the_date($date_format);
+	$date_format = get_option('date_format');
+	$date = (string)get_the_date($date_format);
 
-		$cat = get_the_category();
-		$author_id = (int)get_the_author_meta('ID');
-		$custom_header_image = get_field('custom_header_image');
+	$cat = get_the_category();
+	$author_id = (int)get_the_author_meta('ID');
+	$custom_header_image = get_field('custom_header_image');
 	?>
-		<section class="single-hero-section <?php if($custom_header_image) echo "custom_header_image"; ?>" style="<?php if($custom_header_image) echo "background: url(".$custom_header_image.");"; ?>">
+		<section class="single-hero-section <?php if ($custom_header_image) {
+			echo 'custom_header_image';
+		} ?>" style="<?php if ($custom_header_image) {
+			echo 'background: url(' . $custom_header_image . ');';
+		} ?>">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
 							<?php
 							echo '<h1>' . get_the_title() . '</h1>';
-							?>
+	?>
 						</div>
 					</div>
 				</div>
@@ -32,42 +35,42 @@ get_header();
 					<div class="col-lg-4 post_date">
 						<div class="date-block">
 							<span class="date_label">
-								<?php echo __('Post date','nextcloud'); ?>
+								<?php echo __('Post date', 'nextcloud'); ?>
 							</span>
 							<?php
-							echo '<p>' . $date . '</p>';
-							?>
+	echo '<p>' . $date . '</p>';
+	?>
 						</div>
 					</div>
 					<div class="col-lg-4 post_cats">
 						<div class="cat-block">
 
 							<span class="cat_label">
-							<?php echo __('Categories','nextcloud'); ?>	
+							<?php echo __('Categories', 'nextcloud'); ?>	
 							</span>
 
 							<?php
-							echo '<ul>';
-							foreach ($cat as $c) {
-								if(  $c->term_id != 243 && $c->term_id != 241 && $c->term_id != 60 && $c->term_id != 1 ) { // exclude Uncategorized, sin categoria and Sin categorizar
-									$category_link = get_category_link($c->term_id);
-									echo '<li><a href="'.$category_link.'">' . $c->name . '</a></li>';
-								}
-							}
-							echo '</ul>';
-							?>
+	echo '<ul>';
+	foreach ($cat as $c) {
+		if ($c->term_id != 243 && $c->term_id != 241 && $c->term_id != 60 && $c->term_id != 1) { // exclude Uncategorized, sin categoria and Sin categorizar
+			$category_link = get_category_link($c->term_id);
+			echo '<li><a href="' . $category_link . '">' . $c->name . '</a></li>';
+		}
+	}
+	echo '</ul>';
+	?>
 						</div>
 					</div>
 					<div class="col-lg-4 post_author">
 						<div class="author-block">
 
 							<span class="author_label">
-								<?php echo __('Author','nextcloud'); ?>	
+								<?php echo __('Author', 'nextcloud'); ?>	
 							</span>
 
 							<?php
-							echo '<p>' . get_the_author_meta('display_name', $author_id) . '</p>';
-							?>
+	echo '<p>' . get_the_author_meta('display_name', $author_id) . '</p>';
+	?>
 						</div>
 					</div>
 					<div class="col-12">
@@ -85,65 +88,63 @@ get_header();
 						//add custom pattern block on all blog posts to promote release blog post
 						$current_post_id = get_the_ID();
 
-						//exception for Hub 26 Spring post, all languages
-						$excluded_posts = [
-							429294, 434039, 434067, 434042, 434061
-						];
-						 
-						/*
-						if ( ! in_array((int) $current_post_id, $excluded_posts, true) ) {
-							//show Hub 26 Spring promo block on all posts 
-							$pattern_id = 425767; // pattern ID
-							$pattern_post = get_post( $pattern_id );
-							if ( $pattern_post && $pattern_post->post_type === 'wp_block' ) {
-								echo apply_filters( 'the_content', $pattern_post->post_content );
-							}
-						}
-						*/
+	//exception for Hub 26 Spring post, all languages
+	$excluded_posts = [
+		429294, 434039, 434067, 434042, 434061
+	];
 
+	/*
+	if ( ! in_array((int) $current_post_id, $excluded_posts, true) ) {
+		//show Hub 26 Spring promo block on all posts
+		$pattern_id = 425767; // pattern ID
+		$pattern_post = get_post( $pattern_id );
+		if ( $pattern_post && $pattern_post->post_type === 'wp_block' ) {
+			echo apply_filters( 'the_content', $pattern_post->post_content );
+		}
+	}
+	*/
 
-						/*
-						* IMPORTANT:
-						* Process the actual post content FIRST.
-						* Don't echo it yet.
-						*/
-						$post_content = apply_filters(
-							'the_content',
-							get_the_content()
-						);
+	/*
+	* IMPORTANT:
+	* Process the actual post content FIRST.
+	* Don't echo it yet.
+	*/
+	$post_content = apply_filters(
+		'the_content',
+		get_the_content()
+	);
 
-						/*
-						* Promo pattern
-						*/
-						$pattern_content = '';
+	/*
+	* Promo pattern
+	*/
+	$pattern_content = '';
 
-						if ( ! in_array( (int) $current_post_id, $excluded_posts, true ) ) {
+	if (! in_array((int)$current_post_id, $excluded_posts, true)) {
 
-							$pattern_id   = 435567;
-							$pattern_post = get_post( $pattern_id );
+		$pattern_id = 435567;
+		$pattern_post = get_post($pattern_id);
 
-							if ( $pattern_post && $pattern_post->post_type === 'wp_block' ) {
-								$pattern_content = apply_filters(
-									'the_content',
-									$pattern_post->post_content
-								);
-							}
-						}
+		if ($pattern_post instanceof WP_Post && $pattern_post->post_type === 'wp_block') {
+			$pattern_content = apply_filters(
+				'the_content',
+				$pattern_post->post_content
+			);
+		}
+	}
 
-						/*
-						* OUTPUT ORDER:
-						*
-						* 1. Pattern
-						* 2. Blog content
-						*/
-						echo $pattern_content;
-						echo $post_content;
+	/*
+	* OUTPUT ORDER:
+	*
+	* 1. Pattern
+	* 2. Blog content
+	*/
+	echo $pattern_content;
+	echo $post_content;
 
+	//echo do_shortcode(apply_filters('the_content', get_the_content()));
 
-						//echo do_shortcode(apply_filters('the_content', get_the_content()));
-
-						endwhile; // End of the loop.
-						?>
+endwhile; // End of the loop.
+?>
 						</div>
 					</div>
 				</div>
@@ -157,7 +158,7 @@ get_header();
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h3><?php echo __('Other posts','nextcloud'); ?></h3>
+							<h3><?php echo __('Other posts', 'nextcloud'); ?></h3>
 						</div>
 					</div>
 				</div>
@@ -174,24 +175,23 @@ get_header();
 
 
 
-		<?php				
+		<?php
 			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() && get_comments_number() ) :
-		?>
+			if (comments_open() && get_comments_number()) :
+				?>
 		<section class="comments-section" data-comments-number="<?php echo get_comments_number(); ?>">
 			<div class="container">
 				
 				<div class="row justify-content-center">
 					<div class="col-10">
 						<div class="section-title text-center">
-							<h3><?php echo __('Comments','nextcloud'); ?></h3>
+							<h3><?php echo __('Comments', 'nextcloud'); ?></h3>
 						</div>
 
 						<div class="single_post_comments">
 							<?php
-								global $post;
-								comments_template();
-							?>
+				comments_template();
+				?>
 						</div>
 					</div>
 				</div>
@@ -209,7 +209,7 @@ get_header();
 		$link = get_field('footer_link', 'options');
 		$discourse_link = get_field('discourse_permalink');
 		if ($discourse_link != '') {
-			$forum = __('Continue the discussion at the Nextcloud forums','nextcloud'); 
+			$forum = __('Continue the discussion at the Nextcloud forums','nextcloud');
 		}
 
 		if (!empty($forum)) {
@@ -218,19 +218,19 @@ get_header();
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-10">
-							<div class="text-block">
-								<?php
-								echo '<h3>' . $forum . '</h3>';
-								if ($discourse_link != '') {
-									echo '<a class="c-btn btn-white" href="' . esc_url($discourse_link) . '" target="_blank">'.__('Go to Forums','nextcloud').'</a>';
-								} else if ($link) {
-										$link_url = $link['url'];
-										$link_title = $link['title'];
-										$link_target = $link['target'] ? $link['target'] : '_self';
-										echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-								}
-								?>
-							</div>
+				<div class="text-block">
+					<?php
+					echo '<h3>' . $forum . '</h3>';
+					if ($discourse_link != '') {
+						echo '<a class="c-btn btn-white" href="' . esc_url($discourse_link) . '" target="_blank">'.__('Go to Forums','nextcloud').'</a>';
+					} else if ($link) {
+							$link_url = $link['url'];
+							$link_title = $link['title'];
+							$link_target = $link['target'] ? $link['target'] : '_self';
+							echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+					}
+					?>
+				</div>
 						</div>
 					</div>
 				</div>
@@ -238,7 +238,7 @@ get_header();
 		<?php
 		}
 		*/
-		?>
+?>
 </div>
 <?php
 get_footer();

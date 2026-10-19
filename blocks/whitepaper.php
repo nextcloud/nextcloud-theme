@@ -16,10 +16,10 @@ $studies = get_field('whitepaper_selection');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($subtext)) {
-						echo wpautop($subtext);
-					}
-					?>
+if (!empty($subtext)) {
+	echo wpautop($subtext);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -31,44 +31,38 @@ $studies = get_field('whitepaper_selection');
 			echo '<div class="row">';
 			foreach ($studies as $study) {
 				$post_id = $study->ID;
-				$link = get_the_permalink($study->ID);
+				$link = (string)get_the_permalink($study->ID);
 				//$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
-				$featured_image = get_the_post_thumbnail($post_id, 'large', array( 'class' => 'feat_img' ));
+				$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
 
-
-				$img = wp_get_attachment_url(get_post_thumbnail_id($study->ID) ?: 0) ?: '';
 				$header = get_the_title($study->ID);
 				$ex = get_the_excerpt($study->ID);
-				$custom_field = get_field('field_name', $study->ID);
 				$att = get_field('attachment', $study->ID);
 				echo '<div class="col-lg-4 mb-3">';
 				echo '<div class="post-holder whitepaper" data-file="' . $att . '">';
 				//echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
 
-				echo '<div class="post-img" style=""><a href="'.$link.'" title="'.$header.'">'.$featured_image.'</a></div>';
+				echo '<div class="post-img" style=""><a href="' . $link . '" title="' . $header . '">' . $featured_image . '</a></div>';
 
 				echo '<div class="post-body">';
 				if (!empty($header)) {
-					echo '<h5 class="head"><a href="'.$link.'">' . $header  . '</a></h5>';
+					echo '<h5 class="head"><a href="' . $link . '">' . $header . '</a></h5>';
 				}
 				if (!empty($ex)) {
 					echo '<p>' . $ex . '</p>';
 				}
-				
 
 				echo '<div class="btn_container">';
-				echo '<a href="'.get_the_permalink($study->ID).'" class="c-btn btn-top btn-small btn_see_whitepaper">'.__('Download','nextcloud').'</a>';
+				echo '<a href="' . (string)get_the_permalink($study->ID) . '" class="c-btn btn-top btn-small btn_see_whitepaper">' . __('Download', 'nextcloud') . '</a>';
 				echo '</div>';
 
 				echo '</div>';
-
 
 				/*
 				echo '<div class="form-body">';
 				echo do_shortcode("[ninja_form id='4']");
 				echo '</div>';
 				*/
-
 
 				echo '</div>';
 				echo '</div>';
@@ -78,6 +72,6 @@ $studies = get_field('whitepaper_selection');
 			echo '</div>';
 			echo '</div>';
 		}
-		?>
+?>
 	</div>
 </section>

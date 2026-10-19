@@ -5,7 +5,6 @@
 $id = get_field('section_id');
 $title = get_field('title');
 $text = get_field('text');
-$link = get_field('link');
 ?>
 <section class="benefits3-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -16,10 +15,10 @@ $link = get_field('link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 		</div>
@@ -49,7 +48,7 @@ $link = get_field('link');
 					}
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>

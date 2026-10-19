@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <psalm
+	phpVersion="8.4"
     errorLevel="3"
+    allFunctionsGlobal="true"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
@@ -19,12 +21,30 @@
         <directory name="blocks"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <!-- Bundled third-party XML-RPC library -->
+            <file name="lib/ripcord.php"/>
+            <file name="lib/ripcord_client.php"/>
+            <file name="lib/ripcord_documentor.php"/>
+            <file name="lib/ripcord_server.php"/>
+            <file name="lib/ripcord-logger.php"/>
         </ignoreFiles>
     </projectFiles>
+    <extraFiles>
+        <directory name="inc"/>
+    </extraFiles>
     <stubs>
         <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
         <file name="acf.functions.stub.php" />
+        <file name="plugins.stub.php" />
         <file name="config.example.php"/>
         <file name="lib/signup.php"/>
     </stubs>
+    <issueHandlers>
+        <!-- WordPress hook callbacks must accept every argument the hook passes -->
+        <UnusedParam errorLevel="suppress"/>
+        <UnusedClosureParam errorLevel="suppress"/>
+        <PossiblyUnusedParam errorLevel="suppress"/>
+        <!-- Templates are included by WordPress from inside a function, so `global` is valid there -->
+        <InvalidGlobal errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

@@ -1,0 +1,21 @@
+diff --git a/.github/workflows/lint-php-cs.yml b/.github/workflows/lint-php-cs.yml
+index 06d0842..0f61391 100644
+--- a/.github/workflows/lint-php-cs.yml
++++ b/.github/workflows/lint-php-cs.yml
+@@ -29,14 +29,10 @@ jobs:
+         with:
+           persist-credentials: false
+ 
+-      - name: Get php version
+-        id: versions
+-        uses: nextcloud-libraries/nextcloud-version-matrix@cd0211ffcef1065e2020cd579e4843b8746e7a58 # v1.3.3
+-
+-      - name: Set up php${{ steps.versions.outputs.php-min }}
++      - name: Set up php8.4
+         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+         with:
+-          php-version: ${{ steps.versions.outputs.php-min }}
++          php-version: 8.4
+           extensions: bz2, ctype, curl, dom, fileinfo, gd, iconv, intl, json, libxml, mbstring, openssl, pcntl, posix, session, simplexml, xmlreader, xmlwriter, zip, zlib, sqlite, pdo_sqlite
+           coverage: none
+           ini-file: development

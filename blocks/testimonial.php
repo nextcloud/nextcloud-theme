@@ -4,7 +4,6 @@
  */
 $id = get_field('section_id');
 $title = get_field('title');
-$link = get_field('link');
 ?>
 <section class="muchmore-section" id="<?php echo $id; ?>">
 	<div class="container">
@@ -15,7 +14,7 @@ $link = get_field('link');
 					if (!empty($title)) {
 						echo '<h2>' . $title . '</h2>';
 					}
-					?>
+?>
 				</div>
 			</div>
 		</div>
@@ -44,7 +43,7 @@ $link = get_field('link');
 					}
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>

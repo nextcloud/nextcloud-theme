@@ -17,10 +17,10 @@ $img_text = get_field('image_subtext');
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+?>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -33,7 +33,7 @@ $img_text = get_field('image_subtext');
 					}
 					echo '</div>';
 				}
-				?>
+?>
 			</div>
 		</div>
 	</div>
