@@ -70,8 +70,6 @@ if (
 					<div class="header-holder">
 						<div class="logo-holder">
 							<?php
-					$id = get_the_id();
-
 if (function_exists('get_field') && get_field('custom_logo')) {
 	echo '<a href="#" class="custom-logo-link">';
 	echo '<img class="custom-logo" src="' . get_field('custom_logo') . '">';

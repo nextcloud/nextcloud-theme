@@ -39,16 +39,12 @@ if (!empty($subtext)) {
 			foreach ($studies as $study) {
 
 				$post_id = $study->ID;
-				$link = get_the_permalink($post_id);
+				$link = (string)get_the_permalink($post_id);
 
 				$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
 
-				$img = wp_get_attachment_url(get_post_thumbnail_id($post_id) ?: 0) ?: '';
 				$header = get_the_title($post_id);
 				$ex = get_the_excerpt($post_id);
-				$custom_field = get_field('field_name', $post_id);
-				$att = get_field('attachment', $post_id);
-				$str = substr($att, 38);
 				echo '<div data-case-study-id="' . $post_id . '" class="' . $studies_col_css . '">';
 				echo '<div class="post-holder case_study" data-file="">';
 				//echo '<div class="post-img" style="background-image:url(' . $img . ');"></div>';
@@ -63,7 +59,7 @@ if (!empty($subtext)) {
 				}
 
 				echo '<div class="btn_container">';
-				echo '<a href="' . get_the_permalink($post_id) . '" class="c-btn btn-top btn-small btn_see_case_study">' . __('Download', 'nextcloud') . '</a>';
+				echo '<a href="' . (string)get_the_permalink($post_id) . '" class="c-btn btn-top btn-small btn_see_case_study">' . __('Download', 'nextcloud') . '</a>';
 				echo '</div>';
 
 				echo '</div>';

@@ -656,23 +656,23 @@ function box_repeater_funct($atts) {
                       } ?>">
 					  <div class="client_item_inner">
 
-					  	<?php if (isset($item['box_repeater_items_link'])) { ?>
-					  	<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo
+						<?php if (isset($item['box_repeater_items_link'])) { ?>
+						<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo
 							$item['box_repeater_items_title']
-					  		; ?>">
+							; ?>">
 						<?php } ?>
 
 						<?php
 
-					  		if (isset($item['box_repeater_items_img']) && wp_get_attachment_image($item['box_repeater_items_img'], 'full')) {
-					  			echo wp_get_attachment_image($item['box_repeater_items_img'], 'full');
-					  		} else {
-					  			echo "<h5 class='title'>" . $item['box_repeater_items_title'] . '</h5>';
-					  		}
+							if (isset($item['box_repeater_items_img']) && wp_get_attachment_image($item['box_repeater_items_img'], 'full')) {
+								echo wp_get_attachment_image($item['box_repeater_items_img'], 'full');
+							} else {
+								echo "<h5 class='title'>" . $item['box_repeater_items_title'] . '</h5>';
+							}
                   	?>
 
 						<?php if (isset($item['box_repeater_items_link'])) { ?>
-				  		</a>
+						</a>
 						<?php } ?>
 
 						</div>
@@ -1344,8 +1344,8 @@ function features_carousel_funct($atts) {
                       }
                   	; ?>">
 
-					  	<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
-					  		<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
+						<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
+							<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
 						<?php } ?>
 
 						<div class="feature_image">
@@ -1405,7 +1405,7 @@ function features_carousel_funct($atts) {
 
 
 						<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
-				  		</a>
+						</a>
 						<?php } ?>
 						
 
@@ -1589,7 +1589,7 @@ function hub_circle_funct($atts) {
           		?>
                     <div class="floating_icon <?php echo $class; ?>">
 
-					  	<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
+						<?php echo wp_get_attachment_image($item['image'], 'full'); ?>
 						
 						<h5 class="title">
 						<?php echo $item['title']; ?>
@@ -2005,7 +2005,7 @@ function iconboxes_carousel_funct($atts) {
                   	}
                   	?>
                       <div class="nc_iconbox iconbox feature_iconbox <?php echo $css_classes; ?>">
-					  	<?php
+						<?php
 
 						if ($has_link) { ?>
 						<a class="<?php if ($type == 'flip_on_hover') {
@@ -2121,7 +2121,7 @@ function iconboxes_carousel_funct($atts) {
 			
 				<?php if (!$disable_carousel) { ?>
               	</div>
-			  	<?php } ?> 
+				<?php } ?> 
 
 			</div>
         <?php } ?>
@@ -2378,7 +2378,7 @@ function media_coverage_funct($atts) {
 	?>
           <?php if ($items) { ?>
 
-		  	<?php if ($type === 'carousel') { ?>
+			<?php if ($type === 'carousel') { ?>
 				<div class="media_coverage_carousel owl-carousel owl-theme">
 			<?php } ?>
 
@@ -2387,19 +2387,17 @@ function media_coverage_funct($atts) {
 
                   <?php
 
-				  foreach ($items as $index => $item) {
-				  	/*
-				  	 * if( $type === 'carousel') {
-				  	 * echo '<div class="media_coverage_carousel_item">';
-				  	 * }
-				  	 */
+				foreach ($items as $index => $item) {
+					// if( $type === 'carousel') {
+					// echo '<div class="media_coverage_carousel_item">';
+					// }
 
-				  	$item_link = false;
-				  	if (isset($item['link'])) {
-				  		$item_link = true;
-				  		$link = vc_build_link($item['link']);
-				  	}
-				  	?>
+					$item_link = false;
+					if (isset($item['link'])) {
+						$item_link = true;
+						$link = vc_build_link($item['link']);
+					}
+					?>
 
 					<div id="media-id-<?php echo $index; ?>" class="<?php
 
@@ -2407,22 +2405,22 @@ function media_coverage_funct($atts) {
 						echo 'label-' . $item['label'];
 					}
 
-				  	if ($type != 'carousel' && $max_items != 0 && $max_items < ($index + 1)) {
-				  		echo ' hidden ';
-				  	}
+					if ($type != 'carousel' && $max_items != 0 && $max_items < ($index + 1)) {
+						echo ' hidden ';
+					}
 
-				  	if (isset($item['rating'])) {
-				  		echo ' with_stars ';
-				  	}
-				  	echo $atts['css_classes']; ?> media_coverage_post">
+					if (isset($item['rating'])) {
+						echo ' with_stars ';
+					}
+					echo $atts['css_classes']; ?> media_coverage_post">
 						<div class="vc_column-inner">
 								<div class="image">
 									<figure class="" style="<?php
 
-				  					if (isset($item['bg_color'])) {
-				  						echo 'background-color:' . $item['bg_color'];
-				  					}
-				  	?>">
+									if (isset($item['bg_color'])) {
+										echo 'background-color:' . $item['bg_color'];
+									}
+					?>">
 										<?php if ($item_link) { ?>
 										<a href="<?php echo $link['url']; ?>" title="<?php if (isset($item['title'])) {
 											echo $item['title'];
@@ -2476,7 +2474,7 @@ function media_coverage_funct($atts) {
 								<?php } ?>
 
 						</div>
-				  	</div>
+					</div>
 
 					<?php
 
@@ -2489,7 +2487,7 @@ function media_coverage_funct($atts) {
 
 
 				<?php
-				  } ?>
+				} ?>
 			</div>
 
 			<?php if ($type === 'carousel') { ?>
@@ -2681,7 +2679,7 @@ function logo_resources_funct($atts) {
 								} ?>">
 									<?php echo wp_get_attachment_image($item['image_svg'], 'full'); ?>
 								</div>
-				  				
+								
 
 								<div class="infos">
 
@@ -2707,7 +2705,7 @@ function logo_resources_funct($atts) {
 
 							</div>
 						</div>
-				  	</div>
+					</div>
 				<?php } ?>
 			</div>
         <?php } ?>
@@ -9613,8 +9611,8 @@ function nc_feature_funct($atts, $content = null) {
                       }
             			; ?>">
 
-					  	<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
-					  	<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
+						<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
+						<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>">
 						<?php } ?>
 
 
@@ -9630,14 +9628,14 @@ function nc_feature_funct($atts, $content = null) {
 
 							<?php //if no video url nor Link
 
-							if (!isset($item['video_url']) && !isset($item['link']) && !isset($item['no_overlay'])) { ?>
+            				if (!isset($item['video_url']) && !isset($item['link']) && !isset($item['no_overlay'])) { ?>
 								<a href="<?php echo wp_get_attachment_image_url($item['feature_image'], 'full'); ?>" title="<?php echo
-									$item['title']
-								; ?>" class="popup-screenshot">
+            						$item['title']
+            					; ?>" class="popup-screenshot">
 								<div class="screenshot-icon"><i class="fas fa-expand-arrows-alt"></i></div>
 								<div class="overlay-screenshot"></div>
 								<?php }
-							?>
+            				?>
 							
 							<?php if (isset($item['feature_image'])) {
 								echo wp_get_attachment_image($item['feature_image'], 'large');
@@ -9698,7 +9696,7 @@ function nc_feature_funct($atts, $content = null) {
 
 
 						<?php if (isset($item['link']) && !isset($item['video_url'])) { ?>
-				  		</a>
+						</a>
 						<?php } ?>
 
 
@@ -13715,7 +13713,7 @@ function grid_images_funct($atts) {
 						<div class="grid_image <?php echo $item_custom_css; ?>" style="">
 							<figure>
 								<a class="popup-screenshot" href="<?php echo wp_get_attachment_image_src($image_id, 'full')[0]; ?>"><img src="<?php echo
-						$attachment_image[0]
+				  		$attachment_image[0]
 				  	; ?>" alt=""></a>
 							</figure>
 						</div>
@@ -14773,7 +14771,7 @@ add_shortcode('meetup', function ($atts, $content = null) {
 				</svg>
             </a>
 			</div>
-		  	
+			
           </div>
         <?php endif; ?>
       </div>

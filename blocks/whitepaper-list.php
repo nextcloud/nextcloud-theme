@@ -2,7 +2,6 @@
 /*
  * Whitepaper Blog Posts Block Template.
  */
-$id = get_field('section_id');
 $title = get_field('title');
 $subtext = get_field('subtext');
 ?>
@@ -35,7 +34,6 @@ $onepost = $my_wp_query->query([
 	'order' => 'DSC',
 ]);
 foreach ($onepost as $onepostsingle) {
-	$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
 	$title = $onepostsingle->post_title;
 	$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
 	$cat = get_the_category($onepostsingle->ID);

@@ -3,9 +3,6 @@
  * The template for displaying the footer
  */
 
-if (function_exists('get_field')) {
-	$flogo = get_field('footer_logo', 'options');
-}
 ?>
 <footer class="<?php
 	if (
@@ -76,7 +73,7 @@ if (function_exists('get_field')) {
 							|| get_current_template() == 'single-simplified.php'
 							|| get_current_template() == 'single-on-demand-webinar.php'
 						) {
-							echo '<li><a target="_blank" href="' . get_permalink(2371) . '">' . get_the_title(2371) . '</a></li>';
+							echo '<li><a target="_blank" href="' . (string)get_permalink(2371) . '">' . get_the_title(2371) . '</a></li>';
 						}
 
 						if (!is_page_template('page-simplified.php')

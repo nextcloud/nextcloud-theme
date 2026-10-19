@@ -42,7 +42,7 @@ if (have_posts()) : ?>
 
 			$webinar = false;
 			if (get_post_type() == 'event') {
-				$cat = wp_get_object_terms(get_the_ID(), 'event_categories', []);
+				$cat = wp_get_object_terms((int)get_the_ID(), 'event_categories', []);
 				if ($cat) {
 					foreach ($cat as $c) {
 						if ($c->term_id == 250) { // event_categories Webinars
@@ -73,7 +73,8 @@ if (isset($category)) {
 }
 
 if (get_post_type() == 'event') {
-	$cat_id = get_queried_object()->term_id;
+	$queried_object = get_queried_object();
+	$cat_id = $queried_object instanceof WP_Term ? $queried_object->term_id : null;
 }
 
 ?>

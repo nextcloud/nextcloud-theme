@@ -13,13 +13,10 @@ $image_icon = get_field('image_icon');
 $bg_image = get_field('background_image');
 $css_classes = get_field('custom_css_classes');
 $expiration = get_field('expiration_date');
+$show_promo = true;
 if ($expiration) {
 	$expiration_ts = strtotime($expiration);
 	$now = time();
-}
-
-$show_promo = true;
-if ($expiration) {
 	if ($expiration_ts < $now) {
 		$show_promo = false;
 	}
@@ -69,18 +66,14 @@ if ($bg_image) {
 			?>
 						<div class="btns-inline-centered">
 							<?php
-				if ($link) {
-					$link_url = $link['url'];
-					$link_title = $link['title'];
-					$link_target = $link['target'] ? $link['target'] : '_self';
-					echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
-				}
-			if ($sec_link) {
-				$sec_link_url = $sec_link['url'];
-				$sec_link_title = $sec_link['title'];
-				$sec_link_target = $sec_link['target'] ? $sec_link['target'] : '_self';
-				echo '<a class="c-btn btn-white-outline" href="' . esc_url($sec_link_url) . '" target="' . esc_attr($sec_link_target) . '">' . esc_html($sec_link_title) . '</a>';
-			}
+			$link_url = $link['url'];
+			$link_title = $link['title'];
+			$link_target = $link['target'] ? $link['target'] : '_self';
+			echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
+			$sec_link_url = $sec_link['url'];
+			$sec_link_title = $sec_link['title'];
+			$sec_link_target = $sec_link['target'] ? $sec_link['target'] : '_self';
+			echo '<a class="c-btn btn-white-outline" href="' . esc_url($sec_link_url) . '" target="' . esc_attr($sec_link_target) . '">' . esc_html($sec_link_title) . '</a>';
 			?>
 						</div>
 						<?php

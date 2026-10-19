@@ -10,7 +10,6 @@ $text = get_field('text');
 $columns = get_field('no_of_columns');
 $css = get_field('custom_css_classes');
 
-$col_class = '';
 if ($columns == 4) {
 	$col_class = 'col-lg-3';
 } elseif ($columns == 3) {

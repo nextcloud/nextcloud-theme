@@ -58,13 +58,12 @@ if (function_exists('wpes_search_form')) {
 			<div class="row row-list-blog">
 				<?php
 $default_posts_per_page = get_option('posts_per_page'); // should be 9
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $limit = $default_posts_per_page;
 //$count = $wp_query->get( 'filtered_post_count' );
 $count = $wp_query->get('total_found_posts');
 
 if (current_user_can('manage_options') && isset($wp_query->request)) {
-	echo "<div class='hidden'>" . implode(',', $post_type) . '</div>';
+	echo "<div class='hidden'>" . implode(',', get_query_var('post_type')) . '</div>';
 	echo "<div class='hidden'>Count: " . $count . '</div>';
 	echo '<pre class="request hidden" style="white-space: pre-wrap;">' . esc_html($wp_query->request) . '</pre>';
 }
@@ -136,9 +135,7 @@ if ($search_query->have_posts()) {
 					}
 				}
 
-				if (isset($post_type_search)) {
-					echo $post_type_search;
-				} ?>" data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" 
+				echo $post_type_search; ?>" data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" 
 						data-search="true" 
 						data-search_query="<?php echo the_search_query(); ?>" 
 						data-category="" id="loadNews"><?php echo __('Load more', 'nextcloud'); ?></button>

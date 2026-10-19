@@ -23,7 +23,6 @@ $title = get_field('title');
 			echo '<div class="row">';
 			while (have_rows('columns')) {
 				the_row();
-				$header = get_sub_field('the_title');
 				$cont = get_sub_field('the_text');
 				$link = get_sub_field('link');
 				echo '<div class="col-lg-6 spacer">';

@@ -24,7 +24,7 @@ add_theme_support('automatic-feed-links');
 //add custom code to the header based on the post meta of that specific page/post
 add_action('wp_head', 'add_custom_code_header');
 function add_custom_code_header() {
-	echo get_post_meta(get_the_ID(), 'custom_header_code', true);
+	echo get_post_meta((int)get_the_ID(), 'custom_header_code', true);
 };
 add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
@@ -62,7 +62,7 @@ function file_scripts() {
 	wp_register_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
 	if (isset($post) && isset($post->post_content)) { // added to avoid PHP Warning:  Attempt to read property "post_content" on null in /var/lib/wordpress/content/themes/nextcloud-theme/functions.php on line 68
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets', 'event'])
 			|| str_contains($post->post_content, 'ninja')
 		) {
@@ -112,7 +112,7 @@ function file_scripts() {
 		wp_register_script('intlTelInput_utils', get_template_directory_uri() . '/dist/js/utils.js', ['jquery', 'nf-front-end'], true);
 		wp_register_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', ['jquery', 'nf-front-end'], true);
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets'])
 		) {
 			wp_enqueue_script('intlTelInput_utils');
@@ -121,7 +121,7 @@ function file_scripts() {
 
 		wp_register_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['jquery', 'nf-front-end'], true);
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets', 'event'])
 		) {
 			wp_enqueue_script('selectize');
@@ -213,7 +213,6 @@ function my_wp_nav_menu_objects($items, $args) {
 		$sub = get_field('subtext', $item);
 		// add icon
 		if ($icon && $sub) {
-			$alt = $item->title;
 			$item->title = '<img loading="eager" class="navcon" src="' . $icon . '" alt=""/><span>' . $item->title . '<small>' . $sub . '</small></span>';
 		} elseif ($icon) {
 			$item->title = '<img loading="eager" class="navcon" src="' . $icon . '" alt=""/><span>' . $item->title . '</span>';
@@ -320,7 +319,7 @@ add_action('after_rocket_clean_home_feeds', function ($urls) {
 //add automatically the featured image as twitter:image meta tag in the wp_head
 function nc_show_feat_image_as_twitter_image_tag() {
 	if (has_post_thumbnail()) {
-		echo '<meta name="twitter:image" content="' . wp_get_attachment_url(get_post_thumbnail_id()) . '" />';
+		echo '<meta name="twitter:image" content="' . (string)wp_get_attachment_url((int)get_post_thumbnail_id()) . '" />';
 	}
 };
 add_action('wp_head', 'nc_show_feat_image_as_twitter_image_tag');
@@ -374,6 +373,7 @@ add_action('pre_get_posts', 'exclude_posts');
 function my_custom_logo() {
 	// The logo
 	$custom_logo_id = get_theme_mod('custom_logo');
+	$html = '';
 
 	// If has logo
 	if ($custom_logo_id) {
@@ -390,6 +390,7 @@ function my_custom_logo() {
 		}
 
 		// Get the image
+		/** @psalm-suppress InvalidArgument WP accepts arbitrary extra attributes like itemprop */
 		$html = sprintf('<a href="%1$s" class="custom-logo-link" rel="home" itemprop="url" title="%2$s">%3$s</a>',
 			esc_url(home_url('/')),
 			esc_html(get_bloginfo('name')),
@@ -439,7 +440,7 @@ function wpml_pb_shortcode_encode_urlencoded_json($string, $encoding, $original_
 			}
 			$output[ $i ][ $key ] = $value;
 		}
-		$string = urlencode(json_encode($output));
+		$string = urlencode((string)json_encode($output));
 	}
 	return $string;
 }
@@ -465,11 +466,16 @@ function wpml_pb_shortcode_decode_urlencoded_json($string, $encoding, $original_
 	return $string;
 }
 
+/**
+ * @param string $value
+ * @param string $type
+ */
 function wpmlsupp_11368_decode_encode_vc_link($value, $type = 'decode') {
 	if (!function_exists('vc_build_link')) {
 		return $value;
 	}
 
+	$str = '';
 	if ($type === 'decode') {
 		$str = '[fakeshortcode ';
 		$link_arr = vc_build_link($value);
@@ -582,7 +588,7 @@ function webinar_recordings_search_filter($query) {
 				]);
 				$query->set('post_type', 'on-demand-webinar');
 
-			} elseif (in_array($_GET['custom_type'], ['case_studies', 'whitepapers','data_sheets'])) {
+			} elseif (in_array($_GET['custom_type'], ['case_studies', 'whitepapers','data_sheets'], true)) {
 				$query->set('post_type', strip_tags($_GET['custom_type']));
 			}
 		}
@@ -639,7 +645,7 @@ function register_rest_images() {
 function get_rest_featured_image($object, $field_name, $request) {
 	if ($object['featured_media']) {
 		$img = wp_get_attachment_image_src($object['featured_media'], 'app-thumb');
-		return $img[0];
+		return $img ? $img[0] : null;
 	}
 	return false;
 }
@@ -670,7 +676,7 @@ add_filter('body_class', 'custom_body_class');
  * @return array Amended body classes.
  */
 function custom_body_class(array $classes) {
-	$new_class = get_post_meta(get_the_ID(), 'page_body_class', true);
+	$new_class = get_post_meta((int)get_the_ID(), 'page_body_class', true);
 	if ($new_class) {
 		$classes[] = $new_class;
 	}
@@ -686,7 +692,7 @@ function partners_custom_password_protect() {
 	//global $post;
 	$postID = get_queried_object_id();
 
-	if (strpos($_SERVER['REQUEST_URI'], '/partner-hub/') !== false) {
+	if (strpos($_SERVER['REQUEST_URI'] ?? '', '/partner-hub/') !== false) {
 		/* found */
 
 		//if (is_page('partner-hub')) {
@@ -710,7 +716,7 @@ function partners_custom_password_protect() {
 		if (isset($_POST['custom_password'])) {
 			if ($_POST['custom_password'] === $correct_password) {
 				$_SESSION['custom_access_granted'] = true; // Grant access for the session
-				wp_redirect(get_permalink($postID)); // Refresh the page after login
+				wp_redirect((string)get_permalink($postID)); // Refresh the page after login
 				exit;
 			} else {
 				echo '<p style="color: red;">Incorrect password. Try again.</p>';
@@ -745,7 +751,7 @@ function nc_cw_custom_password_protect() {
 	//global $post;
 	$postID = get_queried_object_id();
 
-	if (strpos($_SERVER['REQUEST_URI'], '/company-week/') !== false) {
+	if (strpos($_SERVER['REQUEST_URI'] ?? '', '/company-week/') !== false) {
 
 		//if (is_page('partner-hub')) {
 		//load awesome icons, for the menu
@@ -768,7 +774,7 @@ function nc_cw_custom_password_protect() {
 		if (isset($_POST['custom_password'])) {
 			if ($_POST['custom_password'] === $correct_password) {
 				$_SESSION['cw_custom_access_granted'] = true; // Grant access for the session
-				wp_redirect(get_permalink($postID)); // Refresh the page after login
+				wp_redirect((string)get_permalink($postID)); // Refresh the page after login
 				exit;
 			} else {
 				echo '<p style="color: red;">Incorrect password. Try again.</p>';
@@ -798,7 +804,7 @@ function nc_disable_discourse_publish_for_older_posts($force_publish, $post_id, 
 	// Don't auto-publish if there's no discourse_post_id and the post is older than X days
 	$force_publish = true;
 	if (!get_post_meta($post->ID, 'discourse_post_id', true)) {
-		$published_date = strtotime($post->post_date);
+		$published_date = (int)strtotime($post->post_date);
 		$days_old = (time() - $published_date) / (60 * 60 * 24);
 		if ($days_old > 7) {
 			return false;
@@ -850,19 +856,24 @@ add_action('manage_post_posts_custom_column', function ($column_name, $post_id) 
 class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 	// 🔹 Start sub-menu
+	#[\Override]
 	public function start_lvl(&$output, $depth = 0, $args = []) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "\n$indent<ul class=\"sub-menu\">\n";
 	}
 
 	// 🔹 End sub-menu
+	#[\Override]
 	public function end_lvl(&$output, $depth = 0, $args = []) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "$indent</ul>\n";
 	}
 
 	// 🔹 Start each <li>
-	public function start_el(&$output, $item, $depth = 0, $args = [], $id = 0) {
+	#[\Override]
+	public function start_el(&$output, $data_object, $depth = 0, $args = [], $current_object_id = 0) {
+		// Parameter names must match Walker::start_el(); keep the shorter alias below
+		$item = $data_object;
 		$classes = empty($item->classes) ? [] : (array)$item->classes;
 		$class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
 		$class_attr = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
@@ -872,6 +883,7 @@ class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 		// Check for shortcode item
 		if (in_array('link_w_shortcode', $classes)) {
 			//$output .= do_shortcode($item->title);
+			/** @psalm-suppress UndefinedMagicPropertyFetch */
 			$output .= '<div class="shortcode-wrapper">' . do_shortcode($item->title) . '</div>';
 		} else {
 			// Set up link attributes
@@ -894,6 +906,7 @@ class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 			}
 
 			// Filter title in case it's modified by wp_nav_menu_objects (your ACF fields etc.)
+			/** @psalm-suppress UndefinedMagicPropertyFetch */
 			$title = apply_filters('the_title', $item->title, $item->ID);
 
 			// Output link
@@ -910,7 +923,8 @@ class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 	}
 
 	// 🔹 Close each <li>
-	public function end_el(&$output, $item, $depth = 0, $args = []) {
+	#[\Override]
+	public function end_el(&$output, $data_object, $depth = 0, $args = []) {
 		$output .= "</li>\n";
 	}
 }
@@ -1054,15 +1068,15 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	}
 
 	// Read SVG contents
-	$svg = file_get_contents($file_path);
+	$svg = (string)file_get_contents($file_path);
 
 	// (Recommended) Sanitize the SVG if Safe SVG (or a similar sanitizer) is present
-	if (class_exists('\enshrined\svgSanitize\Sanitizer')) {
+	if (class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
 		$sanitizer = new \enshrined\svgSanitize\Sanitizer();
 		$svg = $sanitizer->sanitize($svg);
 	} else {
 		// Minimal fallback: strip script tags
-		$svg = preg_replace('#<script.*?</script>#is', '', $svg);
+		$svg = (string)preg_replace('#<script.*?</script>#is', '', $svg);
 	}
 
 	// Build wrapper classes (match vc_icon’s wrapper style so spacing/alignment still work)
@@ -1088,7 +1102,6 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 
 	// Handle WPBakery size tokens or raw px
 	// If it's a number, treat it as px; if token (sm/md/lg), map as you like:
-	$size_css = '';
 	if ($atts['size']) {
 		if (is_numeric($atts['size'])) {
 			$size_css = intval($atts['size']) . 'px';
@@ -1109,7 +1122,7 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	// Ensure SVG is responsive (if it has no width/height but does have viewBox, browsers scale fine)
 	// Wrap similar to vc_icon structure so margins, alignment work
 	$new_output = '<div class="' . esc_attr(implode(' ', $classes)) . '"' . $style_attr . '>';
-	$new_output .= '  <div class="vc_icon_element-inner vc_icon_element-color-' . esc_attr($color ? 'custom' : 'default') . ' vc_icon_element-size-' . esc_attr($atts['size'] ? $atts['size'] : 'md') . '">';
+	$new_output .= '  <div class="vc_icon_element-inner vc_icon_element-color-' . esc_attr($color ? 'custom' : 'default') . ' vc_icon_element-size-' . esc_attr((string)($atts['size'] ? $atts['size'] : 'md')) . '">';
 	$new_output .= '    <span class="vc_icon_element-icon vc_icon_element-icon--svg" aria-hidden="true">';
 	$new_output .= $svg;
 	$new_output .= '    </span>';
@@ -1159,7 +1172,7 @@ add_action('vc_after_init', function () {
 /**
  * Inject inline SVG into vc_btn / vc_button output when enabled.
  */
-add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
+add_filter('vc_shortcode_output', /** @param string $output */ function ($output, $obj, $atts) {
 	if (!is_object($obj)) {
 		return $output;
 	}
@@ -1186,16 +1199,16 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	}
 
 	// Read SVG file
-	$svg = file_get_contents($file_path);
+	$svg = (string)file_get_contents($file_path);
 
 	// Sanitize (Safe SVG plugin compatible)
-	if (class_exists('\enshrined\svgSanitize\Sanitizer')) {
+	if (class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
 		$sanitizer = new \enshrined\svgSanitize\Sanitizer();
 		$sanitizer->minify(false);
 		$svg = $sanitizer->sanitize($svg);
 	} else {
 		// Minimal fallback: remove <script>
-		$svg = preg_replace('#<script.*?</script>#is', '', $svg);
+		$svg = (string)preg_replace('#<script.*?</script>#is', '', $svg);
 	}
 
 	if (!$svg) {
@@ -1213,10 +1226,10 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	$svg_html .= '</span>';
 
 	// Remove any default <i> icon
-	$output = preg_replace('/<i[^>]*\bvc_btn3-icon\b[^>]*>\s*<\/i>/i', '', $output);
+	$output = (string)preg_replace('/<i[^>]*\bvc_btn3-icon\b[^>]*>\s*<\/i>/i', '', $output);
 
 	// Insert SVG after opening tag (<a> or <button>)
-	$output = preg_replace('/(<(?:a|button)\b[^>]*\bvc_btn3\b[^>]*>)/i', '$1' . $svg_html, $output, 1);
+	$output = (string)preg_replace('/(<(?:a|button)\b[^>]*\bvc_btn3\b[^>]*>)/i', '$1' . $svg_html, $output, 1);
 
 	// Add marker class to button for optional styling
 	$output = preg_replace_callback('/<(a|button)\b([^>]*)\bclass="([^"]*)"/i', function ($m) {
@@ -1265,14 +1278,14 @@ function nc_tta_get_svg_icon_html($attachment_id) {
 		return '';
 	}
 
-	$svg = file_get_contents($file_path);
+	$svg = (string)file_get_contents($file_path);
 	// Sanitize (Safe SVG compatible)
-	$svg = preg_replace('#<script.*?</script>#is', '', $svg);
+	$svg = (string)preg_replace('#<script.*?</script>#is', '', $svg);
 
 	// Normalize fills so it inherits header color (fixes Illustrator .st0 fills)
-	$svg = preg_replace('#<style\b[^>]*>.*?</style>#is', '', $svg);
-	$svg = preg_replace('/\bfill\s*:\s*#[0-9a-fA-F]{3,8}\b/', 'fill:currentColor', $svg);
-	$svg = preg_replace('/\bfill\s*=\s*"#[0-9a-fA-F]{3,8}"/', 'fill="currentColor"', $svg);
+	$svg = (string)preg_replace('#<style\b[^>]*>.*?</style>#is', '', $svg);
+	$svg = (string)preg_replace('/\bfill\s*:\s*#[0-9a-fA-F]{3,8}\b/', 'fill:currentColor', $svg);
+	$svg = (string)preg_replace('/\bfill\s*=\s*"#[0-9a-fA-F]{3,8}"/', 'fill="currentColor"', $svg);
 	if (!preg_match('/<svg\b[^>]*\bfill=/i', $svg)) {
 		$svg = preg_replace('/<svg\b/i', '<svg fill="currentColor"', $svg, 1);
 	}
@@ -1382,7 +1395,7 @@ add_action('vc_after_init', function () {
 /**
  * Inject inline SVG into vc_message / vc_message_box when enabled.
  */
-add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
+add_filter('vc_shortcode_output', /** @param string $output */ function ($output, $obj, $atts) {
 	if (!is_object($obj)) {
 		return $output;
 	}
@@ -1409,25 +1422,25 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	}
 
 	// Read SVG
-	$svg = file_get_contents($file_path);
+	$svg = (string)file_get_contents($file_path);
 
 	// Sanitize (Safe SVG compatible)
-	if (class_exists('\enshrined\svgSanitize\Sanitizer')) {
+	if (class_exists(\enshrined\svgSanitize\Sanitizer::class)) {
 		$sanitizer = new \enshrined\svgSanitize\Sanitizer();
 		$sanitizer->minify(false);
-		$svg = $sanitizer->sanitize($svg);
+		$svg = (string)$sanitizer->sanitize($svg);
 	} else {
 		// Minimal fallback
-		$svg = preg_replace('#<script.*?</script>#is', '', $svg);
+		$svg = (string)preg_replace('#<script.*?</script>#is', '', $svg);
 	}
 	if (!$svg) {
 		return $output;
 	}
 
 	// Normalize fills so it inherits message color (fixes Illustrator .st0 fills)
-	$svg = preg_replace('#<style\b[^>]*>.*?</style>#is', '', $svg);                      // drop embedded <style>
-	$svg = preg_replace('/\bfill\s*:\s*#[0-9a-fA-F]{3,8}\b/', 'fill:currentColor', $svg);   // style="...fill:#fff"
-	$svg = preg_replace('/\bfill\s*=\s*"#[0-9a-fA-F]{3,8}"/', 'fill="currentColor"', $svg); // fill="#fff"
+	$svg = (string)preg_replace('#<style\b[^>]*>.*?</style>#is', '', $svg);                      // drop embedded <style>
+	$svg = (string)preg_replace('/\bfill\s*:\s*#[0-9a-fA-F]{3,8}\b/', 'fill:currentColor', $svg);   // style="...fill:#fff"
+	$svg = (string)preg_replace('/\bfill\s*=\s*"#[0-9a-fA-F]{3,8}"/', 'fill="currentColor"', $svg); // fill="#fff"
 	if (!preg_match('/<svg\b[^>]*\bfill=/i', $svg)) {
 		$svg = preg_replace('/<svg\b/i', '<svg fill="currentColor"', $svg, 1);
 	}
@@ -1438,11 +1451,11 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	$svg_html .= '</div>';
 
 	// Remove WPBakery's default icon container (varies slightly by theme/VC version)
-	$output = preg_replace('/<div[^>]*\bvc_message_box-icon\b[^>]*>.*?<\/div>/is', '', $output);
-	$output = preg_replace('/<i[^>]*\bvc_message\-icon\b[^>]*>\s*<\/i>/i', '', $output);
+	$output = (string)preg_replace('/<div[^>]*\bvc_message_box-icon\b[^>]*>.*?<\/div>/is', '', $output);
+	$output = (string)preg_replace('/<i[^>]*\bvc_message\-icon\b[^>]*>\s*<\/i>/i', '', $output);
 
 	// Insert our SVG icon right after the opening wrapper with class "vc_message_box"
-	$output = preg_replace(
+	$output = (string)preg_replace(
 		'/(<div\b[^>]*\bvc_message_box\b[^>]*>)/i',
 		'$1' . $svg_html,
 		$output,
@@ -1472,7 +1485,7 @@ add_filter('embed_oembed_html', function ($html) {
 // Helper function to extract sections on Changelog unsupported page
 function my_extract_changelog_sections($post_id) {
 	$post = get_post($post_id);
-	if (! $post) {
+	if (! $post instanceof WP_Post) {
 		return [
 			'always' => [],
 			'lazy' => [],
@@ -1651,7 +1664,7 @@ add_action('wp_enqueue_scripts', function () {
 	// Ensure a script handle exists to attach inline JS to.
 	// You can attach to 'jquery' if you know it's loaded, but this is safer.
 	$handle = 'ez-toc-emoji-fix';
-	wp_register_script($handle, '', [], null, true);
+	wp_register_script($handle, false, [], null, true);
 	wp_enqueue_script($handle);
 
 	$js = <<<'JS'
