@@ -14,7 +14,8 @@
     "ext-json": "*",
     "geoip2/geoip2": "^2.13",
     "predis/predis": "^1.1.10",
-    "daveearley/daves-email-validation-tool": "^1.2"
+    "daveearley/daves-email-validation-tool": "^1.2",
+    "endroid/qr-code": "^6.1"
   },
   "scripts": {
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
