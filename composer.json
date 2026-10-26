@@ -13,7 +13,8 @@
     "php": ">=8.4",
     "ext-json": "*",
     "geoip2/geoip2": "^2.13",
-    "predis/predis": "^1.1.10"
+    "predis/predis": "^1.1.10",
+    "daveearley/daves-email-validation-tool": "^1.2"
   },
   "scripts": {
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
@@ -22,12 +23,8 @@
     "psalm": "psalm",
     "psalm:fix": "psalm --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
     "psalm:update-baseline": "psalm --threads=1 --update-baseline",
-    "update-data-files": [
-      "(cd emailValidator/scripts && ./update-disposable-email-providers.php)",
-      "(cd emailValidator/scripts && ./update-top-level-domains.php)"
-    ],
-    "post-install-cmd": "@update-data-files",
-    "post-update-cmd": "@update-data-files"
+    "update-data-files": "cd vendor/daveearley/daves-email-validation-tool/scripts && php update-disposable-email-providers.php && php update-top-level-domains.php",
+    "post-install-cmd": "@update-data-files"
   },
   "require-dev": {
     "nextcloud/coding-standard": "^1.5.0",
