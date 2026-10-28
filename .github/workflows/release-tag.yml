@@ -9,6 +9,9 @@ on:
     inputs:
       prerelease:
         type: boolean
+      dry-run:
+        type: boolean
+        default: false
     outputs:
       version:
         description: Version
@@ -17,8 +20,8 @@ on:
         description: Tag
         value: ${{ jobs.changelog.outputs.tag }}
       changelog:
-        description: Changelog (without version name)
-        value: ${{ jobs.changelog.outputs.clean_changelog }}
+        description: Changelog
+        value: ${{ jobs.changelog.outputs.changelog }}
   workflow_dispatch:
     inputs:
       prerelease:
@@ -26,7 +29,7 @@ on:
         type: boolean
         required: true
         default: false
-      dry_run:
+      dry-run:
         description: Preview without creating tags
         required: false
         type: boolean
@@ -48,6 +51,11 @@ jobs:
         with:
           require: write
 
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@469f0e5e35831fbd1962706f29f65daf0a5723f2 # v6.5.0
@@ -59,7 +67,8 @@ jobs:
           release-count: 0
           pre-release: ${{ inputs.prerelease }}
           pre-release-identifier: rc
+          pre-release-smart-bump: true
           create-summary: true
-          skip-commit: ${{ inputs.dry_run }}
-          skip-tag: ${{ inputs.dry_run }}
+          skip-commit: ${{ inputs.dry-run }}
+          skip-tag: ${{ inputs.dry-run }}
 ...

@@ -7,10 +7,8 @@ name: Release pipeline
 on:
   workflow_dispatch:
     inputs:
-      branch:
-        description:
       prerelease:
-        description: "Pre-release"
+        description: "Release as a pre-release"
         type: boolean
         required: true
 
@@ -26,5 +24,14 @@ jobs:
     uses: $/.github/workflows/release-build.yml
     with:
       tag: ${{ needs.tag.outputs.tag }}
+    secrets: inherit
+
+  release:
+    needs: [tag, build]
+    uses: $/.github/workflows/release-create.yml
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
+      prerelease: ${{ inputs.prerelease }}
+      changelog: ${{ needs.tag.outputs.changelog }}
     secrets: inherit
 ...
