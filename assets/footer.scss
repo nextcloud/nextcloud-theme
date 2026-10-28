@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-@import "./variables";
+@use "variables";
 
 footer {
     padding: 50px 0px 20px;
@@ -63,7 +63,7 @@ footer {
                     right: 13px;
                     height: 100%;
                     background-color: transparent;
-                    color: $textColor;
+                    color: variables.$textColor;
                 }
 
             }
@@ -73,7 +73,7 @@ footer {
         }
         
 
-        @media (max-width: $tablet-breakpoint) {
+        @media (max-width: variables.$tablet-breakpoint) {
             & {
                 margin-bottom: 2rem;
                 text-align: center;
@@ -119,7 +119,7 @@ footer {
             justify-content: flex-end;
             margin-bottom: 2rem;
 
-            @media (max-width: $xs-breakpoint) {
+            @media (max-width: variables.$xs-breakpoint) {
                 flex-wrap: wrap;
 
                 li {
@@ -137,7 +137,7 @@ footer {
                 //padding: 1rem 2rem;
                 
 
-                @media (min-width: $xl-breakpoint) {
+                @media (min-width: variables.$xl-breakpoint) {
                     & {
                         padding: 0 3rem;
                     }
@@ -232,11 +232,11 @@ footer {
     z-index:9;
     border-radius: 5px;
     background-color: #fff;
-    color: $mainColor;
-    border: 1px solid $mainColor;
+    color: variables.$mainColor;
+    border: 1px solid variables.$mainColor;
 
     &:hover {
-        background-color: $mainColor;
+        background-color: variables.$mainColor;
         color: #fff;
     }
 }

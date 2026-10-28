@@ -1,3 +1,5 @@
+@use "variables";
+
 // SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -12,7 +14,7 @@
     padding-top: 9rem !important;
     padding-bottom: 4rem !important;
 
-    @media screen and (max-width: $md-breakpoint) { // mobile
+    @media screen and (max-width: variables.$md-breakpoint) { // mobile
         & {
             padding-top: 8rem !important;
         }
@@ -694,7 +696,7 @@
     
 
     &:not(.full-width) {
-        border-radius: $borderRadiusLarger;
+        border-radius: variables.$borderRadiusLarger;
         overflow: hidden;
     }
 
@@ -765,10 +767,10 @@
 
             input[type="button"], input[type="submit"] {
                 background-color: #fff !important;
-                color: $mainColor !important;
+                color: variables.$mainColor !important;
 
                 &:hover {
-                    background-color: $mainColor !important;
+                    background-color: variables.$mainColor !important;
                     color: #fff !important;
                 }
             }
@@ -862,7 +864,7 @@
 
     .hero-row {
         
-        @media screen and (min-width: $md-breakpoint) {
+        @media screen and (min-width: variables.$md-breakpoint) {
             &{
                 display: flex;
                 align-items: center;
@@ -887,7 +889,7 @@
             }
 
 
-            @media screen and (max-width: $md-breakpoint) {
+            @media screen and (max-width: variables.$md-breakpoint) {
                 &{
                     text-align: center;
                 }
@@ -898,7 +900,7 @@
         .hero-subtitle{
             font-size: 1.4rem;
 
-            @media screen and (max-width: $md-breakpoint) {
+            @media screen and (max-width: variables.$md-breakpoint) {
                 &{
                     text-align: center;
                 }
@@ -915,7 +917,7 @@
             //margin-bottom: 0 !important;
 
 
-            @media screen and (max-width: $md-breakpoint) {
+            @media screen and (max-width: variables.$md-breakpoint) {
                 &{
                     margin-left: auto;
                     margin-right: auto;
@@ -1127,7 +1129,7 @@
                 margin: auto;
 
 
-                @media screen and (min-width:$tablet-breakpoint) {
+                @media screen and (min-width:variables.$tablet-breakpoint) {
                     & {
                         padding-left: 3rem;
                         padding-right: 3rem;
@@ -1143,7 +1145,7 @@
                     width: fit-content;
                     
 
-                    @media screen and (min-width:$tablet-breakpoint) {
+                    @media screen and (min-width:variables.$tablet-breakpoint) {
                         & {
                             width: calc(49% - 15px) !important;
                             display: inline-block !important;
@@ -1160,7 +1162,7 @@
                         font-family: "Font Awesome 5 Free";
                         font-weight: 900;
                         margin-right: 10px;
-                        color: $mainColor;
+                        color: variables.$mainColor;
                         left: 0;
                     }
                 }
@@ -1196,7 +1198,7 @@
 
             .vc_tta-controls-icon {
                 &::before {
-                    color: $textColor !important;
+                    color: variables.$textColor !important;
                 }
             }
 
@@ -1210,7 +1212,7 @@
                 font-weight: bold;
 
                 a {
-                    color: $textColor !important;
+                    color: variables.$textColor !important;
                     padding-left: 65px !important;
 
                 }
@@ -1223,7 +1225,7 @@
                     position: absolute;
                     padding: 10px;
                     border-radius: 10px;
-                    background-color: $mainColor;
+                    background-color: variables.$mainColor;
                     opacity: 0.25;
                     background-size: 22px auto;
                     background-repeat: no-repeat;
@@ -1356,9 +1358,9 @@
             a {
                 height: 100%;
                 transition: all 0.3s ease;
-                background-color: $lightBG;
+                background-color: variables.$lightBG;
                 border-radius: 15px;
-                color: $textColor;
+                color: variables.$textColor;
                 display: block;
 
                 .iconbox_container {
@@ -1368,7 +1370,7 @@
                     .icon {
                         font-size: 3rem;
                         margin-bottom: 0.5rem;
-                        color: $mainColor;
+                        color: variables.$mainColor;
                     }
         
                     .title, h4.title {
@@ -1422,7 +1424,7 @@
 
 .video_previews_col {
 
-    @media screen and (min-width: $md-breakpoint) {
+    @media screen and (min-width: variables.$md-breakpoint) {
 
         &{
             margin-top: -7rem;
@@ -1455,7 +1457,7 @@
 .nc_video_preview_box {
     max-width: 450px;
     margin: 1.5rem auto;
-    box-shadow: $boxShadow;
+    box-shadow: variables.$boxShadow;
 
     &.full-width {
         max-width: 100% !important;
@@ -1467,7 +1469,7 @@
     
             .video_text {
                 .icon {
-                    @media screen and (min-width: $md-breakpoint) {
+                    @media screen and (min-width: variables.$md-breakpoint) {
                         & {
                             font-size: 4.5rem;
                         }
@@ -1557,7 +1559,7 @@
 
 .home_events_row {
 
-    @media screen and (min-width:$xl-breakpoint) {
+    @media screen and (min-width:variables.$xl-breakpoint) {
         &{
             padding: 1rem 6rem;
         }
@@ -1573,7 +1575,7 @@
             padding: 1.5rem;
             padding-top: 0.5rem;
             box-shadow: 0 0 25px rgba(0, 130, 201, 0.12);
-            color: $textColor !important;
+            color: variables.$textColor !important;
             display: block;
             margin: 0;
             padding: 0;
@@ -1615,7 +1617,7 @@
                         position: relative;
                         //top: -2px;
                         margin-right: 3px;
-                        color: $textColor;
+                        color: variables.$textColor;
                     }
                 }
     
@@ -1626,7 +1628,7 @@
                 .btn, .see_more {
                     margin-top: 2rem;
                     margin-bottom: 0.5rem;
-                    color: $mainColor !important;
+                    color: variables.$mainColor !important;
                     font-weight: bold;
                     display: block;
                     text-align: left;
@@ -1670,7 +1672,7 @@
             transition: all 0.3s ease;
             background-color: #fff;
             border-radius: 15px;
-            color: $textColor;
+            color: variables.$textColor;
             display: block;
             box-shadow: 0 0 25px rgba(0, 130, 201, 0.12);
     
@@ -1719,7 +1721,7 @@
                     display: block;
                     //position: absolute;
                     //bottom: 2rem;
-                    color: $mainColor;
+                    color: variables.$mainColor;
                 }
             }
     
@@ -1728,7 +1730,7 @@
 
         &.youtube {
             .icon {
-                color: $youtubeColor;
+                color: variables.$youtubeColor;
             }
         }
         

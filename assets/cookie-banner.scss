@@ -1,3 +1,5 @@
+@use "variables";
+
 /* -- Cookie Banner styling -- */
 .cookie_banner {
     position: fixed;
@@ -8,8 +10,8 @@
     margin: auto;
     z-index: 999;
     background-color: #fff;
-    border-radius: $borderRadius;
-    box-shadow: $boxShadow;
+    border-radius: variables.$borderRadius;
+    box-shadow: variables.$boxShadow;
     max-width: 90%;
     width: 900px;
 
@@ -34,7 +36,7 @@
         //align-items: center;
         gap: 15px;
 
-        @media screen and (max-width: $sm-breakpoint) {
+        @media screen and (max-width: variables.$sm-breakpoint) {
             & {
                 flex-direction: column;
                 text-align: center;
@@ -58,7 +60,7 @@
                 
                 a.open_details {
                     padding: 0;
-                    color: $textColor;
+                    color: variables.$textColor;
                     background: none;
                     display: flex;
                     width: fit-content;
@@ -74,7 +76,7 @@
                         margin-left: 5px;
                     }
 
-                    @media screen and (max-width: $sm-breakpoint) { // hide on mobile
+                    @media screen and (max-width: variables.$sm-breakpoint) { // hide on mobile
                         & {
                             display: none;
                         }
@@ -103,7 +105,7 @@
             position: relative;
             text-align: right;
 
-            @media screen and (max-width: $sm-breakpoint) {
+            @media screen and (max-width: variables.$sm-breakpoint) {
                 text-align: center;
                 margin: 10px auto;
             }
@@ -125,7 +127,7 @@
 
 
                 &.accept_all {
-                        @media screen and (max-width: $sm-breakpoint) {
+                        @media screen and (max-width: variables.$sm-breakpoint) {
                             & {
                                 margin-left:0;
                                 margin-top: 10px;
@@ -144,7 +146,7 @@
 
             a.open_details {
                 padding: 0;
-                color: $textColor;
+                color: variables.$textColor;
                 background: none;
                 display: flex;
                 width: fit-content;
@@ -159,7 +161,7 @@
                 }
             }
 
-            @media screen and (max-width: $sm-breakpoint) { // show on mobile
+            @media screen and (max-width: variables.$sm-breakpoint) { // show on mobile
                 & {
                     display: block;
 
@@ -175,7 +177,7 @@
 
 
     .cookies_details {
-        background: $communityColor;
+        background: variables.$communityColor;
         border-radius: 15px;
         transition: all 0.3s ease;
         overflow: hidden;
@@ -207,7 +209,7 @@
                     font-weight: bold;
                     flex: 15% 0 0;
 
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             text-align: center;
                         }
@@ -229,7 +231,7 @@
                 .cookie_cat_desc {
                     flex: auto;
 
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             text-align: center;
                         }
@@ -241,14 +243,14 @@
                     flex: 50px 0 0;
                     text-align: center;
 
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             flex: auto 0 0;
                         }
                     }
                 }
 
-                @media screen and (max-width: $sm-breakpoint) {
+                @media screen and (max-width: variables.$sm-breakpoint) {
                     flex-direction: column;
                 }
 
@@ -305,7 +307,7 @@
                     }
 
 
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             flex-wrap: wrap;
 
@@ -403,7 +405,7 @@
   }
 
   & > input[type="checkbox"]:checked + .nc-switch-style {
-    background-color: $mainColor;
+    background-color: variables.$mainColor;
   }
 
   & > input[type="checkbox"]:checked + .nc-switch-style:before {
