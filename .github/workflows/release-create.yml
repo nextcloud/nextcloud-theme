@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+---
+name: Create GitHub release
+run-name: Create GitHub release ${{ inputs.tag }}
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+      prerelease:
+        type: string
+      artifact_id:
+        type: number
+      changelog:
+        type: string
+    outputs:
+      url:
+        description: Archive of built theme
+        value: ${{ jobs.upload.output.artifact-url }}
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to build
+        type: string
+        required: true
+      artifact_id:
+        description: Artifact ID to include in release
+        type: number
+        required: true
+      prerelease:
+        description: Indicates if it's a pre release
+        type: boolean
+        required: true
+        default: true
+      changelog:
+        description: Changelog (as markdown)
+        type: string
+        required: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download release tarball from ${{ inputs.artifact_url }}
+        uses: actions/download-artifact@v8
+        with:
+          artifact-ids: ${{ inputs.artifact_id }}
+          path: release
+
+      - name: Create GitHub release
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
+        with:
+          artifacts: "release/*"
+          body: ${{ inputs.changelog }}
+          tag: ${{ inputs.tag }}
+          token: ${{ secrets.COMMAND_BOT_PAT }}
+          immutableCreate: true
+          prerelease: ${{ inputs.prerelease }}
+          updateOnlyUnreleased: true
+...

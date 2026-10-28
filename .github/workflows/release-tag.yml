@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+---
+name: Tag release
+
+on:
+  workflow_call:
+    inputs:
+      prerelease:
+        type: boolean
+    outputs:
+      version:
+        description: Version
+        value: ${{ jobs.changelog.outputs.version }}
+      tag:
+        description: Tag
+        value: ${{ jobs.changelog.outputs.tag }}
+      changelog:
+        description: Changelog (without version name)
+        value: ${{ jobs.changelog.outputs.clean_changelog }}
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: Pre-release
+        type: boolean
+        required: true
+        default: false
+      dry_run:
+        description: Preview without creating tags
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.changelog.outputs.version }}
+      tag: ${{ steps.changelog.outputs.tag }}
+      changelog: ${{ steps.changelog.outputs.clean_changelog }}
+    steps:
+      - name: Check actor permission
+        uses: skjnldsv/check-actor-permission@69e92a3c4711150929bca9fcf34448c5bf5526e7 # v3.0
+        with:
+          require: write
+
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@469f0e5e35831fbd1962706f29f65daf0a5723f2 # v6.5.0
+        with:
+          github-token: ${{ secrets.COMMAND_BOT_PAT }}
+          git-user-email: nextcloud-command@users.noreply.github.com
+          git-user-name: Nextcloud Command Bot
+          preset: conventionalcommits
+          release-count: 0
+          pre-release: ${{ inputs.prerelease }}
+          pre-release-identifier: rc
+          create-summary: true
+          skip-commit: ${{ inputs.dry_run }}
+          skip-tag: ${{ inputs.dry_run }}
+...
