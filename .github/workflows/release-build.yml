@@ -11,9 +11,9 @@ on:
       tag:
         type: string
     outputs:
-      url:
+      artifact-id:
         description: Archive of built theme
-        value: ${{ jobs.upload.output.artifact-url }}
+        value: ${{ jobs.build.outputs.artifact-id }}
   workflow_dispatch:
     inputs:
       tag:
@@ -27,6 +27,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -36,7 +38,6 @@ jobs:
           fetch-depth: 0
 
       - name: Install composer dependencies
-        if: steps.check_composer.outputs.files_exists == 'true'
         uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
         with:
           composer-options: "--no-dev"
@@ -68,8 +69,8 @@ jobs:
       - name: Create archives
         run: |
           mkdir -p release
-          tar -cvzf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.gz --exclude-vcs -X .release.ignore .
-          tar -cvjf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 --exclude-vcs -X .release.ignore .
+          tar -czf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.gz --exclude-vcs -X .release.ignore .
+          tar -cjf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 --exclude-vcs -X .release.ignore .
           cd release
           md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.gz > nextcloud-wp-theme-${{ inputs.tag }}.tar.gz.md5sum
           md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 > nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2.md5sum
@@ -86,6 +87,6 @@ jobs:
           name: release-${{ inputs.tag }}
           retention-days: 1
           if-no-files-found: error
-          archive: false
+          compression-level: 0
           path: release/*
 ...

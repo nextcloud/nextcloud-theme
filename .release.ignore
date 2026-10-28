@@ -1,0 +1,16 @@
+# Exclude hidden files
+.[^/]*
+
+# Files 
+*.json
+*.stub.php
+composer.*
+config.example.php
+package.*
+psalm.xml
+readme.txt
+
+# Directories
+./assets
+node_modules
+./release
