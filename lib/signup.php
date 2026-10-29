@@ -14,7 +14,6 @@ const USER_AGENT_TALK_IOS = '/^Mozilla\/5\.0 \(iOS\) Nextcloud\-Talk v.*$/';
 add_action('rest_api_init', 'registration_register_routes');
 
 $redis = new Client(REDIS);
-$readerCountry = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-Country.mmdb'));
 
 // Get proper ip in case of reverse proxy
 function whatismyip() {
@@ -96,7 +95,7 @@ function registration_register_routes(): void {
 function request_account($request) {
 	// redis rate limit
 	global $redis;
-	global $readerCountry;
+	$readerCountry = new Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-Country.mmdb'));
 
 	$limit = [
 		'interval' => 300, // seconds
