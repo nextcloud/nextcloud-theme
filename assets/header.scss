@@ -1,3 +1,5 @@
+@use "variables";
+
 // SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -34,7 +36,7 @@ header {
     &.with-promo-banner {
 
         .header-holder {
-            @media screen and (max-width: $menu-custom-breakpoint) {
+            @media screen and (max-width: variables.$menu-custom-breakpoint) {
                 &{
                     padding-top: 10px;
                 }
@@ -51,7 +53,7 @@ header {
 
             & > section.home-hero-section {
                 padding-top: 7rem !important;
-                @media screen and (max-width: $md-breakpoint) {
+                @media screen and (max-width: variables.$md-breakpoint) {
                     &{
                         padding-top: 11rem !important;
                     }
@@ -77,7 +79,7 @@ header {
                 font-size: 23px;
                 font-weight: bold;
                 border-radius: 7px;
-                background: $mainColor;
+                background: variables.$mainColor;
                 padding: 1px 9px;
                 color: #fff;
                 line-height: 100%;
@@ -103,7 +105,7 @@ header {
             background-position: right 13% top 42%;
             background-repeat: no-repeat;
 
-            @media screen and (max-width: $sm-breakpoint) {
+            @media screen and (max-width: variables.$sm-breakpoint) {
                 & {
                     background-size: 207px auto;
                     background-position: right -46% top 36%;
@@ -164,7 +166,7 @@ header {
                         right: 2rem;
                     }
 
-                    @media screen and (max-width: $md-breakpoint) {
+                    @media screen and (max-width: variables.$md-breakpoint) {
                         &.owl-prev {
                             left: 1rem;
                         }
@@ -192,7 +194,7 @@ header {
                     height: 100%;
 
                     &:focus {
-                        border: 1px solid $mainColor;
+                        border: 1px solid variables.$mainColor;
                     }
 
                     img {
@@ -244,7 +246,7 @@ header {
             }
         }
 
-        @media screen and (max-width: $md-breakpoint) {
+        @media screen and (max-width: variables.$md-breakpoint) {
             &{
                 .awards-text{
                     //display: none;
@@ -282,7 +284,7 @@ header {
     
 
     &.active {
-        background: linear-gradient(45deg, $mainColor , $lightColor );
+        background: linear-gradient(45deg, variables.$mainColor , variables.$lightColor );
         bottom: 0px;
 
         .container {
@@ -400,7 +402,7 @@ header {
                         &.nav-btn {
                             & > a {
                                 background-color: #fff;
-                                color: $textColor;
+                                color: variables.$textColor;
                                 padding: 10px 20px;
                                 border-radius: 27px;
                                 -webkit-border-radius: 27px;
@@ -417,7 +419,7 @@ header {
                                 */
 
                                 &:hover {
-                                    background-color: $mainColor;
+                                    background-color: variables.$mainColor;
                                     color: #fff;
                                 }
 
@@ -425,7 +427,7 @@ header {
 
                             &.open {
                                 & > a {
-                                    background-color: $mainColor;
+                                    background-color: variables.$mainColor;
                                     color: #fff;
                                 }
                             }
@@ -442,7 +444,7 @@ header {
                                     font-family: 'Font Awesome 5 Free';
                                     font-weight: 900;
                                     margin-right: 10px;
-                                    color: $textColor;
+                                    color: variables.$textColor;
                                 }
 
                                 &:hover {
@@ -458,7 +460,7 @@ header {
 
                             &.open {
                                 & > a {
-                                    background-color: $mainColor;
+                                    background-color: variables.$mainColor;
                                     color: #fff;
 
                                     &:before {
@@ -515,7 +517,7 @@ header {
                                 display: inline-block;
                                 position: relative;
     
-                                @media screen and (min-width: $xl-breakpoint) {
+                                @media screen and (min-width: variables.$xl-breakpoint) {
                                     &:after {
                                         content: "";
                                         position: absolute;
@@ -579,14 +581,14 @@ header {
                                     display: none;
                                 }
 
-                                @media screen and (min-width: $xl-breakpoint) {
+                                @media screen and (min-width: variables.$xl-breakpoint) {
                                     .wpml-ls-native {
                                         //display: none;
                                     }
                                 }
                                 
 
-                                @media screen and (max-width: $xl-breakpoint) {
+                                @media screen and (max-width: variables.$xl-breakpoint) {
                                     & {
                                         display: flex;
                                     }
@@ -596,7 +598,7 @@ header {
 
                             .sub-menu {
 
-                                @media screen and (min-width: $xl-breakpoint) {
+                                @media screen and (min-width: variables.$xl-breakpoint) {
                                     &{
                                         width: fit-content !important;
                                         left: 50% !important;
@@ -673,18 +675,18 @@ header {
                                     display: inline-flex;
                                     flex-direction: row;
                                     align-items: center;
-                                    color: $textColor;
+                                    color: variables.$textColor;
                                     font-size: 16px;
                                     font-weight: 400;
 
                                 
 
                                     &:hover {
-                                        color: $mainColor;
+                                        color: variables.$mainColor;
                                     }
 
                                     &:focus {
-                                        box-shadow: 0 0 0 2px $mainColor;
+                                        box-shadow: 0 0 0 2px variables.$mainColor;
                                         border-radius: 2px;
                                     }
 
@@ -711,7 +713,7 @@ header {
 
                                 &.current_page_item, .current-menu-item {
                                     a {
-                                        color: $mainColor;
+                                        color: variables.$mainColor;
                                     }
                                 }
 
@@ -729,12 +731,12 @@ header {
                                             display: inline-flex;
                                             flex-direction: row;
                                             align-items: center;
-                                            color: $textColor;
+                                            color: variables.$textColor;
                                             font-size: 14px;
                                             font-weight: 400;
 
                                             &:hover {
-                                                color: $mainColor;
+                                                color: variables.$mainColor;
                                             }
 
                                             img {
@@ -760,7 +762,7 @@ header {
 
                                         &.current_page_item, .current-menu-item {
                                             a {
-                                                color: $mainColor;
+                                                color: variables.$mainColor;
                                             }
                                         }
 
@@ -776,7 +778,7 @@ header {
 
 
                     //mobile menu
-                    @media (max-width: $menu-custom-breakpoint) {
+                    @media (max-width: variables.$menu-custom-breakpoint) {
                         justify-content: flex-start;
                         padding: 30px 0px 0px;
                         flex-direction: column;
@@ -822,7 +824,7 @@ header {
     }
 
     &.scrolled {
-        background-color: $mainColor;
+        background-color: variables.$mainColor;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
 
@@ -856,7 +858,7 @@ header {
     }
 
 
-    @media (max-width: $menu-custom-breakpoint) {
+    @media (max-width: variables.$menu-custom-breakpoint) {
         padding: 12px 0px;
         overflow-y: scroll;
 
@@ -874,7 +876,7 @@ header {
 
     }
 
-    @media (min-width: $menu-custom-breakpoint-min) {
+    @media (min-width: variables.$menu-custom-breakpoint-min) {
 
         .phone-menu {
             display: none;

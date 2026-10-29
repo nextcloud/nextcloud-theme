@@ -1,3 +1,5 @@
+@use "variables";
+
 // SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -37,15 +39,15 @@
                     transition: all 0.3s ease;
                     -webkit-transition: all 0.3s ease;
 
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             font-size: 16px;
                         }
                     }
 
                     &.active {
-                        color: $mainColor;
-                        border-color: $mainColor;
+                        color: variables.$mainColor;
+                        border-color: variables.$mainColor;
                     }
 
                     svg {
@@ -115,7 +117,7 @@
             padding: 0px 15px;
 
 
-            @media screen and (max-width: $md-breakpoint) {
+            @media screen and (max-width: variables.$md-breakpoint) {
                 & {
                     flex: 0 0 75%;
                     margin-left: auto;
@@ -124,7 +126,7 @@
             }
 
 
-            @media screen and (max-width: $sm-breakpoint) {
+            @media screen and (max-width: variables.$sm-breakpoint) {
                 & {
                     flex: 0 0 100%;
                 }
@@ -381,14 +383,14 @@
                     padding-right: 15px;
                     margin-bottom: 30px;
 
-                    @media screen and (max-width: $tablet-breakpoint) {
+                    @media screen and (max-width: variables.$tablet-breakpoint) {
                         & {
                             flex: 0 0 50%;
                         }
                     }
 
                     
-                    @media screen and (max-width: $sm-breakpoint) {
+                    @media screen and (max-width: variables.$sm-breakpoint) {
                         & {
                             flex: 0 0 100%;
                         }
