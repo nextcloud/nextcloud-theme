@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Design" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: #dbedf7;
+      }
+
+      .st2 {
+        fill: url(#radial-gradient);
+      }
+
+      .st3 {
+        fill: url(#radial-gradient1);
+      }
+
+      .st4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="st0" width="1920" height="1080"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="0" cy="540" fx="0" fy="540" r="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".11" stop-color="#fff" stop-opacity=".797"/>
+      <stop offset=".239" stop-color="#fff" stop-opacity=".588"/>
+      <stop offset=".37" stop-color="#fff" stop-opacity=".408"/>
+      <stop offset=".499" stop-color="#fff" stop-opacity=".261"/>
+      <stop offset=".628" stop-color="#fff" stop-opacity=".147"/>
+      <stop offset=".755" stop-color="#fff" stop-opacity=".065"/>
+      <stop offset=".88" stop-color="#fff" stop-opacity=".016"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient1" cx="1920" cy="540" fx="1920" fy="540" r="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".11" stop-color="#fff" stop-opacity=".797"/>
+      <stop offset=".239" stop-color="#fff" stop-opacity=".588"/>
+      <stop offset=".37" stop-color="#fff" stop-opacity=".408"/>
+      <stop offset=".499" stop-color="#fff" stop-opacity=".261"/>
+      <stop offset=".628" stop-color="#fff" stop-opacity=".147"/>
+      <stop offset=".755" stop-color="#fff" stop-opacity=".065"/>
+      <stop offset=".88" stop-color="#fff" stop-opacity=".016"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st1" width="1920" height="1080"/>
+  <g class="st4">
+    <g>
+      <circle class="st2" cy="540" r="540"/>
+      <circle class="st3" cx="1920" cy="540" r="540"/>
+    </g>
+  </g>
+</svg>

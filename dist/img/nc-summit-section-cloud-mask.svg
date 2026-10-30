@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1366 768">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .9;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: url(#radial-gradient);
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-5 {
+        fill: url(#radial-gradient-2);
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-7 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <path class="cls-2" d="M636.1,767.4l-636.1.6V0h877.6s13,178.9-38,275.3c-75.9,143.4-162,108.8-218.8,261.9-55.6,149.7,15.3,230.2,15.3,230.2Z"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="683" y1="456" x2="683" y2="-312" gradientTransform="translate(0 312)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset="0" stop-color="#0286cd"/>
+      <stop offset=".2" stop-color="#109ce8"/>
+      <stop offset=".4" stop-color="#19aaf9"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset=".6" stop-color="#19aaf9"/>
+      <stop offset=".8" stop-color="#109ce8"/>
+      <stop offset="1" stop-color="#0286cd"/>
+      <stop offset="1" stop-color="#0082c9"/>
+    </linearGradient>
+    <clipPath id="clippath-1">
+      <rect class="cls-2" x=".3" width="1365.3" height="768"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx=".3" cy="72" fx=".3" fy="72" r="384" gradientTransform="translate(0 312)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dbedf7"/>
+      <stop offset="0" stop-color="#dbedf7" stop-opacity=".8"/>
+      <stop offset=".2" stop-color="#dbedf7" stop-opacity=".6"/>
+      <stop offset=".4" stop-color="#dbedf7" stop-opacity=".4"/>
+      <stop offset=".5" stop-color="#dbedf7" stop-opacity=".3"/>
+      <stop offset=".6" stop-color="#dbedf7" stop-opacity=".2"/>
+      <stop offset=".8" stop-color="#dbedf7" stop-opacity="0"/>
+      <stop offset=".9" stop-color="#dbedf7" stop-opacity="0"/>
+      <stop offset="1" stop-color="#dbedf7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="1365.7" fx="1365.7" r="384" xlink:href="#radial-gradient"/>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.9, SVG Export Plug-In . SVG Version: 1.2.0 Build 218)  -->
+  <g>
+    <g id="Layer_1">
+      <g class="cls-7">
+        <g class="cls-1">
+          <rect class="cls-6" x=".3" width="1365.3" height="768"/>
+          <g class="cls-4">
+            <g>
+              <circle class="cls-3" cx=".3" cy="384" r="384"/>
+              <circle class="cls-5" cx="1365.7" cy="384" r="384"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

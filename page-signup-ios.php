@@ -5,4 +5,4 @@
     }
     </style>
 </head>
-<?php require __DIR__."/page-signup.php"; ?>
+<?php require __DIR__ . '/page-signup.php'; ?>

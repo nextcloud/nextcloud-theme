@@ -1,0 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Heading size tokens. Imported once by theme.scss after variables.
+// Max values are the previous fixed sizes; override a token inside a component
+// (e.g. --font-size-h1: var(--font-size-h2)) instead of setting a new raw size.
+:root {
+    --font-size-h1: #{fluid(2rem, 3rem)};
+    --font-size-h2: #{fluid(1.75rem, 2.2rem)};
+    --font-size-h3: #{fluid(1.5rem, 1.8rem)};
+    --font-size-h4: #{fluid(1.3rem, 1.6rem)};
+    --font-size-h5: #{fluid(1.2rem, 1.3rem)};
+    --font-size-h6: 1.1rem;
+}

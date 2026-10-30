@@ -1,0 +1,659 @@
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Helper classes: small, reusable classes to style elements from the editor
+// (WPBakery "Extra class name", block editor "Additional CSS class(es)").
+// Documented in helper-css-classes.md.
+//
+// Each rule lists the new nc- name first, followed by the old name(s).
+// The old names are deprecated: keep them until they are no longer used in page content,
+// but use the nc- names on new pages.
+//
+// Imported last in theme.scss, so a helper wins over component styles of the same specificity.
+
+
+// ---------------------------------------------------------------------------
+// Box shadows
+// ---------------------------------------------------------------------------
+
+.nc-shadow, .boxShadow {
+    box-shadow: $shadow-primary !important;
+}
+
+.nc-shadow-black, .boxShadowBlack {
+    box-shadow: $shadow-black !important;
+}
+
+
+// ---------------------------------------------------------------------------
+// Rounded corners + shadow (images, videos, iframes)
+// ---------------------------------------------------------------------------
+
+.nc-image-round-shadow, .imageRoundShadow {
+    a:not(.wp-block-button__link) {
+        border-radius: $radius-md;
+    }
+
+    .vc_gitem-zone {
+        border-radius: $radius-md;
+        box-shadow: $shadow-primary;
+    }
+
+    img {
+        border-radius: $radius-md;
+        box-shadow: $shadow-primary;
+    }
+}
+
+.wp-block-video.nc-image-round-shadow, .wp-block-video.imageRoundShadow {
+    border-radius: $radius-md;
+    box-shadow: $shadow-primary;
+    overflow: hidden;
+}
+
+.nc-iframe-round-shadow, .nc-video-round-shadow, .iframeRoundShadow, .videoRoundShadow {
+    .wpb_wrapper {
+        overflow: hidden;
+        border-radius: $radius-md;
+    }
+
+    iframe {
+        border-radius: $radius-md;
+        box-shadow: $shadow-primary;
+        overflow: hidden;
+    }
+}
+
+video.nc-video-round-shadow, video.videoRoundShadow {
+    box-shadow: $shadow-primary;
+    overflow: hidden;
+    border-radius: $radius-md;
+}
+
+.wp-block-image.size-full.nc-no-shadow, .wp-block-image.size-full.no-box-shadow {
+    img {
+        box-shadow: none;
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// Border radius
+// ---------------------------------------------------------------------------
+
+.nc-radius-sm, .borderRadiusSmall {
+    border-radius: $radius-sm;
+}
+
+.nc-radius-lg, .borderRadius {
+    border-radius: $radius-lg;
+}
+
+.nc-rounded, .rounded {
+    border-radius: $radius-lg !important;
+}
+
+.nc-rounded-bottom, .roundedBottom {
+    border-radius: 0 0 $radius-lg $radius-lg !important;
+}
+
+.nc-rounded-circle, .roundedCircle {
+    border-radius: 50% !important;
+}
+
+.nc-image-rounded, .image-borderRadius {
+    border-radius: $radius-lg;
+    overflow: hidden;
+}
+
+
+// ---------------------------------------------------------------------------
+// Borders
+// ---------------------------------------------------------------------------
+
+.nc-border-black, .blackBorder {
+    border: 1px solid $color-black !important;
+}
+
+.nc-border-blue, .blueBorder {
+    border: 1px solid $color-primary !important;
+}
+
+.nc-border-light-blue, .lightBlueBorder {
+    border: 1px solid $color-light-blue;
+}
+
+.nc-border-bottom-white, .whiteBorderBottom {
+    border-bottom: 0.5px solid rgba(255,255,255,0.6);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.3rem;
+}
+
+.nc-border-between-cols, .border_between_cols {
+    @media screen and (min-width: $md-breakpoint-min) {
+        .wpb_column:first-child {
+            border-right: 1px solid $color-light-blue;
+        }
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// Background colors
+// ---------------------------------------------------------------------------
+
+.nc-bg-white, .whiteBG {
+    background-color: $color-white;
+}
+
+// lightBG also changes the color of some elements inside it, see the .lightBG rules in theme.scss
+.nc-bg-light, .lightBG {
+    background-color: $color-light-blue;
+}
+
+.nc-bg-very-light, .veryLightBG {
+    background-color: $color-primary-transparent-subtle;
+}
+
+.nc-bg-blue, .mainColorBG {
+    background-color: $color-primary;
+}
+
+.nc-bg-sky-blue, .lightColor {
+    background-color: $color-sky-blue;
+}
+
+.nc-bg-dark, .blackBG {
+    background-color: #262626;
+    color: $color-white;
+}
+
+
+// ---------------------------------------------------------------------------
+// Gradient backgrounds
+// ---------------------------------------------------------------------------
+
+.nc-gradient-blue, .blueGradient, .blueGradientSection_row {
+    background-color: $color-primary; //default fallback
+    background: $gradient-primary;
+}
+
+.nc-section-gradient-bg {
+    background: $gradient-primary-alt;
+
+    .overlay-gradient {
+        background: none !important;
+    }
+}
+
+.nc-gradient-light, .lightBlueGradient_row {
+    background: $gradient-secondary;
+}
+
+.nc-gradient-radial, .gr {
+    background: $color-sky-blue;
+    background: -moz-radial-gradient(center, ellipse cover, rgba($color-sky-blue, 1) 0%, rgba($color-primary, 1) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba($color-sky-blue, 1) 0%, rgba($color-primary, 1) 100%);
+    background: radial-gradient(ellipse at center, rgba($color-sky-blue, 1) 0%, rgba($color-primary, 1) 100%);
+}
+
+// Overlay gradients: style the .overlay-gradient element inside the section
+
+.nc-overlay-blue, .blueGradientSection {
+    .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: $gradient-primary;
+        top: 0;
+        left: 0;
+        opacity: 0.6;
+    }
+}
+
+.nc-overlay-light, .lightBlueGradient {
+    .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: $gradient-secondary;
+        top: 0;
+        left: 0;
+
+        @media screen and (max-width:$md-breakpoint) {
+            & {
+                background: $gradient-secondary-mobile;
+            }
+        }
+    }
+}
+
+.nc-overlay-white, .whiteGradient {
+    .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(75deg, $color-white 45%, rgba(255, 255, 255, 0.1));
+        top: 0;
+        left: 0;
+
+        @media screen and (max-width:$md-breakpoint) {
+            & {
+                background: linear-gradient(80deg, $color-white 75%, rgba(255, 255, 255, 0.1));
+            }
+        }
+    }
+}
+
+.nc-overlay-gradient, .overlayGradient {
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.5;
+        background-color: $color-primary; //default fallback
+        background: $gradient-primary;
+    }
+}
+
+// Image gradients (SVG "flow" backgrounds)
+
+.nc-flow-blue-side, .secondaryGradientLeft {
+    background-image: url(../img/16x9-Flow-gradient-blue-one-side.svg);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center right;
+}
+
+.nc-flow-blue-side-sm, .secondaryGradientLeft-small {
+    background-image: url(../img/1x1-Flow-gradient-blue-one-side.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.nc-flow-blue, .secondaryGradientCenter {
+    background-image: url(../img/16x9-Flow-gradient-blue-both-sides.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.nc-flow-blue-sm, .secondaryGradientCenter-small {
+    background-image: url(../img/1x1-Flow-gradient-blue-both-side.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.nc-flow-blue-bottom-sm, .secondaryGradientCenter-small-fromBottom {
+    background-image: url(../img/1x1-Flow-gradient-blue-from-bottom.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.nc-flow-light, .lightBGgradient {
+    background-image: url(../img/16x9-Flow-gradient-light-both-side.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nc-flow-light-sm, .lightBGgradient-small {
+    background-image: url(../img/1x1-Flow-gradient-light-both-side.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+// ---------------------------------------------------------------------------
+// Text
+// ---------------------------------------------------------------------------
+
+.nc-text-separator, .nc_text_as_separator {
+    font-size: 14px;
+    font-weight: bold;
+    color: $color-primary;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    &.edition {
+        font-size: 1.3rem;
+    }
+}
+
+.nc-text-blue, .main-color, .mainColor {
+    color: $color-primary;
+}
+
+.nc-text-white, .white-text {
+    color: $color-white !important;
+
+    .owl-nav {
+        button {
+            svg, path {
+                fill: $color-white !important;
+            }
+        }
+    }
+
+    .vc_icon_element-icon {
+        svg, path {
+            fill: $color-white;
+        }
+    }
+
+    .nc_text_as_separator {
+        color: $color-white !important;
+    }
+
+    h1, h2, h3, h4, h5, h6, p {
+        color: $color-white !important;
+    }
+
+    a:not(.vc_btn3) {
+        color: $color-white !important;
+        text-decoration: underline;
+    }
+
+    ul.nc-list {
+        & > li{
+            &:before {
+                background-image: url(../img/bullet-check-circle-white.svg);
+            }
+        }
+    }
+
+    .nc_iconbox {
+        a {
+            color: $color-black !important;
+            text-decoration: none;
+        }
+
+        .title {
+            color: $color-black !important;
+
+            h4{
+                color: $color-black !important;
+            }
+        }
+
+        .description {
+            color: $color-black !important;
+        }
+    }
+}
+
+.nc-text-success, .success {
+    color: $color-success;
+}
+
+.nc-text-small, .smallerText {
+    font-size: 0.8em;
+}
+
+.nc-heading-gradient, .heading-gradient {
+    strong {
+        background-image: $gradient-primary;
+        color: transparent;
+        background-clip: text;
+        display: inline-block;
+        font-weight: bold !important;
+    }
+}
+
+.nc-icon-gradient, .gradient_icon {
+    .vc_icon_element-icon {
+        background: $gradient-primary-alt;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.nc-break-words, .alphabet {
+    word-wrap: break-word;
+}
+
+
+// ---------------------------------------------------------------------------
+// Alignment
+// ---------------------------------------------------------------------------
+
+.nc-text-center, .textCenter {
+    text-align: center;
+}
+
+.nc-text-right, .text-right {
+    text-align: right;
+
+    @media screen and (max-width: $md-breakpoint) {
+        &{
+            text-align: center;
+        }
+    }
+}
+
+.nc-centered, .centered {
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    img {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+.nc-align-center, .nc_aligncenter, .alignCenter {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.nc-center-mobile, .centerMobile {
+    @media screen and (max-width: $md-breakpoint) {
+        text-align: center !important;
+    }
+}
+
+.nc-justify-center, .justifyContentCenter, .justifyContenCenter {
+    justify-content: center;
+}
+
+.nc-align-items-center, .alignItemsCenter {
+    align-items: center !important;
+}
+
+
+// ---------------------------------------------------------------------------
+// Width and size
+// ---------------------------------------------------------------------------
+
+.nc-max-630, .centeredElement630px {
+    max-width: 630px;
+    margin: auto;
+}
+
+.nc-column-max-630, .columnCenterFix {
+    .vc_column-inner{
+        max-width: 630px;
+        margin: auto;
+    }
+}
+
+.nc-short-desc, .section_short_desc {
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.nc-max-250, .max_width_250 {
+    max-width: 250px;
+    margin: auto;
+}
+
+.nc-fit-content, .widthFitContent {
+    width: fit-content;
+}
+
+.nc-full-height, .fullHeight {
+    height: 100vh;
+}
+
+.nc-aspect-16-9, .aspect16_9 {
+    aspect-ratio: 16/9;
+}
+
+
+// ---------------------------------------------------------------------------
+// Spacing
+// ---------------------------------------------------------------------------
+
+.nc-no-padding, .noPadding {
+    padding: 0 !important;
+}
+
+.nc-no-padding-top, .noPaddingTop {
+    padding-top: 0 !important;
+}
+
+.nc-row-no-padding-top, .zeroPaddingTop {
+    padding-top: 0;
+
+    .vc_column_container {
+        padding-top: 0 !important;
+    }
+}
+
+.nc-no-margin-bottom, .noMarginBottom {
+    margin-bottom: 0 !important;
+}
+
+.nc-margin-auto, .marginAuto {
+    margin: auto !important;
+}
+
+.nc-padding-2rem, .padding_2rem {
+    padding: 2rem;
+}
+
+.nc-padding-6rem-4rem, .padding_6rem_4rem {
+    padding: 6rem 4rem;
+}
+
+.nc-padding-x-15vw, .lateral_padding_15vw {
+    @media screen and (min-width: $lg-breakpoint-min) {
+        & {
+            padding:0 15vw;
+        }
+    }
+}
+
+.nc-offset-top, .offsetTopSection {
+    margin-top: -3rem !important;
+
+    @media screen and (max-width: $md-breakpoint) {
+        margin-top: -7rem !important;
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// Display and visibility
+// ---------------------------------------------------------------------------
+
+.nc-hidden, .hidden {
+    display: none !important;
+}
+
+.nc-show-mobile, .mobile-only-btn {
+    @media (min-width: $md-breakpoint-min) {
+        display: none !important;
+    }
+}
+
+.nc-block, .displayBlock, .block {
+    display: block;
+}
+
+.nc-inline-block, .inlineBlock {
+    display: inline-block;
+}
+
+.nc-overflow-hidden, .overflowHidden {
+    overflow: hidden;
+}
+
+
+// ---------------------------------------------------------------------------
+// Effects
+// ---------------------------------------------------------------------------
+
+.nc-highlight, .highlight {
+    animation: pulse-animation 2s infinite;
+}
+
+// Modifiers: add check_green for a green check, mark_red for a red X
+.nc-check-icon-left, .text_check_icon_left {
+    padding-left: 2.5rem;
+    position: relative;
+
+    h4, h5 {
+        line-height: 25px;
+    }
+
+    &:before {
+        width: 26px;
+        height: 26px;
+        max-height: 100%;
+        position: absolute;
+        line-height: 26px;
+        left: 0;
+        top: 0px;
+        content: "";
+        margin-right: 10px;
+        background-image: url(../img/bullet-check-circle-blue.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 25px;
+    }
+
+    &.check_green {
+        &:before {
+            background-image: url(../img/table-o-yes-circle-green.svg);
+        }
+    }
+
+    &.mark_red {
+        &:before {
+            background-image: url(../img/table-x-no-cancel-red.svg);
+        }
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// New names in other rules
+// ---------------------------------------------------------------------------
+
+// Some old names are also used inside component rules in theme.scss and the
+// other partials (e.g. `.lightBG .nc_text_as_separator`, `&.centerMobile`).
+// @extend adds the nc- name next to the old one in all of those rules,
+// so the new names behave exactly like the old ones everywhere.
+
+.nc-bg-light { @extend .lightBG; }
+.nc-flow-light { @extend .lightBGgradient; }
+.nc-gradient-blue { @extend .blueGradient; }
+.nc-gradient-radial { @extend .gr; }
+.nc-text-separator { @extend .nc_text_as_separator; }
+.nc-text-white { @extend .white-text; }
+.nc-centered { @extend .centered; }
+.nc-center-mobile { @extend .centerMobile; }
+.nc-justify-center { @extend .justifyContentCenter; }
+.nc-rounded { @extend .rounded; }
+.nc-no-padding { @extend .noPadding; }
+.nc-highlight { @extend .highlight; }

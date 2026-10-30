@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Design" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 400 400">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st1 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient6);
+      }
+
+      .st4 {
+        fill: url(#linear-gradient7);
+      }
+
+      .st5 {
+        fill: url(#linear-gradient5);
+      }
+
+      .st6 {
+        fill: url(#linear-gradient4);
+      }
+
+      .st7 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="2758.478" y1="-2543.949" x2="2855.6" y2="-2641.071" gradientTransform="translate(-2489.053 2898.816)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset="1" stop-color="#1cafff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="2605.81" y1="-2649.289" x2="2660.93" y2="-2704.409" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient2" x1="2652.728" y1="-2684.41" x2="2740.969" y2="-2772.65" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient3" x1="2693.983" y1="1766.16" x2="2781.352" y2="1853.529" gradientTransform="translate(-2489.053 1910.971) scale(1 -1)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient4" x1="6098.383" y1="1658.952" x2="6041.467" y2="1715.867" gradientTransform="translate(6326.198 1910.971) rotate(-180)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient5" x1="-391.754" y1="-2249.672" x2="-489.279" y2="-2152.147" gradientTransform="translate(2421.767 709.477) rotate(90) scale(1 -1)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient6" x1="-492.093" y1="-2166.846" x2="-556.882" y2="-2102.058" gradientTransform="translate(2421.767 709.477) rotate(90) scale(1 -1)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient7" x1="-556.855" y1="-2392.961" x2="-649.775" y2="-2300.04" gradientTransform="translate(2421.767 709.477) rotate(90) scale(1 -1)" xlink:href="#linear-gradient"/>
+  </defs>
+  <path class="st7" d="M389.69,367.059l-126.099.68c-3.895.021-7.059-3.142-7.038-7.038l.68-126.099c.021-3.836,3.126-6.941,6.962-6.962l126.099-.68c3.895-.021,7.059,3.142,7.038,7.038l-.68,126.099c-.021,3.836-3.126,6.941-6.962,6.962Z"/>
+  <path class="st1" d="M182.911,257.356l-67.309.363c-3.895.021-7.059-3.142-7.038-7.038l.363-67.309c.021-3.836,3.126-6.941,6.962-6.962l67.309-.363c3.895-.021,7.059,3.142,7.038,7.038l-.363,67.309c-.021,3.837-3.126,6.941-6.962,6.962Z"/>
+  <path class="st0" d="M272.498,225.676l-113.668.613c-3.895.021-7.059-3.142-7.038-7.038l.613-113.668c.021-3.836,3.126-6.941,6.962-6.962l113.668-.613c3.895-.021,7.059,3.142,7.038,7.038l-.613,113.668c-.021,3.836-3.126,6.941-6.962,6.962Z"/>
+  <path class="st2" d="M313.237,29.543l-113.668-.613c-3.895-.021-7.059,3.142-7.038,7.038l.613,113.668c.021,3.836,3.126,6.941,6.962,6.962l113.668.613c3.895.021,7.059-3.142,7.038-7.038l-.613-113.668c-.021-3.836-3.126-6.941-6.962-6.962Z"/>
+  <path class="st6" d="M226.761,176.591l69.821-.376c3.895-.021,7.059,3.142,7.038,7.038l-.376,69.821c-.021,3.837-3.126,6.941-6.962,6.962l-69.821.376c-3.895.021-7.059-3.142-7.038-7.038l.376-69.821c.021-3.836,3.126-6.941,6.962-6.962Z"/>
+  <path class="st5" d="M151.898,268.961c0-38.086,30.875-68.961,68.961-68.961s68.961,30.875,68.961,68.961-30.875,68.961-68.961,68.961-68.961-30.875-68.961-68.96ZM255.509,268.961c0-19.137-15.514-34.651-34.651-34.651s-34.651,15.514-34.651,34.651c0,19.137,15.514,34.651,34.651,34.651s34.651-15.514,34.651-34.651Z"/>
+  <path class="st3" d="M241.503,184.99c0-25.301,20.511-45.812,45.812-45.812s45.812,20.511,45.812,45.812-20.511,45.812-45.812,45.812-45.812-20.511-45.812-45.812ZM310.335,184.99c0-12.713-10.306-23.02-23.02-23.02s-23.02,10.306-23.02,23.02,10.306,23.02,23.02,23.02,23.02-10.306,23.02-23.02Z"/>
+  <path class="st4" d="M9.562,106.162c0-36.288,29.417-65.705,65.705-65.705,36.288,0,65.705,29.417,65.705,65.705s-29.417,65.705-65.705,65.705c-36.288,0-65.705-29.417-65.705-65.705ZM108.282,106.162c0-18.234-14.781-33.015-33.015-33.015s-33.015,14.781-33.015,33.015c0,18.234,14.781,33.015,33.015,33.015s33.015-14.781,33.015-33.015Z"/>
+</svg>

@@ -44,8 +44,8 @@
                     }
 
                     &.active {
-                        color: $mainColor;
-                        border-color: $mainColor;
+                        color: $color-primary;
+                        border-color: $color-primary;
                     }
 
                     svg {
@@ -151,10 +151,9 @@
                 position: relative;
                 width: 100%;
                 height: 56px;
-                background-color: #fff;
+                background-color: $color-white;
                 border: 1px solid #D7D7D7;
-                border-radius: 28px;
-                -webkit-border-radius: 28px;
+                border-radius: $radius-md;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -178,11 +177,10 @@
                     top: 0px;
                     right: 0px;
                     border-radius: 50%;
-                    -webkit-border-radius: 50%;
                     background-image: url('../img/filter-arrow.svg');
                     background-repeat: no-repeat;
                     background-position: center center;
-                    background-color: #fff;
+                    background-color: $color-white;
                     transition: all 0.3s ease;
                     -webkit-transition: all 0.3s ease;
                 }
@@ -207,7 +205,7 @@
                     width: 100%;
                     height: 40px;
                     padding: 0px 25px;
-                    background-color: #fff;
+                    background-color: $color-white;
                     cursor: pointer;
                     border: none;
                     color: #6C6C6C;
@@ -239,10 +237,9 @@
             .search-holder {
                 width: 100%;
                 height: 56px;
-                background-color: #fff;
+                background-color: $color-white;
                 border: 1px solid #D7D7D7;
-                border-radius: 28px;
-                -webkit-border-radius: 28px;
+                border-radius: $radius-md;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -293,12 +290,10 @@
                 margin: 0px;
                 padding: 35px 0px 20px;
                 border: 1px solid #D7D7D7;
-                background-color: #fff;
+                background-color: $color-white;
                 z-index: 5;
                 border-bottom-left-radius: 28px;
-                -webkit-border-bottom-left-radius: 28px;
                 border-bottom-right-radius: 28px;
-                -webkit-border-bottom-right-radius: 28px;
 
                 &.check-list {
                     li {
@@ -316,8 +311,8 @@
                     cursor: pointer;
 
                     &:hover {
-                        color: #fff;
-                        background-color: #0082c9
+                        color: $color-white;
+                        background-color: $color-primary
                     }
 
                     input[type=checkbox] {
@@ -344,7 +339,6 @@
                             top: 4px;
                             border: 1px solid #D7D7D7;
                             border-radius: 4px;
-                            -webkit-border-radius: 4px;
                             background-repeat: no-repeat;
                             background-position: center center;
                         }
@@ -381,7 +375,7 @@
                     padding-right: 15px;
                     margin-bottom: 30px;
 
-                    @media screen and (max-width: $tablet-breakpoint) {
+                    @media screen and (max-width: $lg-breakpoint) {
                         & {
                             flex: 0 0 50%;
                         }
@@ -412,23 +406,25 @@
                 display: flex;
                 flex-direction: column;
                 border: 1px solid #D7D7D7;
+                border-radius: $radius-md;
 
                 .certificate-line {
                     display: block;
-                    width: 170px;
+                    //width: 170px;
                     position: absolute;
                     top: -1px;
                     right: -1px;
-                    color: #fff;
+                    color: $color-white;
                     font-size: 14px;
                     text-transform: capitalize;
-                    padding: 7px 10px 7px 40px;
+                    padding: 7px 15px 7px 40px;
                     border: 1px solid #D7D7D7;
-                    border-bottom-left-radius: 5px;
-                    -webkit-border-bottom-left-radius: 5px;
-                    background-image: url('../img/subtract.svg');
+                    border-bottom-left-radius: $radius-sm;
+                    background-image: url('../img/certificate-white.svg');
+                    background-size: 20px auto;
                     background-repeat: no-repeat;
                     background-position: left 13px center;
+                    border-radius: 0 $radius-md;
 
                     &.platinum {
                         background-color: #204C65;
@@ -451,21 +447,36 @@
                     width: 100%;
                     height: 70px;
                     margin: 0px 0px 15px;
+                    max-width: 175px;
+                    display: flex;
+                    align-items: center;
 
                     img {
                         max-height: 100%;
                         max-width: 100%;
                         width: auto;
-                        height: auto;
+                        height: initial;
                         margin: 0px;
                     }
                 }
 
                 .partner-text {
                     margin: 0px;
+                    position: relative;
+
+                    &.truncated {
+                        //padding-bottom: 3rem !important;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 5;
+                        line-clamp: 5;
+                        -webkit-box-orient: vertical;
+                        position: relative;
+                    }
 
                     h4 {
-                        color: #0082C9;
+                        color: $color-primary;
                         font-size: 18px;
                         margin: 0px 0px 15px;
                     }
@@ -476,6 +487,28 @@
                         line-height: 17px;
                         margin: 0px;
                     }
+
+                    ul {
+                        color: #6C6C6C;
+                        font-size: 12px;
+                        line-height: 17px;
+                        margin: 0px;
+                        padding-left: 11px;
+                        margin-top: 8px;
+                    }
+                }
+
+                .see_more {
+                        //position: absolute;
+                        //bottom: 15px;
+                        margin-top: 7px;
+                        color: $color-primary;
+                        font-size: 0.8em;
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
                 }
 
                 .partner-info {
@@ -490,7 +523,8 @@
 
                         &.service_text {
                             margin: 0px auto 20px 0px;
-                            color: rgba(108, 108, 108, 0.5);
+                            //color: rgba(108, 108, 108, 0.5);
+                            //color: $color-primary;
                             font-size: 14px;
                             line-height: 17px;
                         }
@@ -503,15 +537,14 @@
                             a {
                                 display: block;
                                 width: 100%;
-                                background-color: #0082C9;
-                                color: #fff;
+                                background-color: $color-primary;
+                                color: $color-white;
                                 font-size: 10px;
                                 text-align: center;
                                 padding: 8px 10px 9px;
                                 transition: all 0.3s ease;
                                 -webkit-transition: all 0.3s ease;
-                                border-radius: 16px;
-                                -webkit-border-radius: 16px;
+                                border-radius: $radius-sm;
 
                                 &:after {
                                     content: '';
@@ -519,7 +552,7 @@
                                     width: 14px;
                                     height: 14px;
                                     margin-left: 5px;
-                                    background-image: url('../img/external-icon.svg');
+                                    background-image: url('../img/external-icon-white.svg');
                                     background-repeat: no-repeat;
                                     background-position: center center;
                                     background-size: 100% 100%;

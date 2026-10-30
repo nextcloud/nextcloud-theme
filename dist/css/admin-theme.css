@@ -2,6 +2,10 @@
     display: none;
 }
 
+.wpb_nc_text_with_icon img {
+    max-width: 30px;
+}
+
 .wpb_nc_iconbox .image_icon {
     max-width: 100%;
     max-height: 35px;
@@ -24,4 +28,268 @@
 .nc_single_feature .textarea_html
 {
     display: none;
+}
+
+.wpb_nc_app_iconbox .image_icon {
+    max-width: 100%;
+}
+
+.wpb_nc_custom_button img {
+    max-width: 24px;
+}
+
+.compare_group_section_title {
+    font-size: 1.5em;
+    margin-top: 2rem;
+}
+
+.platform_comparison_feature {
+    margin-top: 2rem;
+}
+
+/* ---------- Nextcloud event agenda (Translatable) in the WPBakery backend editor ---------- */
+
+.nc_agenda_el {
+    --nc-agenda-accent: #0082c9;
+    --nc-agenda-label: "";
+    --nc-agenda-add: "Add";
+}
+.nc_agenda_el[data-element_type="nc_agenda"] {
+    --nc-agenda-accent: #00679e;
+    --nc-agenda-label: "Event agenda";
+    --nc-agenda-add: "Add table";
+}
+.nc_agenda_el[data-element_type="nc_agenda_table"] {
+    --nc-agenda-accent: #0082c9;
+    --nc-agenda-label: "Table";
+    --nc-agenda-add: "Add row";
+}
+.nc_agenda_el[data-element_type="nc_agenda_row"] {
+    --nc-agenda-accent: #00897b;
+    --nc-agenda-label: "Row";
+    --nc-agenda-add: "Add track, participant or rich text";
+}
+.nc_agenda_el[data-element_type="nc_agenda_track"] {
+    --nc-agenda-accent: #7e57c2;
+    --nc-agenda-label: "Track";
+    --nc-agenda-add: "Add session";
+}
+.nc_agenda_el[data-element_type="nc_agenda_session"] {
+    --nc-agenda-accent: #ef6c00;
+    --nc-agenda-label: "Session";
+}
+.nc_agenda_el[data-element_type="nc_agenda_participant"] {
+    --nc-agenda-accent: #607d8b;
+    --nc-agenda-label: "Participant";
+}
+.nc_agenda_el[data-element_type="nc_agenda_text"] {
+    --nc-agenda-accent: #8d6e63;
+    --nc-agenda-label: "Rich text";
+}
+
+/* Font Awesome icon instead of the WPBakery logo (also in the "Add element" dialog) */
+.vc_element-icon.nc-agenda-icon {
+    background-image: none !important;
+    text-align: center;
+    font-size: 20px;
+    line-height: 32px;
+    color: #0082c9;
+}
+
+/* Cards */
+.vc_shortcodes_container.nc_agenda_el,
+.wpb_content_element.nc_agenda_el {
+    position: relative;
+    margin: 8px 0 0 !important;
+    border: 1px solid #dcdcde;
+    border-left: 4px solid var(--nc-agenda-accent);
+    border-radius: 4px;
+    background: #fff;
+    min-height: 0;
+}
+.nc_agenda_el[data-element_type="nc_agenda"] {
+    background: #f6f7f7;
+}
+.nc_agenda_el[data-element_type="nc_agenda_track"] {
+    background: #f7f4fc;
+}
+
+/* Duplicate title shown above and below each container */
+.nc_agenda_el > .vc_title-helper {
+    display: none !important;
+}
+
+/* Header line: icon + level label + admin labels, children below */
+.nc_agenda_el > .wpb_element_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 10px;
+    padding: 8px 12px !important;
+    min-height: 0 !important;
+}
+.nc_agenda_el > .wpb_element_wrapper > .wpb_element_title {
+    position: static !important;
+    order: -2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 !important;
+    font-size: 0;
+    line-height: 1;
+}
+.nc_agenda_el > .wpb_element_wrapper > .wpb_element_title .vc_element-icon {
+    width: auto;
+    height: auto;
+    margin: 0 !important;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--nc-agenda-accent);
+}
+.nc_agenda_el > .wpb_element_wrapper > .wpb_element_title::after {
+    content: var(--nc-agenda-label);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--nc-agenda-accent);
+}
+.nc_agenda_el > .wpb_element_wrapper > .vc_admin_label {
+    order: -1;
+    margin: 0 !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    color: #1d2327;
+}
+.nc_agenda_el > .wpb_element_wrapper > .vc_admin_label label {
+    font-weight: 400;
+    color: #787c82;
+}
+.nc_agenda_el > .wpb_element_wrapper > .vc_container_for_children {
+    flex-basis: 100%;
+    min-height: 0 !important;
+    margin: 4px 0 0 !important;
+    outline: 0 !important;
+}
+.nc_agenda_el > .wpb_element_wrapper > .vc_container_for_children.vc_empty-container {
+    /* the "+ Add ..." button below is enough */
+    display: none;
+}
+
+/* Rich text preview */
+.nc_agenda_el > .wpb_element_wrapper > .wpb_vc_param_value.textarea_html {
+    flex-basis: 100%;
+    max-height: 3.6em;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #50575e;
+}
+.nc_agenda_el > .wpb_element_wrapper > .wpb_vc_param_value.textarea_html p {
+    margin: 0;
+}
+
+/* Container controls: only for the hovered card, top right, without the "prepend" button */
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    padding: 0;
+    line-height: 1;
+    opacity: 0 !important;
+    transition: opacity .15s;
+}
+.vc_shortcodes_container.nc_agenda_el:hover:not(:has(.nc_agenda_el:hover)) > .controls_column:not(.bottom-controls),
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls):focus-within {
+    opacity: 1 !important;
+}
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) .column_add {
+    display: none;
+}
+
+/* "+ Add ..." button at the bottom of every container */
+.vc_shortcodes_container.nc_agenda_el > .controls_column.bottom-controls {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0 12px 8px;
+    line-height: 1;
+    text-align: left;
+}
+.vc_shortcodes_container.nc_agenda_el > .controls_column.bottom-controls .column_add {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--nc-agenda-accent);
+    cursor: pointer;
+}
+.vc_shortcodes_container.nc_agenda_el > .controls_column.bottom-controls .column_add::after {
+    content: var(--nc-agenda-add);
+}
+.vc_shortcodes_container.nc_agenda_el > .controls_column.bottom-controls .vc-c-add-circle {
+    font-size: 14px;
+    color: inherit;
+}
+.vc_shortcodes_container.nc_agenda_el > .wpb_element_wrapper {
+    /* room for the hover controls */
+    padding-right: 90px !important;
+}
+.vc_shortcodes_container.nc_agenda_el > .wpb_element_wrapper > .vc_container_for_children {
+    /* children use the full width again */
+    flex-basis: calc(100% + 78px);
+    margin-right: -78px !important;
+}
+
+/* Open/close arrow on tables and rows (dist/js/admin-agenda.js) */
+.nc_agenda_el > .wpb_element_wrapper > .nc-agenda-toggle {
+    order: -3;
+    margin: 0 -4px 0 -6px;
+    padding: 2px 4px;
+    border: 0;
+    border-radius: 3px;
+    background: none;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--nc-agenda-accent);
+    cursor: pointer;
+}
+.nc_agenda_el > .wpb_element_wrapper > .nc-agenda-toggle:hover,
+.nc_agenda_el > .wpb_element_wrapper > .nc-agenda-toggle:focus-visible {
+    background: #f0f0f1;
+}
+.nc_agenda_el > .wpb_element_wrapper > .nc-agenda-toggle i {
+    transition: transform .15s;
+}
+.nc-agenda-collapsed > .wpb_element_wrapper > .nc-agenda-toggle i {
+    transform: rotate(-90deg);
+}
+.nc-agenda-collapsed > .wpb_element_wrapper > .vc_container_for_children,
+.nc-agenda-collapsed > .controls_column.bottom-controls {
+    display: none !important;
+}
+/* "3 items" next to the labels of a closed table/row */
+.nc-agenda-collapsed > .wpb_element_wrapper::after {
+    content: attr(data-nc-agenda-count);
+    order: -1;
+    font-size: 12px;
+    color: #787c82;
+}
+
+/* Move/edit/clone/delete icons in the color of their block */
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) .vc_control,
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) .vc_control .vc-composer-icon {
+    color: var(--nc-agenda-accent) !important;
+}
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) .vc_control:hover .vc-composer-icon,
+.vc_shortcodes_container.nc_agenda_el > .controls_column:not(.bottom-controls) .vc_control:focus-visible .vc-composer-icon {
+    opacity: .7;
+}
+
+.nc_agenda_el > .wpb_element_wrapper > .vc_admin_label.admin_label_title {
+    margin: 13px 0 !important;
 }

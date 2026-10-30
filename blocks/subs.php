@@ -16,15 +16,15 @@ $form = get_field('form_shortcode');
 					if (!empty($title)) {
 						echo '<h3>' . $title . '</h3>';
 					}
-					if (!empty($text)) {
-						echo wpautop($text);
-					}
-					if (!empty($form)) {
-						echo '<div class="form-block">';
-						echo do_shortcode($form);
-						echo '</div>';
-					}
-					?>
+if (!empty($text)) {
+	echo wpautop($text);
+}
+if (!empty($form)) {
+	echo '<div class="form-block">';
+	echo do_shortcode($form);
+	echo '</div>';
+}
+?>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,228 @@
+// SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Shared @keyframes for the theme. Imported by theme.scss after variables.
+
+@keyframes blink {
+    0% {
+      opacity: 1; }
+    50% {
+      opacity: 0; }
+    100% {
+      opacity: 1; }
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes expand_horizontally_animation {
+    0% {
+        max-width: 20%;
+    }
+    100% {
+        max-width: 100%;
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity:0;
+        transform: translatex(-40px);
+    }
+    to {
+        opacity:1;
+        transform: translatex(0);
+    }
+}
+
+@keyframes decreaseOpacityOverlay {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.75;
+    }
+}
+
+@keyframes bg-position-from-bottom {
+    0% {
+        //opacity: 0;
+        background-position: center bottom -36%;
+    }
+    100% {
+        //opacity: 1;
+        background-position: center bottom 0%;
+    }
+}
+
+@keyframes dash {
+to {
+      stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pulse-animation {
+    0% {
+      box-shadow: 0 0 0 0px rgba($color-primary, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba($color-primary, 0);
+    }
+}
+@keyframes animationBorderReveal {
+    0% {
+      width: 0px;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes backgroundScrollFromTopToBottom {
+    0% {
+      background-position: left 0 top 0%;
+    }
+    100% {
+        background-position: left 0 top 100%;
+    }
+}
+@keyframes scrollFromTopToBottom {
+    0% {
+      transform:translateY(0%);
+    }
+    100% {
+        transform:translateY(-50%);
+    }
+}
+
+@keyframes pulse-size {
+    0% {
+        transform: scale(0.8); 
+    }
+    50% {
+        transform: scale(1.2); 
+    }
+    100% {
+        transform: scale(0.8); 
+    }
+}
+@keyframes homeGraphicMobileSlideFromBottom {
+    0% { bottom: -10vw; }
+    100% { bottom: -5vw; }
+}
+
+@keyframes homeGraphicDesktopSlideFromRight {
+    0% { right: -200px; }
+    100% { right: 0; }
+}
+
+@keyframes videoMobileSlideFromBottom {
+    0% { bottom: -10vw; opacity: 0;}
+    100% { bottom: 0; opacity: 1;}
+}
+
+@keyframes videoDesktopSlideFromRight {
+    0% { right: -200px; opacity: 0;}
+    100% { right: 0; opacity: 1;}
+}
+
+@keyframes letterExpand {
+      from {
+        letter-spacing: -57%;
+      }
+      to {
+        letter-spacing: -20px;
+      }
+}
+
+@keyframes letterExpand25 {
+      from {
+        letter-spacing: -57%;
+      }
+      to {
+        letter-spacing: -2px;
+      }
+}
+
+@keyframes floatUpDown {
+      0% {
+        transform: translateY(0px);
+      }
+      100% {
+        transform: translateY(-40px);
+      }
+}
+
+@keyframes fadeInMoveIn {
+      0% {
+        opacity: 0;
+        transform: translate(var(--start-x), var(--start-y));
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+}
+
+@keyframes heroLangIn {
+    from {
+        opacity: 0;
+        transform: translateY(1.2cqw);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroBadgeIn {
+    0% {
+        opacity: 0;
+        transform: scale(.4);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideFromLeft {
+    0% { left: -50px; }
+    100% { left: 0; }
+}
+
+@keyframes capabilityScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes capabilityScrollReverse {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes floating{
+    0% { transform: translateY(0px); }
+    50%{ transform: translateY(12px); }
+    100%{ transform: translateY(0px); }
+}

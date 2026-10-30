@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+---
+name: Build release
+run-name: Build release from tag ${{ inputs.tag }}
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+    outputs:
+      url:
+        description: Archive of built theme
+        value: ${{ jobs.upload.output.artifact-url }}
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to build
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Install composer dependencies
+        if: steps.check_composer.outputs.files_exists == 'true'
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+        with:
+          composer-options: "--no-dev"
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@06d6db44aa62f4609ba070f556ec24bc99fb85cb # v4
+        id: versions
+        with:
+          fallbackNode: "^12"
+          fallbackNpm: "^6"
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
+
+      - name: Install dependencies & build
+        run: |
+          npm ci
+          npm run sass --if-present
+
+      - name: Update version to ${{ steps.changelog.outputs.version }}
+        run: |
+          sed -i 's/Version: 1.0/Version: ${{ steps.changelog.outputs.version }}/g' style.css
+
+      - name: Create archives
+        run: |
+          mkdir -p release
+          tar -cvzf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.gz --exclude-vcs -X .release.ignore .
+          tar -cvjf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 --exclude-vcs -X .release.ignore .
+          cd release
+          md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.gz > nextcloud-wp-theme-${{ inputs.tag }}.tar.gz.md5sum
+          md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 > nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2.md5sum
+          sha256sum nextcloud-wp-theme-${{ inputs.tag }}.tar.gz > nextcloud-wp-theme-${{ inputs.tag }}.tar.gz.sha256
+          sha256sum nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 > nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2.sha256
+          sha512sum nextcloud-wp-theme-${{ inputs.tag }}.tar.gz > nextcloud-wp-theme-${{ inputs.tag }}.tar.gz.sha512
+          sha512sum nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 > nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2.sha512
+          cd ..
+
+      - name: Archive production artifacts
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-${{ inputs.tag }}
+          retention-days: 1
+          if-no-files-found: error
+          archive: false
+          path: release/*
+...

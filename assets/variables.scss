@@ -1,30 +1,116 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+@use "sass:math";
+
+//breakpoints
+// Use the .98 value with max-width and the -min value with min-width, so the two queries never match at the same width (Bootstrap convention).
 $xs-breakpoint: 399.98px;
 $sm-breakpoint: 575.98px;
-$sm-breakpoint600: 600px;
+$sm-breakpoint-min: 576px;
 $md-breakpoint: 767.98px;
-$tablet-breakpoint: 991px;
-$menu-custom-breakpoint: 1200px;
-$menu-custom-breakpoint-min: 1201px;
+$md-breakpoint-min: 768px;
+$lg-breakpoint: 991.98px;
+$lg-breakpoint-min: 992px;
 $xl-breakpoint: 1199.98px;
-$mainColor: #0082c9; //rgb(0, 130, 201)
-$primary: #007bbd; // darker blue for accessibility
-$mainColorDarker: #00659b;
-$lightColor: #1cafff; // rgb(28, 175, 255)
-$textColor: #050404;
-$communityColor: rgb(219, 237, 248); //hex: #DBEDF8 // rgba(0, 130, 201, 0.14)
-$successColor: #42E553;
-$successBGColor: #00ce48;
-$labelColor: #ffc28d;
-$errorColor: #FE5252;
-$warningColor: #ffe3b0;
-$youtube: #FF0000;
-$lightBG: rgba(0,130,201,0.14);
-$borderRadius:15px;
-$borderRadiusLarger:25px;
-$boxShadow: 0 0 25px rgba(0,130, 201, 0.12);
-$youtubeColor: #c4302b;
-$blueGradient: linear-gradient(45deg, #0082c9 20%, #1cafff);
-$blueGradient2: linear-gradient(45deg, #0082c9, #1CAFFF);
+$xl-breakpoint-min: 1200px;
+$menu-custom-breakpoint: 1399.98px;
+$menu-custom-breakpoint-min: 1400px;
+$xxl-breakpoint: 2199.98px;
+$wp-block-breakpoint: 600px; // WordPress core stacks Media & Text and post grids at max-width: 600px.
+
+//layout
+$container_width: 1320px;
+$container_width_xl: 1400px;
+
+//colors - brand palette (brand guide)
+$color-primary: #0082c9; // $mainColor - Nextcloud blue
+$color-sky-blue: #1cafff; // $lightColor - gradient, illustrations, icons
+$color-light-blue: #dbedf7; // $communityColor - section/box backgrounds (was #dbedf8)
+$color-white: #ffffff; // new variable for background
+$color-black: #000000; // $textColor - main text color
+$color-dark-blue: #0f0833; // $summitDarkBlue - footer and Summit only
+
+//colors - derived
+$color-primary-dark: #006da8; // $mainColorDarker, used for active status
+$color-primary-transparent: rgba($color-primary, 0.14);         // $lightBG
+$color-primary-transparent-subtle: rgba($color-primary, 0.05);  // $veryLightBG
+
+//colors - neutrals
+$color-text-muted: #6c6c6c;                                     // new
+$color-border: #dfdfdf;                                         // new
+$color-border-dark: #d7d7d7;                                    // new
+
+//colors - status
+$color-success: #42e553;                                        // $successColor
+$color-success-dark: #00ce48;                                   // $successBGColor
+$color-success-light: #a5ffc4;                                  // $successBGColorLight
+$color-error: #fe5252;                                          // $errorColor
+$color-warning-light: #ffe3b0;                                  // $warningColor
+
+//colors - misc
+$color-rating: #f49d07;                                         // $starsColor
+$color-label: #ffc28d;                                          // $labelColor
+$color-youtube: #ff0000;                                        // $youtube + $youtubeColor (was #c4302b)
+
+//gradients
+$gradient-primary: linear-gradient(45deg, $color-primary 20%, $color-sky-blue); // $blueGradient
+$gradient-primary-alt: linear-gradient(45deg, $color-primary, $color-sky-blue); // $blueGradient2
+$gradient-secondary: linear-gradient(45deg, $color-light-blue 40%, rgba($color-primary, 0.1)); // $lightBlueGradient
+$gradient-secondary-mobile: linear-gradient(90deg, $color-light-blue 40%, rgba($color-primary, 0.1)); // $lightBlueGradientMobile
+$gradient-hero: linear-gradient(45deg, $color-primary 20%, rgba($color-primary, 0.15)); // $pageHeroGradient
+$gradient-summit: linear-gradient(0deg, $color-dark-blue, $color-sky-blue); // $summitGradient
+
+//box shadow
+$shadow-primary: 0 0 25px rgba($color-primary, 0.12);   // $boxShadow
+$shadow-black: 0 12px 25px rgba($color-black, 0.25);    // $boxShadowBlack
+
+//transitions
+$transition-button: .3s ease;
+
+//border radius
+$radius-sm: 5px;                                        // $borderRadiusSmall
+$radius-md: 8px;                                        // $borderRadius
+$radius-lg: 15px;                                       // $borderRadiusSection
+$radius-xl: 25px;                                       // $borderRadiusLarger
+
+//typography
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-body: 1.6;
+$line-height-heading: 1.3;
+$line-height-tight: 1.2;
+
+// Viewport range for fluid sizes: values stay at their min below $fluid-min-vw and at their max above $fluid-max-vw.
+$fluid-min-vw: 375px;
+$fluid-max-vw: $container_width_xl;
+
+//functions
+@function round-to($value, $decimals: 4) {
+    $factor: math.pow(10, $decimals);
+    @return math.div(math.round($value * $factor), $factor);
+}
+
+// rem(18px) => 1.125rem; rem values are returned unchanged.
+@function rem($value) {
+    @if math.unit($value) == "rem" {
+        @return $value;
+    }
+    @return round-to(math.div($value, 16px) * 1rem);
+}
+
+// Fluid size that scales linearly from $min to $max between $min-vw and $max-vw.
+// The preferred value keeps a rem part so text still follows the user's font size setting.
+@function fluid($min, $max, $min-vw: $fluid-min-vw, $max-vw: $fluid-max-vw) {
+    $min: rem($min);
+    $max: rem($max);
+    $min-vw: rem($min-vw);
+    $max-vw: rem($max-vw);
+    $slope: math.div($max - $min, $max-vw - $min-vw);
+    $intercept: round-to($min - $slope * $min-vw);
+    @return clamp(#{$min}, #{$intercept} + #{round-to($slope * 100vw)}, #{$max});
+}

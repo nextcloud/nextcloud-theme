@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1080 1080">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: url(#radial-gradient);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        fill: url(#radial-gradient1);
+      }
+
+      .st4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="540" y1="0" x2="540" y2="1080" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0082c9"/>
+      <stop offset=".151" stop-color="#0a93dd"/>
+      <stop offset=".367" stop-color="#17a7f6"/>
+      <stop offset=".5" stop-color="#1cafff"/>
+      <stop offset=".633" stop-color="#17a7f6"/>
+      <stop offset=".849" stop-color="#0a93dd"/>
+      <stop offset="1" stop-color="#0082c9"/>
+    </linearGradient>
+    <clipPath id="clippath">
+      <rect class="st0" width="1080" height="1080"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="0" cy="540" fx="0" fy="540" r="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dbedf7"/>
+      <stop offset=".05" stop-color="#dbedf7" stop-opacity=".883"/>
+      <stop offset=".149" stop-color="#dbedf7" stop-opacity=".678"/>
+      <stop offset=".252" stop-color="#dbedf7" stop-opacity=".496"/>
+      <stop offset=".358" stop-color="#dbedf7" stop-opacity=".343"/>
+      <stop offset=".468" stop-color="#dbedf7" stop-opacity=".219"/>
+      <stop offset=".582" stop-color="#dbedf7" stop-opacity=".122"/>
+      <stop offset=".703" stop-color="#dbedf7" stop-opacity=".054"/>
+      <stop offset=".835" stop-color="#dbedf7" stop-opacity=".013"/>
+      <stop offset="1" stop-color="#dbedf7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient1" cx="1080" cy="540" fx="1080" fy="540" r="540" gradientTransform="translate(0 1080) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dbedf7"/>
+      <stop offset=".05" stop-color="#dbedf7" stop-opacity=".883"/>
+      <stop offset=".149" stop-color="#dbedf7" stop-opacity=".678"/>
+      <stop offset=".252" stop-color="#dbedf7" stop-opacity=".496"/>
+      <stop offset=".358" stop-color="#dbedf7" stop-opacity=".343"/>
+      <stop offset=".468" stop-color="#dbedf7" stop-opacity=".219"/>
+      <stop offset=".582" stop-color="#dbedf7" stop-opacity=".122"/>
+      <stop offset=".703" stop-color="#dbedf7" stop-opacity=".054"/>
+      <stop offset=".835" stop-color="#dbedf7" stop-opacity=".013"/>
+      <stop offset="1" stop-color="#dbedf7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="st2" width="1080" height="1080"/>
+  <g class="st4">
+    <g>
+      <circle class="st1" cy="540" r="540"/>
+      <circle class="st3" cx="1080" cy="540" r="540"/>
+    </g>
+  </g>
+</svg>

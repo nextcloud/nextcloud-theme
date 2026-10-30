@@ -6,3 +6,4 @@ assets/theme.css
 assets/theme.css.map
 dist/css/theme.min.css
 dist/css/theme.min.css.map
+*.log

@@ -1,0 +1,877 @@
+
+/*
+.summitGradient {
+    background-color: $color-dark-blue; //default fallback
+    background: $gradient-summit;
+}
+*/
+
+.vc_section.titlebar {
+
+        &.summit2026 { // live
+            padding-top: 12rem !important;
+            padding-bottom: 6rem !important;
+            background-position: top 50% left 0;
+            position: relative;
+
+            &:before {
+                content: " ";
+                background-image: url(../img/nc-summit-section-cloud-mask.svg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left;
+                //width: 56%;
+                width: 100%;
+                position: absolute;
+                height: 100%;
+                opacity: 0.9;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            .overlay-gradient {
+                //background: $gradient-summit !important;
+                //background: none !important;
+            }
+            
+        }
+
+
+
+        &.summit2026_v2 { // draft page 
+            padding-top: 16rem !important;
+            padding-bottom: 6rem !important;
+            background-position: top 50% left 0;
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                //background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left bottom;
+                width: 100%;
+                position: absolute;
+                height: 100%;
+                //opacity: 0.75;
+                animation: decreaseOpacityOverlay 4s forwards;
+                animation-delay: 4s;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            .overlay-gradient {
+                //background: $gradient-summit !important;
+                background: none !important;
+            }
+
+            
+        }
+
+}
+
+.summitGradient_full {
+  background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;
+
+  .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: $gradient-primary;
+        top: 0;
+        left: 0;
+        opacity: 0.3;
+  }
+}
+
+.summitGradient {
+  background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;
+
+  .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        //background: $gradient-primary;
+        top: 0;
+        left: 0;
+        opacity: 0.3;
+  }
+}
+
+
+.sparkle-dots {
+    background-image: url(../img/Nextcloud-Summit-sparkle-dots-cropped.png) !important;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+
+    @media screen and (max-width: $md-breakpoint) {
+        background-size: 180% auto;
+    }
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    animation: bg-position-from-bottom 3.5s ease forwards;
+    animation-duration: 3.5s !important;
+    background-position: center bottom 0%;
+}
+
+
+.cta_with_background {
+
+    &.cta_summit_gradient {
+        background-size: 120% auto;
+        background-position: top 52% right 0%;
+
+        &:before {
+            content: " ";
+            background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            opacity: 0.6;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .overlay-gradient {
+            background: none !important;
+        }
+    }
+}
+
+
+.promo-section {
+
+    &.summitBackground {
+        &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                background-size: 142% auto;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                opacity: 0.3;
+                border-radius: $radius-lg;
+                transition: all 0.3s ease;
+                pointer-events: none;
+                
+        }
+    }
+
+}
+
+
+
+.feature_iconbox {
+    &.summit_iconbox_light {
+        a, .link_replacement {
+            //background: none;
+            //color: $color-white !important;
+            //box-shadow: none !important;
+            position: relative;
+            //background: $gradient-summit;
+            
+            &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                background-size: 142% auto;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                opacity: 0.3;
+                border-radius: $radius-lg;
+                transition: all 0.3s ease;
+            }
+
+            .iconbox_container {
+                .icon {
+                    i {
+                        //color: $color-white;
+                    }
+                }
+
+                .title_and_description {
+                    
+                }
+
+            }
+
+            &:hover {
+                background-color: none;
+
+                &:before {
+                    background-size: 152% auto;
+                    background-position: center bottom -10px;
+                }
+            }
+
+        }
+    }
+
+
+
+    &.summit_iconbox {
+        a, .link_replacement {
+            //background: none;
+            //color: $color-white !important;
+            //box-shadow: none !important;
+            position: relative;
+            //background: $gradient-summit;
+            
+            &:before {
+                content: " ";
+                //background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                //background-image: url(../img/Nextcloud-Summit-key-visual-bg-1x1.png) !important;
+                background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png) !important;
+                //background-size: 142% auto;
+                background-size: auto 100%;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                //opacity: 0.3;
+                border-radius: $radius-lg;
+                transition: all 0.3s ease;
+            }
+
+            .iconbox_container {
+                .icon {
+                    i {
+                        color: $color-white;
+                    }
+                }
+
+                .title_and_description {
+                    color: $color-white;
+
+                    .see_more {
+                    color: $color-white;
+
+                        svg {
+                            transition: all 0.3s ease;
+                            path {
+                                fill: $color-white;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            &:hover {
+                background-color: none;
+
+                &:before {
+                    background-size: auto 110%;
+                }
+
+                .see_more {
+                    svg {
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+
+
+
+
+
+.nc_app_iconbox {
+    &.summit_iconbox {
+        position: relative;
+        overflow: hidden;
+
+        @media screen and (min-width: $xl-breakpoint-min) {
+            & {
+                max-width: 80%;
+            }
+        }
+
+        a.app_link {
+            padding: 9px;
+            text-decoration: none;
+            display: block;
+            background-image: url(/c/uploads/2025/03/Background-with-patterns-2.svg);
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            border-radius: $radius-sm;
+            overflow: hidden;
+            background-position: left top;
+            transition: all 0.5s ease;
+
+
+            &:focus, &:hover {
+                background-size: 120% auto;
+            }
+
+            .iconbox_container {
+                .icon {
+                    background: none !important;
+                    padding: 2px;
+                    max-width: 71px;
+                    height: 60px;
+                }
+
+                .text {
+                    position: relative;
+
+                    .title {
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                    }
+
+                    .description {
+                        font-size: 0.8em;
+                    }
+
+                    .extra_description {
+                        //margin-bottom: 8px;
+
+                        i {
+                            margin-right: 3px;
+
+                            &:not(:first-child) {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+.summitLP {
+
+
+    .nc_custom_grid {
+        .custom_grid_item {
+            width: 31%;
+            border-radius: $radius-md;
+            overflow: hidden;
+
+            a {
+
+                &:before {
+                    background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: left bottom;
+                    opacity: 0;
+                }
+                
+
+                &:focus, &:hover {
+                    &:before {
+                        opacity: 0.6;
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+
+
+
+
+     .nf-form-content  {
+        input[type="submit"] {
+            border-color: $color-dark-blue !important;
+            border-width: 1px !important; 
+            background: $gradient-summit !important;
+
+            &:hover, &:focus {
+                color: $color-dark-blue !important;
+                background: $color-white !important;
+            }
+        }
+     }
+
+    .summit_animation {
+            @media screen and (max-width: $lg-breakpoint) {
+                & {
+                    margin: 3rem 2rem;
+                }
+            }
+
+            .dash-lines {
+                stroke-dasharray: 1000;
+                stroke-dashoffset: 1000;
+                animation: dash 20s linear forwards infinite;
+            }
+
+            .summit_logo {
+                img {
+                    max-width: 73px;
+                    position: relative;
+                    margin: auto;
+                    top: 0;
+                    bottom: 0;
+                    height: 100%;
+                }
+            }
+    }
+
+
+
+    .countdown {
+        
+        &.summitBlue {
+            & > div {
+                background: $gradient-summit;
+                color: $color-white;
+            }
+        }
+
+        &.summitGradientBG {
+            & > div {
+                //background: $gradient-summit;
+                background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                color: $color-white;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+
+    }
+
+
+    .blog-section.featured_blogs {
+        &.style_2 {
+            .featured_blog_posts {
+                .post-box {
+                    .post-body {
+                        h3 {
+                            a {
+                                color: $color-black;
+
+                                &:hover, &:focus {
+                                    color: $color-primary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .case_studies {
+        &.summit_speakers {
+            .case_study {
+                .vc_column-inner {
+                    //background: $gradient-summit !important;
+                    //background-image: url(../img/Nextcloud-Summit-key-visual-bg-1x1.png);
+                    background-image: url(../img/Nextcloud-Summit-plain-backgrounds-1x1.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: left bottom;
+                    color: $color-white;
+
+                    &:before {
+                        content: " ";
+                        background-image: url(../img/Nextcloud-Summit-sparkle-dots-cropped.png) !important;
+                        background-repeat: no-repeat;
+                        background-size: 180% auto;
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                        z-index: 0;
+                        bottom: 0;
+                        //animation: bg-position-from-bottom 3.5s ease forwards;
+                        animation-duration: 3.5s !important;
+                        background-position: center bottom 0%;
+
+                        @media screen and (max-width: $md-breakpoint) {
+                            background-size: 180% auto;
+                        }
+
+                        /*
+
+                        background-image: url(/c/uploads/2025/03/Pattern-cirlce-bottom.svg) !important;
+                        background-size: 85% auto;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        position: absolute;
+                        left: 0;
+                        bottom: 7px;
+                        width: 100%;
+                        opacity: 0.6;
+                        height: 199px;
+                        */
+                    }
+
+                    .organization {
+                        &:before {
+                            color: $color-white !important;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+    
+
+    .nc-table.schedule {
+        table {
+
+            thead {
+             
+                tr {
+
+                    td {
+                        overflow: hidden;
+    
+                        &:first-child {
+                            border-radius: $radius-md 0 0 0;
+    
+                        }
+    
+                        &:last-child {
+                            border-radius: 0 $radius-md 0 0;
+                        }
+                    }
+
+                }
+
+                
+            }
+
+            tbody {
+                td {
+                    &:first-child {
+                        color: $color-dark-blue;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .nc_event_agenda {
+        .event_row_type {
+            background: $gradient-summit !important;
+        }
+
+        .inner_tracks_row {
+            .inner_track {
+                .track_label {
+                    color: $color-dark-blue !important;
+                }
+            }
+        }
+
+        .speaker_type {
+            color: $color-dark-blue !important;
+        }
+    }
+
+
+    .nc_separator_line {
+        .vc_sep_line {
+            background: $gradient-summit !important;
+        }
+    }
+
+
+    section:not(.ed_section) {
+
+        .c-btn {
+            background: $gradient-summit !important;
+
+            &:hover {
+                background: $color-white !important;
+                color:  $color-dark-blue;
+            }
+        }
+
+
+        .btn-outline {
+
+            .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+            {
+                color:  $color-dark-blue;
+                border-color: $color-dark-blue;
+        
+                &:hover, &:focus {
+                    color: $color-white;
+                    background: $gradient-summit;
+                    //border-color: $color-primary;
+                }
+            }
+
+        }
+
+
+
+        .btn-main {
+                .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+                {
+                    color: $color-white;
+                    background: $gradient-summit;
+                    transition: all 0.3s;
+        
+                    &:hover, &:focus {
+                        color: $color-dark-blue !important;
+                        background: $color-white !important;
+                        //border-color: $color-youtube;
+                    }
+            }
+        }
+
+        .btn-white, .btn-white-outline {
+
+            .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern {
+                &:hover, &:focus {
+                    border-color: $color-dark-blue !important; 
+                    background: $gradient-summit !important;
+                }
+            }
+        }
+
+        ul.nc-list {
+            li {
+                &:before {
+                    color:  $color-dark-blue !important;
+                }
+            }
+        }
+
+    }
+
+
+}
+
+//hide header, top bar, footer for specific page
+.page-id-307353 {
+    header, footer, #wpadminbar, #cookie_banner {
+        display: none !important;
+    }
+}
+
+
+//style the badge shortcode 
+.attendee_container {
+
+    .attendee_info_shortcode {
+        width: 10.5cm;
+        height: 14.8cm;
+        background: $gradient-summit;
+        background: url("../img/summit-badge-bg.png") no-repeat;
+        background-size: 100% 100%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        position: relative;   
+        border-bottom: 1px solid $color-dark-blue;
+
+        & > div {
+            display: flex;
+            // align-items: center;
+            // justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            //padding: 3rem;
+            //gap: 5px;
+            align-items: center;
+            max-height: 100%;
+        }
+
+        .logo {
+            width: 2.44cm;
+            height: auto;
+            margin: auto;
+            flex-basis: 4.42cm;
+            //padding: 1rem;
+            display: flex;
+
+            img {
+                max-width: 100%;
+            }
+
+        }
+
+        .name_container {
+            flex-basis: 3.4cm;
+            overflow: hidden;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .name {
+                font-weight: bold;
+                font-size: 2.2rem;
+                margin-bottom: 6px;
+                line-height: 130%;
+            }
+
+            .company {
+                font-weight: normal;
+                font-size: 1.65rem;
+            }
+        }
+
+        
+
+        .qr_code {
+            flex-basis: 5.32cm;
+            height: 100%;
+            //max-width: 53%;
+            margin: auto;
+            //width: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+
+
+            .img_container {
+                // background: white;
+                // padding: 6px;
+                // border-radius: $radius-lg;
+                position: relative;
+
+                & > div {
+                    //agenda and confirm QR codes
+                    img {
+                        background: white;
+                        padding: 2px;
+                        border-radius: $radius-md;
+                        max-width: 2.7cm;
+                    }
+                }
+
+                .agenda_qr {
+                    display: none;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .label {
+                        color: $color-dark-blue;
+                        font-weight: bold;
+                        //font-size: 0.8em;
+                        line-height: 15px;
+                        background: white;
+                        border-radius: $radius-sm;
+                        margin-top: 16px;
+                        position: relative;
+                        padding: 13px 12px;
+
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: -10px; /* position the triangle above the box */
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-bottom: 10px solid white;
+                        }
+                    }
+                }
+
+                img {
+                    max-width: 100%;
+                }
+
+            }
+
+            
+        }
+
+        .attendee_type {
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            //padding: 1rem;
+            //display: block;
+            width: 100%;
+            background: white;
+            color: $color-dark-blue;
+            font-weight: bold;
+            //position: absolute;
+            //bottom: 0;
+            flex-basis: 1.77cm;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+
+        &:nth-child(2) {
+            transform: rotate(180deg);
+        }
+    
+
+        &.type_employee {
+            background: $color-primary !important;
+
+            &:not(.cloned) {
+                .qr_code {
+                    .img_container {
+                        display: none;
+                    }
+                }
+            }
+
+            
+
+        }
+
+
+
+        &.cloned {
+            .confirm_qr {
+                display: none;
+            }
+            .agenda_qr {
+                display: flex !important;
+            }
+        }
+
+    }
+
+}

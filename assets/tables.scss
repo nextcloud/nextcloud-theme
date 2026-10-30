@@ -14,7 +14,7 @@
                 td, th {
                     border: 0 !important;
                     font-weight: 700;
-                    border-radius: 15px 15px 0 0;
+                    border-radius: $radius-lg $radius-lg 0 0;
                     padding: 1rem 5px !important;
                     text-align: center;
                     width: 15% !important;
@@ -24,24 +24,24 @@
                     }
 
                     &:nth-child(2) {
-                        background-color: $communityColor;
-                        //border-radius: 15px 0 0 0;
+                        background-color: $color-light-blue;
+                        //border-radius: $radius-lg 0 0 0;
                     }
 
                     &:nth-child(3) {
-                        background-color: rgba($mainColor, 0.4);
+                        background-color: rgba($color-primary, 0.4);
                         //border-radius: 0;
                     }
 
                     &:nth-child(4) {
-                        background-color: rgba($mainColor, 0.7);
+                        background-color: rgba($color-primary, 0.7);
                         //border-radius: 0;
                     }
 
                     &:nth-child(5) {
-                        background-color: $mainColor;
-                        //border-radius: 0 15px 0 0;
-                        color: #fff;
+                        background-color: $color-primary;
+                        //border-radius: 0 $radius-lg 0 0;
+                        color: $color-white;
                     }    
                 }
 
@@ -112,11 +112,11 @@
                     }
     
                     .fa-check-circle, .fa-plus-circle {
-                        color: $successColor;
+                        color: $color-success;
                     }
     
                     .fa-times-circle {
-                        color: $errorColor;
+                        color: $color-error;
                     }
     
                     .optional {

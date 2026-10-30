@@ -10,9 +10,17 @@ body.admin-bar {
     }
 }
 
-.page-id-46558 {
+.page-id-46558 { // signup-ios/
     .top-banner-vote, .header-holder, #menu-footer-menu-container, .get-started-section, footer {
         display: none;
+    }
+}
+
+
+//hide CTAs for landing pages
+.single-case_studies, .single-whitepapers, .single-data_sheets {
+    .top-banner-vote, #menu-primary-menu li.nav-btn, .get-started-section {
+        display: none !important;
     }
 }
 
@@ -29,6 +37,16 @@ header {
     background-color: transparent;
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
+
+
+    .container {
+        @media (max-width: $sm-breakpoint) {
+            //max-width: 95% !important;
+            margin-right: 0 !important;
+            margin-left: 0 !important;            
+        }
+    }
+
 
 
     &.with-promo-banner {
@@ -64,7 +82,7 @@ header {
 
     .top-banner-vote{
         height: 50px;
-        background: #fff;
+        background: $color-white;
         transition: all 0.3s ease;
         overflow: hidden;
 
@@ -77,9 +95,9 @@ header {
                 font-size: 23px;
                 font-weight: bold;
                 border-radius: 7px;
-                background: $mainColor;
+                background: $color-primary;
                 padding: 1px 9px;
-                color: #fff;
+                color: $color-white;
                 line-height: 100%;
     
                 & > span {
@@ -98,10 +116,6 @@ header {
         }
 
         .row {
-            background: url("../img/confetti-background.svg");
-            background-size: 320px auto;
-            background-position: right 13% top 42%;
-            background-repeat: no-repeat;
 
             @media screen and (max-width: $sm-breakpoint) {
                 & {
@@ -115,6 +129,7 @@ header {
             height: 100%;
             max-width: 800px;
             margin: auto;
+            position: relative;
 
 
             .item {
@@ -125,15 +140,21 @@ header {
             //only after owl carousel is loaded
             .owl-stage-outer {
                 height: 100%;
+                
 
                 .owl-stage {
                     height: 100%;
+                    //max-width: 100%;
 
                     .owl-item {
                         height: 100%;
 
                         .item {
                             height: 100%;
+
+                            @media screen and (max-width: $md-breakpoint) {
+                                padding: 0 16px;
+                            }
                         }
                     }
                 }
@@ -152,6 +173,10 @@ header {
                     opacity: 1;
                 }
 
+                &.disabled {
+                    display: none;
+                }
+
                 button {
                     height: 100%;
                     position: absolute;
@@ -163,11 +188,11 @@ header {
                     }
 
                     &.owl-prev {
-                        left: 2rem;
+                        left: 15px;
                     }
 
                     &.owl-next {
-                        right: 2rem;
+                        right: 15px;
                     }
 
                     @media screen and (max-width: $md-breakpoint) {
@@ -187,7 +212,7 @@ header {
         .nc-awards-banner{
             display: flex;
             height: 100%;
-            gap: 2rem;
+            gap: 20px;
             justify-content: center;
             align-items: center;
 
@@ -198,7 +223,7 @@ header {
                     height: 100%;
 
                     &:focus {
-                        border: 1px solid $mainColor;
+                        border: 1px solid $color-primary;
                     }
 
                     img {
@@ -212,16 +237,21 @@ header {
             }
 
             .awards-text{
-                font-size: 1.2em;
+                font-size: 1.1em;
+                line-height: 1.3;
 
                 a{
                     color: #0C0726 !important;
 
                     p {
                         margin: 0 !important;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
                         
                         strong {
-                            display: inline-block;
+                            //display: inline-block;
                         }
                     }
                 }
@@ -231,6 +261,16 @@ header {
             .btn-awards {
                 a {
                     white-space:nowrap;
+                    padding-right: 20px !important;
+
+                    svg {
+                        max-width: 17px;
+                    
+                        path {
+                            fill: $color-white;
+                        }
+                    }
+                    
 
                     i.right {
                         margin-left: 6px;
@@ -242,13 +282,13 @@ header {
         }
 
 
-        @media screen and (max-width:991px) {
+        @media screen and (max-width:$lg-breakpoint) {
             &{
                 .awards-text {
                     font-size: 1em !important;
 
                     b{
-                        display: inline-block;
+                        //display: inline-block;
                     }
                 }
             }
@@ -256,9 +296,6 @@ header {
 
         @media screen and (max-width: $md-breakpoint) {
             &{
-                .awards-text{
-                    //display: none;
-                }
                 .btn-awards {
                     display: none;
                 }
@@ -270,7 +307,6 @@ header {
 
                 .nc-awards-banner{
                     gap: 1rem !important;
-
                     background-size: 279px auto !important;
                     background-position: right -117% top 41% !important;
                     
@@ -291,18 +327,17 @@ header {
     
 
     &.active {
-        background: linear-gradient(45deg, $mainColor , $lightColor );
+        background: linear-gradient(45deg, $color-primary , $color-sky-blue );
         bottom: 0px;
-
-        .container {
-            //height: 100vh;
-            //overflow-y: scroll !important;
-        }
     }
 
     .header-holder {
         display: flex;
-        flex-wrap: wrap;
+        
+        @media screen and (max-width: $menu-custom-breakpoint) {
+            flex-wrap: wrap;
+        }
+
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
@@ -317,7 +352,7 @@ header {
                 height: 100%;
 
                 &:focus {
-                    //border: 1px solid #fff;
+                    //border: 1px solid $color-white;
                 }
 
                 img {
@@ -361,10 +396,10 @@ header {
             .bar3 {
                 width: 31px;
                 height: 4px;
-                background-color: #fff;
+                background-color: $color-white;
                 margin: 7px 0;
                 transition: 0.4s;
-                border-radius: 5px;
+                border-radius: $radius-sm;
             }
         }
 
@@ -392,27 +427,25 @@ header {
                         display: inline-block;
 
                         &:not(.nav-btn) > a {
-                            padding: 16px 12px;
-                            border-radius: 27px;
-                            -webkit-border-radius: 27px;
+                            padding: 16px 8px;
+                            border-radius: $radius-md;
                         }
 
                         &.nav-btn {
-                            margin-right: 12px;
+                            //margin-right: 12px;
 
                             & > a {
-                                background-color: #fff;
-                                color: $textColor;
+                                background-color: $color-white;
+                                color: $color-black;
                                 padding: 10px 20px;
-                                border-radius: 27px;
-                                -webkit-border-radius: 27px;
+                                border-radius: $radius-md;
                                 transition: all 0.3s ease;
                                 margin: 6px auto;
                                 white-space: nowrap;
 
                                 &:hover {
-                                    background-color: $mainColor;
-                                    color: #fff;
+                                    background-color: $color-primary;
+                                    color: $color-white;
                                 }
 
                                 &:before {
@@ -423,8 +456,8 @@ header {
 
                             &.open {
                                 & > a {
-                                    background-color: $mainColor;
-                                    color: #fff;
+                                    background-color: $color-primary;
+                                    color: $color-white;
                                 }
                             }
 
@@ -434,21 +467,26 @@ header {
                             & > a {
                                 padding-left: 15px;
 
-                                &:before {
-                                    position: relative;
-                                    content: "\f381";
-                                    font-family: 'Font Awesome 5 Free';
-                                    font-weight: 900;
-                                    margin-right: 10px;
-                                    color: $textColor;
+                                padding-left: 15px !important;
+                                position: relative;
+                                display: inline-flex;
+                                align-items: center;
+
+
+                                img {
+                                    flex: 0 0 auto;
+                                    max-width: 30px;
+                                    height: 30px;
+                                    margin-right: 6px;
                                     transition: all 0.3s ease;
                                 }
+                                
 
-                                &:hover {
-                                    color: #fff;
+                                &:hover, &:focus {
+                                    color: $color-white;
 
-                                    &:before {
-                                        color: #fff;
+                                    img {
+                                        filter: brightness(0) invert(1);
                                     }
 
 
@@ -456,56 +494,29 @@ header {
                             }
 
 
-                        }
-
-
-                        @media (min-width: $menu-custom-breakpoint) {
-                            &.menu-item-has-children {
-                                &:hover {
-                                    .sub-menu {
-                                        display: block;
-                                    }
-                                }
-
-                                &.open {
-                                    .sub-menu {
-                                        display: block;
-                                    }
-                                }
-
-                                & > a:focus {
-                                    & + .sub-menu {
-                                        display: block;
-                                    }
-                                }
-
-                                &.open {
-                                    .sub-menu {
-                                        display: block;
-                                    }
-                                }
-                            }
                         }
 
 
                         a {
-                            color: #ffffff;
+                            color: $color-white;
                             font-size: 16px;
                             font-weight: 600;
                             padding: 16px 0;
                             display: inline-block;
                             position: relative;
+                            
                         }
 
                         &:not(.nav-btn):not(.wpml-ls-item) {
                             & > a {
-                                color: #ffffff;
+                                color: $color-white;
                                 font-size: 16px;
                                 font-weight: 600;
                                 display: inline-block;
                                 position: relative;
+                                text-wrap: nowrap;
     
-                                @media screen and (min-width: $xl-breakpoint) {
+                                @media screen and (min-width: $xl-breakpoint-min) {
                                     &:after {
                                         content: "";
                                         position: absolute;
@@ -513,7 +524,7 @@ header {
                                         left: 12px;
                                         height: 2px;
                                         width: 0px;
-                                        background-color: #fff;
+                                        background-color: $color-white;
                                         transition: all 0.3s ease;
                                     }
 
@@ -528,7 +539,7 @@ header {
                             }
 
 
-                            @media screen and (min-width: $xl-breakpoint) {
+                            @media screen and (min-width: $xl-breakpoint-min) {
                                 &.current-menu-parent, &.current-menu-ancestor {
                                     a {
                                         &:after {
@@ -545,20 +556,25 @@ header {
                         &.wpml-ls-item {
 
                             & > a {
-
-                                &:before {
-                                    content: "\f0ac";
-                                    font-family: 'Font Awesome 5 Free';
-                                    font-weight: 900;
-                                    position: absolute;
-                                    left: 0;
-                                }
-
-                                padding-left: 16px;
+                                padding-left: 23px;
                                 text-transform: uppercase;
-
                                 
-                                @media screen and (min-width:$menu-custom-breakpoint) {
+                                &:before {
+                                    position: absolute;
+                                    width: 26px;
+                                    height: 26px;
+                                    left: 11px;
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    margin: auto;
+                                    content: " ";
+                                    background-image: url(../img/language_w.svg);
+                                    background-size: 25px auto;
+                                    background-repeat: no-repeat;
+                                }
+                                
+                                @media screen and (min-width:$menu-custom-breakpoint-min) {
                                     span.wpml-ls-native {
                                         font-size: 0px;
                                         
@@ -571,17 +587,13 @@ header {
                                 }
                                 
 
-
-
                                 img.wpml-ls-flag {
                                     max-width: 23px;
-                                    height: 23px;
+                                    height: 23px !important;
                                     border-radius: 50%;
                                     display: none;
                                 }
 
-                             
-                                
 
                                 @media screen and (max-width: $xl-breakpoint) {
                                     & {
@@ -593,11 +605,11 @@ header {
 
                             .sub-menu {
 
-                                @media screen and (min-width: $xl-breakpoint) {
+                                @media screen and (min-width: $xl-breakpoint-min) {
                                     &{
                                         width: fit-content !important;
                                         left: 50% !important;
-                                        transform: translateX(-50%);
+                                        transform: translateX(-50%) !important;
                                         margin-left: 0 !important;
                                     }
                                 }
@@ -613,34 +625,91 @@ header {
 
                                             img.wpml-ls-flag {
                                                 max-width: 23px;
-                                                height: 23px;
+                                                height: 23px !important;
                                                 border-radius: 50%;
+                                                margin-right: 5px;
+                                                
                                             }
                                         }
+
+                                    &.wpml-ls-item-nl {
+                                        display: none;
+                                    }
 
                                 }
                             }
 
 
+                            
+
+                        }
+
+
+                        &.contact {
+
+                                & > a {
+
+                                    padding-left: 20px;
+                                    padding-right: 20px;
+
+                                    @media screen and (min-width: $menu-custom-breakpoint-min) {
+                                        font-size: 0 !important;
+                                        line-height: 25.6px;
+                                    }
+
+                                &:before {
+                                    position: absolute;
+                                    width: 26px;
+                                    height: 26px;
+                                    left: 11px;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    margin: auto;
+                                    content: " ";
+                                    background-image: url(../img/mail_w.svg);
+                                    background-size: 25px auto;
+                                    background-repeat: no-repeat;
+                                }
+
+
+                                @media screen and (max-width: $menu-custom-breakpoint) {
+                                        padding-left: 31px;
+
+                                        &::before {
+                                            right: auto;
+                                        }
+                                }
+
+                            }
                         }
 
                         
 
+                        &.partners {
+                            >.sub-menu {
+                                margin-left: -160px;
+                                width: 316px;
+                            }
+                        }
+
                         >.sub-menu {
-                            display: none;
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+
                             padding: 10px;
                             margin: 0px;
                             list-style: none;
                             position: absolute;
-                            background-color: #fff;
-                            border-radius: 10px;
-                            -webkit-border-radius: 10px;
+                            background-color: $color-white;
+                            border-radius: $radius-md;
                             top: 100%;
                             left: 50%;
                             margin-left: -150px;
                             width: 300px;
                             box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.14);
-                            -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.14);
 
                             &:before {
                                 content: '';
@@ -654,14 +723,28 @@ header {
                                 border-top: 7px solid transparent;
                                 border-right: 10px solid transparent;
                                 border-left: 10px solid transparent;
-                                border-bottom: 7px solid #fff;
+                                border-bottom: 7px solid $color-white;
                             }
 
                             > li {
                                 padding: 0px;
                                 margin: 0px 0px 10px;
 
-                                
+                                &.mask-gradient {
+
+                                    img.navcon {
+                                        mask: linear-gradient($color-white 25%, color-mix(in srgb, $color-white, 55% transparent) 90%) alpha;
+                                    }
+                                    
+                                    li.thinkfree, li.collabora {
+                                        img.navcon {
+                                            mask: none;
+                                            padding: 2px;
+                                        }
+                                        
+                                    }
+                                    
+                                }
 
 
                                 &:last-child {
@@ -674,23 +757,23 @@ header {
                                     display: inline-flex;
                                     flex-direction: row;
                                     align-items: center;
-                                    color: $textColor;
+                                    color: $color-black;
                                     //font-size: 16px;
                                     font-weight: 400;
 
                                     &:hover {
-                                        color: $mainColor;
+                                        color: $color-primary;
                                     }
 
                                     &:focus {
-                                        box-shadow: 0 0 0 2px $mainColor;
+                                        box-shadow: 0 0 0 2px $color-primary;
                                         border-radius: 2px;
                                     }
 
                                     img {
                                         flex: 0 0 auto;
                                         max-width: 30px;
-                                        height: 30px;
+                                        height: auto !important;
                                         margin-right: 15px;
                                     }
 
@@ -702,7 +785,6 @@ header {
                                         small {
                                             display: block;
                                             font-size: 12px;
-                                            //font-weight: normal;
                                         }
                                     }
                                 }
@@ -710,30 +792,30 @@ header {
 
                                 &.current_page_item, .current-menu-item {
                                     a {
-                                        color: $mainColor;
+                                        color: $color-primary;
                                     }
                                 }
 
 
                                 >.sub-menu {
-                                    padding: 10px 0px 0px 25px;
+                                    padding: 3px 0px 0px 6px;
                                     margin: 0px;
                                     list-style: none;
 
                                     >li {
                                         padding: 0px;
-                                        margin: 0px 0px 20px;
+                                        margin: 0px 0px 14px;
 
                                         a {
                                             display: inline-flex;
                                             flex-direction: row;
                                             align-items: center;
-                                            color: $textColor;
+                                            color: $color-black;
                                             //font-size: 14px;
                                             font-weight: 400;
 
                                             &:hover {
-                                                color: $mainColor;
+                                                color: $color-primary;
                                             }
 
                                             img {
@@ -759,14 +841,14 @@ header {
 
                                         &.current_page_item, .current-menu-item {
                                             a {
-                                                color: $mainColor;
+                                                color: $color-primary;
                                             }
                                         }
 
 
                                         &.new_label {
                                             a small {
-                                                background-color: $labelColor;
+                                                background-color: $color-label;
                                                 display: inline-block !important;
                                                 padding: 1px 10px;
                                                 font-size: 0.9em !important;
@@ -788,45 +870,223 @@ header {
                                                     left: -10px;
                                                     height: 7px;
                                                     border: 5px solid transparent;
-                                                    border-right-color: $labelColor;
+                                                    border-right-color: $color-label;
                                                 }
                                             }                                   
                                         }
 
                                         
                                     }
-                                }
+                                }  
+
+                        } // li inside .sub-menu
+                    } //.sub-menu
 
 
-                            }
+                    //main li level - for mobile
+                    @media screen and (max-width: $menu-custom-breakpoint) {
+                        .sub-menu {
+                            height: 0;
+                            padding: 0 !important;
+                            list-style: none;
                         }
+
+                        
+
+                        &.mobile-submenu-open .sub-menu {
+                            opacity: 1;
+                            visibility: visible;
+                            pointer-events: all;
+                            height: auto;
+                            padding: 20px 15px !important;
+                        }
+
+
+                        .office-sub-menu {
+
+                            & > a {
+                                position: relative;
+
+                                &:after {
+                                    content: "";
+                                    position: absolute;
+                                    right: -1px;
+                                    top: 0;
+                                    bottom: 0;
+                                    margin: auto;
+                                    height: 30px;
+                                    width: 30px;
+                                    //background-image: url(../img/arrow-down.svg);
+                                    background-image: url(https://nextcloud.com/c/uploads/2025/10/right.svg);
+                                    transform: rotate(90deg);
+                                    background-repeat: no-repeat;
+                                    transition: all 0.3s ease;                     
+                                    
+                                }
+                            }
+
+                            .sub-menu {
+                                opacity: 0;
+                                visibility: hidden;
+                                pointer-events: none;
+                                height: 0;
+                                padding: 0 !important;
+                                background: #eee;
+                                
+                            }
+
+                            &.mobile-submenu-open .sub-menu {
+                                opacity: 1;
+                                visibility: visible;
+                                pointer-events: all;
+                                height: auto;
+                                padding: 20px 15px !important;
+                            }
+
+
+                        }
+                    }
+
+
+                    //main li level - for desktop
+                    @media screen and (min-width: $menu-custom-breakpoint-min) {
+                                    &.menu-item-has-children {
+                                        position: relative;
+
+                                        & > .sub-menu {
+                                            position: absolute;
+                                            top: 83%;
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            pointer-events: none;
+                                            transform: translateY(8px);
+                                            transition: padding 180ms ease, height 180ms ease, opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+                                        }
+
+                                        &:hover > .sub-menu, 
+                                        &.open > .sub-menu, 
+                                        &:focus-within .sub-menu
+                                        & > a:focus + .sub-menu
+                                        {
+                                            opacity: 1;
+                                            visibility: visible;
+                                            pointer-events: auto;
+                                            transform: translateY(0);
+                                        }
+                        }
+                    }
 
 
 
                     //megamenu styling
-                    @media (min-width: $menu-custom-breakpoint) {
+                    @media (min-width: $menu-custom-breakpoint-min) {
                         &.megamenu {
 
                             &.products {
                                 
                                 & > ul.sub-menu {
-                                    margin-left: -305px;
+                                    margin-left: -308px;
                                     width: 600px;
 
 
                                     .hub {
                                         ul.sub-menu {
-                                            padding-top: 10px;
+                                            padding-top: 6px;
+                                            padding-left: 27px;
                                             border-bottom: 1px solid #d9d9d9;
 
                                             li {
                                                 display: inline-block;
-                                                width: 46%;
+                                                width: 49%;
+                                                padding-left: 4px;
+
+                                                
+
+                                                &.office-sub-menu {
+                                                    position: relative;
+
+                                                    & > a {
+                                                        position: relative;
+
+                                                        &:after {
+                                                            content: "";
+                                                            position: absolute;
+                                                            right: -12px;
+                                                            top: auto;
+                                                            bottom: auto;
+                                                            height: 30px;
+                                                            width: 30px;
+                                                            background-image: url(https://nextcloud.com/c/uploads/2025/10/right.svg);
+                                                            background-repeat: no-repeat;
+                                                            transition: all 0.3s ease;
+                                                        }
+                                                    }
+
+                                                    & > .sub-menu {
+                                                        opacity: 0;
+                                                        visibility: hidden;
+                                                        pointer-events: none;
+                                                        padding: 10px;
+                                                        margin: 0px;
+                                                        list-style: none;
+                                                        position: absolute;
+                                                        background-color: $color-white;
+                                                        border-radius: $radius-md;
+                                                        top: -11px;
+                                                        left: 50%;
+                                                        width: 300px;
+                                                        box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.14);
+                                                        left: 109%;
+                                                        bottom: auto;
+                                                        margin: auto;
+
+                                                        &:before {
+                                                            content: "";
+                                                            display: block;
+                                                            position: absolute;
+                                                            top: 30px;
+                                                            margin: auto;
+                                                            left: -17px;
+                                                            width: 0px;
+                                                            height: 0px;
+                                                            transform: rotate(-90deg);
+                                                            border-top: 7px solid transparent;
+                                                            border-right: 10px solid transparent;
+                                                            border-left: 10px solid transparent;
+                                                            border-bottom: 7px solid $color-white;
+                                                        }
+
+                                                        li {
+                                                            width: 100%;
+                                                        }
+
+                                                    }
+
+                                                    &:hover > .sub-menu, 
+                                                    &.open > .sub-menu, 
+                                                    &:focus-within .sub-menu
+                                                    & > a:focus + .sub-menu
+                                                    {
+                                                        opacity: 1;
+                                                        visibility: visible;
+                                                        pointer-events: auto;
+                                                        transform: translateY(0);
+                                                    }
+                                                    
+                                                }
+
                                             }
                                         }
                                     }
                                 }
-                            }
+
+                                li.roundcube, li.microsoft {
+                                    display: inline-block;
+                                    width: 46%;
+                                    padding-left: 4px;
+                                }
+
+                            } // products
 
 
                             &.solutions {
@@ -838,12 +1098,9 @@ header {
                                             a {
                                                 &:before {
                                                     position: relative;
-                                                    //content: "\f105";
-                                                    //content: "\f058";
                                                     font-family: 'Font Awesome 5 Free';
                                                     font-weight: 900;
                                                     margin-right: 10px;
-                                                    //color: $textColor;
                                                     font-size: 0.8em;
                                                 }
                                             }
@@ -851,8 +1108,6 @@ header {
                                         }
 
                                         li.pricing {
-                                            border-top: 1px solid #d9d9d9;
-                                            //color: $mainColor;
 
                                             a {
                                                 padding-top: 10px;
@@ -866,13 +1121,294 @@ header {
 
                                 
 
+                            } // .solutions
+
+
+
+                            &.resources {
+                                
+                                & > ul.sub-menu {
+                                    margin-left: -380px;
+                                    width: 750px;
+                                    padding: 0 !important;
+
+                                    &:before {
+                                        bottom: 100%;
+                                        left: 50%;
+                                        margin-left: -7px;
+                                        width: 0px;
+                                        height: 0px;
+                                        border-top: 16px solid transparent;
+                                        border-right: 10px solid transparent;
+                                        border-left: 10px solid transparent;
+                                        border-bottom: 9px solid $color-white;
+                                    }
+
+                                }
+
+                                
+                                &:hover, &.open {
+                                    & > .sub-menu {
+                                        display: flex;
+                                        align-items: stretch;
+                                        gap: 5px;
+                                    }
+                                }
+
+                            } // resources
+                        } // megamenu
+                    } // media 
+
+
+                    @media screen and (min-width: $menu-custom-breakpoint-min) and (max-width: 1335px) {
+                        &.megamenu.products { // adjust position
+                            & > ul.sub-menu {
+                                margin-left: -166px;
+                                //width: 600px;
+
+                                &:before {
+                                    left: 27%;
+                                }
+                            }
+                        }
+                    }
+
+                    
+                    &.megamenu {
+
+                        li {
+                            &.highlighted {
+                                vertical-align: top;
+                                margin: 0;
+                                background: linear-gradient(90deg, $color-light-blue 40%, rgba($color-primary, 0));
+                                border-radius: $radius-md;
+                            }
+
+                            &.highlighted_hub {
+                                & > a {
+                                    &:first-child {
+                                        vertical-align: top;
+                                        margin: 0;
+                                        background: linear-gradient(90deg, $color-light-blue 40%, rgba($color-primary, 0));
+                                        border-radius: $radius-md $radius-md 0 0;
+                                        padding: 11px;
+
+                                        &:after {
+                                            content: "";
+                                            position: absolute;
+                                            right: -3px;
+                                            top: auto;
+                                            bottom: auto;
+                                            height: 30px;
+                                            width: 30px;
+                                            background-image: url(https://nextcloud.com/c/uploads/2025/10/right.svg);
+                                            background-repeat: no-repeat;
+                                            transition: all 0.3s ease;
+                                        }
+
+                                        &:hover, &:focus {
+                                            &:after {
+                                                right: 10px;
+                                            }
+                                        }
+
+                                        img {
+                                            height: 39px !important;
+                                            max-width: initial;
+                                        }
+                                    }
+                                }
+                            }
+    
+                            &.pricing {
+                                padding: 3px 0 !important;
+                            }
+                        }
+
+
+                        &.resources {
+
+                            .mm_col {
+                                margin: 0 !important;
+                                flex: 50%;
+
+                                &:first-child {
+                                    padding: 0.5rem;
+                                }
+
+                                &.first_item_hidden > a {
+                                    display: none;
+                                }
+
+                                .sub-menu {
+                                    padding-left: 0;
+                                    padding-top: 0;
+                                }
+                                
+                            }
+
+
+                            .link_w_shortcode {
+                                a[href='#']:empty {
+                                    display: none;
+                                    padding: 0 !important;
+                                }
+                                
+
+                                .featured_label {
+                                    font-weight: bold;
+                                    font-size: 0.8em;
+                                    display: block;
+                                    text-transform: uppercase;
+                                    margin-bottom: 6px;
+                                }
+
+                                .nav-preview-news-item {
+
+                                    .post-box-shortcode-preview {
+                                        padding: 4px;
+
+                                        .post-box-shortcode-preview-inner {
+                                            display: flex;
+                                            gap: 7px;
+                                            align-items: center;
+
+                                            @media screen and (max-width: $md-breakpoint) {
+                                                & {
+                                                    flex-direction: column;
+                                                }
+                                            }
+
+                                            .post-img {
+                                                padding: 0;
+                                                max-width: 41%;
+
+                                                @media screen and (max-width: $md-breakpoint) {
+                                                    & {
+                                                        max-width: 100%;
+                                                    }
+                                                }
+
+                                                a {
+                                                    padding: 0;
+                                                    display: block;
+                                                }
+
+                                                img {
+                                                    width: 100%;
+                                                    height: auto;
+                                                    max-width: 100%;
+                                                    margin: 0;
+                                                    border-radius: $radius-md;
+
+                                                    &.navcon {
+                                                        width: 50px !important;
+                                                    }
+
+                                                }
+                                            }
+    
+                                            .post-body {
+
+                                                & > a {
+                                                    display: block !important;
+                                                    padding: 0 !important;
+                                                }
+
+                                                .shortcode_label {
+                                                    font-size: 0.7em;
+                                                    color: $color-primary;
+                                                    font-weight: bold;
+                                                }
+
+                                                h4 {
+                                                    font-size: 15px !important;
+                                                    line-height: 1.3;
+                                                    margin: 0;
+                                                }
+
+                                                .meta_details {
+                                                    margin: 3px 0 !important;
+                                                    padding: 0;
+                                                    list-style: none;
+                                                    
+                                                    li {
+                                                        font-size: 12px;
+                                                    }
+                                                }
+    
+                                                
+                                            }
+
+                                        }
+
+                                        .see_all {
+                                            margin-top: 5px;
+                                            line-height: 100%;
+
+                                            a {
+                                                font-weight: bold;
+                                                font-size: 0.8em;
+                                                color: $color-primary;
+                                                padding: 0 3px !important;
+                                                position: relative;
+                                                display: inline !important;
+
+                                                &:after {
+                                                    right: -12px;
+                                                    left: auto;
+                                                    position: absolute;
+                                                    font-family: "Font Awesome 5 Free";
+                                                    font-weight: 900;
+                                                    content: "\f105";
+                                                    //font-size: 1rem;
+                                                    color: $color-primary;
+                                                    bottom: 0;
+                                                    top: 0;
+                                                    margin: auto;
+                                                    line-height: 21px;
+                                                    width: auto !important;
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                    &.featured_podcast {
+                                        .post-body {
+                                            h4 {
+                                                margin: 4px 0 !important;
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+
+                                
+                                &.featured_nav_item {
+                                    padding: 7px;
+                                    background-color: $color-light-blue;
+                                    border-radius: $radius-md;
+                                    margin-top: 10px;
+                                    margin-right: 10px;
+
+                                    .post-box-shortcode-preview {
+                                        padding: 0;
+                                    }
+                                }
+
+
+
                             }
 
                         }
 
                     }
-                    }
 
+
+
+                    }
 
                     //mobile menu
                     @media (max-width: $menu-custom-breakpoint) {
@@ -886,14 +1422,13 @@ header {
                             padding: 0;
                             display: inline-block;
 
-                            //&:not(.nav-btn):not(.wpml-ls-item) > a {
                             & > a {
                                 padding: 16px 21px;
                                 display: block;
                                 width: 100%;
 
                                 &:focus {
-                                    outline: 1px solid #fff;
+                                    outline: 1px solid $color-white;
                                 }
 
                             }
@@ -909,7 +1444,7 @@ header {
                                         position: absolute;
                                         right: 20px;
                                         top: 0;
-                                        color: #fff;
+                                        color: $color-white;
                                         bottom: 0;
                                         margin: auto;
                                         line-height: 57px;
@@ -929,7 +1464,7 @@ header {
 
 
                                     &:after {
-                                        color: $textColor !important;
+                                        color: $color-black !important;
                                         right: 14px;
                                         line-height: 47px !important;
                                     }
@@ -943,14 +1478,14 @@ header {
                                         }
 
                                         &:after {
-                                            color: #fff !important;
+                                            color: $color-white !important;
                                         }
 
                                     }
                                 }
 
                                 .sub-menu {
-                                    border-radius: 0 10px 10px 10px;
+                                    border-radius: 0 $radius-md $radius-md $radius-md;
 
                                 }
 
@@ -962,7 +1497,8 @@ header {
                                     padding-left: 30px;
 
                                     &:before {
-                                        left: 12px;
+                                        //transition: all 0.3 ease;
+                                        left: 2px;
                                     }
                                 }
                             }
@@ -973,10 +1509,10 @@ header {
 
                                 &.nav-btn {
                                     a:hover {
-                                        background-color: #fff !important;
+                                        background-color: $color-white !important;
 
                                         &:after {
-                                            color: $mainColor !important;
+                                            color: $color-primary !important;
                                         }
 
                                     }
@@ -985,28 +1521,38 @@ header {
                                 &.open {
                                     &.nav-btn {
                                         & > a {
-                                            background-color: #fff !important;
+                                            background-color: $color-white !important;
 
                                             &:after {
-                                                color: $mainColor !important;
+                                                color: $color-primary !important;
                                             }
                                         }
                                     }
                                 }
 
 
+                                &.wpml-ls-item {
+                                    a {
+                                        &:before {
+                                            left: 2px;
+                                            background-image: url(../img/language.svg);
+                                        }
+                                    }
+                                }
+
+
                                 & > a {
-                                    border-radius: 25px 25px 0 0;
-                                    background-color: #fff;
-                                    color: $mainColor !important;
+                                    border-radius: $radius-md $radius-md 0 0;
+                                    background-color: $color-white;
+                                    color: $color-primary !important;
 
                                     &:after {
                                         content: "\f106"; // angle up
-                                        color: $mainColor !important;
+                                        color: $color-primary !important;
                                     }
 
                                     &:before {
-                                        color: $mainColor !important;
+                                        color: $color-primary !important;
                                     }
                                     
                                     &:focus {
@@ -1019,14 +1565,14 @@ header {
                             .sub-menu {
                                 position: relative;
                                 left: 0px;
-                                width: 100%;
+                                width: 100% !important;
                                 padding: 20px 15px;
                                 background: #f7f7f7;
                                 box-shadow: none !important;
                                 max-width: 100%;
                                 margin-top: 0px;
-                                margin-left: 0px;
-                                border-radius: 0 0 10px 10px;
+                                margin-left: 0px !important;
+                                border-radius: 0 0 $radius-md $radius-md;
 
                                 &:before {
                                     display: none;
@@ -1048,7 +1594,7 @@ header {
 
 
     &.scrolled:not(.active) {
-        background-color: $mainColor;
+        background-color: $color-primary;
         box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
         -webkit-box-shadow: 4px 9px 80px 0px rgba(29, 43, 91, 0.14);
 
@@ -1073,7 +1619,7 @@ header {
                     &.nav-btn {
                         & > a {
                             padding: 7px 20px !important;
-                            margin-top: 9px;
+                            //margin-top: 9px;
                         }
                     }
                 }
@@ -1110,5 +1656,65 @@ header {
             display: block;
         }
 
+    }
+}
+
+
+.with_white_titlebar {
+    header {
+        background: $gradient-primary;
+    }
+}
+
+.summitLogo {
+    header {
+        .logo-holder {
+            flex: 0 0 92px;
+            max-width: initial;
+
+            a.custom-logo-link {
+                img {
+                    max-width: 92px;
+                    max-height: initial;
+                }
+            }
+        }
+
+        &:not(.scrolled) {
+            .logo-holder {
+                margin-top: 17px;
+            }
+        }
+
+    }
+}
+
+
+
+.tenth_anniversary_top_logo {
+    header {
+        .logo-holder {
+            flex: 0 0 230px;
+            max-width: 230px;
+
+            a.custom-logo-link {
+                img {
+                    max-width: 230px;
+                    max-height: 83px;
+                }
+            }
+        }
+
+    }
+}
+
+// Invisible spacer in the Enterprise submenu – keeps Pricing + Migration side by side
+#menu-primary-menu li:has(> #menu-placeholder) {
+    visibility: hidden;
+    pointer-events: none;
+
+    // remove completely in the hamburger menu
+    @media screen and (max-width: $menu-custom-breakpoint) {
+        display: none !important;
     }
 }

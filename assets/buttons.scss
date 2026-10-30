@@ -1,0 +1,666 @@
+// SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Button styles. Imported by theme.scss where the button reset used to be,
+// so these rules still come after the other partials and before the section styles.
+// Blocks keep their original order: rules with equal specificity depend on it.
+// .btn-primary overrides Bootstrap's, which works because theme.min.css loads after bootstrap.min.css.
+// Still in theme.scss on purpose: .btn_learn_more, .app_store_btn, .nc_custom_btn, .btn-dropdown-container
+// and .btn_switch_pricing. Moving them up here would let earlier section rules override them.
+
+// Animated gradient backgrounds.
+// Gradients can't be transitioned, but registered custom properties can: the background is always
+// a gradient built from these two colours, and states only change the colours (white = both ends white).
+// Browsers without @property support still get the right colours, just without the fade.
+@property --btn-grad-from {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #{$color-primary};
+}
+
+@property --btn-grad-to {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #{$color-sky-blue};
+}
+
+$btn-transition: --btn-grad-from $transition-button, --btn-grad-to $transition-button,
+    color $transition-button, border-color $transition-button, background-color $transition-button;
+
+@mixin btn-gradient-background($important: false) {
+    @if $important {
+        background: linear-gradient(45deg, var(--btn-grad-from) 20%, var(--btn-grad-to)) !important;
+    } @else {
+        background: linear-gradient(45deg, var(--btn-grad-from) 20%, var(--btn-grad-to));
+    }
+    transition: $btn-transition;
+}
+
+// One colour fills the whole button; two colours give the brand gradient.
+@mixin btn-gradient-colors($from, $to: $from, $important: false) {
+    @if $important {
+        --btn-grad-from: #{$from} !important;
+        --btn-grad-to: #{$to} !important;
+    } @else {
+        --btn-grad-from: #{$from};
+        --btn-grad-to: #{$to};
+    }
+}
+
+button:not(.reset):not(.filter) {
+    outline: none !important;
+}
+
+.c-btn, .btn-primary {  //directly on <a> tag
+    display: inline-block;
+    min-width: 215px;
+    padding: 9px 22px;
+    color: $color-white;
+    font-size: 16px;
+    line-height: 22px;
+    //border: 2px solid $color-primary;
+    border-radius: $radius-md;
+    @include btn-gradient-colors($color-primary, $color-sky-blue);
+    @include btn-gradient-background;
+    text-align: center;
+
+    .vc_btn3-icon--svg {
+        svg > * {
+            transition: fill $transition-button;
+        }
+    }
+
+    &:hover {
+        @include btn-gradient-colors($color-white);
+        color: $color-primary;
+        text-decoration: none;
+        border-color: $color-primary;
+    }
+
+    &:focus {
+        border-color: white;
+        //outline: 1px solid $color-black !important;
+    }
+
+
+    &.btn-white {
+        color: $color-primary;
+        @include btn-gradient-colors($color-white);
+        border-color: $color-primary;
+
+        &:hover, &:focus {
+            color: $color-white;
+            @include btn-gradient-colors($color-primary, $color-sky-blue);
+        }
+    }
+
+    &.btn-white-outline {
+        color: $color-white;
+        @include btn-gradient-colors(transparent);
+        border-color: $color-white;
+
+        &:hover, &:focus {
+            color: $color-white;
+            @include btn-gradient-colors($color-primary, $color-sky-blue);
+            border-color: $color-primary;
+        }
+    }
+
+    
+
+    &.btn-black {
+        color: $color-white;
+        @include btn-gradient-colors($color-dark-blue);
+        border-color: $color-dark-blue;
+
+        &:hover, &:focus {
+            color: $color-dark-blue;
+            @include btn-gradient-colors($color-white);
+            outline: 1px solid $color-black !important;
+        }
+    }
+
+
+    &.btn-top {
+        min-width: auto;
+        padding: 0px 18px !important;
+        font-weight: 700;
+        border: 1px solid $color-primary;
+        line-height: 26px;
+        height: auto !important;
+        font-size: 13px;
+        border-radius: $radius-sm;
+
+        &:hover {
+            color: $color-primary;
+            @include btn-gradient-colors($color-white);
+        }
+    }
+
+    &.youtube {
+        @include btn-gradient-colors($color-youtube, $important: true);
+        color: $color-white !important;
+        border-color: $color-youtube !important;
+
+            &:hover, &:focus {
+                color: $color-youtube !important;
+                @include btn-gradient-colors($color-white, $important: true);
+                //border-color: $color-youtube;
+            }
+    }
+
+
+
+    &.btn-with-icon{
+        i {
+            margin-right: 6px;
+        }
+    }
+
+
+    &.btn-main {
+        border: 1px solid $color-primary;
+        @include btn-gradient-colors($color-primary, $color-sky-blue);
+        color:$color-white;
+        text-decoration: none !important;
+
+        &:hover, &:focus {
+            color: $color-primary;
+            @include btn-gradient-colors($color-white, $important: true);
+            //outline: 1px solid $color-black;
+
+            .vc_btn3-icon--svg {
+                svg * {
+                    fill: $color-primary !important; 
+                }
+            }
+        }
+    }
+
+
+    &.btn-small {
+        border-width: 1px;
+        min-width: auto;
+        padding: 0px 15px  !important;
+        line-height: 21px;
+        height: auto !important;
+        //font-size: 13px !important;
+        font-size: 0.7em !important;
+        border-radius: $radius-sm;
+
+        i {
+            margin-left: 6px;
+        }
+
+    }
+
+}
+
+
+.btn-main {
+    .vc_btn3.vc_btn3-style-modern // a
+    {
+        @include btn-gradient-colors($color-primary, $color-sky-blue);
+        @include btn-gradient-background;
+        border-color: $color-white;
+        color: $color-white !important;
+        text-decoration: none !important;
+        font-size: 16px;
+        border-radius: $radius-md;
+        padding: 9px 22px;
+
+
+
+        .vc_btn3-icon--svg {
+            svg {
+                fill: $color-white !important;
+                transition: fill .3s ease; 
+
+                & > * {
+                    fill: $color-white !important;
+                    transition: fill .3s ease; 
+                }
+            }
+        }
+
+        &.vc_btn3-icon-left {
+            padding-left: 48px;
+        }
+
+        &.vc_btn3-icon-right {
+            padding-right: 48px;
+        }
+        //background-image: none;
+
+        &:hover, &:focus {
+            color: $color-primary !important;
+            @include btn-gradient-colors($color-white, $important: true);
+            border-color: $color-primary !important;
+
+            .vc_btn3-icon--svg {
+                svg, path {
+                    fill: $color-primary !important;      
+                }
+            }
+            
+        }
+
+        &:focus {
+            outline: 1px solid $color-black;
+        }
+    }
+
+
+
+    // Set the gradient colours, not background-color: a plain colour stays hidden under the gradient.
+    // !important is needed to beat the !important colours of .btn-main and its hover state.
+    &.youtube {
+        .vc_btn3.vc_btn3-style-modern
+        {
+            color: $color-white !important;
+            @include btn-gradient-colors($color-youtube, $important: true);
+            border-color: $color-youtube !important;
+
+            &:hover, &:focus {
+                color: $color-white !important;
+                @include btn-gradient-colors($color-youtube, $important: true);
+                border-color: $color-youtube !important;
+            }
+        }
+    }
+
+    &.youtube-outline {
+        .vc_btn3.vc_btn3-style-modern
+        {
+            color: $color-youtube !important;
+            @include btn-gradient-colors($color-white, $important: true);
+            border-color: $color-youtube !important;
+
+            &:hover, &:focus {
+                color: $color-white !important;
+                @include btn-gradient-colors($color-youtube, $important: true);
+                border-color: $color-youtube !important;
+            }
+        }
+    }
+
+}
+
+
+.vc_btn3.vc_btn3-icon-right {
+    text-align: left !important;
+}
+
+
+.btn-white {
+    .vc_btn3.vc_btn3-style-modern
+    {
+        font-size: 16px;
+        border-radius: $radius-md;
+        padding: 9px 22px;
+        color: $color-black !important;
+        text-decoration: none !important;
+        @include btn-gradient-colors($color-white);
+        @include btn-gradient-background($important: true);
+        border-color: $color-white;
+
+        &.vc_btn3-icon-left:not(.vc_btn3-o-empty) {
+            padding-left: 48px;
+        }
+
+        &.vc_btn3-icon-right:not(.vc_btn3-o-empty) {
+            padding-right: 48px;
+        }
+
+        .vc_btn3-icon--svg {
+            svg * {
+                transition: fill $transition-button;
+                fill: $color-primary !important;
+            }
+        }
+
+        &:hover, &:focus {
+            color: $color-white !important;
+            @include btn-gradient-colors($color-primary, $color-sky-blue);
+            border-color: $color-primary !important;
+
+            .vc_btn3-icon--svg {
+                svg * {
+                    fill: $color-white !important;      
+                }
+            }
+        }
+    }
+}
+
+
+.btn-white-outline {
+
+    &.icon_only {
+        .vc_btn3.vc_btn3-style-modern{
+            padding: 9px 20px !important;
+
+            i {
+                font-size: 12px !important;
+            }
+        }
+    }
+
+    .vc_btn3.vc_btn3-style-modern
+    {
+        font-size: 16px;
+        @include btn-gradient-colors(transparent);
+        @include btn-gradient-background;
+        background-color: unset !important;
+        border-radius: $radius-md;
+        padding: 9px 22px;
+        color: $color-white !important;
+        border-color: $color-white;
+
+
+        .vc_btn3-icon--svg {
+            svg {
+                fill: $color-white !important;
+
+                & > *, path {
+                    fill: $color-white !important;
+                }
+            }
+        }
+
+
+        &:hover, &:focus {
+            color: $color-white;
+            @include btn-gradient-colors($color-primary, $color-sky-blue);
+            border-color: $color-primary;
+            //outline: 1px solid $color-black !important;
+        }
+    }
+    
+}
+
+
+.btn-outline {
+
+    .vc_btn3.vc_btn3-style-modern
+    {
+        font-size: 16px;
+        @include btn-gradient-colors(transparent);
+        @include btn-gradient-background;
+        background-color: unset !important;
+        border-radius: $radius-md;
+        padding: 9px 22px;
+        color:  $color-primary !important;
+        border-color: $color-primary !important;
+
+        .vc_btn3-icon--svg {
+            svg, svg > *, path {
+                fill: $color-primary !important;     
+                transition: fill .3s ease; 
+            }
+        }
+
+        &:hover, &:focus {
+            color: $color-white !important;
+            @include btn-gradient-colors($color-primary, $color-sky-blue);
+            border-color: $color-primary;
+
+            .vc_btn3-icon--svg {
+                svg, svg > *, path {
+                    fill: $color-white !important;      
+                }
+            }
+
+        }
+        &:focus {
+            outline: 1px solid $color-black;
+        }
+    }
+
+    // !important is needed to beat the !important colours and background-color: unset of .btn-outline.
+    &.youtube {
+        .vc_btn3.vc_btn3-style-modern
+        {
+            color: $color-youtube !important;
+            border-color: $color-youtube !important;
+
+            &:hover, &:focus {
+                color: $color-white !important;
+                @include btn-gradient-colors($color-youtube, $important: true);
+                border-color: $color-youtube !important;
+            }
+        }
+    }
+}
+
+
+.btn-small {
+    .vc_general.vc_btn3 {
+        min-width: auto;
+        padding: 7px 17px !important;
+        //line-height: 27px;
+        height: auto !important;
+        font-size: 13px !important;
+        border-radius: $radius-sm !important;
+
+        i {
+            font-size: 13px;
+        }
+
+        .vc_btn3-icon{
+            &.vc_btn3-icon--svg {
+                height: auto !important;
+                left: 10px !important;
+
+                svg {
+                    width: 17px;
+                }
+            }
+        }
+
+        &.vc_btn3-icon-right {
+            padding-right: 41px !important;
+
+            .vc_btn3-icon{
+                &.vc_btn3-icon--svg {
+                    right: 10px !important;
+                    left: auto !important;
+                }
+            }   
+            
+        }
+
+        &.vc_btn3-icon-left {
+            padding-left: 32px !important;
+
+            i {
+                left: 11px !important;
+            }
+        }
+
+    }
+}
+
+
+a.list_load_more_btn {
+    //font-weight: bold;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 3px 19px;
+    background: $color-light-blue;
+    border-radius: $radius-md;
+    font-size: 0.8em;
+    transition: all .3s ease;
+
+    &:hover, &:focus, &:active {
+        color: $color-white !important;
+        background: $color-primary;
+    }
+}
+
+
+.btn-play {
+
+    .vc_btn3-icon-left.vc_btn3--has-svg {
+        padding-left: 28px !important;
+    }
+
+    .vc_btn3-icon {
+        &.vc_btn3-icon--svg {
+            left: 0px !important;
+        }
+    }
+
+    &.btn-no-bg {
+        button, a {
+            background: none;
+            background-image: none;
+            font-weight: bold;
+            padding: 9px 22px;
+
+            &.vc_btn3--has-svg {
+                svg, path {
+                    fill: $color-black !important;
+                }
+            }
+
+            &:hover, &:focus {
+                border: 1px solid $color-primary;
+            }
+        }
+    }
+
+    &.white-text {
+        .vc_btn3--has-svg {
+            svg, path {
+                fill: $color-white !important;
+            }
+        }
+    }
+}
+
+
+.titlebar {
+    .btn-no-bg {
+        button, a {
+
+            &.vc_btn3--has-svg {
+                svg, path {
+                    fill: $color-white !important;
+                }
+            }
+
+            &:hover, &:focus {
+                outline: 1px solid $color-white;
+            }
+        }
+    }
+}
+
+
+.vc_btn3 {
+    .vc_btn3-icon{
+        &.vc_btn3-icon--svg {
+            height: auto !important;
+
+            svg {
+                width: 22px;
+            }
+        }
+    }
+}
+
+
+.btn-no-bg {
+    .vc_btn3.vc_btn3-style-modern {
+        border: none !important;
+    }
+
+    button, a {
+        background-color: transparent !important;
+        background: none !important;
+        background-image: none !important;
+    }
+
+    &.vc_btn3-left, &.inline-left {
+        .vc_btn3.vc_btn3-icon-left {
+            padding-left: 25px !important;
+
+            i.vc_btn3-icon {
+                left: 0 !important;
+            }
+        }
+    }
+    
+    &.blue {
+        a {
+            color: $color-primary !important;
+
+            &:focus, &:hover {
+                outline: 1px solid $color-primary;
+            }
+        }
+    }
+
+}
+
+
+.btns-inline-centered {
+    text-align: center;
+
+    .btn-main, .btn-white, .vc_btn3-container {
+        display: inline-block;
+        margin: 10px;
+    }
+}
+
+
+.btns-inline {
+    .wpb_wrapper {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    &.right {
+        .wpb_wrapper {
+            justify-content: flex-end;
+        }
+    }
+
+    @media screen and (max-width: $md-breakpoint) {
+        & {
+            text-align: center;
+        }
+
+        .wpb_wrapper {
+            justify-content: center;
+        }
+
+        &.right {
+            .wpb_wrapper {
+                justify-content: center;
+            }
+        }
+
+        .vc_btn3-container {
+            margin-bottom: 10px !important;
+        }
+    }
+
+    .btn-main, .btn-white, .vc_btn3-container:not(:last-of-type) {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    &.left {
+        .vc_btn3-container:not(:last-of-type):not(.btn-dropdown) {
+            @media screen and (min-width: $md-breakpoint-min) {
+                margin-right: 10px !important;
+            }
+        }
+    }
+}

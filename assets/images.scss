@@ -2,16 +2,20 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+.size-thumbnail {
+    width: 150px;
+}
+
+.size-small {
+    width: 200px;
+}
+
 .size-medium {
-    width: 300px;
+    width: 350px;
 }
 
-.size-small {
-    width: 150px;
-}
-
-.size-small {
-    width: 150px;
+.size-large {
+    width: 650px;
 }
 
 .size-full {

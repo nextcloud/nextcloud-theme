@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+---
+name: Release pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description:
+      prerelease:
+        description: "Pre-release"
+        type: boolean
+        required: true
+
+jobs:
+  tag:
+    uses: $/.github/workflows/release-tag.yml
+    with:
+      prerelease: ${{ inputs.prerelease }}
+    secrets: inherit
+
+  build:
+    needs: tag
+    uses: $/.github/workflows/release-build.yml
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
+    secrets: inherit
+...

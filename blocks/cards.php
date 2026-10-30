@@ -17,7 +17,7 @@ $id = get_field('section_id');
 				$gtitle = get_sub_field('group_title');
 				$gtext = get_sub_field('group_text');
 
-				echo '<div class="row spacer" id="'.$gid.'">';
+				echo '<div class="row spacer" id="' . $gid . '">';
 				echo '<div class="col-lg-3">';
 				echo '<div class="group-block">';
 				if (!empty($gicon)) {
@@ -48,7 +48,7 @@ $id = get_field('section_id');
 							echo '<h6>' . $card_title . '</h6>';
 						}
 						if (!empty($card_new_label)) {
-							echo '<span class="new_label">'.__('New', 'nextcloud').'</span>';
+							echo '<span class="new_label">' . __('New', 'nextcloud') . '</span>';
 						}
 
 						echo '</div>';
@@ -78,7 +78,7 @@ $id = get_field('section_id');
 											echo '<a class="a-btn btn-dark" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 										} elseif ($type == 'windows') {
 											echo '<a class="a-btn btn-light winOS" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">
-											<i class="fab fa-windows"></i>' . esc_html($link_title) .'</a>';
+											<i class="fab fa-windows"></i>' . esc_html($link_title) . '</a>';
 										} elseif ($type == 'apple') {
 											echo '<a class="a-btn btn-light macOS" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">
 											<i class="fab fa-apple"></i>' . esc_html($link_title) . '</a>';
@@ -120,6 +120,6 @@ $id = get_field('section_id');
 				echo '</div>';
 			}
 		}
-		?>
+?>
 	</div>
 </section>

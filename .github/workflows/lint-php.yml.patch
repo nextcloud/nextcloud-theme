@@ -1,0 +1,33 @@
+diff --git a/.github/workflows/lint-php.yml b/.github/workflows/lint-php.yml
+index e4c6e9b..0d01ac4 100644
+--- a/.github/workflows/lint-php.yml
++++ b/.github/workflows/lint-php.yml
+@@ -18,27 +18,11 @@ concurrency:
+   cancel-in-progress: true
+ 
+ jobs:
+-  matrix:
+-    runs-on: ubuntu-latest-low
+-    outputs:
+-      php-min: ${{ steps.versions.outputs.php-min }}
+-      php-max: ${{ steps.versions.outputs.php-max }}
+-    steps:
+-      - name: Checkout app
+-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+-        with:
+-          persist-credentials: false
+-
+-      - name: Get version matrix
+-        id: versions
+-        uses: nextcloud-libraries/nextcloud-version-matrix@cd0211ffcef1065e2020cd579e4843b8746e7a58 # v1.3.3
+-
+   php-lint:
+     runs-on: ubuntu-latest-low
+-    needs: matrix
+     strategy:
+       matrix:
+-        php-versions: ['${{ needs.matrix.outputs.php-min }}', '${{ needs.matrix.outputs.php-max }}']
++        php-versions: ["8.4", "8.5"]
+ 
+     name: php-lint
+ 

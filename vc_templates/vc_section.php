@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
  * @var $video_bg_parallax
  * @var $parallax_speed_bg
  * @var $parallax_speed_video
- * @var $content - shortcode content
+ * @var - $content shortcode content
  * @var $css_animation
  * Shortcode class
  * @var WPBakeryShortCode_Vc_Row $this
@@ -36,13 +36,13 @@ wp_enqueue_script('wpb_composer_front_js');
 
 $el_class = $this->getExtraClass($el_class) . $this->getCSSAnimation($css_animation);
 
-$css_classes = array(
+$css_classes = [
 	'vc_section',
 	$el_class,
 	vc_shortcode_custom_css_class($css),
-);
+];
 
-if ('yes' === $disable_element) {
+if ($disable_element === 'yes') {
 	if (vc_is_page_editable()) {
 		$css_classes[] = 'vc_hidden-lg vc_hidden-xs vc_hidden-sm vc_hidden-md';
 	} else {
@@ -50,16 +50,16 @@ if ('yes' === $disable_element) {
 	}
 }
 
-if (vc_shortcode_custom_css_has_property($css, array(
+if (vc_shortcode_custom_css_has_property($css, [
 	'border',
 	'background',
-)) || $video_bg || $parallax
+]) || $video_bg || $parallax
 ) {
 	$css_classes[] = 'vc_section-has-fill';
 }
 
 
-$wrapper_attributes = array();
+$wrapper_attributes = [];
 // build attributes for wrapper
 if (! empty($el_id)) {
 	$wrapper_attributes[] = 'id="' . esc_attr($el_id) . '"';
@@ -67,7 +67,7 @@ if (! empty($el_id)) {
 if (! empty($full_width)) {
 	$wrapper_attributes[] = 'data-vc-full-width="true"';
 	$wrapper_attributes[] = 'data-vc-full-width-init="false"';
-	if ('stretch_row_content' === $full_width) {
+	if ($full_width === 'stretch_row_content') {
 		$wrapper_attributes[] = 'data-vc-stretch-content="true"';
 	}
 	$after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
@@ -106,10 +106,10 @@ if (! empty($parallax)) {
 	wp_enqueue_script('vc_jquery_skrollr_js');
 	$wrapper_attributes[] = 'data-vc-parallax="' . esc_attr($parallax_speed) . '"'; // parallax speed
 	$css_classes[] = 'vc_general vc_parallax vc_parallax-' . $parallax;
-	if (false !== strpos($parallax, 'fade')) {
+	if (strpos($parallax, 'fade') !== false) {
 		$css_classes[] = 'js-vc_parallax-o-fade';
 		$wrapper_attributes[] = 'data-vc-parallax-o-fade="on"';
-	} elseif (false !== strpos($parallax, 'fixed')) {
+	} elseif (strpos($parallax, 'fixed') !== false) {
 		$css_classes[] = 'js-vc_parallax-o-fixed';
 	}
 }
@@ -143,10 +143,28 @@ $wrapper_attributes[] = 'class="' . esc_attr(trim($css_class)) . '"';
 $output .= '<section ' . implode(' ', $wrapper_attributes) . '>';
 
 if ($has_video_bg) {
-	$output .= '<video preload="metadata" loop autoplay="" muted="" playsinline="" poster="'.get_the_post_thumbnail_url(get_the_ID(),'full').'" style="visibility: visible;" width="1280" height="720"><source src="'.$video_bg_url.'" type="video/mp4"></video>';
+	$loop = 'loop';
+	if (str_contains($css_class, 'video-no-loop')) {
+		$loop = '';
+	}
+
+	$output .= '<video preload="metadata" ' . $loop . ' autoplay="" muted="" playsinline="" poster="' . get_the_post_thumbnail_url(get_the_ID(), 'full') . '" style="visibility: visible;" width="1280" height="720"><source src="' . $video_bg_url . '" type="video/mp4"></video>';
 }
 
 $output .= '<div class="overlay-gradient"></div>';
+
+
+$custom_section_div_css = isset($atts['custom_section_div_css']) ? $atts['custom_section_div_css'] : '';
+$custom_section_div_id = isset($atts['custom_section_div_id']) ? $atts['custom_section_div_id'] : '';
+if (isset($atts['custom_section_div_css']) || isset($atts['custom_section_div_id'])) {
+	$output .= '<div id="' . $custom_section_div_id . '" class="' . $custom_section_div_css . '"></div>';
+}
+
+if (isset($atts['custom_html_code'])) {
+	$output .= rawurldecode(base64_decode($atts['custom_html_code']));
+}
+
+
 if (empty($full_width)) {
 	$output .= '<div class="container">';
 }
