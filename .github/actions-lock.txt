@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+19ab9c47c8d96de93f37fab242c398cc block-unconventional-commits.yml
+e6351c608939c31ae1e32923aa82aa10 dependabot-approve-merge.yml
+2581a67c5bcdcd570427e6d51db767d7 fixup.yml
+230493ed3855e3f7d9209cc63e9dbe13 lint-php-cs.yml
+994cce702e8c1ec02e45e113e48512b6 lint-php.yml
+6e07ed85ca156b6bf121a50dc1af6712 npm-build.yml
+dc1f60c242a2377a0de26a521c68b49a psalm.yml
+3688c8c5aa6a98dcd3b5019dcecccddd sync-workflow-templates.yml
