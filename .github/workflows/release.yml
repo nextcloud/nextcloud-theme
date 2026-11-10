@@ -5,20 +5,41 @@
 name: Release pipeline
 
 on:
+  push:
+    branches:
+      - main
+      - production
+
   workflow_dispatch:
     inputs:
-      branch:
-        description:
       prerelease:
-        description: "Pre-release"
+        description: "Release as a pre-release"
         type: boolean
-        required: true
+        required: false
 
 jobs:
+  test_prerelease:
+    runs-on: ubuntu-latest-low
+    outputs:
+      prerelease: ${{ steps.toggle.outputs.prerelease }}
+    steps:
+      - name: Set pre-release toggle
+        id: toggle
+        run: |
+          echo "prerelease=$PRERELEASE" >> $GITHUB_OUTPUT
+          if [ $PRERELEASE == "true" ]; then 
+            echo "Pre-release detected" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Production release detected" >> $GITHUB_STEP_SUMMARY
+          fi
+        env:
+          PRERELEASE: ${{ ((github.event_name == 'workflow_dispatch' && inputs.prerelease) || github.ref_name == 'production') && 'true' || 'false' }}
+
   tag:
+    needs: test_prerelease
     uses: $/.github/workflows/release-tag.yml
     with:
-      prerelease: ${{ inputs.prerelease }}
+      prerelease: ${{ fromJSON(needs.test_prerelease.outputs.prerelease) }}
     secrets: inherit
 
   build:
@@ -26,5 +47,14 @@ jobs:
     uses: $/.github/workflows/release-build.yml
     with:
       tag: ${{ needs.tag.outputs.tag }}
+    secrets: inherit
+
+  release:
+    needs: [test_prerelease, tag, build]
+    uses: $/.github/workflows/release-create.yml
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
+      prerelease: ${{ fromJSON(needs.test_prerelease.outputs.prerelease) }}
+      changelog: ${{ needs.tag.outputs.changelog }}
     secrets: inherit
 ...
