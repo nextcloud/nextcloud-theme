@@ -33,7 +33,7 @@ jobs:
             echo "Production release detected" >> $GITHUB_STEP_SUMMARY
           fi
         env:
-          PRERELEASE: ${{ ((github.event_name == 'workflow_dispatch' && inputs.prerelease) || github.ref_name == 'production') && 'true' || 'false' }}
+          PRERELEASE: ${{ ((github.event_name == 'workflow_dispatch' && inputs.prerelease) || github.ref_name != 'production') && 'true' || 'false' }}
 
   tag:
     needs: test_prerelease
