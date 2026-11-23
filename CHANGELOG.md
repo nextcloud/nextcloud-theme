@@ -1,4 +1,11 @@
-## 1.1.0-rc.0 (2026-11-10)
+## [1.1.0-rc.1](https://github.com/nextcloud/nextcloud-theme/compare/v1.1.0-rc.0...v1.1.0-rc.1) (2026-11-23)
+
+
+### Features
+
+* add comparison page template and update CSS ([85d2ab8](https://github.com/nextcloud/nextcloud-theme/commit/85d2ab85ed9892851fddcb6a1e279db6f1e809bd))
+
+## [1.1.0-rc.0](https://github.com/nextcloud/nextcloud-theme/compare/75d80e82a8b3a2bfb2c126e0085b2f0725707cea...v1.1.0-rc.0) (2026-11-10)
 
 
 ### Features
