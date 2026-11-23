@@ -69,8 +69,11 @@ jobs:
       - name: Create archives
         run: |
           mkdir -p release
-          tar -czf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.gz --exclude-vcs -X .release.ignore .
-          tar -cjf release/nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 --exclude-vcs -X .release.ignore .
+          tar -cf release/nextcloud-wp-theme-${{ inputs.tag }}.tar --exclude-vcs -X .release.ignore .
+          tar -rf release/nextcloud-wp-theme-${{ inputs.tag }}.tar ./lib/.htaccess
+          gzip -c release/nextcloud-wp-theme-${{ inputs.tag }}.tar > release/nextcloud-wp-theme-${{ inputs.tag }}.tar.gz
+          bzip2 -c release/nextcloud-wp-theme-${{ inputs.tag }}.tar > release/nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2
+          rm release/nextcloud-wp-theme-${{ inputs.tag }}.tar
           cd release
           md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.gz > nextcloud-wp-theme-${{ inputs.tag }}.tar.gz.md5sum
           md5sum nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2 > nextcloud-wp-theme-${{ inputs.tag }}.tar.bz2.md5sum
