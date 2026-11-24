@@ -15,14 +15,18 @@ $popup_id = get_field('popup_id');
 $popup_content = get_field('popup_content');
 $custom_css_classes = get_field('custom_css_classes');
 $expiration = get_field('expiration_date');
-$show_promo = true;
 if ($expiration) {
 	$expiration_ts = strtotime($expiration);
 	$now = time();
+}
+
+$show_promo = true;
+if ($expiration) {
 	if ($expiration_ts < $now) {
 		$show_promo = false;
 	}
 }
+
 
 if (isset($block['data']['preview_image_help'])) :    /* rendering in inserter preview  */
 	echo '<img src="' . $block['data']['preview_image_help'] . '" style="width:100%; height:auto;">';
@@ -74,6 +78,7 @@ if ($bg_image) {
 			$link_target = $link['target'] ? $link['target'] : '_self';
 			echo '<a class="c-btn btn-white" href="' . esc_url($link_url) . '" target="' . esc_attr($link_target) . '">' . esc_html($link_title) . '</a>';
 		}
+
 
 		if ($open_popup_on_button_click) {
 			wp_enqueue_style('selectizeStyle');

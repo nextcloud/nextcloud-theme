@@ -24,30 +24,30 @@ if ($rows) {
                     	echo $custom_css_classes;
                     } ?>">
                         <?php
-                    		if ($image) {
-                    			?>
+							if ($image) {
+								?>
                         <div class="cloudcomputing-logo">
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-                            	if (isset($promo_text)) {
-                            		echo strip_tags($promo_text);
-                            	}
-                    			?>" target="_blank">
+								if (isset($promo_text)) {
+									echo strip_tags($promo_text);
+								}
+								?>" target="_blank">
 
                             <?php
-                    			if (isset($promo_custom_html_code) && $promo_custom_html_code != '') {
-                    				echo $promo_custom_html_code;
-                    			} elseif ($image) {
-                    				?>
+								if (isset($promo_custom_html_code) && $promo_custom_html_code != '') {
+									echo $promo_custom_html_code;
+								} elseif ($image) {
+									?>
                                 <img src="<?php echo esc_url($image['url']); ?>" alt="<?php
-                    				if (isset($promo_text)) {
-                    					echo strip_tags($promo_text);
-                    				}
-                    				?>">
+									if (isset($promo_text)) {
+										echo strip_tags($promo_text);
+									}
+									?>">
                                 <?php
-                    			}
-                    			?>
+								}
+								?>
                             </a>
                         </div>
                         <?php } ?>
@@ -57,9 +57,9 @@ if ($rows) {
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-                            if (isset($promo_text)) {
-                            	echo strip_tags($promo_text);
-                            } ?>" target="_blank">
+							if (isset($promo_text)) {
+								echo strip_tags($promo_text);
+							} ?>" target="_blank">
                                 <?php if (isset($promo_text)) {
                                 	echo $promo_text;
                                 } ?>
@@ -72,11 +72,11 @@ if ($rows) {
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-                            	if (isset($promo_text)) {
-                            		echo strip_tags($promo_text);
-                            	} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon <?php if (isset($custom_css_classes)) {
-                            		echo $custom_css_classes;
-                            	} ?>">
+								if (isset($promo_text)) {
+									echo strip_tags($promo_text);
+								} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon <?php if (isset($custom_css_classes)) {
+									echo $custom_css_classes;
+								} ?>">
                                 <?php if (isset($btn_label) && $btn_label != '') {
                                 	echo $btn_label;
                                 } else {
@@ -90,83 +90,16 @@ if ($rows) {
                 </div>
             <?php
 						}
-	?>
-
-
-            <?php
-	/*
-		if (get_field('header_promo_activation', 'option') ) {
-	?>
-		<div class="item">
-			<div class="nc-awards-banner">
-				<?php
-					$image = get_field('header_promo_image', 'option');
-					$size = 'full'; // (thumbnail, medium, large, full or custom size)
-					if( $image ) {
-				?>
-				<div class="cloudcomputing-logo">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) {
-						echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php
-						if (get_field('header_promo_text', 'option') ) {
-						echo strip_tags(get_field('header_promo_text', 'option'));
-						}
-					?>" target="_blank">
-
-					<?php
-					if (get_field('header_promo_code', 'option') ) {
-						echo get_field('header_promo_code', 'option');
-					}
-					else if( $image ) {
-						?>
-						<img src="<?php echo esc_url($image['url']); ?>" alt="<?php
-						if (get_field('header_promo_text', 'option') ) {
-							echo strip_tags(get_field('header_promo_text', 'option'));
-							}
-						?>">
-						<?php
-					}
-					?>
-					</a>
-				</div>
-				<?php } ?>
-
-
-				<div class="awards-text">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) { echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php if (get_field('header_promo_text', 'option') ) {
-						echo strip_tags(get_field('header_promo_text', 'option'));
-						} ?>" target="_blank">
-						<?php if (get_field('header_promo_text', 'option') ) { echo get_field('header_promo_text', 'option'); } ?>
-					</a>
-				</div>
-
-				<div class="btn-awards">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) {
-						echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php
-						if (get_field('header_promo_text', 'option') ) {
-							echo strip_tags(get_field('header_promo_text', 'option'));
-						} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
-						<?php if (get_field('header_promo_button_label', 'option') ) {
-							echo get_field('header_promo_button_label', 'option'); } else {
-								echo __('Learn more','nextcloud');
-							}
-						?> <i class="fa fa-angle-right right"></i>
-					</a>
-				</div>
-
-			</div>
-		</div>
-	<?php }*/ ?>
-
-            <?php
-		// The Query for pages
-		$args_top_banner = [
-			'post_type' => ['page', /*'post'*/],
-			'post_status' => 'publish',
-			'posts_per_page' => -1,
-			'meta_key' => 'top_banner_text',
-			'orderby' => 'date',
-			'order' => 'DESC'
-		];
+   
+	// The Query for pages
+	$args_top_banner = [
+		'post_type' => ['page', /*'post'*/],
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'meta_key' => 'top_banner_text',
+		'orderby' => 'date',
+		'order' => 'DESC'
+	];
 	$top_banner_query = new WP_Query($args_top_banner);
 	// The Loop
 	if ($top_banner_query->have_posts()) {
@@ -197,12 +130,12 @@ if ($rows) {
                                 <div class="btn-awards">
                                     <a tabindex="-1" href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
                                         <?php
-                                        if (get_field('button_label')) {
-                                        	echo get_field('button_label');
-                                        } else {
-                                        	echo __('Learn more', 'nextcloud');
-                                        }
-
+										if (get_field('button_label')) {
+											echo get_field('button_label');
+										} else {
+											echo __('Learn more', 'nextcloud');
+										}
+										
 				?>
                                         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"/></svg>
                                     </a>
@@ -260,12 +193,12 @@ if ($rows) {
                                 <div class="btn-awards">
                                     <a tabindex="-1" href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
                                         <?php
-                                        if (get_field('button_label')) {
-                                        	echo get_field('button_label');
-                                        } else {
-                                        	echo __('Learn more', 'nextcloud');
-                                        }
-
+										if (get_field('button_label')) {
+											echo get_field('button_label');
+										} else {
+											echo __('Learn more', 'nextcloud');
+										}
+										
 				?>
                                         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"/></svg>
                                     </a>
@@ -281,13 +214,6 @@ if ($rows) {
 	/* Restore original Post Data */
 	wp_reset_postdata();
 	?>
-
-
-
-           
-
-            
-
 
             </div>
             <script>

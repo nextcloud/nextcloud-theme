@@ -67,6 +67,7 @@ function wpb_nc_video_funct() {
 					'param_name' => 'video_height',
 					'value' => __('', 'nextcloud'),
 				],
+
 			]
 		]
 	);
@@ -86,6 +87,7 @@ function nc_video_shortcode_funct($atts) {
 	], $atts);
 
 	$video_poster = $a['video_poster'];
+	
 
 	$video_link_mp4 = $a['video_link_mp4'];
 	$video_link_ogg = $a['video_link_ogg'];
@@ -105,9 +107,9 @@ function nc_video_shortcode_funct($atts) {
     }?> class="nc_video <?php if (isset($custom_css_classes)) {
     	echo $custom_css_classes;
     } ?>" autoplay="true" loop="true" muted="true" playsinline="true" <?php
-    if (isset($a['video_poster'])) {
-    	echo 'poster="' . wp_get_attachment_image_url($video_poster, 'full') . '"';
-    }?>>
+	if (isset($a['video_poster'])) {
+		echo 'poster="' . wp_get_attachment_image_url($video_poster, 'full') . '"';
+	}?>>
         <source src="<?php if (isset($video_link_mp4)) {
         	echo $video_link_mp4;
         } ?>" type="video/mp4">

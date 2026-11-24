@@ -13,7 +13,7 @@ if (has_excerpt()) {
 
 	// Strip script/style just in case
 	$html = preg_replace('#<(script|style)[^>]*>.*?</\1>#si', '', $html);
-
+	
 	//strip WP shortcodes
 	$html = strip_shortcodes($html);
 
@@ -22,6 +22,7 @@ if (has_excerpt()) {
 		$post_excerpt = esc_html(wp_trim_words(wp_strip_all_tags($html), 45, '…'));
 	}
 }
+
 
 $link = get_permalink();
 $featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
@@ -33,6 +34,7 @@ $date_format = get_option('date_format'); // e.g. "F j, Y"
 $date = (string)get_the_date($date_format);
 $cat = get_the_category($post_id);
 
+
 if (get_post_type() == 'event') {
 	$cat = wp_get_object_terms($post_id, 'event_categories', []);
 	$event_start_datetime = get_field('event_start_date_and_time', $post_id, false);
@@ -41,10 +43,12 @@ if (get_post_type() == 'event') {
 	}
 }
 
+
 $webinar_recording = false;
 if (get_post_type() == 'recording') {
 	$webinar_recording = true;
 }
+
 
 $cats = '';
 if ($cat) {
@@ -81,9 +85,11 @@ if ($webinar_recording) {
 	$meta_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#0082c9"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h480q33 0 56.5 23.5T720-720v180l160-160v440L720-420v180q0 33-23.5 56.5T640-160H160Zm0-80h480v-480H160v480Zm0 0v-480 480Z"/></svg>';
 }
 
+
 $webinar_language_details = apply_filters('wpml_post_language_details', null, $post_id);
 $flag_path = 'https://nextcloud.com/p/sitepress-multilingual-cms/res/flags/';
 $flag_full_url = $flag_path . $webinar_language_details['language_code'] . '.png';
+
 
 echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" id="' . $post_id . '" style="">';
 echo '<div class="post-box">';
@@ -112,6 +118,7 @@ if (get_post_type() != 'on-demand-webinar') {
 	echo '</ul>';
 
 }
+
 
 echo '<h4><a href="' . $link . '" title="' . $title . '">' . $title . '</a></h4>';
 echo '<p>' . $post_excerpt . '</p>';

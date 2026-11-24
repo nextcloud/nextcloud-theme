@@ -9,6 +9,7 @@ function wpb_nc_videos_funct() {
 			'class' => 'nc_videos',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
+
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -46,6 +47,7 @@ function wpb_nc_videos_funct() {
 					'type' => 'param_group',
 					'param_name' => 'videos_repeater_items',
 					'params' => [
+
 						[
 							'type' => 'dropdown',
 							'holder' => 'div',
@@ -72,7 +74,7 @@ function wpb_nc_videos_funct() {
 								'value' => 'image'
 							]
 						],
-
+						
 						[
 							'type' => 'attach_image',
 							'holder' => 'img',
@@ -195,8 +197,10 @@ function wpb_nc_videos_funct() {
 							'param_name' => 'custom_css_classes',
 							'value' => '',
 						]
+
 					]
 				]
+
 			]
 		]
 	);
@@ -225,7 +229,7 @@ function nc_videos_shortcode_funct($atts) {
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['videos_repeater_items']);
 	}
-
+	
 	if ($items) {
 
 		if (isset($link) && $link['url'] != '') {
@@ -236,49 +240,50 @@ function nc_videos_shortcode_funct($atts) {
         	echo $custom_css_classes_videos;
         } ?>">
         <?php
-        foreach ($items as $item) {
+		foreach ($items as $item) {
+			
+			if (isset($item['video_poster'])) {
+				$video_poster = $item['video_poster'];
+			}
 
-        	if (isset($item['video_poster'])) {
-        		$video_poster = $item['video_poster'];
-        	}
+			if (isset($item['video_link_mp4'])) {
+				$video_link_mp4 = $item['video_link_mp4'];
+			}
 
-        	if (isset($item['video_link_mp4'])) {
-        		$video_link_mp4 = $item['video_link_mp4'];
-        	}
+			if (isset($item['video_link_ogg'])) {
+				$video_link_ogg = $item['video_link_ogg'];
+			}
 
-        	if (isset($item['video_link_ogg'])) {
-        		$video_link_ogg = $item['video_link_ogg'];
-        	}
+			if (isset($item['video_link_webm'])) {
+				$video_link_webm = $item['video_link_webm'];
+			}
 
-        	if (isset($item['video_link_webm'])) {
-        		$video_link_webm = $item['video_link_webm'];
-        	}
+			if (isset($item['hide_controls'])) {
+				$hide_controls = $item['hide_controls'];
+			}
 
-        	if (isset($item['hide_controls'])) {
-        		$hide_controls = $item['hide_controls'];
-        	}
+			if (isset($item['loop'])) {
+				$loop = $item['loop'];
+			}
+			if (isset($item['video_width'])) {
+				$video_width = $item['video_width'];
+			}
+			if (isset($item['video_height'])) {
+				$video_height = $item['video_height'];
+			}
+			if (isset($item['custom_css_classes'])) {
+				$custom_css_classes = $item['custom_css_classes'];
+			}
+			if (isset($item['delay'])) {
+				$delay = $item['delay'];
+			}
 
-        	if (isset($item['loop'])) {
-        		$loop = $item['loop'];
-        	}
-        	if (isset($item['video_width'])) {
-        		$video_width = $item['video_width'];
-        	}
-        	if (isset($item['video_height'])) {
-        		$video_height = $item['video_height'];
-        	}
-        	if (isset($item['custom_css_classes'])) {
-        		$custom_css_classes = $item['custom_css_classes'];
-        	}
-        	if (isset($item['delay'])) {
-        		$delay = $item['delay'];
-        	}
 
-        	if (!isset($item['element_type']) || $item['element_type'] == 'video') {
-        		// echo '<div class="hidden">';
-        		// print_r($item['element_type']);
-        		// echo '</div>';
-        		?>
+			if (!isset($item['element_type']) || $item['element_type'] == 'video') {
+				// echo '<div class="hidden">';
+				// print_r($item['element_type']);
+				// echo '</div>';
+				?>
             <video id="nc_video" tabindex="-1" width="<?php if (isset($video_width)) {
             	echo $video_width;
             } ?>" height="<?php if (isset($video_height)) {
@@ -290,12 +295,12 @@ function nc_videos_shortcode_funct($atts) {
             } ?>" autoplay="true" <?php if (isset($loop)) {
             	echo 'loop="true"';
             }
-        		?> muted="true" playsinline="true" <?php
-        		if (isset($item['video_poster'])) {
-        			echo 'poster="' . wp_get_attachment_image_url($video_poster, 'full') . '"';
-        		}?> style="<?php if ($delay) {
-        			echo 'animation-delay: ' . $delay . 's;';
-        		} ?>">
+				?> muted="true" playsinline="true" <?php
+				if (isset($item['video_poster'])) {
+					echo 'poster="' . wp_get_attachment_image_url($video_poster, 'full') . '"';
+				}?> style="<?php if ($delay) {
+					echo 'animation-delay: ' . $delay . 's;';
+				} ?>">
                 <source src="<?php if (isset($video_link_mp4)) {
                 	echo $video_link_mp4;
                 } ?>" type="video/mp4">
@@ -313,11 +318,11 @@ function nc_videos_shortcode_funct($atts) {
             document.getElementById('nc_video').play();
             </script>
             <?php
+			
+			} else {
 
-        	} else {
-
-        		if (isset($item['image'])) {
-        			?>
+				if (isset($item['image'])) {
+					?>
                     <div class="nc_video <?php if (isset($custom_css_classes)) {
                     	echo $custom_css_classes;
                     } ?>">
@@ -325,11 +330,12 @@ function nc_videos_shortcode_funct($atts) {
                     </div>
                     
                     <?php
-        		}
+				}
 
-        	}
+			}
 
-        } // end foreach
+
+		} // end foreach
 		?>
         </div>
     <?php

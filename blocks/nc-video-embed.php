@@ -17,7 +17,7 @@ $caption = get_field('caption');
 if (!empty($text)) {
 	echo wpautop($text);
 }
-
+					
 if (!empty($video)) {
 	?>
                 <figure class="wp-block-embed is-type-video wp-block-embed-vimeo wp-embed-aspect-16-9 wp-has-aspect-ratio">

@@ -37,7 +37,7 @@ class ripcord {
 	public static function fault($code, $message) {
 		return ['faultCode' => $code, 'faultString' => $message];
 	}
-
+	
 	/**
 	 * This method returns a new Ripcord server, which by default implements XML-RPC, Simple RPC and SOAP 1.1.
 	 * The server will publish any methods passed through the $services argument. It can be configured through
@@ -62,7 +62,7 @@ class ripcord {
 		}
 		return new Ripcord_Server($services, $options, $documentor);
 	}
-
+	
 	/**
 	 * This method returns a new Ripcord client. By default this will be an XML-RPC client, but you can change this
 	 * through the $options argument.
@@ -77,7 +77,7 @@ class ripcord {
 		}
 		return new Ripcord_Client($url, $options, $transport);
 	}
-
+	
 	/**
 	 * This method returns a new Ripcord documentor object.
 	 * @param array $options Optional. An array of options to set for the Ripcord documentor.
@@ -92,7 +92,7 @@ class ripcord {
 		}
 		return new Ripcord_Documentor($options, $docCommentParser);
 	}
-
+	
 	/**
 	 * This method returns an XML-RPC datetime object from a given unix timestamp.
 	 * @param int $timestamp
@@ -118,7 +118,7 @@ class ripcord {
 			throw Ripcord_Exception('Variable is not of type datetime', -6);
 		}
 	}
-
+	
 	/**
 	 * This method returns an XML-RPC base64 object from a given binary string.
 	 * @param string $binary
@@ -128,7 +128,7 @@ class ripcord {
 		xmlrpc_set_type($binary, 'base64');
 		return $binary;
 	}
-
+	
 	/**
 	 * This method returns a (binary) string from a given XML-RPC base64 object.
 	 * It will throw a 'Variable is not of type base64' Ripcord_Exception (code -7)
@@ -143,7 +143,7 @@ class ripcord {
 			throw Ripcord_Exception('Variable is not of type base64', -7);
 		}
 	}
-
+	
 	/**
 	 * This method returns the type of the given parameter. This can be any of the XML-RPC data types, e.g.
 	 * 'struct', 'int', 'string', 'base64', 'boolean', 'double', 'array' or 'datetime'.
@@ -164,7 +164,7 @@ class ripcord {
 		$options['version'] = 'soap 1.1';
 		return self::client($url, $options, $transport);
 	}
-
+	
 	/**
 	 * This method returns a new Ripcord client, configured to access an XML-RPC server.
 	 * @param string $url
@@ -176,7 +176,7 @@ class ripcord {
 		$options['version'] = 'xmlrpc';
 		return self::client($url, $options, $transport);
 	}
-
+	
 	/**
 	 * This method returns a new Ripcord client, configured to access a Simple RPC server.
 	 * @param string $url
@@ -212,7 +212,7 @@ class ripcord {
 		}
 		return false;
 	}
-
+	
 	/**
 	 * This method creates a new Ripcord_Client_Call object, which encodes the information needed for
 	 * a method call to an rpc server. This is mostly used for the system.multiCall method.
@@ -226,7 +226,7 @@ class ripcord {
 		$method = array_shift($params);
 		return new Ripcord_Client_Call($method, $params);
 	}
-
+	
 	/*
 	 * This method binds the first parameter to the output of a Ripcord client call. If
 	 * the second argument is a Ripcord_Client_Call object, it binds the parameter to it,
@@ -244,7 +244,7 @@ class ripcord {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * Method {method} not found. - Thrown by the ripcord server when a requested method isn't found.
 	 */
@@ -295,10 +295,10 @@ class Ripcord_BadMethodCallException extends BadMethodCallException implements R
 }
 
 /**
- * This class is used whenever prerequisite requirements are not met.
- * - ripcord::xmlrpcNotInstalled (-5) PHP XMLRPC library is not installed - Thrown by the ripcord server and client when the xmlrpc library is not installed.
- * @package Ripcord
- */
+  * This class is used whenever prerequisite requirements are not met.
+  * - ripcord::xmlrpcNotInstalled (-5) PHP XMLRPC library is not installed - Thrown by the ripcord server and client when the xmlrpc library is not installed.
+  * @package Ripcord
+  */
 class Ripcord_ConfigurationException extends Exception implements Ripcord_Exception {
 }
 

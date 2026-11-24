@@ -59,7 +59,8 @@ if (
 			get_template_part('inc/header-promo-banner');
 		}
 	}
-
+			
+			
 }
 ?>
 
@@ -70,17 +71,20 @@ if (
 					<div class="header-holder">
 						<div class="logo-holder">
 							<?php
+					$id = get_the_id();
+
+	
 if (function_exists('get_field') && get_field('custom_logo')) {
 	echo '<a href="#" class="custom-logo-link">';
 	echo '<img class="custom-logo" src="' . get_field('custom_logo') . '">';
 	echo '</a>';
 } else {
-
+									
 	$custom_header_logo_svg = '';
 	if (function_exists('get_field')) {
 		$custom_header_logo_svg = get_field('custom_header_logo_svg', 'option');
 	}
-
+									
 	if (isset($custom_header_logo_svg)) {
 		echo $custom_header_logo_svg;
 	} else {
@@ -90,6 +94,7 @@ if (function_exists('get_field') && get_field('custom_logo')) {
 	}
 }
 
+							
 ?>
 						</div>
 						<div class="phone-menu">
@@ -106,12 +111,14 @@ if (function_exists('get_field')) {
 		$menu_name = get_field('custom_menu_name');
 	}
 }
-
+							
+							
 if (
 	(is_page_template('page-simplified.php')
 	|| get_current_template() == 'single-simplified.php'
 	|| get_post_type() == 'on-demand-webinar')
-	&& !is_search()
+	&&
+	!is_search()
 ) {
 	$menu_name = 'simplified-menu';
 }

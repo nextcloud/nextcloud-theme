@@ -2,7 +2,6 @@
     /* All your print styles go here */
     //#header, #footer, #nav { display: none !important; } 
 
-
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 90vw !important;
     }
@@ -12,6 +11,10 @@
         display: none !important;
     }
 
+    .nc_feature {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
 
     .case_studies .case_study .vc_column-inner .vc_btn3-container {
         position: relative !important;

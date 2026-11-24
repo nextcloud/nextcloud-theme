@@ -32,6 +32,8 @@ function nc_add_linkedin_og_image_meta() {
 }
 add_action('wp_head', 'nc_add_linkedin_og_image_meta', 20);
 
+
+
 //removes hreflang entries for languages where: The translation doesn’t exist or the translation is unpublished
 add_filter('wpml_hreflangs', 'remove_untranslated_wpml_hreflangs');
 function remove_untranslated_wpml_hreflangs($hreflangs) {
@@ -51,6 +53,9 @@ function remove_untranslated_wpml_hreflangs($hreflangs) {
 
 	return $hreflangs;
 }
+
+
+
 
 // Remove canonical for untranslated pages
 /*
@@ -88,6 +93,7 @@ function nc_custom_menu_adjustements( $atts, $item, $args ) {
 }
 */
 
+
 // fix Ahrefs issues: Canonical points to 4XX (canonical URL contains the translated slug but not the lang code)
 /*
 add_filter('wpseo_canonical', function($canonical) {
@@ -102,6 +108,7 @@ add_filter('wpseo_canonical', function($canonical) {
 	return $canonical;
 });
 */
+
 
 // fix hreflang for podcast post type: the french link does not contain the /fr/ part - not working anymore
 /*
@@ -145,11 +152,13 @@ add_filter('wpseo_hreflang', function ($hreflangs) {
 
 // fix hreflang for podcast post type: the french link does not contain the /fr/ part
 add_action('template_redirect', function () {
+
 	if (!is_singular('podcast')) {
 		return;
 	}
 
 	ob_start(function ($html) {
+
 		$html = str_replace(
 			'https://nextcloud.com/blog/magentacloud-t-systems-la-construction-dun-nextcloud-de-22-millions-dutilisateurs/',
 			'https://nextcloud.com/fr/blog/magentacloud-t-systems-la-construction-dun-nextcloud-de-22-millions-dutilisateurs/',
@@ -163,8 +172,12 @@ add_action('template_redirect', function () {
 		);
 
 		return $html;
+
 	});
+
 }, 0);
+
+
 
 //temporary debug
 /*
@@ -209,8 +222,11 @@ add_action('wp_head', function () {
 }, 1);
 */
 
+
+
 //Fix: If the content is English fallback content, then page should usually not self-canonicalize (for other languages other than default EN)
 add_filter('wpseo_canonical', function ($canonical) {
+
 	if (!is_singular('case_studies')) {
 		return $canonical;
 	}
@@ -239,8 +255,8 @@ add_filter('wpseo_canonical', function ($canonical) {
 	$translations = $sitepress->get_element_translations($trid, $post_type);
 
 	if (
-		isset($translations['en'])
-		&& !empty($translations['en']->element_id)
+		isset($translations['en']) &&
+		!empty($translations['en']->element_id)
 	) {
 		$en_post_id = (int)$translations['en']->element_id;
 
@@ -259,7 +275,9 @@ add_filter('wpseo_canonical', function ($canonical) {
 	}
 
 	return $canonical;
+
 }, 999);
+
 
 /**
  * Fix missing WPML language directories in podcast sitemap URLs - https://nextcloud.com/podcast-sitemap.xml
@@ -269,8 +287,8 @@ add_filter(
 	function ($url, $post) {
 
 		if (
-			!($post instanceof WP_Post)
-			|| $post->post_type !== 'podcast'
+			!($post instanceof WP_Post) ||
+			$post->post_type !== 'podcast'
 		) {
 			return $url;
 		}
@@ -300,9 +318,9 @@ add_filter(
 		$parsed_url = wp_parse_url($url);
 
 		if (
-			empty($parsed_url['scheme'])
-			|| empty($parsed_url['host'])
-			|| empty($parsed_url['path'])
+			empty($parsed_url['scheme']) ||
+			empty($parsed_url['host']) ||
+			empty($parsed_url['path'])
 		) {
 			return $url;
 		}
@@ -317,14 +335,14 @@ add_filter(
 			return $url;
 		}
 
-		$localized_path
-			= '/' . $language_code . '/' . ltrim($parsed_url['path'], '/');
+		$localized_path =
+			'/' . $language_code . '/' . ltrim($parsed_url['path'], '/');
 
-		$localized_url
-			= $parsed_url['scheme']
-			. '://'
-			. $parsed_url['host']
-			. $localized_path;
+		$localized_url =
+			$parsed_url['scheme'] .
+			'://' .
+			$parsed_url['host'] .
+			$localized_path;
 
 		if (!empty($parsed_url['query'])) {
 			$localized_url .= '?' . $parsed_url['query'];
@@ -358,6 +376,7 @@ add_filter(
 	9999
 );
 */
+
 
 /**
  * Fix hreflang URLs for podcast fallback pages.
@@ -419,9 +438,9 @@ add_filter(
 		$parsed_url = wp_parse_url($permalink);
 
 		if (
-			empty($parsed_url['scheme'])
-			|| empty($parsed_url['host'])
-			|| empty($parsed_url['path'])
+			empty($parsed_url['scheme']) ||
+			empty($parsed_url['host']) ||
+			empty($parsed_url['path'])
 		) {
 			return $url;
 		}
@@ -456,8 +475,8 @@ add_filter(
 		if ($language_code === 'en') {
 			$localized_path = '/' . ltrim($path, '/');
 		} else {
-			$localized_path
-				= '/' . $language_code . '/' . ltrim($path, '/');
+			$localized_path =
+				'/' . $language_code . '/' . ltrim($path, '/');
 		}
 
 		return $parsed_url['scheme']
@@ -468,6 +487,7 @@ add_filter(
 	9999,
 	2
 );
+
 
 //temporary debug WPML language
 /*
@@ -543,6 +563,7 @@ add_action('wp_head', function () {
 });
 */
 
+
 /**
  * Fix WPML language-switcher URLs on podcast pages.
  */
@@ -551,8 +572,8 @@ add_filter(
 	function ($languages) {
 
 		if (
-			! is_singular('podcast')
-			|| ! is_array($languages)
+			! is_singular('podcast') ||
+			! is_array($languages)
 		) {
 			return $languages;
 		}
@@ -684,3 +705,33 @@ add_filter(
 	},
 	9999
 );
+
+
+/**
+ * Yoast breadcrumbs: Home › Compare › {Comparison title}
+ */
+add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
+    if ( ! is_singular( 'comparison' ) ) {
+        return $links;
+    }
+
+    $compare_id = 11770;
+
+    // WPML: use the Compare page in the current language (falls back to English).
+    $compare_id = apply_filters( 'wpml_object_id', $compare_id, 'page', true );
+
+    if ( ! $compare_id || get_post_status( $compare_id ) !== 'publish' ) {
+        return $links;
+    }
+
+    $crumb = [
+        'url'  => get_permalink( $compare_id ),
+        'text' => get_the_title( $compare_id ),
+        'id'   => $compare_id,
+    ];
+
+    // Insert after "Home" (index 0)
+    array_splice( $links, 1, 0, [ $crumb ] );
+
+    return $links;
+} );

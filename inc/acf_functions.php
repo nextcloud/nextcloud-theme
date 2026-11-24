@@ -2,42 +2,6 @@
 //enable shortcode to be used inside textareas
 add_filter('acf/format_value/type=textarea', 'do_shortcode');
 
-//get countries function to append on the region field for partners
-/*
-function get_countries($continent) {
-	$continents = [
-		"Europe" => array("Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Iceland","Ireland","Italy","Kazakhstan","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Ukraine","United Kingdom","Vatican City"),
-
-		"North America" => array("Antigua and Barbuda","Bahamas","Barbados","Belize","Canada","Costa Rica","Cuba","Dominica","Dominican Republic","El Salvador","Grenada","Guatemala","Haiti","Honduras","Jamaica","Mexico","Nicaragua","Panama","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Trinidad and Tobago","United States of America"),
-
-		"South America" => array("Argentina", "Bolivia","Brazil","Chile","Colombia","Ecuador","Guyana","Paraguay","Peru","Suriname","Uruguay","Venezuela"),
-
-		"Africa" => array("Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cabo Verde","Cameroon","Central African Republic","Chad","Comoros","Democratic Republic of the Congo","Republic of the Congo","Cote d'Ivoire","Djibouti","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius","Morocco","Mozambique","Namibia","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda","Zambia","Zimbabwe"),
-
-		"Asia" => array("Afghanistan", "Armenia","Azerbaijan","Bangladesh","Bhutan","Brunei", "Cambodia","China","Georgia","India","Indonesia", "Japan","Kazakhstan","Kyrgyzstan","Laos","Malaysia","Maldives","Mongolia","Myanmar","Nepal","North Korea","Pakistan","Philippines","Russia","Singapore","South Korea","Sri Lanka","Taiwan","Tajikistan","Thailand","Timor Leste","Turkmenistan","Uzbekistan","Vietnam"),
-
-		"Middle East" => array("Bahrain","Cyprus","Egypt","Iran","Iraq","Israel","Jordan","Kuwait","Lebanon","Oman","Palestine","Qatar","Saudi Arabia","Syria","Turkey","United Arab Emirates","Yemen"),
-
-		"Ocean Pacific" => array("Australia","Federated Islands of Micronesia","Fiji","French Polynesia","Guam","Kiribati","Marshall Islands","Nauru","New Zealand","Paulau","Papua New Guinea","Samoa","Solomon Islands","Tonga","Tuvala","Vanuata")
-	];
-
-	if($continent != 'all') {
-		$countries = $continents[$continent];
-		$countries_new = array();
-		foreach($countries as $country) {
-			//$country_value = preg_replace("/[^a-zA-Z]+/", "", $country);
-			$country_value = $country;
-			$countries_new[$country_value] = $country;
-		}
-		return $countries_new;
-
-	} else {
-		return $continents;
-	}
-
-}
-*/
-
 function get_countries($continent) {
 	$continents = [
 		'Europe' => [
@@ -84,20 +48,13 @@ function get_countries($continent) {
 		],
 
 		'Middle East' => ['Bahrain','Israel','Jordan','Kuwait','Lebanon','Oman','Palestine','Qatar','Saudi Arabia','Syria','United Arab Emirates','Yemen'],
-
-		/*
-		"Oceania" => [
-			"Australia","Federated States of Micronesia","Fiji","French Polynesia","Guam",
-			"Kiribati","Marshall Islands","Nauru","New Zealand","Palau","Papua New Guinea",
-			"Samoa","Solomon Islands","Tonga","Tuvalu","Vanuatu"
-		]
-		*/
-
+		
 		'Ocean Pacific' => [
 			'Australia','Federated States of Micronesia','Fiji','French Polynesia','Guam',
 			'Kiribati','Marshall Islands','Nauru','New Zealand','Palau','Papua New Guinea',
 			'Samoa','Solomon Islands','Tonga','Tuvalu','Vanuatu'
 		]
+
 	];
 
 	if ($continent !== 'all') {
@@ -113,6 +70,7 @@ function get_countries($continent) {
 		return $out;
 	}
 }
+
 
 // Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
 add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
@@ -132,83 +90,67 @@ function nc_populate_countries_field($field) {
 		'Middle East' => 'Middle East',
 		'middle_east_countries' => get_countries('Middle East'),
 		'Ocean Pacific' => 'Ocean Pacific',
-		'pacific_countries' => get_countries('Ocean Pacific'),
-		//'Other'          => ['Other' => 'Other'],
+		'pacific_countries' => get_countries('Ocean Pacific')
 	];
 
 	return $field;
 }
 
-/*
+
 // Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
-add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
-function nc_populate_countries_field( $field ) {
+add_filter('acf/prepare_field/key=field_6ad0c3b11ceea', 'nc_populate_base_region_field');
+function nc_populate_base_region_field($field) {
 
-
-	$field['choices'] = array(
-		//europe
-		'Europe'    => 'Europe',
+	$field['choices'] = [
+		'Europe' => 'Europe',
 		'eu_countries' => get_countries('Europe'),
-
-		//north america
 		'North America' => 'North America',
 		'north_america_countries' => get_countries('North America'),
-
-		//latin america
 		'South America' => 'South America',
 		'south_america_countries' => get_countries('South America'),
-
-		//africa
 		'Africa' => 'Africa',
 		'africa_countries' => get_countries('Africa'),
-
-		//asia
-		'Asia'    => 'Asia',
+		'Asia' => 'Asia',
 		'asia_countries' => get_countries('Asia'),
-
-		//middle east
 		'Middle East' => 'Middle East',
 		'middle_east_countries' => get_countries('Middle East'),
+		'Ocean Pacific' => 'Ocean Pacific',
+		'pacific_countries' => get_countries('Ocean Pacific')
+	];
 
-		//pacific
-		'Ocean Pacific'    => 'Ocean Pacific',
-		'pacific_countries' => get_countries('Ocean Pacific'),
-
-		'other' => 'Other'
-	);
 	return $field;
 }
-*/
 
-function my_acf_input_admin_footer() {
+
+function nc_acf_regions_admin_footer() {
 	?>
     <style>
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list {
+        .acf_field_region ul.acf-checkbox-list {
             max-width: 250px;
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list label {
+        .acf_field_region ul.acf-checkbox-list label {
             display: block;
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list li.children_list.opened {
+        .acf_field_region ul.acf-checkbox-list li.children_list.opened {
             
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list ul {
+        .acf_field_region ul.acf-checkbox-list ul {
             margin-left: 20px;
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list li.parent {
+        .acf_field_region ul.acf-checkbox-list li.parent {
             position: relative;
             margin: 12px 0;
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list li.parent:hover {
+        .acf_field_region ul.acf-checkbox-list li.parent:hover {
             cursor: pointer;
         }
 
-        .acf-field[data-key="field_6266caac1a171"] ul.acf-checkbox-list li .opener {
+        .acf_field_region ul.acf-checkbox-list li .opener {
             position: absolute;
             right: 5px;
             top: 0;
@@ -226,7 +168,7 @@ function my_acf_input_admin_footer() {
     (function($) {
 
 		//add CSS classes if the LIs contains ULs
-        $('.acf-field[data-key=field_6266caac1a171] ul.acf-checkbox-list > li').each(function(){
+        $('.acf_field_region ul.acf-checkbox-list > li').each(function(){
             if($(this).find('ul').length !== 0) {
                 //it's a parent
 
@@ -241,14 +183,14 @@ function my_acf_input_admin_footer() {
         });
 		
 
-        $('.acf-field[data-key=field_6266caac1a171] li.parent .opener').click(function(){
+        $('.acf_field_region li.parent .opener').click(function(){
             $(this).toggleClass('fa-angle-up');
             $(this).parents('li').next('li.children_list').slideToggle();
             $(this).parents('li').next('li.children_list').toggleClass('opened');
         });
 
         //when selecting or deselecting the parent checkbox, ALL children checkboxes will be also selected or deselected 
-        $('.acf-field[data-key=field_6266caac1a171] li.parent input[type="checkbox"]').change(function(){
+        $('.acf_field_region li.parent input[type="checkbox"]').change(function(){
             if(this.checked) {
 				//check all children
                 $(this).parents('li.parent').next('.children_list').find('input[type="checkbox"]').prop( "checked", true );
@@ -260,7 +202,7 @@ function my_acf_input_admin_footer() {
 
         //select parent checkbox when ALL of the children are selected
 		/*
-        $('.acf-field[data-key=field_6266caac1a171] li.children_list input[type="checkbox"]').change(function(){
+        $('.acf_field_region li.children_list input[type="checkbox"]').change(function(){
             if(this.checked) {
 				if ($(this).parents('li.children_list').find('input[type="checkbox"]').length === $(this).parents('li.children_list').find('input[type="checkbox"]:checked').length) {
 					//console.log('✅ All checkboxes are checked!');
@@ -273,7 +215,7 @@ function my_acf_input_admin_footer() {
 		*/
 
 		//select parent checkbox when at least one of the children are selected
-        $('.acf-field[data-key=field_6266caac1a171] li.children_list input[type="checkbox"]').change(function(){
+        $('.acf_field_region li.children_list input[type="checkbox"]').change(function(){
             if(this.checked) {
 				$(this).parents('li.children_list').prev('li.parent').find('input[type="checkbox"]').prop( "checked", true );
             } else {
@@ -286,15 +228,14 @@ function my_acf_input_admin_footer() {
 			}
         });
 
-
-
-
     })(jQuery); 
     </script>
     <?php
-
+			
 }
-add_action('acf/input/admin_footer', 'my_acf_input_admin_footer');
+add_action('acf/input/admin_footer', 'nc_acf_regions_admin_footer');
+
+
 
 function my_acf_op_init() {
 
@@ -309,6 +250,7 @@ function my_acf_op_init() {
 	}
 }
 add_action('acf/init', 'my_acf_op_init');
+
 
 function my_theme_block_category($categories, $post) {
 	return array_merge(
@@ -599,6 +541,7 @@ function register_acf_block_types() {
 		'keywords' => ['subscribe', 'content'],
 	]);
 
+
 	// register a Video Block
 	acf_register_block_type([
 		'name' => 'video-block-embed',
@@ -743,6 +686,7 @@ function register_acf_block_types() {
 		'keywords' => ['collaboration', 'content'],
 	]);
 
+
 	// register a Collaboration Slider Block
 	acf_register_block_type([
 		'name' => 'collaboration3-block',
@@ -754,6 +698,7 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => ['collaboration', 'slider', 'content'],
 	]);
+
 
 	// register a Simple Slider Block
 	acf_register_block_type([
@@ -775,6 +720,8 @@ function register_acf_block_types() {
 		]
 	]);
 
+
+
 	// register a Carousel Slider Block
 	acf_register_block_type([
 		'name' => 'carousel-slider-block',
@@ -794,6 +741,9 @@ function register_acf_block_types() {
 			]
 		]
 	]);
+
+
+
 
 	// register a What Can Hub Block
 	acf_register_block_type([
@@ -959,6 +909,7 @@ function register_acf_block_types() {
 			)
 		)*/
 	]);
+
 
 	// register a Platform Block
 	acf_register_block_type([
@@ -1464,6 +1415,7 @@ function register_acf_block_types() {
 		'keywords' => ['note', 'content'],
 	]);
 
+
 	// register a Testimonial Block
 	acf_register_block_type([
 		'name' => 'testimonial-block',
@@ -1498,6 +1450,7 @@ function register_acf_block_types() {
 		'keywords' => ['podcast', 'content'],
 	]);
 
+
 	// register a Hub release changelog block
 	acf_register_block_type([
 		'name' => 'release-changelog',
@@ -1509,6 +1462,20 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => ['hub', 'release', 'changelog', 'content'],
 	]);
+
+	// register a Table of Contents Block
+	acf_register_block_type(array(
+		'name' => 'toc-block',
+		'title' => __('Table of Contents Block'),
+		'description' => __('Lists the H2/H3 headings of the post'),
+		'render_template' => 'blocks/toc.php',
+		'category' => 'theme-blocks',
+		'mode' => 'preview',
+		'icon' => 'list-view',
+		'keywords' => array('toc', 'table of contents', 'headings'),
+		'supports' => array('multiple' => false),
+	));
+	
 }
 
 // Check if function exists and hook into setup.

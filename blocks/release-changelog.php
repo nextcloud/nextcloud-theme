@@ -15,6 +15,7 @@ $id = get_field('section_id');
 						the_row();
 						$title = get_sub_field('title');
 						$product_image = get_sub_field('product_image');
+						$features = get_sub_field('features');
 						?>
                         <div class="changelog-item">
 
@@ -39,7 +40,7 @@ $id = get_field('section_id');
                             	echo 'truncated';
                             } ?>">
                                 <?php
-                            		echo "<ul class=''>";
+									echo "<ul class=''>";
                             	while (have_rows('features')) {
                             		the_row();
                             		if (get_sub_field('feature') != '') {

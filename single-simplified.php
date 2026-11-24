@@ -26,6 +26,7 @@ while (have_posts()) : the_post();
 			$date_end_format = $date_start_format;
 		}
 
+	
 		$location_field = get_field('location'); // Example: "Berlin, Germany"
 		if ($location_field) {
 			$parts = explode(',', $location_field);

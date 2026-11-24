@@ -230,7 +230,7 @@ foreach ($continents as $key => $array_value) {
 									$level = get_field('partner_level', $sol->ID);
 									$servs = get_field('services', $sol->ID);
 									$country = get_field('region', $sol->ID);
-
+									
 									if (is_array($country)) {
 										$country = implode(',', $country);
 									}
@@ -280,6 +280,7 @@ foreach ($continents as $key => $array_value) {
 					<?php
 					}
 
+
 if ($technology) {
 	?>
 						<div class="custom-tab-panel" data-panel="technology-tab">
@@ -320,7 +321,7 @@ if ($technology) {
 					<?php
 } else {
 	?>
-						<h3 class="no_partner_found text-center" style="display: none;"><?php echo __('No partner found.', 'nextcloud'); ?></h3>
+						<h3 class="no_partner_found text-center" style="display: none;"><?php echo __('No partner found.','nextcloud'); ?></h3>
 					<?php
 }
 ?>

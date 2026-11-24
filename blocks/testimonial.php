@@ -4,6 +4,7 @@
  */
 $id = get_field('section_id');
 $title = get_field('title');
+$link = get_field('link');
 ?>
 <section class="muchmore-section" id="<?php echo $id; ?>">
 	<div class="container">

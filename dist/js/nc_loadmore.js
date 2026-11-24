@@ -93,6 +93,7 @@ jQuery(function($){
                 action = 'nc_search_load_more';
                 data.post_type = $(this).data('post-type');
                 data.search_query = $(this).data('search_query');
+                data.search_profile = $(this).data('search_profile');
             }
 
 

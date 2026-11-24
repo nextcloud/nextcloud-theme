@@ -34,11 +34,13 @@ $output .= '<div class="vc_tta-panel-heading">';
 $icon = $atts['i_icon_fontawesome'];
 $subheading = $atts['subheading'];
 
+
 //custom functionality - Add SVG image
 $svg_html = '';
 if ($atts['use_svg_icon'] == 'yes' && !empty($atts['svg_icon_id'])) {
 	$svg_html = nc_tta_get_svg_icon_html($atts['svg_icon_id']);
 }
+
 
 $output .= '<h4 class="custom-accordion-heading vc_tta-panel-title vc_tta-controls-icon-position-right ' . esc_attr($atts['el_class']) . '" role="tab" id="custom-heading-' . esc_attr($atts['tab_id']) . '">';
 $output .= '<button class="tab_link_button" id="tab_link_' . $tab_id . '" href="#' . esc_attr($atts['tab_id']) . '" aria-expanded="" data-vc-accordion="" data-vc-container=".vc_tta-container" aria-controls="' . $tab_id . '-body">';
@@ -49,6 +51,8 @@ if ($atts['use_svg_icon'] == 'yes' && $svg_html) {
 	$output .= '<i class="vc_tta-icon fas ' . $icon . '"></i>';
 }
 
+
+
 $output .= '<div class="vc_tta-title-text">' . esc_html($atts['title']);
 if ($subheading) {
 	$output .= '<span class="subheading">' . $subheading . '</span>';
@@ -57,6 +61,7 @@ $output .= '</div>';
 $output .= '<i class="vc_tta-controls-icon vc_tta-controls-icon-chevron"></i>';
 $output .= '</button>';
 $output .= '</h4>';
+
 
 $output .= '</div>';
 $output .= '<div class="vc_tta-panel-body" id="' . $tab_id . '-body" role="region" aria-labelledby="tab_link_' . $tab_id . '">';

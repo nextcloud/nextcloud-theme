@@ -48,6 +48,7 @@ if ($posts_by_tags) {
 	//echo "no posts with those tags conditions";
 }
 
+
 //get terms, but not for press releases
 if (get_post_type() != 'press_releases') {
 
@@ -92,7 +93,12 @@ if (get_post_type() != 'press_releases') {
 		//echo "no posts with those term conditions";
 	}
 
+
 }
+
+
+							
+
 
 $my_wp_query = new WP_Query();
 $related_args = [
@@ -117,13 +123,13 @@ if ($onepost) {
 
 		$date_format = get_option('date_format');
 		$date = (string)get_the_date($date_format, $post_id);
-
+	
 		if (get_post_type() == 'event') {
 			$cat = wp_get_object_terms($post_id, 'event_categories', []);
 		} else {
 			$cat = get_the_category($post_id);
 		}
-
+	
 		$cats = '';
 		if ($cat) {
 			foreach ($cat as $c) {
@@ -133,11 +139,11 @@ if ($onepost) {
 				}
 			}
 		}
-
+	
 		echo '<div id="post-' . $post_id . '" class="spacer news-container news-item" style="">';
 		echo '<div class="post-box">';
 		echo '<div class="post-img" style=""><a href="' . $link . '" title="' . $title . '">';
-
+									
 		if ($featured_image) {
 			echo $featured_image;
 		} else {
@@ -147,11 +153,11 @@ if ($onepost) {
 		echo '</a></div>';
 		echo '<div class="post-body">';
 		echo '<ul class="post-meta"><li class="date"><i class="far fa-calendar-alt"></i>' . $date . '</li>';
-
+									
 		if ($cats) {
 			echo '<li class="categories"><i class="far fa-folder-open"></i>' . $cats . '</li>';
 		}
-
+									
 		echo '</ul>';
 		echo '<h4><a href="' . $link . '" title="' . $title . '">' . $title . '</a></h4>';
 		echo '<p>' . $post_excerpt . '</p>';
@@ -159,7 +165,8 @@ if ($onepost) {
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';
-
+	
+	
 	}
 	wp_reset_query();
 

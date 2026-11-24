@@ -5,6 +5,7 @@
 $id = get_field('section_id');
 $title = get_field('title');
 $text = get_field('text');
+$link = get_field('link');
 ?>
 <section class="benefits3-section" id="<?php echo $id; ?>">
 	<div class="container">

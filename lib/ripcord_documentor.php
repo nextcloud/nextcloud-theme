@@ -34,7 +34,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 	 * The name of the rpc server, used as the title and heading of the default HTML page.
 	 */
 	public $name = 'Ripcord: Simple RPC Server';
-
+	
 	/**
 	 * A url to an optional css file or a css string for an inline stylesheet.
 	 */
@@ -148,22 +148,22 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 			text-decoration: none;
 		}
 	";
-
+	
 	/**
 	 * The wsdl 1.0 description.
 	 */
 	public $wsdl = false;
-
+	
 	/**
 	 * The wsdl 2.0 description
 	 */
 	public $wsdl2 = false;
-
+	
 	/**
 	 * Which version of the XML vocabulary the server implements. Either 'xmlrpc', 'soap 1.1', 'simple' or 'auto'.
 	 */
 	public $version = 'auto';
-
+	
 	/**
 	 * The root URL of the rpc server.
 	 */
@@ -178,12 +178,12 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 	 * Optional footer text for the online documentation.
 	 */
 	public $footer = '';
-
+	
 	/**
 	 * A list of method data, containing all the user supplied methods the rpc server implements.
 	 */
 	private $methods = null;
-
+	
 	/**
 	 * The constructor for the Ripcord_Documentor class.
 	 * @param array $options. Optional. Allows you to set the public properties of this class upon construction.
@@ -268,13 +268,13 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 		ksort($allMethods);
 		ksort($allFunctions);
 		$allMethods = $allFunctions + $allMethods;
-
+		
 		echo '<div class="index"><h2>Methods</h2><ul>';
 		foreach ($allMethods as $methodName => $methodIndex) {
 			echo '<li><a href="#method_' . (int)$methodIndex . '">' . $methodName . '</a></li>';
 		}
 		echo '</ul></div>';
-
+		
 		$currentClass = '';
 		$class = '';
 		echo '<div class="functions">';
@@ -291,7 +291,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 			}
 			echo '<h2 id="method_' . $methodIndex . '">' . $method['name'] . '</h2>';
 			if (isset($method['signatures'])) {
-
+				
 				foreach ($method['signatures'] as $signature) {
 					echo '<div class="signature">';
 					if (is_array($signature['returns'])) {
@@ -320,13 +320,13 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 						echo '</ul></div>';
 					}
 				}
-
+				
 			}
 
 			if ($method['purpose']) {
 				echo '<div class="purpose">' . $method['purpose'] . '</div>';
 			}
-
+			
 			if (isset($method['notes']) && is_array($method['notes'])) {
 				echo '<div class="notes"><h3>Notes</h3><ol>';
 				foreach ($method['notes'] as $note) {
@@ -334,7 +334,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 				}
 				echo '</ol></div>';
 			}
-
+			
 			if (isset($method['see']) && is_array($method['see'])) {
 				echo '<div class="see">';
 				echo '<h3>See</h3>';
@@ -350,7 +350,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 				}
 				echo '</ul></div>';
 			}
-
+			
 		}
 		echo '</div>';
 		echo $this->footer;
@@ -399,7 +399,7 @@ class Ripcord_Documentor implements Ripcord_Documentor_Interface {
 								$description .= '<div class="' . $key . '"><span class="tag">'
 									. $key . '</span>' . $value . '</div>';
 								break;
-
+							
 							default:
 								break;
 						}
@@ -455,7 +455,7 @@ interface Ripcord_Documentor_Parser {
  * @package Ripcord
  */
 class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser {
-
+	
 	/**
 	 * This method parses a given docComment block and returns an array with information.
 	 * @param string $commentBlock The docComment block.
@@ -471,7 +471,7 @@ class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser {
 		}
 		return $info; //array( 'description' => $description );
 	}
-
+	
 	/**
 	 * This method parses a single line from the comment block.
 	 */
@@ -525,7 +525,7 @@ class Ripcord_Documentor_Parser_phpdoc implements Ripcord_Documentor_Parser {
 		}
 		return $info;
 	}
-
+	
 	/**
 	 * This method parses only the text description part of a line of the comment block.
 	 */

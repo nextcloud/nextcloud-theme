@@ -53,7 +53,7 @@ if (!empty($col_vid)) {
 	echo '</div>';
 }
 echo '</div>';
-
+				
 echo '<div class="col-lg-6 order-lg-0">';
 echo '<div class="text-block">';
 if (!empty($col_title)) {
@@ -90,7 +90,7 @@ if (!empty($link)) {
 echo '</div>';
 echo '</div>';
 echo '</div>';
-
+				
 ?>
 	</div>
 </section>

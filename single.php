@@ -7,6 +7,7 @@ get_header();
 ?>
 <div class="wrapper" id="main">
 	<?php
+	$ids = [];
 while (have_posts()) : the_post();
 
 	$date_format = get_option('date_format');
@@ -92,7 +93,7 @@ while (have_posts()) : the_post();
 	$excluded_posts = [
 		429294, 434039, 434067, 434042, 434061
 	];
-
+						 
 	/*
 	if ( ! in_array((int) $current_post_id, $excluded_posts, true) ) {
 		//show Hub 26 Spring promo block on all posts
@@ -103,6 +104,7 @@ while (have_posts()) : the_post();
 		}
 	}
 	*/
+
 
 	/*
 	* IMPORTANT:
@@ -124,7 +126,7 @@ while (have_posts()) : the_post();
 		$pattern_id = 435567;
 		$pattern_post = get_post($pattern_id);
 
-		if ($pattern_post instanceof WP_Post && $pattern_post->post_type === 'wp_block') {
+		if ($pattern_post && $pattern_post->post_type === 'wp_block') {
 			$pattern_content = apply_filters(
 				'the_content',
 				$pattern_post->post_content
@@ -140,6 +142,7 @@ while (have_posts()) : the_post();
 	*/
 	echo $pattern_content;
 	echo $post_content;
+
 
 	//echo do_shortcode(apply_filters('the_content', get_the_content()));
 
@@ -190,6 +193,7 @@ endwhile; // End of the loop.
 
 						<div class="single_post_comments">
 							<?php
+										global $post;
 				comments_template();
 				?>
 						</div>

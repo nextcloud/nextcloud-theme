@@ -12,7 +12,7 @@ while (have_posts()) : the_post();
 	$date = (string)get_the_date('F d, Y');
 	$cat = get_the_category();
 	$author_id = (int)get_the_author_meta('ID');
-
+		
 	?>
 		<section class="single-hero-section" style="background-color: #1cafff;">
 			<div class="container">

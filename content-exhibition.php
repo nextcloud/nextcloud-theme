@@ -30,6 +30,7 @@ if ($event_start_datetime) {
 	$start_month = gmdate('F', $start_datetime);
 	$start_month_intl = formatLanguage($start_datetime2, 'F', $my_current_lang);
 }
+		
 
 $event_end_datetime = get_field('event_end_date_and_time', $post_id, false);
 if ($event_end_datetime) {
@@ -184,7 +185,7 @@ if ($diff_days > 0) {
 		} else {
 			echo $start_day . ' - ' . $end_day . ' ' . $start_month_intl . ', ' . gmdate('Y', $start_datetime);
 		}
-
+												
 	}
 } else {
 	//single day
@@ -289,11 +290,14 @@ if (get_field('custom_form_heading') != '') {
 	$custom_form_heading = get_field('custom_form_heading');
 }
 
+				   
 if (!get_field('disable_popup_form')) {
 	echo "<div data-disable='' class='hidden'>";
 	echo do_shortcode('[nc_popup_form popup_id="event-reg-form-popup"]<h4 class="text-center">' . $custom_form_heading . '</h4>' . $form . '[/nc_popup_form]');
 	echo '</div>';
 }
+						
+
 
 ?>
 						</div>
@@ -549,7 +553,7 @@ if (!get_field('hide_sessions') && get_field('sessions')):
                                 	$keynote_presentation_date_format = date_i18n('F j, Y', strtotime($session_datetime));
                                 	$keynote_presentation_time = date_format($keynote_presentation_date, 'g:i a');
                                 	echo $keynote_presentation_date_format . ' @ ' . $keynote_presentation_time;
-
+														
                                 	?>
                                                         </li>
 

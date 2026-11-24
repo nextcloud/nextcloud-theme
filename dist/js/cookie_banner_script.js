@@ -154,13 +154,6 @@ jQuery(document).ready(function ($) {
         }
     };
     var wpml_current_language = true;
-    // var nc_form_fields = {
-    //     nc_form_name: '',
-    //     nc_form_email: '',
-    //     nc_form_lang: '',
-    //     nc_form_phone: ''
-    // };
-
 
     const params = new URLSearchParams(window.location.search);
     //console.log("UTM campaign: "+params.get('utm_campaign'));
@@ -183,10 +176,6 @@ jQuery(document).ready(function ($) {
             //convenience
             nc_cookie_banner.convenience.nc_utm_parameters = true;
             nc_cookie_banner.convenience.nc_form_fields = true;
-            // nc_form_fields.nc_form_name = '';
-            // nc_form_fields.nc_form_email = '';
-            // nc_form_fields.nc_form_lang = '';
-            // nc_form_fields.nc_form_phone = '';
 
             //statistics
             nc_cookie_banner.statistics.matomo = true;
@@ -256,7 +245,6 @@ jQuery(document).ready(function ($) {
                                 nc_cookie_banner.statistics.matomo = false;
                                 //console.log("stats set to false");
                                 //ideally unset the Matomo tracking
-
                             }
                             
                         }
@@ -336,26 +324,8 @@ jQuery(document).ready(function ($) {
                                 nc_cookie_banner.convenience.nc_utm_parameters = false;
                             }
                         }
-
                         
                     }
-
-
-                    /*
-                    //convenience - Form fields and UTM parameters
-                    if(nc_cookie_banner.convenience.nc_form_fields) {
-                        document.getElementById("accept_nc_form_fields").checked = true;
-                    }
-                    if(nc_cookie_banner.convenience.nc_utm_parameters) {
-                        document.getElementById("accept_nc_utm_parameters").checked = true;
-                    }
-                    //if all
-                    if (nc_cookie_banner.convenience.nc_form_fields && nc_cookie_banner.convenience.nc_utm_parameters) {
-                        document.getElementById("accept_convenience_cookies").checked = true;
-                    }
-                    */
-
-
 
 
                     //stats
@@ -429,7 +399,5 @@ jQuery(document).ready(function ($) {
         
 
     });
-
-
 
 });

@@ -1,0 +1,688 @@
+// SPDX-FileCopyrightText: 2022 Hipinspire <https://www.hipinspire.com/>
+// SPDX-FileCopyrightText: 2026 Nextcloud GmbH
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Button styles. Imported by theme.scss where the button reset used to be,
+// so these rules still come after the other partials and before the section styles.
+// Blocks keep their original order: rules with equal specificity depend on it.
+// .btn-primary overrides Bootstrap's, which works because theme.min.css loads after bootstrap.min.css.
+// Still in theme.scss on purpose: .btn_learn_more, .app_store_btn, .nc_custom_btn, .btn-dropdown-container
+// and .btn_switch_pricing. Moving them up here would let earlier section rules override them.
+
+// Animated gradient backgrounds.
+// Gradients can't be transitioned, but registered custom properties can: the background is always
+// a gradient built from these two colours, and states only change the colours (white = both ends white).
+// Browsers without @property support still get the right colours, just without the fade.
+
+@use "variables";
+
+@property --btn-grad-from {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #{variables.$color-primary};
+}
+
+@property --btn-grad-to {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #{variables.$color-sky-blue};
+}
+
+$btn-transition: --btn-grad-from variables.$transition-button, --btn-grad-to variables.$transition-button,
+    color variables.$transition-button, border-color variables.$transition-button, background-color variables.$transition-button;
+
+@mixin btn-gradient-background($important: false) {
+    @if $important {
+        background: linear-gradient(45deg, var(--btn-grad-from) 20%, var(--btn-grad-to)) !important;
+    } @else {
+        background: linear-gradient(45deg, var(--btn-grad-from) 20%, var(--btn-grad-to));
+    }
+    transition: $btn-transition;
+}
+
+// One colour fills the whole button; two colours give the brand gradient.
+@mixin btn-gradient-colors($from, $to: $from, $important: false) {
+    @if $important {
+        --btn-grad-from: #{$from} !important;
+        --btn-grad-to: #{$to} !important;
+    } @else {
+        --btn-grad-from: #{$from};
+        --btn-grad-to: #{$to};
+    }
+}
+
+button:not(.reset):not(.filter) {
+    outline: none !important;
+}
+
+.c-btn, .btn-primary {  //directly on <a> tag
+    display: inline-block;
+    min-width: 215px;
+    padding: 9px 22px;
+    color: variables.$color-white;
+    font-size: 16px;
+    line-height: 22px;
+    //border: 2px solid variables.$color-primary;
+    border-radius: variables.$radius-md;
+    @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+    @include btn-gradient-background;
+    text-align: center;
+
+    .vc_btn3-icon--svg {
+        svg > * {
+            transition: fill variables.$transition-button;
+        }
+    }
+
+    &:hover {
+        @include btn-gradient-colors(variables.$color-white);
+        color: variables.$color-primary;
+        text-decoration: none;
+        border-color: variables.$color-primary;
+    }
+
+    &:focus {
+        border-color: white;
+        //outline: 1px solid variables.$color-black !important;
+    }
+
+
+    &.btn-white {
+        color: variables.$color-primary;
+        @include btn-gradient-colors(variables.$color-white);
+        border-color: variables.$color-primary;
+
+        &:hover, &:focus {
+            color: variables.$color-white;
+            @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+        }
+    }
+
+    &.btn-white-outline {
+        color: variables.$color-white;
+        @include btn-gradient-colors(transparent);
+        border-color: variables.$color-white;
+
+        &:hover, &:focus {
+            color: variables.$color-white;
+            @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+            border-color: variables.$color-primary;
+        }
+    }
+
+    
+
+    &.btn-black {
+        color: variables.$color-white;
+        @include btn-gradient-colors(variables.$color-dark-blue);
+        border-color: variables.$color-dark-blue;
+
+        &:hover, &:focus {
+            color: variables.$color-dark-blue;
+            @include btn-gradient-colors(variables.$color-white);
+            outline: 1px solid variables.$color-black !important;
+        }
+    }
+
+
+    &.btn-top {
+        min-width: auto;
+        padding: 0px 18px !important;
+        font-weight: 700;
+        border: 1px solid variables.$color-primary;
+        line-height: 26px;
+        height: auto !important;
+        font-size: 13px;
+        border-radius: variables.$radius-sm;
+
+        &:hover {
+            color: variables.$color-primary;
+            @include btn-gradient-colors(variables.$color-white);
+        }
+    }
+
+    &.youtube {
+        @include btn-gradient-colors(variables.$color-youtube, $important: true);
+        color: variables.$color-white !important;
+        border-color: variables.$color-youtube !important;
+
+            &:hover, &:focus {
+                color: variables.$color-youtube !important;
+                @include btn-gradient-colors(variables.$color-white, $important: true);
+                //border-color: variables.$color-youtube;
+            }
+    }
+
+
+
+    &.btn-with-icon{
+        i {
+            margin-right: 6px;
+        }
+    }
+
+
+    &.btn-main {
+        border: 1px solid variables.$color-primary;
+        @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+        color:variables.$color-white;
+        text-decoration: none !important;
+
+        &:hover, &:focus {
+            color: variables.$color-primary;
+            @include btn-gradient-colors(variables.$color-white, $important: true);
+            //outline: 1px solid variables.$color-black;
+
+            .vc_btn3-icon--svg {
+                svg * {
+                    fill: variables.$color-primary !important; 
+                }
+            }
+        }
+    }
+
+
+    &.btn-small {
+        border-width: 1px;
+        min-width: auto;
+        padding: 0px 15px  !important;
+        line-height: 21px;
+        height: auto !important;
+        //font-size: 13px !important;
+        font-size: 0.7em !important;
+        border-radius: variables.$radius-sm;
+
+        i {
+            margin-left: 6px;
+        }
+
+    }
+
+}
+
+
+.btn-main {
+    .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern // a
+    {
+        @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+        @include btn-gradient-background;
+        border-color: variables.$color-white;
+        color: variables.$color-white !important;
+        text-decoration: none !important;
+        font-size: 16px;
+        border-radius: variables.$radius-md;
+        padding: 9px 22px;
+
+
+
+        .vc_btn3-icon--svg {
+            svg {
+                fill: variables.$color-white !important;
+                transition: fill .3s ease; 
+
+                & > * {
+                    fill: variables.$color-white !important;
+                    transition: fill .3s ease; 
+                }
+            }
+        }
+
+        &.vc_btn3-icon-left {
+            padding-left: 48px;
+        }
+
+        &.vc_btn3-icon-right {
+            padding-right: 48px;
+        }
+        //background-image: none;
+
+        &:hover, &:focus {
+            color: variables.$color-primary !important;
+            @include btn-gradient-colors(variables.$color-white, $important: true);
+            border-color: variables.$color-primary !important;
+
+            .vc_btn3-icon--svg {
+                svg, path {
+                    fill: variables.$color-primary !important;      
+                }
+            }
+            
+        }
+
+        &:focus {
+            outline: 1px solid variables.$color-black;
+        }
+    }
+
+
+
+    // Set the gradient colours, not background-color: a plain colour stays hidden under the gradient.
+    // !important is needed to beat the !important colours of .btn-main and its hover state.
+    &.youtube {
+        .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+        {
+            color: variables.$color-white !important;
+            @include btn-gradient-colors(variables.$color-youtube, $important: true);
+            border-color: variables.$color-youtube !important;
+
+            &:hover, &:focus {
+                color: variables.$color-white !important;
+                @include btn-gradient-colors(variables.$color-youtube, $important: true);
+                border-color: variables.$color-youtube !important;
+            }
+        }
+    }
+
+    &.youtube-outline {
+        .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+        {
+            color: variables.$color-youtube !important;
+            @include btn-gradient-colors(variables.$color-white, $important: true);
+            border-color: variables.$color-youtube !important;
+
+            &:hover, &:focus {
+                color: variables.$color-white !important;
+                @include btn-gradient-colors(variables.$color-youtube, $important: true);
+                border-color: variables.$color-youtube !important;
+            }
+        }
+    }
+
+}
+
+
+.vc_btn3.vc_btn3-icon-right {
+    text-align: left !important;
+}
+
+
+.btn-white {
+    .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+    {
+        font-size: 16px;
+        border-radius: variables.$radius-md;
+        padding: 9px 22px;
+        color: variables.$color-black !important;
+        text-decoration: none !important;
+        @include btn-gradient-colors(variables.$color-white);
+        @include btn-gradient-background($important: true);
+        border-color: variables.$color-white;
+
+        &.vc_btn3-icon-left:not(.vc_btn3-o-empty) {
+            padding-left: 48px;
+        }
+
+        &.vc_btn3-icon-right:not(.vc_btn3-o-empty) {
+            padding-right: 48px;
+        }
+
+        .vc_btn3-icon--svg {
+            svg * {
+                transition: fill variables.$transition-button;
+                fill: variables.$color-primary !important;
+            }
+        }
+
+        &:hover, &:focus {
+            color: variables.$color-white !important;
+            @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+            border-color: variables.$color-primary !important;
+
+            .vc_btn3-icon--svg {
+                svg * {
+                    fill: variables.$color-white !important;      
+                }
+            }
+        }
+    }
+}
+
+
+.btn-white-outline {
+
+    &.icon_only {
+        .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern{
+            padding: 9px 20px !important;
+
+            i {
+                font-size: 12px !important;
+            }
+        }
+    }
+
+    .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+    {
+        font-size: 16px;
+        @include btn-gradient-colors(transparent);
+        @include btn-gradient-background;
+        background-color: unset !important;
+        border-radius: variables.$radius-md;
+        padding: 9px 22px;
+        color: variables.$color-white !important;
+        border-color: variables.$color-white;
+
+
+        .vc_btn3-icon--svg {
+            svg {
+                fill: variables.$color-white !important;
+
+                & > *, path {
+                    fill: variables.$color-white !important;
+                }
+            }
+        }
+
+
+        &:hover, &:focus {
+            color: variables.$color-white;
+            @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+            border-color: variables.$color-primary;
+            //outline: 1px solid variables.$color-black !important;
+        }
+    }
+    
+}
+
+
+.btn-outline {
+
+    .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+    {
+        font-size: 16px;
+        @include btn-gradient-colors(transparent);
+        @include btn-gradient-background;
+        background-color: unset !important;
+        border-radius: variables.$radius-md;
+        padding: 9px 22px;
+        color:  variables.$color-primary !important;
+        border-color: variables.$color-primary !important;
+
+        .vc_btn3-icon--svg {
+            svg, svg > *, path {
+                fill: variables.$color-primary !important;     
+                transition: fill .3s ease; 
+            }
+        }
+
+        &:hover, &:focus {
+            color: variables.$color-white !important;
+            @include btn-gradient-colors(variables.$color-primary, variables.$color-sky-blue);
+            border-color: variables.$color-primary;
+
+            .vc_btn3-icon--svg {
+                svg, svg > *, path {
+                    fill: variables.$color-white !important;      
+                }
+            }
+
+        }
+        &:focus {
+            outline: 1px solid variables.$color-black;
+        }
+    }
+
+    // !important is needed to beat the !important colours and background-color: unset of .btn-outline.
+    &.youtube {
+        .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern
+        {
+            color: variables.$color-youtube !important;
+            border-color: variables.$color-youtube !important;
+
+            &:hover, &:focus {
+                color: variables.$color-white !important;
+                @include btn-gradient-colors(variables.$color-youtube, $important: true);
+                border-color: variables.$color-youtube !important;
+            }
+        }
+    }
+}
+
+
+.btn-small {
+    .vc_general.vc_btn3, .wpb_btn {
+        min-width: auto;
+        padding: 7px 17px !important;
+        //line-height: 27px;
+        height: auto !important;
+        font-size: 13px !important;
+        border-radius: variables.$radius-sm !important;
+
+        i {
+            font-size: 13px;
+        }
+
+        .vc_btn3-icon{
+            &.vc_btn3-icon--svg {
+                height: auto !important;
+                left: 10px !important;
+
+                svg {
+                    width: 17px;
+                }
+            }
+        }
+
+        &.vc_btn3-icon-right {
+            padding-right: 41px !important;
+
+            .vc_btn3-icon{
+                &.vc_btn3-icon--svg {
+                    right: 10px !important;
+                    left: auto !important;
+                }
+            }   
+            
+        }
+
+        &.vc_btn3-icon-left {
+            padding-left: 32px !important;
+
+            i {
+                left: 11px !important;
+            }
+        }
+
+    }
+}
+
+
+a.list_load_more_btn {
+    //font-weight: bold;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 3px 19px;
+    background: variables.$color-light-blue;
+    border-radius: variables.$radius-md;
+    font-size: 0.8em;
+    transition: all .3s ease;
+
+    &:hover, &:focus, &:active {
+        color: variables.$color-white !important;
+        background: variables.$color-primary;
+    }
+}
+
+
+.btn-play {
+
+    .vc_btn3-icon-left.vc_btn3--has-svg {
+        padding-left: 28px !important;
+    }
+
+    .vc_btn3-icon {
+        &.vc_btn3-icon--svg {
+            left: 0px !important;
+        }
+    }
+
+    &.btn-no-bg {
+        button, a {
+            background: none;
+            background-image: none;
+            font-weight: bold;
+            padding: 9px 22px;
+
+            &.vc_btn3--has-svg {
+                svg, path {
+                    fill: variables.$color-black !important;
+                }
+            }
+
+            &:hover, &:focus {
+                border: 1px solid variables.$color-primary;
+            }
+        }
+    }
+
+    &.white-text {
+        .vc_btn3--has-svg {
+            svg, path {
+                fill: variables.$color-white !important;
+            }
+        }
+    }
+}
+
+
+.titlebar {
+    .btn-no-bg {
+        button, a {
+
+            &.vc_btn3--has-svg {
+                svg, path {
+                    fill: variables.$color-white !important;
+                }
+            }
+
+            &:hover, &:focus {
+                outline: 1px solid variables.$color-white;
+            }
+        }
+    }
+}
+
+
+.vc_btn3 {
+    .vc_btn3-icon{
+        &.vc_btn3-icon--svg {
+            height: auto !important;
+
+            svg {
+                width: 22px;
+            }
+        }
+    }
+}
+
+// SVG icon of the 9.1+ Button (wpb_btn). It sits in the flex row next to the label, so it must stay
+// in the flow: the span also carries .vc_btn3-icon--svg (for the colour rules), and some of those
+// rules position the old button's icon absolutely.
+.wpb_btn .wpb_btn-icon--svg {
+    display: inline-flex;
+    align-items: center;
+    height: auto !important;
+    position: static !important;
+    transform: none !important;
+
+    svg {
+        width: 22px;
+    }
+}
+
+.btn-small .wpb_btn .wpb_btn-icon--svg svg {
+    width: 17px;
+}
+
+
+.btn-no-bg {
+    .vc_btn3.vc_btn3-style-modern, .wpb_btn.wpb_btn-style-modern {
+        border: none !important;
+    }
+
+    button, a {
+        background-color: transparent !important;
+        background: none !important;
+        background-image: none !important;
+    }
+
+    &.vc_btn3-left, &.inline-left {
+        .vc_btn3.vc_btn3-icon-left {
+            padding-left: 25px !important;
+
+            i.vc_btn3-icon {
+                left: 0 !important;
+            }
+        }
+    }
+    
+    &.blue {
+        a {
+            color: variables.$color-primary !important;
+
+            &:focus, &:hover {
+                outline: 1px solid variables.$color-primary;
+            }
+        }
+    }
+
+}
+
+
+.btns-inline-centered {
+    text-align: center;
+
+    .btn-main, .btn-white, .vc_btn3-container, .wpb_btn-container {
+        display: inline-block;
+        margin: 10px;
+    }
+}
+
+
+.btns-inline {
+    .wpb_wrapper {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    &.right {
+        .wpb_wrapper {
+            justify-content: flex-end;
+        }
+    }
+
+    @media screen and (max-width: variables.$md-breakpoint) {
+        & {
+            text-align: center;
+        }
+
+        .wpb_wrapper {
+            justify-content: center;
+        }
+
+        &.right {
+            .wpb_wrapper {
+                justify-content: center;
+            }
+        }
+
+        .vc_btn3-container, .wpb_btn-container {
+            margin-bottom: 10px !important;
+        }
+    }
+
+    .btn-main, .btn-white, .vc_btn3-container:not(:last-of-type), .wpb_btn-container:not(:last-of-type) {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    &.left {
+        .vc_btn3-container:not(:last-of-type):not(.btn-dropdown) {
+            @media screen and (min-width: variables.$md-breakpoint-min) {
+                margin-right: 10px !important;
+            }
+        }
+    }
+}

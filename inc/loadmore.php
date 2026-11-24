@@ -10,6 +10,7 @@ function nc_blog_articles_load_more_test() {
 		$wpml_display_as_translated_tax = new WPML_Display_As_Translated_Tax_Query($sitepress, $wpml_term_translations);
 		$wpml_display_as_translated_tax->add_hooks();
 	}
+	
 
 	//get all sticky events and exclude them in the main query
 	/*
@@ -35,6 +36,7 @@ function nc_blog_articles_load_more_test() {
 	}
 	*/
 
+
 	$date_format = get_option('date_format'); // e.g. "F j, Y"
 
 	$ajaxposts = new WP_Query([
@@ -56,7 +58,7 @@ function nc_blog_articles_load_more_test() {
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
 			$post_id = get_the_ID();
-
+		
 			//get date
 			$date = (string)get_the_date($date_format);
 			if (get_post_type() == 'event') {
@@ -83,6 +85,8 @@ function nc_blog_articles_load_more_test() {
 add_action('wp_ajax_nc_load_more_test', 'nc_blog_articles_load_more_test');
 add_action('wp_ajax_nopriv_nc_load_more_test', 'nc_blog_articles_load_more_test');
 
+
+
 //load more items on the blog page
 function nc_blog_articles_load_more() {
 	$paged = (isset($_POST['paged'])) ? $_POST['paged'] : 1;
@@ -93,6 +97,7 @@ function nc_blog_articles_load_more() {
 		$wpml_display_as_translated_tax = new WPML_Display_As_Translated_Tax_Query($sitepress, $wpml_term_translations);
 		$wpml_display_as_translated_tax->add_hooks();
 	}
+
 
 	$ajaxposts = new WP_Query([
 		'post_type' => ['post', 'podcast'],
@@ -106,9 +111,9 @@ function nc_blog_articles_load_more() {
 		'ignore_sticky_posts' => 1,
 		//'post__not_in' => $sticky_events // ignore sticky events (custom field)
 	]);
-
+  
 	$response = '';
-
+  
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
 			//$response .= "<a href='".get_permalink()."'>".get_the_title()."</a><br><br>"; // testing purposes
@@ -123,6 +128,8 @@ function nc_blog_articles_load_more() {
 }
 add_action('wp_ajax_nc_load_more', 'nc_blog_articles_load_more');
 add_action('wp_ajax_nopriv_nc_load_more', 'nc_blog_articles_load_more');
+
+
 
 function nc_whitepapers_load_more() {
 	$paged = (isset($_POST['paged'])) ? $_POST['paged'] : 1;
@@ -145,9 +152,9 @@ function nc_whitepapers_load_more() {
 		'order' => 'DESC',
 		'paged' => $paged
 	]);
-
+  
 	$response = '';
-
+  
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
 			$response .= get_template_part('inc/whitepaper_loop_single');
@@ -161,6 +168,8 @@ function nc_whitepapers_load_more() {
 }
 add_action('wp_ajax_nc_whitepapers_load_more', 'nc_whitepapers_load_more');
 add_action('wp_ajax_nopriv_nc_whitepapers_load_more', 'nc_whitepapers_load_more');
+
+
 
 //Whitepaper posts load more
 function nc_whitepaper_posts_load_more() {
@@ -195,6 +204,7 @@ function nc_whitepaper_posts_load_more() {
 	]);
 	$all_posts = $ajaxposts->posts;
 
+
 	if ($_POST['podcasts']) {
 		//add podcasts
 
@@ -225,6 +235,7 @@ function nc_whitepaper_posts_load_more() {
 	$offset = ($paged - 1) * $_POST['limit'];
 	$items = array_slice($all_posts, $offset, $_POST['limit']);
 	$response = '';
+	
 
 	if (!empty($items)) {
 		foreach ($items as $post_obj) {
@@ -240,11 +251,15 @@ function nc_whitepaper_posts_load_more() {
 		}
 	}
 	wp_reset_postdata();
+	
+
 
 	die($response);
 }
 add_action('wp_ajax_nc_whitepaper_posts_load_more', 'nc_whitepaper_posts_load_more');
 add_action('wp_ajax_nopriv_nc_whitepaper_posts_load_more', 'nc_whitepaper_posts_load_more');
+
+
 
 function nc_blog_search_load_more() {
 	$paged = (isset($_POST['paged'])) ? $_POST['paged'] : 1;
@@ -267,7 +282,7 @@ function nc_blog_search_load_more() {
 		'paged' => $paged,
 		'category__not_in' => [226] //exclude Private category
 	]);
-
+  
 	$response = '';
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
@@ -283,6 +298,9 @@ function nc_blog_search_load_more() {
 add_action('wp_ajax_nc_search_load_more', 'nc_blog_search_load_more');
 add_action('wp_ajax_nopriv_nc_search_load_more', 'nc_blog_search_load_more');
 
+
+
+
 //nc_cat_load_more action for the categories
 function nc_blog_articles_category_load_more() {
 	$ajaxposts = new WP_Query([
@@ -296,9 +314,9 @@ function nc_blog_articles_category_load_more() {
 		'paged' => max(1, $_POST['paged']),
 		'category__not_in' => [225, 226] //exclude Private category
 	]);
-
+  
 	$response = '';
-
+  
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
 			//$response .= get_template_part('parts/card', 'publication');
@@ -309,12 +327,14 @@ function nc_blog_articles_category_load_more() {
 	} else {
 		$response = 'No other posts found.';
 	}
-
+  
 	echo $response;
 	exit;
 }
 add_action('wp_ajax_nc_cat_load_more', 'nc_blog_articles_category_load_more');
 add_action('wp_ajax_nopriv_nc_cat_load_more', 'nc_blog_articles_category_load_more');
+
+
 
 function nc_blog_terms_load_more() {
 	$ajaxposts = new WP_Query([
@@ -334,9 +354,9 @@ function nc_blog_terms_load_more() {
 		'order' => 'DESC',
 		'paged' => max(1, $_POST['paged'])
 	]);
-
+  
 	$response = '';
-
+  
 	if ($ajaxposts->have_posts()) {
 		while ($ajaxposts->have_posts()) : $ajaxposts->the_post();
 			$response .= get_template_part('inc/blog_loop_single');
@@ -344,12 +364,13 @@ function nc_blog_terms_load_more() {
 	} else {
 		$response = '';
 	}
-
+  
 	echo $response;
 	exit;
 }
 add_action('wp_ajax_nc_term_load_more', 'nc_blog_terms_load_more');
 add_action('wp_ajax_nopriv_nc_term_load_more', 'nc_blog_terms_load_more');
+
 
 //action for loading past webinars
 function nc_past_webinars_load_more() {
@@ -378,7 +399,7 @@ function nc_past_webinars_load_more() {
 				'compare' => '!=',
 			],
 		],
-
+		
 		'tag__not_in' => [269], // exclude unlisted tag
 		'category__not_in' => [225, 226], //exclude Private category
 		'post_status' => 'publish',
@@ -408,6 +429,7 @@ function nc_past_webinars_load_more() {
 		}
 	}
 
+
 	$ajaxposts = new WP_Query($args_base);
 	$response = '';
 	if ($ajaxposts->have_posts()) {
@@ -417,12 +439,19 @@ function nc_past_webinars_load_more() {
 	} else {
 		$response = '';
 	}
-
+  
 	echo $response;
 	exit;
 }
 add_action('wp_ajax_nc_past_webinars_load_more', 'nc_past_webinars_load_more');
 add_action('wp_ajax_nopriv_nc_past_webinars_load_more', 'nc_past_webinars_load_more');
+
+
+
+
+
+
+
 
 //action for loading past webinars
 function nc_webinar_recordings_load_tagged() {
@@ -451,7 +480,7 @@ function nc_webinar_recordings_load_tagged() {
 				'compare' => '!=',
 			],
 		],
-
+		
 		'tag__in' => $tag_id, // exclude unlisted tag
 		'category__not_in' => [225, 226], //exclude Private category
 		'post_status' => 'publish',
@@ -460,11 +489,13 @@ function nc_webinar_recordings_load_tagged() {
 		//'paged' => max( 1, $_POST['paged'] )
 	];
 
+
 	if ($include_all_lang) {
 		$args_base['suppress_filters'] = true;
 		$args_base['posts_per_page'] = -1;
 		$args_base['order'] = 'ASC';
 	}
+
 
 	$ajaxposts = new WP_Query($args_base);
 	$response = '';
@@ -475,12 +506,13 @@ function nc_webinar_recordings_load_tagged() {
 	} else {
 		$response = '';
 	}
-
+  
 	echo $response;
 	exit;
 }
 add_action('wp_ajax_nc_webinar_recordings_load_tagged', 'nc_webinar_recordings_load_tagged');
 add_action('wp_ajax_nopriv_nc_webinar_recordings_load_tagged', 'nc_webinar_recordings_load_tagged');
+
 
 //AJAX load more functionality on Changelog unsupported - https://nextcloud.com/changelog-unsupported/
 function my_changelog_load_sections_batch() {
