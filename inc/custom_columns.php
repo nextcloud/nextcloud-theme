@@ -4,7 +4,8 @@ add_filter('manage_partner_posts_posts_columns', 'set_custom_edit_partner_posts_
 function set_custom_edit_partner_posts_columns($columns) {
 	//unset( $columns['author'] );
 	$columns['partner_level'] = __('Level', 'nextcloud');
-	$columns['partner_region'] = __('Region', 'nextcloud');
+	$columns['partner_region'] = __('Operating region', 'nextcloud');
+	$columns['headquarters'] = __('Headquarters', 'nextcloud');
 	$columns['partner_services'] = __('Services', 'nextcloud');
 	$columns['service_type'] = __('Service type', 'nextcloud');
 	return $columns;
@@ -25,6 +26,15 @@ function partner_posts_custom_book_column($column, $post_id) {
 
 		case 'partner_region':
 			$region = get_post_meta($post_id, 'region', true);
+			if (is_array($region)) {
+				echo implode(', ', $region);
+			} else {
+				echo $region;
+			}
+			break;
+
+		case 'headquarters':
+			$region = get_post_meta($post_id, 'headquarters', true);
 			if (is_array($region)) {
 				echo implode(', ', $region);
 			} else {

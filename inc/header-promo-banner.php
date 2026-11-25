@@ -90,83 +90,16 @@ if ($rows) {
                 </div>
             <?php
 						}
-	?>
 
-
-            <?php
-	/*
-		if (get_field('header_promo_activation', 'option') ) {
-	?>
-		<div class="item">
-			<div class="nc-awards-banner">
-				<?php
-					$image = get_field('header_promo_image', 'option');
-					$size = 'full'; // (thumbnail, medium, large, full or custom size)
-					if( $image ) {
-				?>
-				<div class="cloudcomputing-logo">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) {
-						echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php
-						if (get_field('header_promo_text', 'option') ) {
-						echo strip_tags(get_field('header_promo_text', 'option'));
-						}
-					?>" target="_blank">
-
-					<?php
-					if (get_field('header_promo_code', 'option') ) {
-						echo get_field('header_promo_code', 'option');
-					}
-					else if( $image ) {
-						?>
-						<img src="<?php echo esc_url($image['url']); ?>" alt="<?php
-						if (get_field('header_promo_text', 'option') ) {
-							echo strip_tags(get_field('header_promo_text', 'option'));
-							}
-						?>">
-						<?php
-					}
-					?>
-					</a>
-				</div>
-				<?php } ?>
-
-
-				<div class="awards-text">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) { echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php if (get_field('header_promo_text', 'option') ) {
-						echo strip_tags(get_field('header_promo_text', 'option'));
-						} ?>" target="_blank">
-						<?php if (get_field('header_promo_text', 'option') ) { echo get_field('header_promo_text', 'option'); } ?>
-					</a>
-				</div>
-
-				<div class="btn-awards">
-					<a tabindex="-1" href="<?php if (get_field('header_promo_button_link', 'option') ) {
-						echo get_field('header_promo_button_link', 'option'); } ?>" title="<?php
-						if (get_field('header_promo_text', 'option') ) {
-							echo strip_tags(get_field('header_promo_text', 'option'));
-						} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
-						<?php if (get_field('header_promo_button_label', 'option') ) {
-							echo get_field('header_promo_button_label', 'option'); } else {
-								echo __('Learn more','nextcloud');
-							}
-						?> <i class="fa fa-angle-right right"></i>
-					</a>
-				</div>
-
-			</div>
-		</div>
-	<?php }*/ ?>
-
-            <?php
-		// The Query for pages
-		$args_top_banner = [
-			'post_type' => ['page', /*'post'*/],
-			'post_status' => 'publish',
-			'posts_per_page' => -1,
-			'meta_key' => 'top_banner_text',
-			'orderby' => 'date',
-			'order' => 'DESC'
-		];
+	// The Query for pages
+	$args_top_banner = [
+		'post_type' => ['page', /*'post'*/],
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'meta_key' => 'top_banner_text',
+		'orderby' => 'date',
+		'order' => 'DESC'
+	];
 	$top_banner_query = new WP_Query($args_top_banner);
 	// The Loop
 	if ($top_banner_query->have_posts()) {
@@ -281,13 +214,6 @@ if ($rows) {
 	/* Restore original Post Data */
 	wp_reset_postdata();
 	?>
-
-
-
-           
-
-            
-
 
             </div>
             <script>

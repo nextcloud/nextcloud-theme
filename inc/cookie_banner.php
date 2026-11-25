@@ -299,29 +299,21 @@
 
 </div>
 
-
-
-
-
-<!-- Matomo Tag Manager -->
-<script id="matomo_script" type="text/javascript">
-  var _mtm = window._mtm = window._mtm || [];
+<?php if (wp_get_environment_type() !== 'local') : ?>
+<!-- Matomo consent, A/B testing and form goals (container loads in <head>, see functions.php) -->
+<script id="matomo_settings" type="text/javascript">
   var _paq = window._paq = window._paq || [];
-  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-  
+
   setTimeout(() => {
     if(getCookie('nc_cookie_banner') ) {
         const cookieBanner = JSON.parse(DOMPurify.sanitize(getCookie('nc_cookie_banner')));
 
         if (cookieBanner.statistics && cookieBanner.statistics.matomo) {
-            
             if(!getCookie('mtm_cookie_consent')){
                 // set cookie only if not recently set
                 _paq.push(['rememberCookieConsentGiven', 720]);
             }
-
         } else {
-            //console.log("Stats consent NOT given, do NOT load rememberCookieConsentGiven");
             _paq.push(['forgetCookieConsentGiven']); // Ensure Matomo forgets the consent
             _paq.push(['deleteCookies']); // Delete all Matomo cookies
         }
@@ -333,77 +325,49 @@
 	if (get_field('ab_testing_tracking_code')) {
 		echo get_field('ab_testing_tracking_code');
 	}
-                ?>
+	?>
 
     jQuery(document).ready(function () {
         window.forms = [];
 
         jQuery(document).on( 'nfFormReady', function( e, layoutView ) {
-            //console.log("nfRadio code for tracking goals loaded."); 
-
             forms.push(layoutView.model.id);
             var form_id = layoutView.model.id;
-
-            //console.log("layoutView.model.id: "+layoutView.model.id);
-            //console.log("Ninja form on this page: "+form_id);
             var formModel = nfRadio.channel('forms').request('get:model', form_id);
 
             var matomo_goal_id = 0; // set default
-            //load default tracking code
             if(form_id == 90) {
-                //console.log("Matomo goal tracked! (Testing form).");
-                matomo_goal_id = 5;
+                matomo_goal_id = 5; // Testing form
             }
             if(form_id == 111) {
-                //Instant trial form
-                matomo_goal_id = 1;
+                matomo_goal_id = 1; // Instant trial form
             }
-
             if(form_id == 127) {
-                //Nextcloud Conference 2025 Registration
-                matomo_goal_id = 7;
+                matomo_goal_id = 7; // Nextcloud Conference 2025 Registration
             }
 
             <?php
-                		//set custom Matomo goal ID, in case this is set on the current page
-                		if (get_field('matomo_goal_id')) {
-                			echo 'matomo_goal_id = ' . get_field('matomo_goal_id') . ';';
-                		}
-                ?>
+			//set custom Matomo goal ID, in case this is set on the current page
+			if (get_field('matomo_goal_id')) {
+				echo 'matomo_goal_id = ' . get_field('matomo_goal_id') . ';';
+			}
+	?>
 
             // track form submission in Matomo
             nfRadio.channel('forms').on('submit:response', function(form) {
                 if( Array.isArray(form.errors) && form.errors.length == 0 ){
-                    //_paq.push(['FormAnalytics::trackFormSubmit', form.data.settings.title]);
-                    //var form_id = form.data.form_id;
                     var form_title = form.data.settings.title;
                     console.log("Form submitted! ID: " + form_id + " and title: "+form_title);
 
                     if(matomo_goal_id != 0) {
-                        //load PHP to track goal on Matomo, using custom goal ID
                         console.log("Custom goal tracked. Goal ID is: "+matomo_goal_id);
                         _paq.push(['trackGoal', matomo_goal_id]);
                     }
-                
                 } else {
                     console.log(form.data.settings.title + ' NOT submitted. There are errors.');
                 }
             });
-
-
         });
-
     });
-
-
-
-  
-  (function() {
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true;
-    g.id='matomo_js';
-    g.src='https://cdn.matomo.cloud/nextcloud.matomo.cloud/container_wlmEL4w2.js';
-    s.parentNode.insertBefore(g,s);
-  })();
 </script>
-<!-- End Matomo Tag Manager -->
+<?php endif; ?>

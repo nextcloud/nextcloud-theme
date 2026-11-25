@@ -1,0 +1,1250 @@
+
+/*
+.summitGradient {
+    background-color: variables.$color-dark-blue; //default fallback
+    background: variables.$gradient-summit;
+}
+*/
+
+@use "variables";
+
+.vc_section.titlebar {
+
+        &.summit2026 { // live
+            padding-top: 12rem !important;
+            padding-bottom: 6rem !important;
+            background-position: top 50% left 0;
+            position: relative;
+
+            &:before {
+                content: " ";
+                background-image: url(../img/nc-summit-section-cloud-mask.svg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left;
+                //width: 56%;
+                width: 100%;
+                position: absolute;
+                height: 100%;
+                opacity: 0.9;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            .overlay-gradient {
+                //background: variables.$gradient-summit !important;
+                //background: none !important;
+            }
+            
+        }
+
+
+
+        &.summit2026_v2 { // draft page 
+            padding-top: 16rem !important;
+            padding-bottom: 6rem !important;
+            background-position: top 50% left 0;
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                //background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left bottom;
+                width: 100%;
+                position: absolute;
+                height: 100%;
+                //opacity: 0.75;
+                animation: decreaseOpacityOverlay 4s forwards;
+                animation-delay: 4s;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            .overlay-gradient {
+                //background: variables.$gradient-summit !important;
+                background: none !important;
+            }
+
+            
+        }
+
+}
+
+.summitGradient_full {
+  background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;
+
+  .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: variables.$gradient-primary;
+        top: 0;
+        left: 0;
+        opacity: 0.3;
+  }
+}
+
+.summitGradient {
+  background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;
+
+  .overlay-gradient {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        //background: variables.$gradient-primary;
+        top: 0;
+        left: 0;
+        opacity: 0.3;
+  }
+}
+
+
+.sparkle-dots {
+    background-image: url(../img/Nextcloud-Summit-sparkle-dots-cropped.png) !important;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+
+    @media screen and (max-width: variables.$md-breakpoint) {
+        background-size: 180% auto;
+    }
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    animation: bg-position-from-bottom 3.5s ease forwards;
+    animation-duration: 3.5s !important;
+    background-position: center bottom 0%;
+}
+
+.sparkle-dots ~ .container {
+    position: relative;
+    z-index: 2;
+}
+
+.sponsorship_cta {
+    .iconboxes.counters .nc_iconbox.feature_iconbox .title_and_description .title {
+        font-size: 1.5rem;
+    }
+}
+
+.cta_with_background {
+
+    &.cta_summit_gradient {
+        background-size: 120% auto;
+        background-position: top 52% right 0%;
+
+        &:before {
+            content: " ";
+            background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            opacity: 0.6;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .overlay-gradient {
+            background: none !important;
+        }
+    }
+}
+
+
+.promo-section {
+
+    &.summitBackground {
+        &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                background-size: 142% auto;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                opacity: 0.3;
+                border-radius: variables.$radius-lg;
+                transition: all 0.3s ease;
+                pointer-events: none;
+                
+        }
+    }
+
+}
+
+
+
+.feature_iconbox {
+    &.summit_iconbox_light {
+        a, .link_replacement {
+            //background: none;
+            //color: variables.$color-white !important;
+            //box-shadow: none !important;
+            position: relative;
+            //background: variables.$gradient-summit;
+            
+            &:before {
+                content: " ";
+                background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                background-size: 142% auto;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                opacity: 0.3;
+                border-radius: variables.$radius-lg;
+                transition: all 0.3s ease;
+            }
+
+            .iconbox_container {
+                .icon {
+                    i {
+                        //color: variables.$color-white;
+                    }
+                }
+
+                .title_and_description {
+                    
+                }
+
+            }
+
+            &:hover {
+                background-color: none;
+
+                &:before {
+                    background-size: 152% auto;
+                    background-position: center bottom -10px;
+                }
+            }
+
+        }
+    }
+
+
+
+    &.summit_iconbox {
+        a, .link_replacement {
+            //background: none;
+            //color: variables.$color-white !important;
+            //box-shadow: none !important;
+            position: relative;
+            //background: variables.$gradient-summit;
+            
+            &:before {
+                content: " ";
+                //background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png) !important;
+                //background-image: url(../img/Nextcloud-Summit-key-visual-bg-1x1.png) !important;
+                background-image: url(../img/Nextcloud-Summit-key-visual-bg-16x9-left.png) !important;
+                //background-size: 142% auto;
+                background-size: auto 100%;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                //opacity: 0.3;
+                border-radius: variables.$radius-lg;
+                transition: all 0.3s ease;
+            }
+
+            .iconbox_container {
+                .icon {
+                    i {
+                        color: variables.$color-white;
+                    }
+                }
+
+                .title_and_description {
+                    color: variables.$color-white;
+
+                    .see_more {
+                    color: variables.$color-white;
+
+                        svg {
+                            transition: all 0.3s ease;
+                            path {
+                                fill: variables.$color-white;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            &:hover {
+                background-color: none;
+
+                &:before {
+                    background-size: auto 110%;
+                }
+
+                .see_more {
+                    svg {
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+
+
+
+
+
+.nc_app_iconbox {
+    &.summit_iconbox {
+        position: relative;
+        overflow: hidden;
+
+        @media screen and (min-width: variables.$xl-breakpoint-min) {
+            & {
+                max-width: 80%;
+            }
+        }
+
+        a.app_link {
+            padding: 9px;
+            text-decoration: none;
+            display: block;
+            background-image: url(/c/uploads/2025/03/Background-with-patterns-2.svg);
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            border-radius: variables.$radius-sm;
+            overflow: hidden;
+            background-position: left top;
+            transition: all 0.5s ease;
+
+
+            &:focus, &:hover {
+                background-size: 120% auto;
+            }
+
+            .iconbox_container {
+                .icon {
+                    background: none !important;
+                    padding: 2px;
+                    max-width: 71px;
+                    height: 60px;
+                }
+
+                .text {
+                    position: relative;
+
+                    .title {
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                    }
+
+                    .description {
+                        font-size: 0.8em;
+                    }
+
+                    .extra_description {
+                        //margin-bottom: 8px;
+
+                        i {
+                            margin-right: 3px;
+
+                            &:not(:first-child) {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+.summitLP {
+
+
+    .nc_custom_grid {
+        .custom_grid_item {
+            width: 31%;
+            border-radius: variables.$radius-md;
+            overflow: hidden;
+
+            a {
+
+                &:before {
+                    background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: left bottom;
+                    opacity: 0;
+                }
+                
+
+                &:focus, &:hover {
+                    &:before {
+                        opacity: 0.6;
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+
+
+
+
+     .nf-form-content  {
+        input[type="submit"] {
+            border-color: variables.$color-dark-blue !important;
+            border-width: 1px !important; 
+            background: variables.$gradient-summit !important;
+
+            &:hover, &:focus {
+                color: variables.$color-dark-blue !important;
+                background: variables.$color-white !important;
+            }
+        }
+     }
+
+    .summit_animation {
+            @media screen and (max-width: variables.$lg-breakpoint) {
+                & {
+                    margin: 3rem 2rem;
+                }
+            }
+
+            .dash-lines {
+                stroke-dasharray: 1000;
+                stroke-dashoffset: 1000;
+                animation: dash 20s linear forwards infinite;
+            }
+
+            .summit_logo {
+                img {
+                    max-width: 73px;
+                    position: relative;
+                    margin: auto;
+                    top: 0;
+                    bottom: 0;
+                    height: 100%;
+                }
+            }
+    }
+
+
+
+    .countdown {
+        
+        &.summitBlue {
+            & > div {
+                background: variables.$gradient-summit;
+                color: variables.$color-white;
+            }
+        }
+
+        &.summitGradientBG {
+            & > div {
+                //background: variables.$gradient-summit;
+                background-image: url(../img/Nextcloud-Summit-plain-backgrounds-16x9-left.svg);
+                color: variables.$color-white;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+
+    }
+
+
+    .blog-section.featured_blogs {
+        &.style_2 {
+            .featured_blog_posts {
+                .post-box {
+                    .post-body {
+                        h3 {
+                            a {
+                                color: variables.$color-black;
+
+                                &:hover, &:focus {
+                                    color: variables.$color-primary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .case_studies {
+        &.summit_speakers {
+            .case_study {
+                .vc_column-inner {
+                    //background: variables.$gradient-summit !important;
+                    //background-image: url(../img/Nextcloud-Summit-key-visual-bg-1x1.png);
+                    background-image: url(../img/Nextcloud-Summit-plain-backgrounds-1x1.svg);
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: left bottom;
+                    color: variables.$color-white;
+
+                    &:before {
+                        content: " ";
+                        background-image: url(../img/Nextcloud-Summit-sparkle-dots-cropped.png) !important;
+                        background-repeat: no-repeat;
+                        background-size: 180% auto;
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                        z-index: 0;
+                        bottom: 0;
+                        //animation: bg-position-from-bottom 3.5s ease forwards;
+                        animation-duration: 3.5s !important;
+                        background-position: center bottom 0%;
+
+                        @media screen and (max-width: variables.$md-breakpoint) {
+                            background-size: 180% auto;
+                        }
+
+                        /*
+
+                        background-image: url(/c/uploads/2025/03/Pattern-cirlce-bottom.svg) !important;
+                        background-size: 85% auto;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        position: absolute;
+                        left: 0;
+                        bottom: 7px;
+                        width: 100%;
+                        opacity: 0.6;
+                        height: 199px;
+                        */
+                    }
+
+                    .organization {
+                        &:before {
+                            color: variables.$color-white !important;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+    
+
+    .nc-table.schedule {
+        table {
+
+            thead {
+             
+                tr {
+
+                    td {
+                        overflow: hidden;
+    
+                        &:first-child {
+                            border-radius: variables.$radius-md 0 0 0;
+    
+                        }
+    
+                        &:last-child {
+                            border-radius: 0 variables.$radius-md 0 0;
+                        }
+                    }
+
+                }
+
+                
+            }
+
+            tbody {
+                td {
+                    &:first-child {
+                        color: variables.$color-dark-blue;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .nc_event_agenda {
+        .event_row_type {
+            background: variables.$gradient-summit !important;
+        }
+
+        .inner_tracks_row {
+            .inner_track {
+                .track_label {
+                    color: variables.$color-dark-blue !important;
+                }
+            }
+        }
+
+        .speaker_type {
+            color: variables.$color-dark-blue !important;
+        }
+    }
+
+
+    .nc_separator_line {
+        .vc_sep_line {
+            background: variables.$gradient-summit !important;
+        }
+    }
+
+
+    section:not(.ed_section) {
+
+        .c-btn {
+            background: variables.$gradient-summit !important;
+
+            &:hover {
+                background: variables.$color-white !important;
+                color:  variables.$color-dark-blue;
+            }
+        }
+
+
+        .btn-outline {
+
+            .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+            {
+                color:  variables.$color-dark-blue;
+                border-color: variables.$color-dark-blue;
+        
+                &:hover, &:focus {
+                    color: variables.$color-white;
+                    background: variables.$gradient-summit;
+                    //border-color: variables.$color-primary;
+                }
+            }
+
+        }
+
+
+
+        .btn-main {
+                .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern
+                {
+                    color: variables.$color-white;
+                    background: variables.$gradient-summit;
+                    transition: all 0.3s;
+        
+                    &:hover, &:focus {
+                        color: variables.$color-dark-blue !important;
+                        background: variables.$color-white !important;
+                        //border-color: variables.$color-youtube;
+                    }
+            }
+        }
+
+        .btn-white, .btn-white-outline {
+
+            .vc_btn3.vc_btn3-color-grey.vc_btn3-style-modern {
+                &:hover, &:focus {
+                    border-color: variables.$color-dark-blue !important; 
+                    background: variables.$gradient-summit !important;
+                }
+            }
+        }
+
+        ul.nc-list {
+            li {
+                &:before {
+                    color:  variables.$color-dark-blue !important;
+                }
+            }
+        }
+
+    }
+
+
+}
+
+//hide header, top bar, footer for specific page
+.page-id-307353 {
+    header, footer, #wpadminbar, #cookie_banner {
+        display: none !important;
+    }
+}
+
+
+//style the badge shortcode 
+.attendee_container {
+
+    .attendee_info_shortcode {
+        width: 10.5cm;
+        height: 14.8cm;
+        background: variables.$gradient-summit;
+        background: url("../img/summit-badge-bg.png") no-repeat;
+        background-size: 100% 100%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        position: relative;   
+        border-bottom: 1px solid variables.$color-dark-blue;
+
+        & > div {
+            display: flex;
+            // align-items: center;
+            // justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            //padding: 3rem;
+            //gap: 5px;
+            align-items: center;
+            max-height: 100%;
+        }
+
+        .logo {
+            width: 2.44cm;
+            height: auto;
+            margin: auto;
+            flex-basis: 4.42cm;
+            //padding: 1rem;
+            display: flex;
+
+            img {
+                max-width: 100%;
+            }
+
+        }
+
+        .name_container {
+            flex-basis: 3.4cm;
+            overflow: hidden;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .name {
+                font-weight: bold;
+                font-size: 2.2rem;
+                margin-bottom: 6px;
+                line-height: 130%;
+            }
+
+            .company {
+                font-weight: normal;
+                font-size: 1.65rem;
+            }
+        }
+
+        
+
+        .qr_code {
+            flex-basis: 5.32cm;
+            height: 100%;
+            //max-width: 53%;
+            margin: auto;
+            //width: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+
+
+            .img_container {
+                // background: white;
+                // padding: 6px;
+                // border-radius: variables.$radius-lg;
+                position: relative;
+
+                & > div {
+                    //agenda and confirm QR codes
+                    img {
+                        background: white;
+                        padding: 2px;
+                        border-radius: variables.$radius-md;
+                        max-width: 2.7cm;
+                    }
+                }
+
+                .agenda_qr {
+                    display: none;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .label {
+                        color: variables.$color-dark-blue;
+                        font-weight: bold;
+                        //font-size: 0.8em;
+                        line-height: 15px;
+                        background: white;
+                        border-radius: variables.$radius-sm;
+                        margin-top: 16px;
+                        position: relative;
+                        padding: 13px 12px;
+
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: -10px; /* position the triangle above the box */
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-bottom: 10px solid white;
+                        }
+                    }
+                }
+
+                img {
+                    max-width: 100%;
+                }
+
+            }
+
+            
+        }
+
+        .attendee_type {
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            //padding: 1rem;
+            //display: block;
+            width: 100%;
+            background: white;
+            color: variables.$color-dark-blue;
+            font-weight: bold;
+            //position: absolute;
+            //bottom: 0;
+            flex-basis: 1.77cm;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+
+        &:nth-child(2) {
+            transform: rotate(180deg);
+        }
+    
+
+        &.type_employee {
+            background: variables.$color-primary !important;
+
+            &:not(.cloned) {
+                .qr_code {
+                    .img_container {
+                        display: none;
+                    }
+                }
+            }
+
+            
+
+        }
+
+
+
+        &.cloned {
+            .confirm_qr {
+                display: none;
+            }
+            .agenda_qr {
+                display: flex !important;
+            }
+        }
+
+    }
+
+}
+
+// Sponsor wall ([nc_sponsor_wall] / [nc_sponsor_card], inc/sponsor-wall.php)
+// Flip animation comes from .iconboxes.flip_on_hover in theme.scss; layout and card styles are below.
+$sponsor-tier-platinum: #204C65;
+$sponsor-tier-gold: #9a7400;
+$sponsor-tier-silver: #6b7680;
+
+// Cards per row: grid with at most --sponsor-cols columns (set inline by the shortcode),
+// but a column is dropped whenever cards would get narrower than $sponsor-card-min.
+// So 5 → 4 → 3 → 2 → 1 happens step by step as the screen shrinks, no fixed breakpoints.
+// Columns have a fixed width (auto-fit + justify-content: center), so:
+// - fewer cards than columns (single, unfilled row): unused columns collapse and the cards are centered
+// - several rows: the incomplete last row stays left-aligned under the full rows
+$sponsor-wall-gap: 15px;
+$sponsor-card-min: 210px;
+
+.iconboxes.sponsor_wall {
+    --sponsor-cols: 3;
+    display: grid;
+    gap: $sponsor-wall-gap;
+    justify-content: center;
+    grid-template-columns: repeat(
+        auto-fit,
+        max(#{$sponsor-card-min}, calc((100% - (var(--sponsor-cols) - 1) * #{$sponsor-wall-gap}) / var(--sponsor-cols)))
+    );
+
+    // Phones: 2 per row (the 210px minimum would otherwise drop to 1) ...
+    @media screen and (max-width: variables.$sm-breakpoint) {
+        grid-template-columns: repeat(auto-fit, calc((100% - 10px) / 2));
+        gap: 10px;
+    }
+
+    // ... except very narrow phones, where 2 squares would get too small for the back text
+    @media screen and (max-width: 359.98px) {
+        grid-template-columns: 1fr;
+    }
+
+    // "Show as carousel" ticked: inc/sponsor-wall.php adds .owl-carousel and inits Owl on all screens.
+    &.owl-carousel {
+        display: block;
+
+        // Same approach as .iconboxes_carousel (theme.scss): overflow visible so the card shadows aren't clipped
+        // on the sides. Cards outside the view are faded out instead, so they don't peek in next to the arrows.
+        .owl-stage-outer {
+            overflow: visible !important;
+            padding: 0.5rem 0 1rem;
+        }
+
+        // margin auto centers the stage when there are fewer cards than fit in the view
+        // (when the stage is wider than the view, auto margins resolve to 0 and Owl's sliding is unaffected)
+        .owl-stage {
+            display: flex;
+            margin: 0 auto;
+        }
+
+        .owl-item {
+            display: flex;
+            transition: opacity 0.3s ease;
+
+            &:not(.active) {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .feature_iconbox.sponsor_card {
+                width: 100%;
+            }
+        }
+
+        position: relative;
+
+        // arrows left/right of the cards, vertically centered, like the box repeater (.clients_carousel in home.scss)
+        .owl-nav {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: fit-content;
+            margin: auto;
+            line-height: 0;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+            pointer-events: none; // only the buttons are clickable, not the strip over the cards
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &.disabled {
+                display: none;
+            }
+
+            button {
+                position: absolute;
+                top: 0;
+                transform: translateY(-50%);
+                pointer-events: auto;
+                background: none !important;
+                border: 0;
+                padding: 5px;
+                cursor: pointer;
+
+                svg {
+                    width: 14px;
+                    height: auto;
+                }
+
+                &.disabled {
+                    opacity: 0.4;
+                    cursor: default;
+                }
+            }
+
+            .owl-prev {
+                left: -25px;
+            }
+
+            .owl-next {
+                right: -25px;
+            }
+
+            // phones / small tablets: swipe only, no arrows (like the box repeater)
+            @media screen and (max-width: variables.$md-breakpoint) {
+                display: none !important;
+            }
+        }
+    }
+
+    .feature_iconbox.sponsor_card {
+        height: auto;
+        padding-bottom: 0;
+
+        // white card, also on hover/focus (feature_iconbox default turns light blue)
+        .link_replacement {
+            &, &:hover, &:focus {
+                background-color: variables.$color-white;
+            }
+        }
+
+        .iconbox_container {
+            padding-bottom: 1.5rem !important;
+            overflow: hidden;
+        }
+    }
+
+    .sponsor_card {
+
+        // always a square; the grid / carousel drop a column instead of squeezing cards
+        .flip-card {
+            aspect-ratio: 1 / 1;
+            height: auto !important;
+            min-height: 0;
+        }
+
+        // full chain so it beats .iconboxes.flip_on_hover .flip-card .flip-card-inner .flip-card-front ... img { width: 160px }
+        // Logo scales with the card on every screen size: max 76% of the card width (side padding 12% each)
+        // and max 62% of the card height (cqh = % of .flip-card-front, the size container below).
+        // Any logo shape (wide, square, tall) is fitted without distortion.
+        .flip-card .flip-card-inner .flip-card-front .image-icon {
+            width: 100%;
+
+            .vc_single_image-wrapper {
+                width: 100%;
+                max-width: none;
+                height: auto;
+                padding: 0 12%;
+                text-align: center;
+
+                img {
+                    width: 100%;
+                    max-width: none;
+                    height: auto;
+                    max-height: 180px; // fallback for browsers without container queries
+                    max-height: 62cqh;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        .flip-card-front {
+            position: relative;
+            container-type: size;
+            background-color: variables.$color-white;
+            // iOS Safari only honours backface-visibility reliably on faces with their own 3D transform
+            -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+
+            .sponsor_name_front {
+                margin: 0;
+                padding: 0 1rem;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+        }
+
+        .sponsor_tier {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 7px 15px 7px 34px;
+            border-radius: 0 12px 0 8px;
+            background-color: $sponsor-tier-platinum;
+            background-image: url("../img/certificate-white.svg");
+            background-size: 17px auto;
+            background-repeat: no-repeat;
+            background-position: left 13px center;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.2;
+            // No z-index on purpose: it triggers the Safari 3D bug and isn't needed (absolute already paints on top).
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        &.sponsor_tier_gold .sponsor_tier {
+            background-color: $sponsor-tier-gold;
+        }
+
+        &.sponsor_tier_silver .sponsor_tier {
+            background-color: $sponsor-tier-silver;
+        }
+
+        // full chain so it beats .iconboxes.flip_on_hover .flip-card .flip-card-inner .flip-card-back (theme.scss)
+        .flip-card .flip-card-inner .flip-card-back {
+            background-color: variables.$color-white;
+            background-image: none; // removes the light-blue gradient SVG from theme.scss
+            // background-image: url(../img/Nextcloud-Summit-sparkle-dots-for-web.png);
+            background-size: 142% auto;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
+
+        .flip-card-back {
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .title h4 {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+
+            .description {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+        }
+
+        .sponsor_pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin: 0.25rem 0 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                margin: 0;
+                padding: 3px 10px;
+                border-radius: 999px;
+                background: variables.$color-white;
+                border: 1px solid variables.$color-primary;
+                color: variables.$color-primary;
+                font-size: 0.75rem;
+                font-weight: 600;
+                line-height: 1.4;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+// Flip interaction: hover on mouse devices, tap (JS toggles .is-flipped) on touch devices,
+// focus for keyboard users. Cards are not links.
+.iconboxes.sponsor_wall .sponsor_card .flip-card {
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: 2px solid variables.$color-primary;
+        outline-offset: 3px;
+    }
+
+    &:focus-visible .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    // Safari renders images / positioned elements (logo, tier badge) in their own layers and ignores the
+    // face's backface-visibility for them, so they'd show mirrored during the rotation. Instead the whole
+    // front face switches to hidden at the moment the card is edge-on (90°), where nothing is visible anyway:
+    // with the 0.6s ease flip from theme.scss that's ~0.18s in, in both directions. No fade, just a clean swap.
+    // (full chain to beat `transition: all 0.6s ease` on the faces in theme.scss)
+    .flip-card-inner .flip-card-front {
+        transition: visibility 0s linear 0.18s;
+    }
+
+    &:focus-visible .flip-card-inner .flip-card-front {
+        visibility: hidden;
+    }
+
+    @media (hover: hover) {
+        &:hover .flip-card-inner .flip-card-front {
+            visibility: hidden;
+        }
+    }
+
+    // touch: ignore sticky :hover, flip only via tap
+    @media (hover: none) {
+        &:hover .flip-card-inner {
+            transform: none;
+        }
+
+        &.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        &.is-flipped .flip-card-inner .flip-card-front {
+            visibility: hidden;
+        }
+    }
+}
+
+// Phones: 2 cards side by side, so card content is more compact
+@media screen and (max-width: variables.$sm-breakpoint) {
+    .iconboxes.sponsor_wall .sponsor_card {
+
+        .sponsor_tier {
+            padding: 5px 9px 5px 24px;
+            font-size: 12px;
+            background-size: 12px auto;
+            background-position: left 8px center;
+        }
+
+        .flip-card .flip-card-inner .flip-card-back {
+            padding: 10px;
+            gap: 0.35rem;
+
+            .title h4 {
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.875rem;
+                line-height: 1.3;
+            }
+        }
+
+        .sponsor_pills {
+            gap: 4px;
+
+            li {
+                padding: 2px 7px;
+                font-size: 0.75rem;
+            }
+        }
+    }
+}

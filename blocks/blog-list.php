@@ -32,9 +32,7 @@ if (!empty($title)) {
 if (function_exists('wpes_search_form')) {
 	echo '<div class="col-lg-4">';
 	echo '<div class="form-holder">';
-	wpes_search_form([
-		'wpessid' => 1612
-	]);
+	nc_search_form('blog');
 	echo '</div>';
 	echo '</div>';
 }

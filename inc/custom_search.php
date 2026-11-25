@@ -11,6 +11,12 @@ function nc_custom_search_form($form) {
 }
 add_filter('get_search_form', 'nc_custom_search_form', 40);
 
+//Render the Gutenberg Search block (core/search) with the same custom form on the frontend
+function nc_custom_search_block($block_content, $block) {
+	return get_search_form(['echo' => false]);
+}
+add_filter('render_block_core/search', 'nc_custom_search_block', 10, 2);
+
 //blocks search if honeypot field is set
 function my_search_honeypot() {
 	if (! is_admin() && is_search()) {

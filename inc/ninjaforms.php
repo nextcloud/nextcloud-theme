@@ -15,9 +15,9 @@ function get_string_between($string, $start, $end) {
 function getOdooConnection($type = null) {
 
 	if ($type == 'staging') { //staging odoo
-		$url = 'https://nextcloud-crm-test.odoo.com';
-		$db = 'nextcloud-crm-odoo-staging-25815157';
-		$username = 'viktor.nagornyy@nextcloud.com';
+		$url = STAGING_ODOO_URL;
+		$db = STAGING_ODOO_DB_NAME;
+		$username = STAGING_ODOO_USERNAME;
 		$password = STAGING_ODOO_API_KEY; // api key
 	} else {
 		$url = ODOO_URL;
@@ -27,16 +27,6 @@ function getOdooConnection($type = null) {
 	}
 
 	return [$url, $db, $username, $password];
-}
-
-//ninja forms filter emails - don't allow private or spam emails
-function isDisposableEmail_private_list($email, $blocklist_path = null) {
-	if (!$blocklist_path) {
-		$blocklist_path = __DIR__ . '/disposable_email_blocklist_private.txt';
-	}
-	$disposable_domains = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	$domain = mb_strtolower(explode('@', trim($email))[1]);
-	return in_array($domain, $disposable_domains);
 }
 
 //populate preferred language field with all languages in the world
@@ -295,6 +285,7 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 					123, // exclude Summit awards form
 					124, // exclude Conference 2025 form
 					125, // exclude Call for proposals conference 2025
+					//126, //Exclude EDs newsletter form (DK, Paris, Summit, etc) - Pre-registration
 					127, // exclude Conference 2025 registration - with payment
 					132, // exclude Generic Enterprise day (Paris, Hague, etc) - With payment
 					134, // exclude Hub announcements mailing list form
@@ -331,7 +322,10 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 				90 // testing form
 			])) {
 
-				if (!$arrayValidator['valid_mx_records']) {
+				if (
+					!$arrayValidator['valid_mx_records']
+					|| $arrayValidator['disposable_email_provider']
+				) {
 					$form_data['errors']['fields'][$field_id] = __('The MX records are not valid.', 'nextcloud');
 				}
 
@@ -368,7 +362,6 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 					!$arrayValidator['valid_mx_records']
 					|| $arrayValidator['disposable_email_provider']
 					|| $arrayValidator['free_email_provider']
-					//|| isDisposableEmail_private_list($field_value)
 					// || !$arrayValidator['valid_host']
 					|| Domain_Blocklist::is_blocked($field_value)
 				) {
@@ -597,9 +590,8 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 			if ($field[ 'key' ] == 'kids_age') {
 				if ($field[ 'value' ] != '') {
 					//add mailing list "Conference 2026 - Attendees with kids"
-					$mailing_list_ids[] = 17711;
+					$mailing_list_ids[] = 17721;
 				}
-
 			}
 
 			if (str_contains($field['key'], 'mailing_list_id')) {
@@ -609,104 +601,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 		}
 
 	}
-
-	/*
-	if($subscribed) {
-		[$url, $db, $username, $password] = getOdooConnection();
-		$uid = ODOO_UID;
-
-		$models = RipcordLogger::client("$url/xmlrpc/2/object");
-		$sub_id = $models->execute_kw($db, $uid, $password,
-				'mailing.contact', 'create',
-				array(
-					array(
-						'name'=> $name,
-						'email'=> $email,
-						'list_ids' => $mailing_list_ids
-					)
-				)
-		);
-
-
-		if($sub_id) {
-			$args = [[['contact_id', '=', $sub_id]]];
-			$kwargs = [
-				'fields' => ['contact_id', 'list_id', 'opt_out'],
-				'limit'  => 10
-			];
-			$subscriptions = $models->execute_kw(
-				$db, $uid, $password,
-				'mailing.subscription', 'search_read',
-				$args, $kwargs
-			);
-
-			$subscription_list_ids = [];
-			$subscription_ids = [];
-
-			//foreach subscription, set Opt out field to true
-			foreach($subscriptions as $subscription){
-					$subscription_list_ids[] = $subscription['list_id'][0];
-					$subscription_ids[] = $subscription['id'];
-
-					$update_sub = $models->execute_kw($db, $uid, $password,
-							'mailing.subscription', 'update',
-							array(array($subscription['id']), array(
-								'opt_out' => true
-					))
-					);
-
-
-			}
-
-			//send the double opt in email
-			$headers = array();
-			// Override the default 'From' address if 'Force Sender Email' is not enabled
-			$headers['From'] = 'Nextcloud <no-reply@e.nextcloud.com>';
-			// Send the message as HTML
-
-			add_filter('wp_mail_content_type', function( $content_type ) {
-				return 'text/html';
-			});
-			$headers['Content-Type'] = 'text/html; charset=ISO-8859-1';
-
-			$lang = apply_filters( 'wpml_current_language', null );
-			if($lang == 'en') {
-				$curr_lang = "";
-			} else {
-				$curr_lang = apply_filters( 'wpml_current_language', null )."/";
-			}
-
-
-			$to = $email;
-			$subject = __('Please confirm your subscription', 'nextcloud');
-			$message = __('Hello', 'nextcloud').",<br />";
-
-			if (is_array($subscription_ids)) {
-				$joined = implode(',', $subscription_ids);
-			} else {
-				$joined = (string) $subscription_ids; // fallback if it's a string or null
-			}
-
-			$reg_link = "https://nextcloud.com/".$curr_lang."manage-subscription/?action=subscribe&sub=".$sub_id."&subs_ids=".$joined;
-			$string_confirm = sprintf('Please confirm your mailing subscription by clicking <a href="%s">here</a>.', $reg_link);
-			$message .= __($string_confirm, 'nextcloud');
-
-
-			$message .= "<br />".__('Or by accessing this link in your URL bar:', 'nextcloud').$reg_link."<br />
-			<br />
-			".__('If this wasn\'t requested by you, please ignore this email.', 'nextcloud')."
-			<br />
-			<br />
-			".__('Kind regards,', 'nextcloud')."
-			<br />
-			".__('Nextcloud team.', 'nextcloud');
-
-			// Send the email
-			$response = wp_mail( $to, $subject, $message, $headers );
-
-		}
-	}
-	*/
 
 	// Odoo expects integer list IDs - drop empty values (e.g. empty hidden mailing_list_id fields) and duplicates
 	$mailing_list_ids = array_values(array_unique(array_filter(array_map('intval', (array)$mailing_list_ids))));
@@ -2765,7 +2659,7 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 		'base_url' => 'https://pretix.eu/',
 		'organizer' => 'nextcloud',
 		'event' => 'testsummit',
-		'api_token' => 'nphmptgm6z47fau2fnt9kqiecrlmzdn1krkcp45ibzw3svuia5f81mau80pyu8va',
+		'api_token' => PRETIX_API_TOKEN,
 		'locale' => 'en',
 	];
 
@@ -2939,29 +2833,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 	$order_code = ! empty($data['code']) ? $data['code'] : '';
 	error_log('Pretix sync success. Order code: ' . $order_code);
 
-	//set order as paid
-	/*
-	$mark_paid_endpoint = trailingslashit( $config['base_url'] )
-		. 'api/v1/organizers/' . rawurlencode( $config['organizer'] )
-		. '/events/' . rawurlencode( $config['event'] )
-		. '/orders/' . rawurlencode( $order_code )
-		. '/mark_paid/';
-
-	wp_remote_post(
-		$mark_paid_endpoint,
-		array(
-			'headers' => array(
-				'Authorization' => 'Token ' . $config['api_token'],
-				'Content-Type'  => 'application/json',
-				'Accept'        => 'application/json',
-			),
-
-			'body' => wp_json_encode( array(
-				'send_email' => true,
-			) ),
-		)
-	);
-	*/
 }
 
 /* - Ninja Form action to add attendees to Pretix - */
@@ -2972,7 +2843,7 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 		'base_url' => 'https://pretix.eu/',
 		'organizer' => 'nextcloud',
 		'event' => 'summit-2026',
-		'api_token' => 'nphmptgm6z47fau2fnt9kqiecrlmzdn1krkcp45ibzw3svuia5f81mau80pyu8va',
+		'api_token' => PRETIX_API_TOKEN,
 		'locale' => 'en',
 	];
 

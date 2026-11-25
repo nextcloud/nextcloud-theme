@@ -684,3 +684,32 @@ add_filter(
 	},
 	9999
 );
+
+/**
+ * Yoast breadcrumbs: Home › Compare › {Comparison title}
+ */
+add_filter('wpseo_breadcrumb_links', function ($links) {
+	if (! is_singular('comparison')) {
+		return $links;
+	}
+
+	$compare_id = 11770;
+
+	// WPML: use the Compare page in the current language (falls back to English).
+	$compare_id = apply_filters('wpml_object_id', $compare_id, 'page', true);
+
+	if (! $compare_id || get_post_status($compare_id) !== 'publish') {
+		return $links;
+	}
+
+	$crumb = [
+		'url' => get_permalink($compare_id),
+		'text' => get_the_title($compare_id),
+		'id' => $compare_id,
+	];
+
+	// Insert after "Home" (index 0)
+	array_splice($links, 1, 0, [ $crumb ]);
+
+	return $links;
+});

@@ -277,8 +277,7 @@ jQuery(document).ready(function () {
 
                 // Get the field value.
                 var email = model.get( 'value' );
-                
-                //var disposable_email_blocklist_private = "https://nextcloud.com/wp-content/themes/nextcloud-theme/inc/disposable_email_blocklist_private.txt";
+
                 var disposable_email_blocklist_private = "https://nextcloud.com/wp-content/domain-blocklist.txt";
 
                 //const blocked_domains = [];
@@ -348,6 +347,7 @@ jQuery(document).ready(function () {
                 && form_id != 123 // exclude Summit awards form
                 && form_id != 124 // exclude Conference 2025 form
                 && form_id != 125 // exclude Call for proposals conference 2025
+                //&& form_id != 126 // exclude EDs newsletter form (DK, Paris, Summit, etc) - Pre-registration
                 && form_id != 127 // exclude Conference 2025 registration - with payment
                 && form_id != 132 // exclude Generic Enterprise day (Paris, Hague, etc) - With payment
                 && form_id != 134 // exclude Hub announcements mailing list form

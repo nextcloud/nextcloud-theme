@@ -11,6 +11,11 @@ if (is_array($country)) {
 	$country = implode(',', $country);
 }
 
+$headquarters = get_field('headquarters', $sol_id);
+if (is_array($headquarters)) {
+	$headquarters = implode(',', $headquarters);
+}
+
 $logo = get_field('logo', $sol_id);
 $text = get_field('text', $sol_id);
 $service_text = get_field('service_text', $sol_id);
@@ -20,7 +25,7 @@ echo '<div class="partner-col" id="partner-' . $sol_id . '" data-type="' . $leve
 foreach ($servs as $s) {
 	echo ' ' . $s;
 }
-echo '" data-country="' . $country . '">';
+echo '" data-country="' . esc_attr($country) . '" data-headquarters="' . esc_attr($headquarters) . '">';
 echo '<div class="partner-box">';
 
 //level - do not show for Technology providers

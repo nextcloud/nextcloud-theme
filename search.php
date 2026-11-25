@@ -25,16 +25,16 @@ get_header();
 				<?php
 				global $wp_query;
 
-if (function_exists('wpes_search_form')) {
+// Search profile from ?search_profile= (or legacy ?wpessid= / ?custom_type=), see inc/search-profiles.php
+$search_profile = function_exists('nc_search_requested_profile_key') ? nc_search_requested_profile_key() : '';
+
+if (function_exists('nc_search_form')) {
 
 	echo '<div class="col-lg-4">';
 	echo '<div class="form-holder">';
-	$search_id = isset($_GET['wpessid']) ? $_GET['wpessid'] : 0;
 
-	if ($search_id != 0) {
-		wpes_search_form([
-			'wpessid' => $search_id
-		]);
+	if ($search_profile !== '') {
+		nc_search_form($search_profile);
 	} else {
 		//get_search_form();
 		?>
@@ -63,7 +63,7 @@ $limit = $default_posts_per_page;
 $count = $wp_query->get('total_found_posts');
 
 if (current_user_can('manage_options') && isset($wp_query->request)) {
-	echo "<div class='hidden'>" . implode(',', get_query_var('post_type')) . '</div>';
+	echo "<div class='hidden'>" . implode(',', (array)$wp_query->get('post_type')) . '</div>';
 	echo "<div class='hidden'>Count: " . $count . '</div>';
 	echo '<pre class="request hidden" style="white-space: pre-wrap;">' . esc_html($wp_query->request) . '</pre>';
 }
@@ -116,26 +116,18 @@ if ($search_query->have_posts()) {
 			
 			<?php
 			if ($count > $limit) {
+				$post_type_search = '';
+				if ($search_profile !== '') {
+					$post_type_search = nc_search_profiles()[$search_profile]['load_more_post_type'] ?? 'post';
+				}
 				?>
 			<div class="row loadNews_row">
 				<div class="col-12">
 					<div class="section-button">
-						<button class="c-btn btn-main loadNews" data-post-type="<?php
-
-						$post_type_search = '';
-				if (isset($_GET['wpessid'])) {
-					if ($_GET['wpessid'] == 1612) {
-						$post_type_search = 'post';
-					} elseif ($_GET['wpessid'] == 125618) {
-						$post_type_search = 'event';
-					} elseif ($_GET['wpessid'] == 200771) {
-						$post_type_search = 'on-demand-webinar';
-					} else {
-						$post_type_search = 'post';
-					}
-				}
-
-				echo $post_type_search; ?>" data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" 
+						<button class="c-btn btn-main loadNews" 
+						data-post-type="<?php echo esc_attr($post_type_search); ?>" 
+						data-search_profile="<?php echo esc_attr($search_profile); ?>" 
+						data-count="<?php echo $count; ?>" data-limit="<?php echo $limit; ?>" 
 						data-search="true" 
 						data-search_query="<?php echo the_search_query(); ?>" 
 						data-category="" id="loadNews"><?php echo __('Load more', 'nextcloud'); ?></button>

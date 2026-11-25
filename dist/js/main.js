@@ -781,6 +781,7 @@ jQuery(document).ready(function ($) {
         let stateObj = { id: "100" };
 
         $('.faq_toggles .vc_toggle').click(function(e){
+            if ($(e.target).closest('.vc_toggle_content').length) return;
             e.preventDefault();
             var hashtag = $(this).attr('id');
 

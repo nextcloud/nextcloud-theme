@@ -36,7 +36,10 @@ class RipcordLogger {
 		// Remove custom keys before passing options to Ripcord
 		unset($options['form_id'], $options['form_name'], $options['page_url']);
 
+		//old line
 		//$client = ripcord::client($url, $options);
+
+		//new lines
 		$options = array_merge([
 			'output_type' => 'xml',
 			'verbosity' => 'pretty',
@@ -44,10 +47,39 @@ class RipcordLogger {
 			'version' => 'xmlrpc',
 			'encoding' => 'utf-8',
 		], $options);
-
 		$client = ripcord::client($url, $options);
 
+		// Logging switched off: hand back the plain Ripcord client
+		if (!self::is_enabled()) {
+			return $client;
+		}
+
 		return new RipcordLoggedClient($client, $url, self::$log_file, $context);
+	}
+
+	/**
+	 * Runtime override (null = fall back to the RIPCORD_LOGGING constant).
+	 */
+	private static $enabled = null;
+
+	/**
+	 * Logging is ON by default. Switch it off with either:
+	 *   define('RIPCORD_LOGGING', false);   // in wp-config.php
+	 *   RipcordLogger::disable();           // at runtime, in code
+	 */
+	public static function is_enabled() {
+		if (self::$enabled !== null) {
+			return self::$enabled;
+		}
+		return defined('RIPCORD_LOGGING') ? (bool)RIPCORD_LOGGING : true;
+	}
+
+	public static function enable() {
+		self::$enabled = true;
+	}
+
+	public static function disable() {
+		self::$enabled = false;
 	}
 
 	/**

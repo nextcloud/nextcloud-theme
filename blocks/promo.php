@@ -52,10 +52,10 @@ if ($bg_image) {
 					}
 
 		if (!empty($title)) {
-			echo '<h2 class="promo_title">' . $title . '</h2>';
+			echo '<div class="promo_title">' . $title . '</div>';
 		}
 		if (!empty($subtitle)) {
-			echo '<h5 class="promo_subtitle">' . $subtitle . '</h5>';
+			echo '<div class="promo_subtitle">' . $subtitle . '</div>';
 		}
 
 		if (!empty($text)) {
