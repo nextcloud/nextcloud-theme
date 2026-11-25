@@ -3233,11 +3233,9 @@ function media_coverage_funct($atts) {
 
                   <?php
 				  foreach ($items as $index => $item) {
-				  	/*
-				  		if( $type === 'carousel') {
-				  		  echo '<div class="media_coverage_carousel_item">';
-				  	  }
-				  	  */
+				  	// if( $type === 'carousel') {
+				  	// echo '<div class="media_coverage_carousel_item">';
+				  	// }
 
 				  	$item_link = false;
 				  	if (isset($item['link'])) {

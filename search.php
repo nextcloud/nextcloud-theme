@@ -62,7 +62,7 @@ $limit = $default_posts_per_page;
 //$count = $wp_query->get( 'filtered_post_count' );
 $count = $wp_query->get('total_found_posts');
 
-				if (current_user_can('manage_options') && isset($wp_query->request)) {
+if (current_user_can('manage_options') && isset($wp_query->request)) {
 	echo "<div class='hidden'>" . implode(',', (array)$wp_query->get('post_type')) . '</div>';
 	echo "<div class='hidden'>Count: " . $count . '</div>';
 	echo '<pre class="request hidden" style="white-space: pre-wrap;">' . esc_html($wp_query->request) . '</pre>';
