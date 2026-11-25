@@ -1,3 +1,15 @@
+## [1.1.0-rc.2](https://github.com/nextcloud/nextcloud-theme/compare/v1.1.0-rc.1...v1.1.0-rc.2) (2026-11-25)
+
+
+### Features
+
+* sync theme updates and new SCSS partials ([5731b9f](https://github.com/nextcloud/nextcloud-theme/commit/5731b9f2c8647f4a0b99089fc25a522f17a13a6f))
+
+
+### Bug Fixes
+
+* restore psalm fixes overwritten by production sync and apply php-cs formatting ([8ace6cd](https://github.com/nextcloud/nextcloud-theme/commit/8ace6cd71439abfd3f38c7b6768b6d6a2c790711))
+
 ## [1.1.0-rc.1](https://github.com/nextcloud/nextcloud-theme/compare/v1.1.0-rc.0...v1.1.0-rc.1) (2026-11-23)
 
 
