@@ -27,7 +27,7 @@ else : /* rendering in editor body */
                             <?php echo wp_get_attachment_image($image_id, $size); ?>
                         </a>
                         <?php if (wp_get_attachment_caption($image_id)) {
-                        	echo '<div class="caption">' . wp_get_attachment_caption($image_id) . '</div>';
+                        	echo '<div class="caption">' . (string)wp_get_attachment_caption($image_id) . '</div>';
                         }?>
                     </div>
                 <?php endforeach; ?>

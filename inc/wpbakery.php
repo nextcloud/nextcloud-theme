@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WPBakery Page Builder customisations: extra element params and output filters.
  *
@@ -10,7 +11,6 @@
 if (!defined('WPB_VC_VERSION')) {
 	return;
 }
-
 
 //add custom checkbox in the button elements in WP Bakery (Old Button vc_btn and the 9.1+ Button wpb_btn)
 function add_aria_popup_param_to_button() {
@@ -40,7 +40,6 @@ function add_link_id_param_to_button() {
 }
 add_action('vc_after_init', 'add_link_id_param_to_button');
 
-
 //add custom checkbox in the toggle (FAQ) element in WP Bakery
 function extend_vc_toggle_with_disable_option() {
 	vc_add_param('vc_toggle', [
@@ -52,8 +51,6 @@ function extend_vc_toggle_with_disable_option() {
 	]);
 }
 add_action('vc_after_init', 'extend_vc_toggle_with_disable_option');
-
-
 
 //add custom checkbox in the toggle (FAQ) element in WP Bakery
 function extend_vc_section_with_extra_div_option() {
@@ -82,12 +79,8 @@ function extend_vc_section_with_extra_div_option() {
 		'group' => 'Custom Settings'
 	]);
 
-
-
 }
 add_action('vc_after_init', 'extend_vc_section_with_extra_div_option');
-
-
 
 //extend WP Bakery accordion seciton
 add_action('vc_before_init', 'extend_vc_accordion_section');
@@ -101,7 +94,6 @@ function extend_vc_accordion_section() {
 		//'group' => 'Custom Settings',
 	]);
 }
-
 
 // Add custom params to vc_icon
 add_action('vc_after_init', function () {
@@ -125,8 +117,6 @@ add_action('vc_after_init', function () {
 		]);
 	}
 });
-
-
 
 /**
  * Replace vc_icon output with inline SVG when requested.
@@ -221,11 +211,8 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 	return $new_output;
 }, 10, 3);
 
-
-
 // === Add SVG icon params to WPBakery Button (vc_btn / vc_button) ===
 add_action('vc_after_init', function () {
-
 	if (!function_exists('vc_add_param')) {
 		return;
 	}
@@ -260,7 +247,6 @@ add_action('vc_after_init', function () {
 		]);
 	}
 });
-
 
 /**
  * Inject inline SVG into vc_btn / vc_button output when enabled.
@@ -450,7 +436,6 @@ add_action('vc_after_init', function () {
 	]);
 });
 
-
 /**
  * Render the sanitized inline SVG markup for a TTA (Tabs/Accordion) section icon.
  * Shared by vc_templates/vc_tta_section.php (mobile/accordion heading) and the
@@ -532,7 +517,6 @@ add_filter('vc-tta-get-params-tabs-list', function ($html, $atts, $content, $tab
 	return $html;
 }, 10, 4);
 
-
 // === Add SVG icon params to WPBakery Message Box ===
 add_action('vc_after_init', function () {
 	if (!function_exists('vc_add_param')) {
@@ -562,7 +546,6 @@ add_action('vc_after_init', function () {
 		]);
 	}
 });
-
 
 /**
  * Inject inline SVG into vc_message / vc_message_box when enabled.
@@ -643,7 +626,6 @@ add_filter('vc_shortcode_output', function ($output, $obj, $atts) {
 
 	return $output;
 }, 10, 3);
-
 
 // Add inline CSS field to Single Image element
 add_action('vc_after_init', 'nextcloud_add_inline_css_to_single_image');

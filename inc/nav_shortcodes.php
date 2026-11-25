@@ -1,6 +1,5 @@
 <?php
 
-
 //show next upcoming webinar in the navigation menu
 function next_webinar_nav_func() {
 	ob_start();
@@ -22,7 +21,6 @@ function next_webinar_nav_func() {
 		}
 
 		$date = (string)get_the_date($date_format);
-	
 
 		if (get_post_type() == 'event') {
 			$cat = wp_get_object_terms($post_id, 'event_categories', []);
@@ -31,7 +29,7 @@ function next_webinar_nav_func() {
 				$date = date_i18n($date_format, strtotime($event_start_datetime));
 			}
 		}
-				
+
 		echo '<div class="nav-preview-news-item next_webinar" id="' . $post_id . '" style="">';
 
 		echo '<div class="post-box-shortcode-preview">';
@@ -49,7 +47,7 @@ function next_webinar_nav_func() {
 		echo __('Next webinar', 'nextcloud');
 		echo '</div>';
 		echo '<h4>' . $title . '</h4>';
-					
+
 		?>
 					<?php
 		$timezone = new DateTimeZone('Europe/Berlin');
@@ -96,13 +94,10 @@ function next_webinar_nav_func() {
 		<?php echo __('All upcoming webinars and recordings', 'nextcloud'); ?></small></span></a>
 		<?php
 	}
-					
 
 	return ob_get_clean();
 }
 add_shortcode('next_webinar_nav', 'next_webinar_nav_func');
-
-
 
 //show last featured blog post in the navigation menu
 function featured_blog_nav_func() {
@@ -138,7 +133,6 @@ function featured_blog_nav_func() {
 		$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
 		$cat = get_the_category($post_id);
 
-	
 		echo '<div class="nav-preview-news-item featured_blog" id="' . $post_id . '" style="">';
 		echo '<div class="post-box-shortcode-preview">';
 
@@ -185,14 +179,10 @@ function featured_blog_nav_func() {
 		<?php echo __('Nextcloud news and articles', 'nextcloud'); ?></small></span></a>
 		<?php
 	}
-					
 
 	return ob_get_clean();
 }
 add_shortcode('featured_blog_nav', 'featured_blog_nav_func');
-
-
-
 
 //show latest featured event in the navigation menu
 function latest_featured_event_nav_func() {
@@ -296,15 +286,10 @@ function latest_featured_event_nav_func() {
 		<?php echo __('All in-person and virtual Nextcloud events', 'nextcloud'); ?></small></span></a>
 		<?php
 	}
-					
 
 	return ob_get_clean();
 }
 add_shortcode('latest_featured_event_nav', 'latest_featured_event_nav_func');
-
-
-
-
 
 //show latest featured podcast in the navigation menu
 function featured_podcast_nav_func() {
@@ -341,7 +326,7 @@ function featured_podcast_nav_func() {
 		//$post_excerpt = word_count(get_the_excerpt($post_id), '45');
 		$link = get_permalink($post_id);
 		$featured_image = get_the_post_thumbnail($post_id, 'large', [ 'class' => 'feat_img' ]);
-	
+
 		echo '<div class="nav-preview-news-item featured_podcast" id="' . $post_id . '" style="">';
 		echo '<div class="post-box-shortcode-preview">';
 
@@ -375,14 +360,10 @@ function featured_podcast_nav_func() {
 		<?php echo __('Latest Nextcloud Podcast episodes', 'nextcloud'); ?></small></span></a>
 		<?php
 	}
-					
 
 	return ob_get_clean();
 }
 add_shortcode('featured_podcast_nav', 'featured_podcast_nav_func');
-
-
-
 
 //show latest featured data sheet in the navigation menu
 function featured_data_sheet_nav_func() {
@@ -445,8 +426,6 @@ function featured_data_sheet_nav_func() {
 		echo '</div>'; //.post-body
 		echo '</div>'; // .post-box-featured-blog-inner
 
-					
-					
 		echo '</div>'; //.post-box-featured-blog
 		echo '</div>';
 	} else {
@@ -455,12 +434,10 @@ function featured_data_sheet_nav_func() {
 		<?php echo __('See all data sheets', 'nextcloud'); ?></small></span></a>
 		<?php
 	}
-					
 
 	return ob_get_clean();
 }
 add_shortcode('featured_data_sheet_nav', 'featured_data_sheet_nav_func');
-
 
 //show selected item in the navigation menu
 function featured_selected_item_nav_func() {

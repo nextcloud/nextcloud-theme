@@ -3,11 +3,6 @@
  * Carousel Slider block template
  */
 $id = get_field('id');
-$autoplay_options = get_field_object('autoplay');
-$autoplay = $autoplay_options['value'];
-if (!$autoplay) {
-	$autoplay = 'false';
-}
 
 $boxed_layout_options = get_field_object('boxed_layout');
 $boxed_layout = $boxed_layout_options['value'];
@@ -51,7 +46,7 @@ else : /* rendering in editor body */
                                 <?php } ?>
 
                                 <?php
-									echo wp_get_attachment_image($image, 'full');
+                                	echo wp_get_attachment_image($image, 'full');
                 	?>
 
                                 <?php if (isset($link) && $link != '') { ?>

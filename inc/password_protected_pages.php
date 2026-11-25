@@ -18,16 +18,16 @@ if (!defined('ABSPATH')) {
  * oEmbed and the Yoast sitemap.
  */
 function nc_protected_sections() {
-	return array(
-		'partner-hub'  => array(
-			'constant'    => 'PARTNERS_HUB_PASSWORD',
+	return [
+		'partner-hub' => [
+			'constant' => 'PARTNERS_HUB_PASSWORD',
 			'session_key' => 'custom_access_granted',
-		),
-		'company-week' => array(
-			'constant'    => 'CW_HUB_PASSWORD',
+		],
+		'company-week' => [
+			'constant' => 'CW_HUB_PASSWORD',
 			'session_key' => 'cw_custom_access_granted',
-		),
-	);
+		],
+	];
 }
 
 /**
@@ -39,7 +39,7 @@ function nc_protected_page_ids() {
 		return $map;
 	}
 	global $wpdb;
-	$map = array();
+	$map = [];
 
 	foreach (array_keys(nc_protected_sections()) as $slug) {
 		// Root pages with this slug (any language; bypasses WPML query filters).
@@ -52,10 +52,10 @@ function nc_protected_page_ids() {
 		foreach ($queue as $root_id) {
 			$trid = apply_filters('wpml_element_trid', null, $root_id, 'post_page');
 			if ($trid) {
-				$translations = apply_filters('wpml_get_element_translations', array(), $trid, 'post_page');
-				foreach ((array) $translations as $t) {
+				$translations = apply_filters('wpml_get_element_translations', [], $trid, 'post_page');
+				foreach ((array)$translations as $t) {
 					if (!empty($t->element_id)) {
-						$queue[] = (int) $t->element_id;
+						$queue[] = (int)$t->element_id;
 					}
 				}
 			}
@@ -70,7 +70,7 @@ function nc_protected_page_ids() {
 			foreach ($queue as $id) {
 				$map[$id] = $slug;
 			}
-			$in    = implode(',', array_map('intval', $queue));
+			$in = implode(',', array_map('intval', $queue));
 			$queue = array_map('intval', $wpdb->get_col(
 				"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_parent IN ($in)"
 			));
@@ -108,8 +108,8 @@ function nc_protected_user_can_bypass($post_id) {
 // Front-end gate.
 function nc_protected_sections_gate() {
 	$sections = nc_protected_sections();
-	$section  = null;
-	$postID   = get_queried_object_id();
+	$section = null;
+	$postID = get_queried_object_id();
 
 	if (is_singular() && $postID) {
 		$section = nc_protected_section_for_post($postID);
@@ -132,10 +132,10 @@ function nc_protected_sections_gate() {
 	}
 
 	$config = $sections[$section];
-	if (!defined($config['constant']) || (string) constant($config['constant']) === '') {
-		wp_die('Password is not set.', '', array('response' => 503));
+	if (!defined($config['constant']) || (string)constant($config['constant']) === '') {
+		wp_die('Password is not set.', '', ['response' => 503]);
 	}
-	$correct_password = (string) constant($config['constant']);
+	$correct_password = (string)constant($config['constant']);
 
 	// Never let page caches (WP Rocket, proxies) store these pages.
 	if (!defined('DONOTCACHEPAGE')) {
@@ -161,7 +161,7 @@ function nc_protected_sections_gate() {
 
 	$error = '';
 	if (isset($_POST['custom_password'])) {
-		if (hash_equals($correct_password, (string) wp_unslash($_POST['custom_password']))) {
+		if (hash_equals($correct_password, (string)wp_unslash($_POST['custom_password']))) {
 			session_regenerate_id(true);
 			$_SESSION[$config['session_key']] = true; // Grant access for the session
 			wp_safe_redirect($postID ? get_permalink($postID) : home_url('/' . $section . '/'));
@@ -205,7 +205,7 @@ function nc_protected_sections_exclude_from_queries($query) {
 	if ($query->is_search() || $query->is_feed()) {
 		$ids = array_keys(nc_protected_page_ids());
 		if ($ids) {
-			$query->set('post__not_in', array_merge((array) $query->get('post__not_in'), $ids));
+			$query->set('post__not_in', array_merge((array)$query->get('post__not_in'), $ids));
 		}
 	}
 }
@@ -223,14 +223,14 @@ function nc_protected_sections_rest_query($args, $request) {
 	// WP_Query ignores *__not_in when the matching *__in is set (?include=, ?parent=),
 	// so the protected IDs must be removed from the *__in lists as well.
 	$is_attachment = (($args['post_type'] ?? '') === 'attachment');
-	$in_key        = $is_attachment ? 'post_parent__in' : 'post__in';
-	$not_in_key    = $is_attachment ? 'post_parent__not_in' : 'post__not_in';
+	$in_key = $is_attachment ? 'post_parent__in' : 'post__in';
+	$not_in_key = $is_attachment ? 'post_parent__not_in' : 'post__not_in';
 
-	$args[$not_in_key] = array_merge((array) ($args[$not_in_key] ?? array()), $ids);
+	$args[$not_in_key] = array_merge((array)($args[$not_in_key] ?? []), $ids);
 	if (!empty($args[$in_key])) {
-		$args[$in_key] = array_values(array_diff(array_map('intval', (array) $args[$in_key]), $ids));
+		$args[$in_key] = array_values(array_diff(array_map('intval', (array)$args[$in_key]), $ids));
 		if (!$args[$in_key]) {
-			$args[$in_key] = array(0); // nothing left: match nothing
+			$args[$in_key] = [0]; // nothing left: match nothing
 		}
 	}
 	return $args;
@@ -246,9 +246,9 @@ function nc_protected_sections_rest_before_callbacks($response, $handler, $reque
 		return $response;
 	}
 	if (preg_match('#^/wp/v2/(?:pages|media)/(\d+)#', $request->get_route(), $m)) {
-		$post_id = (int) $m[1];
+		$post_id = (int)$m[1];
 		if (nc_protected_section_for_post($post_id) && !nc_protected_user_can_bypass($post_id)) {
-			return new WP_Error('rest_forbidden', __('Sorry, you are not allowed to do that.'), array('status' => rest_authorization_required_code()));
+			return new WP_Error('rest_forbidden', __('Sorry, you are not allowed to do that.'), ['status' => rest_authorization_required_code()]);
 		}
 	}
 	return $response;
@@ -260,10 +260,10 @@ add_filter('rest_request_before_callbacks', 'nc_protected_sections_rest_before_c
 // so Yoast/WPML/ACF filters and collection responses don't fatal.
 function nc_protected_sections_rest_prepare($response, $post, $request) {
 	if (nc_protected_section_for_post($post) && !nc_protected_user_can_bypass($post->ID)) {
-		return new WP_REST_Response(array(
-			'id'   => (int) $post->ID,
+		return new WP_REST_Response([
+			'id' => (int)$post->ID,
 			'code' => 'rest_forbidden',
-		), rest_authorization_required_code());
+		], rest_authorization_required_code());
 	}
 	return $response;
 }
@@ -282,11 +282,11 @@ add_filter('oembed_response_data', 'nc_protected_sections_oembed', PHP_INT_MAX, 
 
 // Yoast / core sitemaps: keep protected pages out.
 add_filter('wpseo_exclude_from_sitemap_by_post_ids', function ($ids) {
-	return array_merge((array) $ids, array_keys(nc_protected_page_ids()));
+	return array_merge((array)$ids, array_keys(nc_protected_page_ids()));
 });
 add_filter('wp_sitemaps_posts_query_args', function ($args, $post_type) {
 	if ($post_type === 'page') {
-		$args['post__not_in'] = array_merge((array) ($args['post__not_in'] ?? array()), array_keys(nc_protected_page_ids()));
+		$args['post__not_in'] = array_merge((array)($args['post__not_in'] ?? []), array_keys(nc_protected_page_ids()));
 	}
 	return $args;
 }, 10, 2);

@@ -10,8 +10,8 @@
  */
 
 /**
-  * Includes the static ripcord factory class and exceptions
-  */
+ * Includes the static ripcord factory class and exceptions
+ */
 require_once(dirname(__FILE__) . '/ripcord.php');
 
 /**
@@ -78,13 +78,13 @@ class Ripcord_Client {
 	 * find the _response and _request data in the root client.
 	 */
 	private $_rootClient = null;
-	
+
 	/**
 	 * A flag to indicate whether or not to preemptively clone objects passed as arguments to methods, see
 	 * php bug #50282. Only correctly set in the rootClient.
 	 */
 	private $_cloneObjects = false;
-	
+
 	/**
 	 * A flag to indicate if we are in a multiCall block. Start this with $client->system->multiCall()->start()
 	 */
@@ -94,7 +94,7 @@ class Ripcord_Client {
 	 * A list of deferred encoded calls.
 	 */
 	protected $_multiCallArgs = [];
-	
+
 	/**
 	 * The exact response from the rpc server. For debugging purposes.
 	 */
@@ -109,13 +109,13 @@ class Ripcord_Client {
 	 * Whether or not to throw exceptions when an xml-rpc fault is returned by the server. Default is false.
 	 */
 	public $_throwExceptions = false;
-	
+
 	/**
 	 * Whether or not to decode the XML-RPC datetime and base64 types to unix timestamp and binary string
 	 * respectively.
 	 */
 	public $_autoDecode = true;
-	
+
 	/**
 	 * The constructor for the RPC client.
 	 * @param string $url The url of the rpc server
@@ -167,8 +167,8 @@ class Ripcord_Client {
 			if (!$args || (is_array($args) && count($args) == 0)) {
 				// multiCall is called without arguments, so return the fetch interface object
 				return new Ripcord_Client_MultiCall($this->_rootClient, $name);
-			} elseif (is_array($args) && (count($args) == 1) &&
-				is_array($args[0]) && !isset($args[0]['methodName'])) {
+			} elseif (is_array($args) && (count($args) == 1)
+				&& is_array($args[0]) && !isset($args[0]['methodName'])) {
 				// multicall is called with a simple array of calls.
 				$args = $args[0];
 			}
@@ -176,8 +176,8 @@ class Ripcord_Client {
 			$params = [];
 			$bound = [];
 			foreach ($args as $key => $arg) {
-				if (!is_a($arg, 'Ripcord_Client_Call') &&
-					(!is_array($arg) || !isset($arg['methodName']))) {
+				if (!is_a($arg, 'Ripcord_Client_Call')
+					&& (!is_array($arg) || !isset($arg['methodName']))) {
 					throw new Ripcord_InvalidArgumentException(
 						'Argument ' . $key . ' is not a valid Ripcord call',
 						ripcord::notRipcordCall);
@@ -189,8 +189,8 @@ class Ripcord_Client {
 					$arg['index'] = count($params);
 					$params[] = [
 						'methodName' => $arg['methodName'],
-						'params' => isset($arg['params']) ?
-							(array)$arg['params'] : []
+						'params' => isset($arg['params'])
+							? (array)$arg['params'] : []
 					];
 				}
 				$bound[$key] = $arg;
@@ -263,8 +263,8 @@ class Ripcord_Client {
 			$result = new Ripcord_Client(
 				$this->_url,
 				array_merge($this->_outputOptions, [
-					'namespace' => $this->_namespace ?
-						$this->_namespace . '.' . $name : $name
+					'namespace' => $this->_namespace
+						? $this->_namespace . '.' . $name : $name
 				]),
 				$this->_transport,
 				$this->_rootClient
@@ -286,12 +286,12 @@ class Ripcord_Client {
  * property.
  */
 class Ripcord_Client_MultiCall extends Ripcord_Client {
-	
+
 	/*
 	 * The reference to the originating client to put into multiCall mode.
 	 */
 	private $client = null;
-	
+
 	/*
 	 * This method creates a new multiCall fetch api object.
 	 */
@@ -307,7 +307,7 @@ class Ripcord_Client_MultiCall extends Ripcord_Client {
 	public function start() {
 		$this->client->_multiCall = true;
 	}
-	
+
 	/*
 	 * This method finally calls the clients multiCall method with all deferred
 	 * method calls since multiCall mode was enabled.
@@ -334,22 +334,22 @@ class Ripcord_Client_Call {
 	 * The method to call on the rpc server
 	 */
 	public $method = null;
-	
+
 	/**
 	 * The arguments to pass on to the method.
 	 */
 	public $params = [];
-	
+
 	/**
 	 * The index in the multicall request array, if any.
 	 */
 	public $index = null;
-	
+
 	/**
 	 * A reference to the php variable to fill with the result of the call, if any.
 	 */
 	public $bound = null;
-	
+
 	/**
 	 * The constructor for the Ripcord_Client_Call class.
 	 * @param string $method The name of the rpc method to call
@@ -409,12 +409,12 @@ class Ripcord_Transport_Stream implements Ripcord_Transport {
 	 * A list of stream context options.
 	 */
 	private $options = [];
-	
+
 	/**
 	 * Contains the headers sent by the server.
 	 */
 	public $responseHeaders = null;
-	
+
 	/**
 	 * This is the constructor for the Ripcord_Transport_Stream class.
 	 * @param array $contextOptions Optional. An array with stream context options.
@@ -463,12 +463,12 @@ class Ripcord_Transport_CURL implements Ripcord_Transport {
 	 * A list of CURL options.
 	 */
 	private $options = [];
-	
+
 	/**
 	 * A flag that indicates whether or not we can safely pass the previous exception to a new exception.
 	 */
 	private $skipPreviousException = false;
-	
+
 	/**
 	 * Contains the headers sent by the server.
 	 */

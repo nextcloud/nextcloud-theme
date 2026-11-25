@@ -48,13 +48,12 @@ function get_countries($continent) {
 		],
 
 		'Middle East' => ['Bahrain','Israel','Jordan','Kuwait','Lebanon','Oman','Palestine','Qatar','Saudi Arabia','Syria','United Arab Emirates','Yemen'],
-		
+
 		'Ocean Pacific' => [
 			'Australia','Federated States of Micronesia','Fiji','French Polynesia','Guam',
 			'Kiribati','Marshall Islands','Nauru','New Zealand','Palau','Papua New Guinea',
 			'Samoa','Solomon Islands','Tonga','Tuvalu','Vanuatu'
 		]
-
 	];
 
 	if ($continent !== 'all') {
@@ -70,7 +69,6 @@ function get_countries($continent) {
 		return $out;
 	}
 }
-
 
 // Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
 add_filter('acf/prepare_field/key=field_6266caac1a171', 'nc_populate_countries_field');
@@ -96,7 +94,6 @@ function nc_populate_countries_field($field) {
 	return $field;
 }
 
-
 // Add choices dynamically to field with key "field_6266caac1a171" - Region for partners
 add_filter('acf/prepare_field/key=field_6ad0c3b11ceea', 'nc_populate_base_region_field');
 function nc_populate_base_region_field($field) {
@@ -120,7 +117,6 @@ function nc_populate_base_region_field($field) {
 
 	return $field;
 }
-
 
 function nc_acf_regions_admin_footer() {
 	?>
@@ -231,11 +227,9 @@ function nc_acf_regions_admin_footer() {
     })(jQuery); 
     </script>
     <?php
-			
+
 }
 add_action('acf/input/admin_footer', 'nc_acf_regions_admin_footer');
-
-
 
 function my_acf_op_init() {
 
@@ -250,7 +244,6 @@ function my_acf_op_init() {
 	}
 }
 add_action('acf/init', 'my_acf_op_init');
-
 
 function my_theme_block_category($categories, $post) {
 	return array_merge(
@@ -541,7 +534,6 @@ function register_acf_block_types() {
 		'keywords' => ['subscribe', 'content'],
 	]);
 
-
 	// register a Video Block
 	acf_register_block_type([
 		'name' => 'video-block-embed',
@@ -686,7 +678,6 @@ function register_acf_block_types() {
 		'keywords' => ['collaboration', 'content'],
 	]);
 
-
 	// register a Collaboration Slider Block
 	acf_register_block_type([
 		'name' => 'collaboration3-block',
@@ -698,7 +689,6 @@ function register_acf_block_types() {
 		'icon' => 'welcome-write-blog',
 		'keywords' => ['collaboration', 'slider', 'content'],
 	]);
-
 
 	// register a Simple Slider Block
 	acf_register_block_type([
@@ -720,8 +710,6 @@ function register_acf_block_types() {
 		]
 	]);
 
-
-
 	// register a Carousel Slider Block
 	acf_register_block_type([
 		'name' => 'carousel-slider-block',
@@ -741,9 +729,6 @@ function register_acf_block_types() {
 			]
 		]
 	]);
-
-
-
 
 	// register a What Can Hub Block
 	acf_register_block_type([
@@ -909,7 +894,6 @@ function register_acf_block_types() {
 			)
 		)*/
 	]);
-
 
 	// register a Platform Block
 	acf_register_block_type([
@@ -1415,7 +1399,6 @@ function register_acf_block_types() {
 		'keywords' => ['note', 'content'],
 	]);
 
-
 	// register a Testimonial Block
 	acf_register_block_type([
 		'name' => 'testimonial-block',
@@ -1450,7 +1433,6 @@ function register_acf_block_types() {
 		'keywords' => ['podcast', 'content'],
 	]);
 
-
 	// register a Hub release changelog block
 	acf_register_block_type([
 		'name' => 'release-changelog',
@@ -1464,7 +1446,7 @@ function register_acf_block_types() {
 	]);
 
 	// register a Table of Contents Block
-	acf_register_block_type(array(
+	acf_register_block_type([
 		'name' => 'toc-block',
 		'title' => __('Table of Contents Block'),
 		'description' => __('Lists the H2/H3 headings of the post'),
@@ -1472,10 +1454,10 @@ function register_acf_block_types() {
 		'category' => 'theme-blocks',
 		'mode' => 'preview',
 		'icon' => 'list-view',
-		'keywords' => array('toc', 'table of contents', 'headings'),
-		'supports' => array('multiple' => false),
-	));
-	
+		'keywords' => ['toc', 'table of contents', 'headings'],
+		'supports' => ['multiple' => false],
+	]);
+
 }
 
 // Check if function exists and hook into setup.

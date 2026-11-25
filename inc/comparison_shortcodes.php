@@ -1,11 +1,10 @@
-<?php 
+<?php
 /**
  * Predefined comparison features.
  */
 function nc_platform_comparison_features() {
 
 	return [
-
 		'main_features' => [
 			__('Main features', 'nextcloud'),
 			[
@@ -124,7 +123,6 @@ function nc_platform_comparison_features() {
 				'extensible_storage' => __('Extensible storage', 'nextcloud'),
 			]
 		],
-
 	];
 }
 
@@ -162,7 +160,6 @@ function nc_platform_comparison_params() {
 		$features = isset($group_array[1]) && is_array($group_array[1]) ? $group_array[1] : [];
 		$group_param_key = sanitize_key(str_replace('-', '_', trim($group_key)));
 
-		
 		$params[] = [
 			'type' => 'vc_raw_html',
 			'heading' => $group_label,
@@ -171,7 +168,6 @@ function nc_platform_comparison_params() {
 			'param_name' => $group_param_key . '_section_title',
 			'value' => '',
 		];
-		
 
 		foreach ($features as $feature_key => $feature_label) {
 
@@ -193,7 +189,6 @@ function nc_platform_comparison_params() {
 				],
 				'std' => 'no',
 			];
-			
 
 			$params[] = [
 				'type' => 'checkbox',
@@ -213,7 +208,6 @@ function nc_platform_comparison_params() {
 					'value' => ['operating_system'],
 				],
 			];
-
 
 			//multiple icons
 
@@ -250,7 +244,6 @@ function nc_platform_comparison_params() {
 					'value' => ['multiple_icons'],
 				],
 			];
-
 
 			$params[] = [
 				'type' => 'dropdown',
@@ -338,7 +331,6 @@ function nc_platform_comparison_params() {
 				],
 			];
 
-
 			$params[] = [
 				'type' => 'checkbox',
 				'heading' => '',
@@ -361,7 +353,6 @@ function nc_platform_comparison_params() {
 				],
 			];
 
-
 			$params[] = [
 				'type' => 'checkbox',
 				'heading' => '',
@@ -383,8 +374,6 @@ function nc_platform_comparison_params() {
 					'value' => ['yes'],
 				],
 			];
-
-
 
 		}
 	}
@@ -419,7 +408,6 @@ function nc_register_platform_comparison_shortcode() {
 		],
 	]);
 }
-
 
 function nc_render_platform_comparison_icon($status, $asterisk = false) {
 	$output = '';
@@ -773,8 +761,6 @@ function nc_render_platforms_comparison_shortcode($atts) {
 	return ob_get_clean();
 }
 
-
-
 /**
  * Platforms comparison (Translatable)
  * Parent/child version of [platforms_comparison]: every platform is its own [nc_platform_item]
@@ -842,7 +828,7 @@ function nc_render_nc_platforms_comparison_shortcode($atts, $content = null) {
 	// they register their attributes here and the parent renders the whole table.
 	$previous = $GLOBALS['nc_platforms_comparison_items'];
 	$GLOBALS['nc_platforms_comparison_items'] = [];
-	do_shortcode((string) $content);
+	do_shortcode((string)$content);
 	$platforms = $GLOBALS['nc_platforms_comparison_items'];
 	$GLOBALS['nc_platforms_comparison_items'] = $previous;
 
@@ -893,7 +879,7 @@ function nc_platform_comparison_display_params() {
  * Render the comparison table markup.
  *
  * @param array $platforms One array of platform fields per column.
- * @param array $options   hide_filter_buttons (bool), hide_check (bool), el_class (string).
+ * @param array $options hide_filter_buttons (bool), hide_check (bool), el_class (string).
  */
 function nc_platform_comparison_render_table($platforms, $options = []) {
 	$features = nc_platform_comparison_features();
@@ -1180,8 +1166,6 @@ function nc_platform_comparison_render_table($platforms, $options = []) {
 
 	return ob_get_clean();
 }
-
-
 
 /**
  * Talk platforms comparison.
@@ -1641,7 +1625,7 @@ function nc_render_nc_talk_platforms_comparison_shortcode($atts, $content = null
 	// they register their attributes here and the parent renders the whole table.
 	$previous = $GLOBALS['nc_talk_platforms_comparison_items'];
 	$GLOBALS['nc_talk_platforms_comparison_items'] = [];
-	do_shortcode((string) $content);
+	do_shortcode((string)$content);
 	$items = $GLOBALS['nc_talk_platforms_comparison_items'];
 	$GLOBALS['nc_talk_platforms_comparison_items'] = $previous;
 
@@ -1669,7 +1653,7 @@ function nc_render_nc_talk_platform_item_shortcode($atts) {
  *
  * @param array $platforms One array per column, keyed like a row of the old param_group
  *                         ({key}, {key}_has_label, {key}_label, {key}_has_tooltip, {key}_tooltip).
- * @param array $options   hide_filter_buttons (bool), hide_check (bool), el_class (string).
+ * @param array $options hide_filter_buttons (bool), hide_check (bool), el_class (string).
  */
 function nc_talk_platform_comparison_render_table($platforms, $options = []) {
 	$features = nc_talk_platform_comparison_features();

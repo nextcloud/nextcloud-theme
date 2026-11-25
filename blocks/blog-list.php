@@ -15,16 +15,16 @@ if (!empty($title)) {
 
 	if (isset($_GET['webinars'])) {
 
-		if (strip_tags($_GET['webinars']) == 'upcoming') {
+		if (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'upcoming') {
 			echo __('Upcoming webinars', 'nextcloud');
 		} else {
 			echo __('Webinar recordings', 'nextcloud');
 		}
-				
+
 	} else {
 		echo $title;
 	}
-			
+
 	echo '</h3>';
 	echo '</div>';
 	echo '</div>';
@@ -57,7 +57,6 @@ $args = [
 date_default_timezone_set('Europe/Berlin');
 $current_date_time = date('Y-m-d H:i:s', time());
 
-
 if (isset($_GET['webinars'])) {
 
 	$args['post_type'] = ['event'];
@@ -69,8 +68,8 @@ if (isset($_GET['webinars'])) {
 		]
 	];
 
-	if (strip_tags($_GET['webinars']) == 'upcoming') {
-					
+	if (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'upcoming') {
+
 		$args['meta_query'] = [
 			[
 				'key' => 'event_start_date_and_time',
@@ -81,38 +80,33 @@ if (isset($_GET['webinars'])) {
 		];
 		$args['order'] = 'DESC';
 
-	} elseif (strip_tags($_GET['webinars']) == 'past') {
+	} elseif (is_string($_GET['webinars']) && strip_tags($_GET['webinars']) == 'past') {
 
 		$args['meta_query'] = [
 			'relation' => 'AND',
-						
+
 			[
 				'key' => 'event_start_date_and_time',
 				'value' => $current_date_time,
 				'compare' => '<',
 				'type' => 'DATETIME'
 			],
-						
-			
+
 			[
 				'key' => 'download_available',
 				'value' => '',
 				'compare' => '!=',
 			],
-						
-						
 		];
 		$args['order'] = 'ASC';
 
 	}
-
 
 } else {
 	$args['post_type'] = ['post', 'event'];
 	$args['order'] = 'DESC';
 }
 
-			
 $the_query = new WP_Query($args);
 $count = $the_query->found_posts;
 
@@ -120,7 +114,7 @@ $count = $the_query->found_posts;
 if ($the_query->have_posts()) {
 	while ($the_query->have_posts()) {
 		$the_query->the_post();
-					
+
 		get_template_part('inc/blog_loop_single');
 	}
 } else {

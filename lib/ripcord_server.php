@@ -10,43 +10,43 @@
  */
 
 /**
-  * Includes the static ripcord factory class and exceptions
-  */
+ * Includes the static ripcord factory class and exceptions
+ */
 require_once(dirname(__FILE__) . '/ripcord.php');
 
 /**
-  * This class implements the Ripcord server. It is an OO wrapper around PHP's XML-RPC methods, with some added features.
-  * You can create an XML-RPC (or Simple RPC or a simple SOAP 1.1) server by defining a class with public methods and passing
-  * an object (or array of objects) of this class to the constructor of Ripcord_Server. Then simply call the run() method.
-  *
-  * A basic example:
-  * <code>
-  * <?php
-  *   $myObject = new MyClass();
-  *   $server = ripcord::server( $myObject );
-  *   $server->run();
-  * ?>
-  * </code>
-  *
-  * An example with namespaces in the method names and a static class as rpc service.
-  * <code>
-  * <?php
-  *   $myObject = new MyClass();
-  *   $server = ripcord::server(
-  *     array(
-  *       'namespace1' => $myObject,
-  *       'namespace2' => 'myOtherClass'
-  *     )
-  *   );
-  *   $server->run();
-  * ?>
-  * </code>
-  *
-  * You don't need to instantiate a class to use it with Ripcord, in the above example 'myOtherClass' is the
-  * name of a PHP class to use. In addition you may also specify functions or methods directly, in any format
-  * that matches PHP's is_callable() criteria.
-  * @package Ripcord
-  */
+ * This class implements the Ripcord server. It is an OO wrapper around PHP's XML-RPC methods, with some added features.
+ * You can create an XML-RPC (or Simple RPC or a simple SOAP 1.1) server by defining a class with public methods and passing
+ * an object (or array of objects) of this class to the constructor of Ripcord_Server. Then simply call the run() method.
+ *
+ * A basic example:
+ * <code>
+ * <?php
+ *   $myObject = new MyClass();
+ *   $server = ripcord::server( $myObject );
+ *   $server->run();
+ * ?>
+ * </code>
+ *
+ * An example with namespaces in the method names and a static class as rpc service.
+ * <code>
+ * <?php
+ *   $myObject = new MyClass();
+ *   $server = ripcord::server(
+ *     array(
+ *       'namespace1' => $myObject,
+ *       'namespace2' => 'myOtherClass'
+ *     )
+ *   );
+ *   $server->run();
+ * ?>
+ * </code>
+ *
+ * You don't need to instantiate a class to use it with Ripcord, in the above example 'myOtherClass' is the
+ * name of a PHP class to use. In addition you may also specify functions or methods directly, in any format
+ * that matches PHP's is_callable() criteria.
+ * @package Ripcord
+ */
 
 /*
 	TODO:
@@ -62,12 +62,12 @@ class Ripcord_Server {
 	 * @see Ripcord_Documentor
 	 */
 	private $documentor = null;
-	
+
 	/**
 	 * Contains a reference to the XML-RPC server created with xmlrpc_server_create.
 	 */
 	private $xmlrpc = null;
-	
+
 	/**
 	 * Contains a list of methods set for this server. Excludes the system.* methods automatically
 	 * created by PHP's xmlrpc_server_create.
@@ -128,7 +128,7 @@ class Ripcord_Server {
 			$this->outputOptions = array_merge($this->outputOptions, $options);
 		}
 	}
-	
+
 	/**
 	 * Allows you to add a service to the server after construction.
 	 * @param object $service The object or class whose public methods must be added to the rpc server. May also be a function or method.
@@ -166,7 +166,7 @@ class Ripcord_Server {
 			}
 		}
 	}
-	
+
 	/**
 	 * Allows you to add a single method to the server after construction.
 	 * @param string $name The name of the method as exposed through the rpc server
@@ -179,7 +179,7 @@ class Ripcord_Server {
 		];
 		xmlrpc_server_register_method($this->xmlrpc, $name, [ $this, 'call' ]);
 	}
-	
+
 	/**
 	 * Runs the rpc server. Automatically handles an incoming request.
 	 */
@@ -220,7 +220,7 @@ class Ripcord_Server {
 			echo $result;
 		}
 	}
-	
+
 	/**
 	 * This method wraps around xmlrpc_decode_request, since it is borken in many ways. This wraps
 	 * around all the ugliness needed to make it not dump core and not print expat warnings.
@@ -255,7 +255,7 @@ class Ripcord_Server {
 		ob_end_clean(); // clean up any xml errors
 		return [ 'methodName' => $method, 'params' => $params ];
 	}
-	
+
 	/**
 	 * This method implements the system.multiCall method without dumping core. The built-in method from the
 	 * xmlrpc library dumps core when you have registered any php methods, fixed in php 5.3.2
@@ -284,7 +284,7 @@ class Ripcord_Server {
 		}
 		return $result;
 	}
-	
+
 	/**
 	 * Handles the given request xml
 	 * @param string $request_xml The incoming request.
@@ -316,7 +316,7 @@ class Ripcord_Server {
 		}
 		return $result;
 	}
-	
+
 	/**
 	 * Calls a method by its rpc name.
 	 * @param string $method The rpc name of the method

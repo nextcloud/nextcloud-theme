@@ -79,7 +79,6 @@ if (!empty(get_field('custom_language'))) {
 	}
 }
 
-
 echo '<div class="col-lg-4 col-md-6 spacer news-container news-item" id="' . $post_id . '" style="">';
 echo '<div class="post-box">';
 echo '<div class="post-img" style=""><a href="' . $link . '" title="' . $title . '">' . $featured_image . '</a></div>';
@@ -94,7 +93,6 @@ echo '</li>';
 echo '</ul>';
 //}
 echo '<h4><a href="' . $link . '" title="' . $title . '">' . $title . '</a></h4>';
-
 
 if (!$webinar_recording) { // if is upcoming webinar
 	?>

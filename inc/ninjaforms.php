@@ -11,7 +11,6 @@ function get_string_between($string, $start, $end) {
 	return substr($string, $ini, $len);
 }
 
-
 //connect to Odoo
 function getOdooConnection($type = null) {
 
@@ -30,10 +29,8 @@ function getOdooConnection($type = null) {
 	return [$url, $db, $username, $password];
 }
 
-
 //populate preferred language field with all languages in the world
 add_filter('ninja_forms_render_options', function ($options, $settings) {
-	
 	//https://www.html-code-generator.com/php/array/languages-name-and-code
 	$languages_list = [
 		'en' => 'English',
@@ -211,8 +208,8 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 		foreach ($languages_list as $code => $language) {
 			$selected = false;
 			if (
-				strtolower($pref_lang) === strtolower($code) ||
-				strtolower(substr($pref_lang, 0, 2)) === strtolower($code)
+				strtolower($pref_lang) === strtolower($code)
+				|| strtolower(substr($pref_lang, 0, 2)) === strtolower($code)
 			) {
 				$selected = true;
 			}
@@ -225,20 +222,17 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 			];
 
 		}
-		
+
 	}
-  
+
 	return $options;
 }, 10, 2);
 
-
-
 // Make dynamically generated language options valid during submission.
 add_filter('ninja_forms_pre_validate_field_settings', function ($settings) {
-
 	if (
-		empty($settings['key']) ||
-		! str_contains($settings['key'], 'language')
+		empty($settings['key'])
+		|| ! str_contains($settings['key'], 'language')
 	) {
 		return $settings;
 	}
@@ -254,12 +248,7 @@ add_filter('ninja_forms_pre_validate_field_settings', function ($settings) {
 	);
 
 	return $settings;
-
 }, 10, 1);
-
-
-
-
 
 add_filter('ninja_forms_submit_data', 'nc_custom_ninja_forms_submit_data');
 function nc_custom_ninja_forms_submit_data($form_data) {
@@ -312,8 +301,8 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 
 				//basic forms validation
 				if (
-					!$arrayValidator['valid_mx_records'] ||
-					$arrayValidator['disposable_email_provider']
+					!$arrayValidator['valid_mx_records']
+					|| $arrayValidator['disposable_email_provider']
 					/* || !$arrayValidator['valid_host'] */
 				) {
 					$form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
@@ -332,12 +321,11 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 			} elseif (in_array($form_id, [
 				90 // testing form
 			])) {
-						
+
 				if (
-					!$arrayValidator['valid_mx_records'] ||
-					$arrayValidator['disposable_email_provider']
-				
-					) {
+					!$arrayValidator['valid_mx_records']
+					|| $arrayValidator['disposable_email_provider']
+				) {
 					$form_data['errors']['fields'][$field_id] = __('The MX records are not valid.', 'nextcloud');
 				}
 
@@ -355,8 +343,7 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 				if (Domain_Blocklist::is_blocked($field_value)) {
 					$form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
 				}
-						
-						
+
 				/*
 				if(
 					!$arrayValidator['valid_mx_records'] ||
@@ -368,23 +355,18 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 				}
 				*/
 
-
-
 			} else {
 				//all checks enabled for all the other forms
 
 				if (
-					!$arrayValidator['valid_mx_records'] ||
-					$arrayValidator['disposable_email_provider']
+					!$arrayValidator['valid_mx_records']
+					|| $arrayValidator['disposable_email_provider']
 					|| $arrayValidator['free_email_provider']
 					// || !$arrayValidator['valid_host']
 					|| Domain_Blocklist::is_blocked($field_value)
 				) {
 					$form_data['errors']['fields'][$field_id] = __('Please use a valid business email address. Did we make a mistake? <a href="/contact/" target="_blank" title="Contact us here">Contact us here</a>', 'nextcloud');
 				}
-						
-						
-
 
 			}
 
@@ -393,9 +375,6 @@ function nc_custom_ninja_forms_submit_data($form_data) {
 
 	return $form_data;
 }
-
-
-
 
 //save name, email and language on submitting the form
 add_filter('ninja_forms_submit_data', 'nc_ninja_custom_save_cookies');
@@ -408,7 +387,7 @@ function nc_ninja_custom_save_cookies($form_data) {
 	if (isset($convenience_cookie_set)) {
 		$form_fields = [];
 		foreach ($form_data[ 'fields' ] as $field_id => $field) {
-		
+
 			if (str_contains($field['key'], 'name') && !str_contains($field['key'], 'organization')) {
 				$form_fields['nc_form_name'] = $field[ 'value' ];
 			}
@@ -430,10 +409,8 @@ function nc_ninja_custom_save_cookies($form_data) {
 		setcookie('nc_form_fields', base64_encode(json_encode($form_fields)), time() + (86400 * 30), '/');
 	}
 
-
 	return $form_data;
 }
-
 
 //pre-populating fields on display
 //add_filter( 'ninja_forms_render_default_value', 'nc_change_nf_default_value', 10, 3 );
@@ -461,9 +438,6 @@ function nc_change_nf_default_value($default_value, $field_type, $field_settings
 	return $default_value;
 }
 
-
-
-
 /**
  * Update list options during form render. - Language list on whitepaper form
  *
@@ -471,11 +445,10 @@ function nc_change_nf_default_value($default_value, $field_type, $field_settings
  * @param array $settings
  */
 add_filter('ninja_forms_render_options', function ($options, $settings) {
-
 	if ($settings['key'] == 'select_mailing_lists_checkboxes') {
 		//echo "true!";
 		foreach ($options as &$option) {
-			
+
 			if (isset($_GET['list'])) {
 
 				if ($option[ 'value' ] == strip_tags($_GET['list'])) {
@@ -487,15 +460,12 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 			}
 		}
 	}
-  
+
 	return $options;
 }, 10, 2);
 
-
-
 // Dynamically add additional privacy policy text under the default privacy policy, if present, with its required checkbox
 add_action('wp_footer', function () {
-
 	$show_extra = get_field('additional_privacy_policy', get_queried_object_id());
 	$extra_text = get_field('additional_privacy_policy_text', get_queried_object_id());
 
@@ -547,18 +517,15 @@ add_action('wp_footer', function () {
     <?php
 });
 
-
-
-
 //add custom ninja forms processing web hook - used to save contacts to newsletter
 add_action('nc_ninja_forms_processing_save_to_newsletter', 'nc_ninja_forms_processing_save_to_newsletter_callback');
 function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
-	
+
 	if (isset($form_data) && isset($form_data[ 'form_id' ])) {
 		$form_id = $form_data[ 'form_id' ];
 		$form_title = $form_data[ 'settings' ][ 'title' ];
 	}
-	
+
 	$page_url = '';
 	$form_fields = $form_data[ 'fields' ];
 	$email = '';
@@ -585,7 +552,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 		} else {
 			$subscribed = false;
 		}
-
 
 		foreach ($form_fields as $field) {
 
@@ -620,7 +586,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 				}
 			}
 
-				
 			//add to custom newsletter if brings kids
 			if ($field[ 'key' ] == 'kids_age') {
 				if ($field[ 'value' ] != '') {
@@ -629,14 +594,11 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 				}
 			}
 
-
 			if (str_contains($field['key'], 'mailing_list_id')) {
 				$mailing_list_ids[] = $field[ 'value' ];
 			}
- 
 
 		}
-
 
 	}
 
@@ -663,7 +625,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 				]
 			]
 		);
-
 
 		// On failure Odoo returns a fault array (faultCode/faultString) instead of the new record ID
 		if (is_int($sub_id) && $sub_id > 0) {
@@ -701,7 +662,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 					]]
 				);
 
-					
 			}
 
 			//send the double opt in email
@@ -721,7 +681,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 			} else {
 				$curr_lang = apply_filters('wpml_current_language', null) . '/';
 			}
-			
 
 			$to = $email;
 			$subject = __('Please confirm your subscription', 'nextcloud');
@@ -736,7 +695,6 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-subscription/?action=subscribe&sub=' . $sub_id . '&subs_ids=' . $joined;
 			$string_confirm = sprintf('Please confirm your mailing subscription by clicking <a href="%s">here</a>.', $reg_link);
 			$message .= __($string_confirm, 'nextcloud');
-
 
 			$message .= '<br />' . __('Or by accessing this link in your URL bar:', 'nextcloud') . $reg_link . '<br />
             <br />
@@ -758,11 +716,8 @@ function nc_ninja_forms_processing_save_to_newsletter_callback($form_data) {
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
 
-
-
 //populate event names Activity IDs on the Events lead collection form - https://nextcloud.com/events-lead-collection-form/
 add_filter('ninja_forms_render_options', function ($options, $settings) {
-
 	$events_list = [];
 
 	$args = [
@@ -786,14 +741,12 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 			$event_end_datetime = get_field('event_end_date_and_time', false, false);
 			$now_timestamp = new DateTime('now');
 
-
 			$interval_days = 0;
 			if (isset($event_end_datetime)) {
 				$event_end_datetime_timestamp = new DateTime($event_end_datetime);
 				$interval = $now_timestamp->diff($event_end_datetime_timestamp);
 				$interval_days = $interval->format('%R%a');
 			}
-
 
 			$activity_id = get_field('activity_id');
 			if (isset($activity_id) && str_contains($activity_id, '-apt-')) {
@@ -818,14 +771,12 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 				}
 			}
 			*/
-			
+
 			if (isset($interval_days)) {
 				if (abs($interval_days) >= 0 && abs($interval_days) < 30) {
 					$events_list[$activity_id] = $title;
 				}
 			}
-			
-
 
 		}
 	} else {
@@ -845,13 +796,9 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 			];
 		}
 	}
-  
 
 	return $options;
 }, 10, 2);
-
-
-
 
 //register event attendees and send email for double-optin AFTER payment is successful - NOT WORKING; DISABLED FOR NOW
 //add_action( 'ninja_forms_checkout_success', 'nc_ninja_forms_processing_save_attendees_payment_callback', 10, 2 );
@@ -860,11 +807,9 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 
-
 	if ($form_id != 127) {
 		return;
 	}  //  // Only for conference form - paypal integrated
-
 
 	$name = '';
 	$email = '';
@@ -950,7 +895,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			$discount_code = $field[ 'value' ];
 		}
 
-
 		if (str_contains($field['key'], 'when_do_you_plan_to_attend')) {
 			$when_do_you_plan_to_attend = $field[ 'value' ]; // answer_18
 		}
@@ -960,8 +904,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 		if (str_contains($field['key'], 'how_do_you_contribute')) {
 			$how_do_you_contribute = $field[ 'value' ]; // answer_26
 		}
-
-
 
 	}
 
@@ -985,7 +927,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 		]
 	);
 
-
 	if ($attendee_id) {
 		//Step 2: add phone number
 		$models->execute_kw(
@@ -993,7 +934,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			'event.registration', 'write',
 			[[$attendee_id], ['phone' => $phone]]
 		);
-
 
 		//Step 3:  add answers
 		$answers = [];
@@ -1012,7 +952,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			$answers[] = ['question_id' => 52, 'value_text_box' => $discount_code];
 		}
 
-
 		if ($when_do_you_plan_to_attend != '') {
 			$answers[] = ['question_id' => 68, 'value_text_box' => $when_do_you_plan_to_attend];
 		}
@@ -1023,9 +962,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			$answers[] = ['question_id' => 70, 'value_text_box' => $how_do_you_contribute];
 		}
 
-
-
-
 		foreach ($answers as $answer) {
 			$answer['registration_id'] = $attendee_id; // Link answer to attendee
 			$answer_id = $models->execute_kw(
@@ -1035,8 +971,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			);
 		}
 
-
-
 		// Step 4: set the attendee to draft - unconfirmed -> double opt-in
 		$models->execute_kw(
 			$db, $uid, $password,
@@ -1044,12 +978,7 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			[[$attendee_id], ['state' => 'draft']]
 		);
 
-
-
-
-
 		if ($odoo_event_id != 32) { //if the LP is Hague, then don't send the double opt-in email
-				
 
 			// send the email for confirmation
 			$headers = [];
@@ -1068,16 +997,15 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 			} else {
 				$curr_lang = apply_filters('wpml_current_language', null) . '/';
 			}
-				
+
 			$to = $email;
 			$subject = __('Please confirm your registration', 'nextcloud');
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-registration/?action=register&aids=' . $attendee_id;
 			$message = __('Hello', 'nextcloud') . ',<br />';
 
-				
 			$message .= __('Please confirm your event registration by clicking', 'nextcloud') . "
                 <a href='" . $reg_link . "'>" . __('here', 'nextcloud') . '</a>.';
-				
+
 			$message .= '<br />' . __('Or by accessing this link in your URL bar:', 'nextcloud') . $reg_link . '<br />
                 <br />
                 ' . __('If this wasn\'t requested by you, please ignore this email.', 'nextcloud') . '
@@ -1093,7 +1021,6 @@ function nc_ninja_forms_processing_save_attendees_payment_callback($form_id, $fo
 	}
 	// } //endif form_id = 127
 }
-
 
 //custom ninja forms processing web hook to add conference attendees
 add_action('nc_ninja_forms_processing_save_attendees', 'nc_ninja_forms_processing_save_attendees_callback');
@@ -1122,7 +1049,6 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 	$food_preferences = '';
 	$how_do_you_contribute = '';
 	$kids_age = '';
-
 
 	$form_fields = $form_data[ 'fields' ];
 	foreach ($form_fields as $field) {
@@ -1195,7 +1121,6 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			$discount_code = $field[ 'value' ];
 		}
 
-
 		if (str_contains($field['key'], 'when_do_you_plan_to_attend')) {
 			$when_do_you_plan_to_attend = $field[ 'value' ]; // answer_18
 		}
@@ -1213,17 +1138,13 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			}
 		}
 
-
-
-
 	}
-		
+
 	[$url, $db, $username, $password] = getOdooConnection();
 
 	//authenticate
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
-
 
 	//Step 1: add attendee
 	$attendee_id = $models->execute_kw($db, $uid, $password,
@@ -1239,9 +1160,7 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 		]
 	);
 
-
 	if ($attendee_id) {
-
 
 		//Step 2: add phone number
 		/*
@@ -1251,7 +1170,6 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			array(array($attendee_id), array('phone' => $phone))
 		);
 		*/
-
 
 		//Step 3:  add answers
 		$answers = [];
@@ -1269,7 +1187,6 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 		if ($discount_code != '') {
 			$answers[] = ['question_id' => 52, 'value_text_box' => $discount_code];
 		}
-
 
 		if ($when_do_you_plan_to_attend != '') {
 			$answers[] = ['question_id' => 68, 'value_text_box' => $when_do_you_plan_to_attend];
@@ -1294,8 +1211,6 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			);
 		}
 
-
-
 		// Step 4: set the attendee to draft - unconfirmed -> double opt-in
 		if ($discount_percentage == 100) {
 			//if free tickets
@@ -1306,12 +1221,8 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			);
 		}
 
-
-
-
-
 		if ($discount_percentage == 100) {
-				
+
 			// send the email for confirmation
 			$headers = [];
 			// Override the default 'From' address if 'Force Sender Email' is not enabled
@@ -1329,16 +1240,15 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 			} else {
 				$curr_lang = apply_filters('wpml_current_language', null) . '/';
 			}
-				
+
 			$to = $email;
 			$subject = __('Please confirm your registration', 'nextcloud');
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-registration/?action=register&aids=' . $attendee_id;
 			$message = __('Hello', 'nextcloud') . ',<br />';
 
-				
 			$message .= __('Please confirm your event registration by clicking', 'nextcloud') . "
                 <a href='" . $reg_link . "'>" . __('here', 'nextcloud') . '</a>.';
-				
+
 			$message .= '<br />' . __('Or by accessing this link in your URL bar:', 'nextcloud') . $reg_link . '<br />
                 <br />
                 ' . __('If this wasn\'t requested by you, please ignore this email.', 'nextcloud') . '
@@ -1352,20 +1262,16 @@ function nc_ninja_forms_processing_save_attendees_callback($form_data) {
 		}
 
 	}
-		
 
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
-
-
 
 //populate Enterprise Day downloads form select with all presentations
 add_filter('ninja_forms_render_options', function ($options, $settings) {
 	$ed_presentations = [
 	];
 
-	
 	if (have_rows('enterprise_day_slides', 'option')):
 		while (have_rows('enterprise_day_slides', 'option')) :
 			the_row();
@@ -1378,8 +1284,7 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 
 		endwhile;
 	endif;
-	
-	
+
 	//prefill the slides list select field
 	if ($settings['key'] == 'select_slides_you_want_to_download_1714669386359') {
 		//$options = []; //reset the options
@@ -1413,14 +1318,8 @@ add_filter('ninja_forms_render_options', function ($options, $settings) {
 		}
 	}
 
-
-  
 	return $options;
 }, 10, 2);
-
-
-
-
 
 //custom ninja forms processing web hook to add conference attendees
 add_action('nc_ninja_forms_processing_save_multiple_attendees', 'nc_ninja_forms_processing_save_multiple_attendees_callback');
@@ -1490,7 +1389,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 			$invoice_address .= $field[ 'value' ];
 		}
 
-
 		//street
 		if (str_contains($field['key'], 'street')) {
 			$invoice_address .= $field[ 'value' ];
@@ -1534,7 +1432,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
 
-
 	//Step 1: add attendee(s)
 	$attendee_ids = [];
 	//add main attendee
@@ -1551,7 +1448,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 		]
 	);
 	$attendee_ids[] = $attendee_id;
-
 
 	if ($additional_attendees && $number_of_tickets > 1) {
 		foreach ($additional_attendees as $additional_attendee) {
@@ -1570,12 +1466,9 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 				]
 			);
 			$attendee_ids[] = $additional_attendee_id;
-			
+
 		}
 	}
-
-		
-
 
 	if ($attendee_ids) {
 		//Step 2: add phone number - NOT NECESSARY ANYMORE??
@@ -1590,9 +1483,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 			}
 		}
 		*/
-			
-			
-
 
 		//Step 3:  add answers for all attendees
 		$answers = [];
@@ -1602,14 +1492,14 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 		if ($ticket_type != '') {
 			$answers[] = ['question_id' => 54, 'value_text_box' => $ticket_type];
 		}
-			
+
 		//add invoice address
 		$answers[] = ['question_id' => 50, 'value_text_box' => $invoice_address];
-			
+
 		// if($dietary_requirements != '') {
 		//     $answers[] = array('question_id' => 51, 'value_text_box' => json_encode($additional_attendees));
 		// }
-			
+
 		if ($discount_code != '') {
 			$answers[] = ['question_id' => 52, 'value_text_box' => $discount_code];
 		}
@@ -1624,8 +1514,7 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 				);
 			}
 		}
-			
-  
+
 		// Step 4: set the attendee to draft - unconfirmed -> double opt-in
 		if ($discount_percentage == 100) {
 			//if free tickets
@@ -1637,7 +1526,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 				);
 			}
 		}
-
 
 		if ($discount_percentage == 100) {
 			// send the email for confirmation
@@ -1668,7 +1556,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 			$subject = __('Please confirm your registration', 'nextcloud');
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-registration/?action=register&aids=' . $attendee_ids_as_text;
 
-				
 			$message = __('Hello', 'nextcloud') . ',<br />';
 			$message .= sprintf(
 				__('Please confirm your event registration by clicking %s.', 'nextcloud'),
@@ -1691,7 +1578,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_callback($form_data) 
 
 	}
 
-
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
@@ -1703,9 +1589,6 @@ do_action(
 	'Please confirm your event registration by clicking %s.',
 	'Please confirm your event registration by clicking %s.'
 );
-
-
-
 
 //temporary test to get questions and answers for a specific event attendee
 function odoo_attendee_questions_shortcode() {
@@ -1758,7 +1641,6 @@ function odoo_attendee_questions_shortcode() {
 
 		$attendee = $attendees[0];
 
-
 		$answer_fields = $models->execute_kw(
 			$db,
 			$uid,
@@ -1785,7 +1667,6 @@ function odoo_attendee_questions_shortcode() {
 			$fields_to_read[] = 'value_text';
 		}
 
-
 		$answers = $models->execute_kw(
 			$db,
 			$uid,
@@ -1808,8 +1689,8 @@ function odoo_attendee_questions_shortcode() {
 			: 'Unknown attendee';
 
 		$event_name = (
-			!empty($attendee['event_id']) &&
-			is_array($attendee['event_id'])
+			!empty($attendee['event_id'])
+			&& is_array($attendee['event_id'])
 		)
 			? $attendee['event_id'][1]
 			: 'Unknown event';
@@ -1845,15 +1726,15 @@ function odoo_attendee_questions_shortcode() {
 
                         <?php
 						$question_id = (
-							!empty($answer['question_id']) &&
-							is_array($answer['question_id'])
+							!empty($answer['question_id'])
+							&& is_array($answer['question_id'])
 						)
 							? (int)$answer['question_id'][0]
 							: 0;
 
                     	$question = (
-                    		!empty($answer['question_id']) &&
-                    		is_array($answer['question_id'])
+                    		!empty($answer['question_id'])
+                    		&& is_array($answer['question_id'])
                     	)
                     		? $answer['question_id'][1]
                     		: 'Unknown question';
@@ -1862,24 +1743,24 @@ function odoo_attendee_questions_shortcode() {
 
                     	// Multiple-choice / predefined answer.
                     	if (
-                    		!empty($answer['value_answer_id']) &&
-                    		is_array($answer['value_answer_id'])
+                    		!empty($answer['value_answer_id'])
+                    		&& is_array($answer['value_answer_id'])
                     	) {
                     		$answer_value = $answer['value_answer_id'][1];
                     	}
 
                     	// Free-text answer used by several Odoo versions.
                     	if (
-                    		$answer_value === '' &&
-                    		!empty($answer['value_text_box'])
+                    		$answer_value === ''
+                    		&& !empty($answer['value_text_box'])
                     	) {
                     		$answer_value = $answer['value_text_box'];
                     	}
 
                     	// Alternative free-text field.
                     	if (
-                    		$answer_value === '' &&
-                    		!empty($answer['value_text'])
+                    		$answer_value === ''
+                    		&& !empty($answer['value_text'])
                     	) {
                     		$answer_value = $answer['value_text'];
                     	}
@@ -1933,9 +1814,6 @@ add_shortcode(
 	'odoo_attendee_questions_shortcode'
 );
 
-
-
-
 //custom ninja forms processing web hook to add conference attendees
 add_action('nc_ninja_forms_processing_save_multiple_attendees_debug', 'nc_ninja_forms_processing_save_multiple_attendees_debug_callback');
 function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_data) {
@@ -1988,7 +1866,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 			// free tickets
 			$discount_percentage = $field[ 'value' ];
 		}
-			
 
 		if (str_contains($field['key'], 'additional_attendees')) {
 			$additional_attendees = $field[ 'value' ];
@@ -2000,7 +1877,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 		if (str_contains($field['key'], 'invoice_address')) {
 			$invoice_address .= $field[ 'value' ];
 		}
-
 
 		//street
 		if (str_contains($field['key'], 'street')) {
@@ -2044,7 +1920,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
 
-
 	//Step 1: add attendee(s)
 	$attendee_ids = [];
 	//add main attendee
@@ -2061,7 +1936,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 		]
 	);
 	$attendee_ids[] = $attendee_id;
-
 
 	if ($additional_attendees && $number_of_tickets > 1) {
 		foreach ($additional_attendees as $additional_attendee) {
@@ -2080,14 +1954,11 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 				]
 			);
 			$attendee_ids[] = $additional_attendee_id;
-			
+
 		}
 	}
 
-		
 	if ($attendee_ids) {
-
-
 
 		//Step 2: add phone number - NOT NECESSARY ANYMORE??
 		/*
@@ -2101,9 +1972,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 			}
 		}
 		*/
-			
-			
-
 
 		//Step 3:  add answers for all attendees
 		$answers = [];
@@ -2113,14 +1981,14 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 		if ($ticket_type != '') {
 			$answers[] = ['question_id' => 54, 'value_text_box' => $ticket_type];
 		}
-			
+
 		//add invoice address
 		$answers[] = ['question_id' => 50, 'value_text_box' => $invoice_address];
-			
+
 		// if($dietary_requirements != '') {
 		//     $answers[] = array('question_id' => 51, 'value_text_box' => json_encode($additional_attendees));
 		// }
-			
+
 		if ($discount_code != '') {
 			$answers[] = ['question_id' => 52, 'value_text_box' => $discount_code];
 		}
@@ -2135,8 +2003,7 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 				);
 			}
 		}
-			
-  
+
 		// Step 4: set the attendee to draft - unconfirmed -> double opt-in
 		if ($discount_percentage == 100) {
 			//if free tickets
@@ -2148,8 +2015,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 				);
 			}
 		}
-			
-
 
 		if ($discount_percentage == 100) {
 			// send the email for confirmation only if the tickets were free / no payment
@@ -2181,7 +2046,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 			$subject = __('Please confirm your registration', 'nextcloud');
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-registration/?action=register&aids=' . $attendee_ids_as_text;
 
-			
 			$message = __('Hello', 'nextcloud') . ',<br />';
 			$message .= sprintf(
 				__('Please confirm your event registration by clicking %s.', 'nextcloud'),
@@ -2207,8 +2071,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_callback($form_
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
-
-
 
 //custom ninja forms processing web hook to manage unsubscription and send email with confirmation link
 add_action('nc_ninja_forms_send_unsubscribe_confirmation', 'nc_ninja_forms_send_unsubscribe_confirmation_callback');
@@ -2255,7 +2117,7 @@ function nc_ninja_forms_send_unsubscribe_confirmation_callback($form_data) {
 
 		//echo "Found lead with ID: ".$leads[0]['id'];
 		//$leadId = $leads[0]['id'];
-		
+
 		foreach ($leads as $lead) {
 			$leadId = $lead['id'];
 
@@ -2270,23 +2132,23 @@ function nc_ninja_forms_send_unsubscribe_confirmation_callback($form_data) {
 				]
 			);
 		}
-		
+
 		// step 2 = send only one email
 		$headers = [];
 		// Override the default 'From' address if 'Force Sender Email' is not enabled
 		$headers['From'] = 'Nextcloud <no-reply@e.nextcloud.com>'; // gets ignored
 		$headers['reply-to'] = 'Nextcloud <unsubscribe@nextcloud.com>';
-		
+
 		// Send the message as HTML
 		add_filter('wp_mail_content_type', function ($content_type) {
 			return 'text/html';
 		});
 		$headers['Content-Type'] = 'text/html; charset=ISO-8859-1';
-						
+
 		//default
 		$curr_lang = '';
 		$lang = apply_filters('wpml_current_language', null);
-		
+
 		if ($lang == 'en') {
 			$curr_lang = '';
 		} else {
@@ -2297,7 +2159,6 @@ function nc_ninja_forms_send_unsubscribe_confirmation_callback($form_data) {
 		$subject = __('Please confirm your unsubscription', 'nextcloud');
 		$unsubscribe_link = 'https://nextcloud.com/' . $curr_lang . 'manage-subscription/?action=unsubscribe&email=' . $email . '&token=' . $token . '&leadID=' . $leadId;
 
-					
 		$message = __('Hello', 'nextcloud') . ',<br />';
 		$message .= __("We've received your request to unsubscribe from Nextcloud marketing emails. Please confirm your choice by clicking the link below. This ensures we respect your preferences and update our records correctly.", 'nextcloud');
 		$message .= "<br /><br /><a href='" . esc_url($unsubscribe_link) . "'>" . __('Confirm unsubscription', 'nextcloud') . '</a>';
@@ -2315,13 +2176,10 @@ function nc_ninja_forms_send_unsubscribe_confirmation_callback($form_data) {
 		// Send the email
 		$response = wp_mail($to, $subject, $message, $headers);
 
-
 	}
 
 	return $form_data;
 }
-
-
 
 //debug lead fields
 function odoo_lead_debug_shortcode_callback() {
@@ -2369,17 +2227,13 @@ function odoo_lead_debug_shortcode_callback() {
 			]
 		);
 
-		
 		echo 'Token set to ' . $token;
 
 	}
-	
-
 
 	return ob_get_clean();
 }
 add_shortcode('odoo_lead_debug', 'odoo_lead_debug_shortcode_callback');
-
 
 //custom ninja forms processing web hook to add conference attendees
 add_action('nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo', 'nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_callback');
@@ -2433,7 +2287,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 			// free tickets
 			$discount_percentage = $field[ 'value' ];
 		}
-			
 
 		if (str_contains($field['key'], 'additional_attendees')) {
 			$additional_attendees = $field[ 'value' ];
@@ -2445,7 +2298,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 		if (str_contains($field['key'], 'invoice_address')) {
 			$invoice_address .= $field[ 'value' ];
 		}
-
 
 		//street
 		if (str_contains($field['key'], 'street')) {
@@ -2491,7 +2343,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
 
-
 	//Step 1: add attendee(s)
 	$attendee_ids = [];
 	//add main attendee
@@ -2508,7 +2359,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 		]
 	);
 	$attendee_ids[] = $attendee_id;
-
 
 	if ($additional_attendees && $number_of_tickets > 1) {
 		foreach ($additional_attendees as $additional_attendee) {
@@ -2527,11 +2377,10 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 				]
 			);
 			$attendee_ids[] = $additional_attendee_id;
-			
+
 		}
 	}
 
-		
 	if ($attendee_ids) {
 
 		//Step 3:  add answers for all attendees
@@ -2542,14 +2391,14 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 		if ($ticket_type != '') {
 			$answers[] = ['question_id' => 54, 'value_text_box' => $ticket_type];
 		}
-			
+
 		//add invoice address
 		$answers[] = ['question_id' => 50, 'value_text_box' => $invoice_address];
-			
+
 		// if($dietary_requirements != '') {
 		//     $answers[] = array('question_id' => 51, 'value_text_box' => json_encode($additional_attendees));
 		// }
-			
+
 		if ($discount_code != '') {
 			$answers[] = ['question_id' => 52, 'value_text_box' => $discount_code];
 		}
@@ -2564,8 +2413,7 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 				);
 			}
 		}
-			
-  
+
 		// Step 4: set the attendee to draft - unconfirmed -> double opt-in
 		if ($discount_percentage == 100) {
 			//if free tickets
@@ -2577,8 +2425,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 				);
 			}
 		}
-			
-
 
 		if ($discount_percentage == 100) {
 			// send the email for confirmation only if the tickets were free / no payment
@@ -2609,7 +2455,6 @@ function nc_ninja_forms_processing_save_multiple_attendees_debug_staging_odoo_ca
 			$subject = __('Please confirm your registration', 'nextcloud');
 			$reg_link = 'https://nextcloud.com/' . $curr_lang . 'manage-registration/?action=register&aids=' . $attendee_ids_as_text;
 
-				
 			$message = __('Hello', 'nextcloud') . ',<br />';
 			$message .= sprintf(
 				__('Please confirm your event registration by clicking %s.', 'nextcloud'),
@@ -2717,13 +2562,9 @@ function nc_ninja_forms_add_leads_odoo_staging_callback($form_data) {
 		]]
 	);
 
-
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
-
-
-
 
 // custom ninja forms processing web hook to add Odoo leads
 add_action('nc_ninja_forms_add_leads_odoo_new_account_temp', 'nc_ninja_forms_add_leads_odoo_new_account_temp_callback');
@@ -2764,13 +2605,11 @@ function nc_ninja_forms_add_leads_odoo_new_account_temp_callback($form_data) {
 		}
 	}
 
-
 	[$url, $db, $username, $password] = getOdooConnection();
 
 	//authenticate
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
-
 
 	// 1) Search existing campaign
 	$source_id = 0;
@@ -2808,11 +2647,9 @@ function nc_ninja_forms_add_leads_odoo_new_account_temp_callback($form_data) {
 		]]
 	);
 
-
 	$form_settings = $form_data[ 'settings' ];
 	$form_title = $form_data[ 'settings' ][ 'title' ];
 }
-
 
 /* - Ninja Form action to add attendees to Pretix - */
 add_action('nc_ninja_forms_processing_attendees_test_pretix', 'nc_ninja_forms_processing_attendees_test_pretix_callback');
@@ -2825,7 +2662,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 		'api_token' => PRETIX_API_TOKEN,
 		'locale' => 'en',
 	];
-
 
 	// set defaults
 	$name = '';
@@ -2840,7 +2676,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 	$country = 'DE'; // default
 	$vat_id = '';
 	$is_business = true;
-
 
 	$form_fields = $form_data[ 'fields' ];
 	foreach ($form_fields as $field) {
@@ -2896,7 +2731,7 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 			$discount_code = $field[ 'value' ];
 		}
 	}
-	
+
 	$price = '0.00';
 	//hardcode tickets IDs from Pretix
 	if ($ticket_type == 'Partner tickets') {
@@ -2907,7 +2742,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 		$item_id = 989237; // regular ticket
 		$price = '350.00';
 	}
-
 
 	$positions = [];
 	/**
@@ -2925,14 +2759,13 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 		//'price'          => $price
 	];
 
-
 	if ($additional_attendees && $number_of_tickets > 1) {
 		foreach ($additional_attendees as $additional_attendee) {
 			$additional_name = $additional_attendee['value'];
 			if (empty($additional_name)) {
 				continue;
 			}
-				
+
 			$positions[] = [
 				'item' => (int)$item_id,
 				'attendee_name' => $additional_name,
@@ -2947,7 +2780,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 
 		}
 	}
-
 
 	$endpoint = trailingslashit($config['base_url']) . 'api/v1/organizers/' . rawurlencode($config['organizer']) . '/events/' . rawurlencode($config['event']) . '/orders/';
 
@@ -3003,8 +2835,6 @@ function nc_ninja_forms_processing_attendees_test_pretix_callback($form_data) {
 
 }
 
-
-
 /* - Ninja Form action to add attendees to Pretix - */
 add_action('nc_ninja_forms_processing_summit_attendees_pretix', 'nc_ninja_forms_processing_summit_attendees_pretix_callback');
 function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) {
@@ -3030,7 +2860,6 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 	$country = 'DE'; // default
 	$vat_id = '';
 	$is_business = true;
-
 
 	$form_fields = $form_data[ 'fields' ];
 	foreach ($form_fields as $field) {
@@ -3086,7 +2915,7 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 			$discount_code = $field[ 'value' ];
 		}
 	}
-	
+
 	$price = '0.00';
 	//hardcode tickets IDs from Pretix
 	if ($ticket_type == 'Partner tickets') {
@@ -3097,7 +2926,6 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 		$item_id = 1050855; // regular ticket
 		$price = '350.00';
 	}
-
 
 	$positions = [];
 	/**
@@ -3115,14 +2943,13 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 		//'price'          => $price
 	];
 
-
 	if ($additional_attendees && $number_of_tickets > 1) {
 		foreach ($additional_attendees as $additional_attendee) {
 			$additional_name = $additional_attendee['value'];
 			if (empty($additional_name)) {
 				continue;
 			}
-				
+
 			$positions[] = [
 				'item' => (int)$item_id,
 				'attendee_name' => $additional_name,
@@ -3137,7 +2964,6 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 
 		}
 	}
-
 
 	$endpoint = trailingslashit($config['base_url']) . 'api/v1/organizers/' . rawurlencode($config['organizer']) . '/events/' . rawurlencode($config['event']) . '/orders/';
 
@@ -3190,7 +3016,6 @@ function nc_ninja_forms_processing_summit_attendees_pretix_callback($form_data) 
 
 	$order_code = ! empty($data['code']) ? $data['code'] : '';
 	error_log('Pretix sync success. Order code: ' . $order_code);
-
 
 	//set order as paid
 	$mark_paid_endpoint = trailingslashit($config['base_url'])

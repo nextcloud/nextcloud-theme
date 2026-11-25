@@ -6,7 +6,6 @@ $id = get_field('section_id');
 $quote = get_field('quote');
 $img = get_field('image');
 $text = get_field('text');
-$pos = get_field('position');
 $link = get_field('link');
 ?>
 <section class="squote2-section" id="<?php echo $id; ?>">

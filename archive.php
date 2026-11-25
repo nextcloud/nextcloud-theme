@@ -28,12 +28,11 @@ get_header();
 $default_posts_per_page = get_option('posts_per_page'); // should be 9
 $limit = $default_posts_per_page;
 $count = $wp_query->found_posts;
-				
-				
+
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 add_query_arg('paged', $paged);
 //add_query_arg('post_type', 'post');
-				
+
 if (have_posts()) : ?>
 				<?php
 	// Start the Loop
@@ -43,7 +42,7 @@ if (have_posts()) : ?>
 
 			$webinar = false;
 			if (get_post_type() == 'event') {
-				$cat = wp_get_object_terms(get_the_ID(), 'event_categories', []);
+				$cat = wp_get_object_terms((int)get_the_ID(), 'event_categories', []);
 				if ($cat) {
 					foreach ($cat as $c) {
 						if ($c->term_id == 250) { // event_categories Webinars
@@ -53,7 +52,7 @@ if (have_posts()) : ?>
 					}
 				}
 			}
-		
+
 			if ($webinar) {
 				get_template_part('inc/webinar_loop_single');
 			} else {
@@ -70,11 +69,12 @@ if (isset($category)) {
 	if (isset($category->cat_ID)) {
 		$cat_id = $category->cat_ID;
 	}
-					
+
 }
 
 if (get_post_type() == 'event') {
-	$cat_id = get_queried_object()->term_id;
+	$queried_object = get_queried_object();
+	$cat_id = $queried_object instanceof WP_Term ? $queried_object->term_id : null;
 }
 
 ?>

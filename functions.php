@@ -19,7 +19,6 @@ require_once(get_template_directory() . '/inc/branded-emails.php');
 require_once(get_stylesheet_directory() . '/inc/wpbakery.php');
 require_once(get_stylesheet_directory() . '/inc/password_protected_pages.php');
 
-
 /*
  * Sets up theme defaults and registers support for various WordPress features.
 */
@@ -29,14 +28,12 @@ add_theme_support('automatic-feed-links');
 //add custom code to the header based on the post meta of that specific page/post
 add_action('wp_head', 'add_custom_code_header');
 function add_custom_code_header() {
-	echo get_post_meta(get_the_ID(), 'custom_header_code', true);
+	echo get_post_meta((int)get_the_ID(), 'custom_header_code', true);
 };
 add_image_size('large', 1024, 576);
 //add_filter('show_admin_bar', '__return_false');
 //Add excerpt support to pages
 add_post_type_support('page', 'excerpt');
-
-
 
 //registers and enqueues CSS and JS files for the backend
 function nc_enqueue_file_scripts_admin($hook) {
@@ -44,24 +41,23 @@ function nc_enqueue_file_scripts_admin($hook) {
 	wp_enqueue_style('jquery-ui');
 	wp_enqueue_script('jquery-ui-datepicker');
 	wp_enqueue_style('awesome', get_stylesheet_directory_uri() . '/dist/awesome/css/all.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/awesome/css/all.css'), 'all');
-	
+
 	wp_enqueue_style('admin-theme-style', get_stylesheet_directory_uri() . '/dist/css/admin-theme.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/admin-theme.css'));
 	if ($hook == 'post.php' || $hook == 'post-new.php') {
 		// Open/close arrows for the event agenda element in the WPBakery backend editor
 		wp_enqueue_script('nc-admin-agenda', get_stylesheet_directory_uri() . '/dist/js/admin-agenda.js', ['jquery'], (string)filemtime(get_stylesheet_directory() . '/dist/js/admin-agenda.js'), true);
 	}
-	
+
 	//enqueue NF scripts too to avoid console errors when adding forms to the backend
 	//wp_enqueue_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', array());
 	//wp_enqueue_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', array());
 }
 add_action('admin_enqueue_scripts', 'nc_enqueue_file_scripts_admin');
 
-
 //registers and enqueues CSS and JS files for the frontend
 function file_scripts() {
 	global $post;
-	
+
 	// Load our main stylesheet.
 	wp_enqueue_style('style-bootstrap', get_stylesheet_directory_uri() . '/dist/css/bootstrap.min.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/bootstrap.min.css'), 'all');
 	wp_enqueue_style('css-slick', get_stylesheet_directory_uri() . '/dist/css/slick.css', [], (string)filemtime(get_stylesheet_directory() . '/dist/css/slick.css'), 'all');
@@ -76,14 +72,13 @@ function file_scripts() {
 	wp_register_style('selectizeStyle', get_stylesheet_directory_uri() . '/dist/css/select2.min.css', [], '', 'all');
 	if (isset($post) && isset($post->post_content)) { // added to avoid PHP Warning:  Attempt to read property "post_content" on null in /var/lib/wordpress/content/themes/nextcloud-theme/functions.php on line 68
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets', 'event'])
 			|| str_contains($post->post_content, 'ninja')
 		) {
 			wp_enqueue_style('selectizeStyle');
 		}
 	}
-	
 
 	//js
 	wp_enqueue_script('jquery', get_template_directory_uri() . '/dist/js/jquery-3.6.0.min.js', [], true);
@@ -95,10 +90,9 @@ function file_scripts() {
 
 	wp_register_script('nc_register', get_template_directory_uri() . '/dist/signup/js/nextcloud-register-main.js', [],
 		'1.2', true);
-	
+
 	wp_register_script('nc_loadmore', get_template_directory_uri() . '/dist/js/nc_loadmore.js', [], true);
-	
-	
+
 	// Localize the script with new data
 	$translation_array = [
 		'loading' => __('Loading...', 'nextcloud'),
@@ -107,15 +101,14 @@ function file_scripts() {
 	wp_localize_script('nc_loadmore', 'nc_loadmore_strings', $translation_array);
 	wp_enqueue_script('nc_loadmore');
 
-
 	//enqueue js cookie
 	//wp_enqueue_script('js_cookie', get_template_directory_uri() . '/dist/js/js.cookie.min.js', [], true);
 	wp_register_script('typed', get_template_directory_uri() . '/dist/js/typed.min.js', [], false);
 	wp_enqueue_script('typed');
-	
+
 	wp_enqueue_script('purify-js', get_template_directory_uri() . '/dist/js/purify.min.js', [], true);
 	wp_enqueue_script('nc-cookie-banner', get_template_directory_uri() . '/dist/js/nc_cookies.js', ['purify-js'], true);
-	
+
 	//enqueue cookie banner script
 	wp_register_script('cookie_banner_script', get_template_directory_uri() . '/dist/js/cookie_banner_script.js', ['jquery'], true);
 	$cookie_banner_strings = [
@@ -125,13 +118,11 @@ function file_scripts() {
 	wp_localize_script('cookie_banner_script', 'cookie_banner_strings', $cookie_banner_strings);
 	wp_enqueue_script('cookie_banner_script');
 
-
-
 	if (wp_script_is('nf-front-end', 'registered')) {
 		wp_register_script('intlTelInput_utils', get_template_directory_uri() . '/dist/js/utils.js', ['jquery', 'nf-front-end'], true);
 		wp_register_script('intlTelInput', get_template_directory_uri() . '/dist/js/intlTelInput.min.js', ['jquery', 'nf-front-end'], true);
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets'])
 		) {
 			wp_enqueue_script('intlTelInput_utils');
@@ -140,21 +131,18 @@ function file_scripts() {
 
 		wp_register_script('selectize', get_template_directory_uri() . '/dist/js/select2.min.js', ['jquery', 'nf-front-end'], true);
 		if (
-			(is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'ninja_form'))
+			(is_a($post, WP_Post::class) && has_shortcode($post->post_content, 'ninja_form'))
 			|| in_array(get_post_type($post), ['case_studies','whitepapers', 'data_sheets', 'event'])
 		) {
 			wp_enqueue_script('selectize');
 		}
 	}
 
-
 	if (wp_script_is('nf-front-end', 'registered')) {
 		wp_register_script('custom-nf-code', get_template_directory_uri() . '/dist/js/custom-nf-code.js', ['jquery', 'nf-front-end', 'intlTelInput_utils', 'intlTelInput', 'selectize'], true);
 		wp_enqueue_script('custom-nf-code');
 	}
-	
-	
-	
+
 	wp_register_script('main', get_template_directory_uri() . '/dist/js/main.js', [], (string)filemtime(get_stylesheet_directory() . '/dist/js/main.js'), true);
 	// Localize the script with new data
 	$main_js_strings_array = [
@@ -172,19 +160,14 @@ function file_scripts() {
 	wp_localize_script('main', 'main_js_strings', $main_js_strings_array);
 	wp_enqueue_script('main');
 
-
 	wp_register_script('critical_scripts', get_template_directory_uri() . '/dist/js/critical_scripts.js', [], true);
 	wp_enqueue_script('critical_scripts');
-
-
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
 }
 add_action('wp_enqueue_scripts', 'file_scripts');
-
-
 
 function twentyseventeen_block_editor_styles() {
 	// Block styles.
@@ -231,7 +214,6 @@ function arphabet_widgets_init() {
 }
 add_action('widgets_init', 'arphabet_widgets_init');
 
-
 add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
 function my_wp_nav_menu_objects($items, $args) {
 	// loop
@@ -241,7 +223,6 @@ function my_wp_nav_menu_objects($items, $args) {
 		$sub = get_field('subtext', $item);
 		// add icon
 		if ($icon && $sub) {
-			$alt = $item->title;
 			$item->title = '<img loading="eager" class="navcon" src="' . $icon . '" alt=""/><span>' . $item->title . '<small>' . $sub . '</small></span>';
 		} elseif ($icon) {
 			$item->title = '<img loading="eager" class="navcon" src="' . $icon . '" alt=""/><span>' . $item->title . '</span>';
@@ -252,8 +233,6 @@ function my_wp_nav_menu_objects($items, $args) {
 	// return
 	return $items;
 }
-
-
 
 //add_action('wp_footer', 'wpml_floating_language_switcher');
 function wpml_floating_language_switcher() {
@@ -280,8 +259,6 @@ function disable_wp_emojicons() {
 //add_action('init', 'disable_wp_emojicons');
 //remove_action('wp_head', 'wp_resource_hints', 2);
 
-
-
 //add code to header / footer
 function nc_load_cookie_banner() {
 	//load cookie banner if cookie is not saved
@@ -293,7 +270,6 @@ function nc_load_cookie_banner() {
 	//get_template_part('inc/matomo');
 }
 add_action('wp_footer', 'nc_load_cookie_banner', 0);
-
 
 //add custom field containing custom header code in the wp_head
 function nc_custom_header_code() {
@@ -307,7 +283,6 @@ function nc_custom_header_code() {
 };
 add_action('wp_head', 'nc_custom_header_code');
 
-
 //.htaccess is rewritten with language folder - https://wpml.org/errata/htaccess-is-rewritten-with-language-folder/
 add_filter('mod_rewrite_rules', 'fix_rewritebase');
 function fix_rewritebase($rules) {
@@ -317,20 +292,19 @@ function fix_rewritebase($rules) {
 	} else {
 		$home_root = '/';
 	}
- 
+
 	$wpml_root = parse_url(get_option('home'));
 	if (isset($wpml_root['path'])) {
 		$wpml_root = trailingslashit($wpml_root['path']);
 	} else {
 		$wpml_root = '/';
 	}
- 
+
 	$rules = str_replace("RewriteBase $home_root", "RewriteBase $wpml_root", $rules);
 	$rules = str_replace("RewriteRule . $home_root", "RewriteRule . $wpml_root", $rules);
- 
+
 	return $rules;
 }
-
 
 //WP Rocket - preload feed immediately after purge - https://gist.github.com/DahmaniAdame/f6e3558f6628b51c6692b6dd6360d61b
 function rocket_preload_page($pages_to_preload, $args) {
@@ -352,11 +326,10 @@ add_action('after_rocket_clean_home_feeds', function ($urls) {
 	}
 });
 
-
 //add automatically the featured image as twitter:image meta tag in the wp_head
 function nc_show_feat_image_as_twitter_image_tag() {
 	if (has_post_thumbnail()) {
-		echo '<meta name="twitter:image" content="' . wp_get_attachment_url(get_post_thumbnail_id()) . '" />';
+		echo '<meta name="twitter:image" content="' . (string)wp_get_attachment_url((int)get_post_thumbnail_id()) . '" />';
 	}
 };
 add_action('wp_head', 'nc_show_feat_image_as_twitter_image_tag');
@@ -366,10 +339,9 @@ add_filter('wpml_user_can_translate', function ($user_can_translate, $user) {
 	if (in_array('editor', (array)$user->roles, true) && current_user_can('translate')) {
 		return true;
 	}
-		
+
 	return $user_can_translate;
 }, 10, 2);
-
 
 //Disable part of endpoints wordpress api for users
 function nc_disable_rest_endpoints($endpoints) {
@@ -388,7 +360,6 @@ function nc_disable_rest_endpoints($endpoints) {
 }
 add_filter('rest_endpoints', 'nc_disable_rest_endpoints');
 
-
 //Remove the REST API endpoint - disabled as it created an issue where embedding on backend was not showing
 //remove_action('rest_api_init', 'wp_oembed_register_route');
 
@@ -398,8 +369,6 @@ add_filter('rest_endpoints', 'nc_disable_rest_endpoints');
 //Don't filter oEmbed results.
 //remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 
-
-
 //Exclude "unlisted" tag from archive query
 function exclude_posts($query) {
 	if ($query->is_archive()) {
@@ -408,13 +377,13 @@ function exclude_posts($query) {
 }
 add_action('pre_get_posts', 'exclude_posts');
 
-
 /**
  * Add a title tag to the logo
  */
 function my_custom_logo() {
 	// The logo
 	$custom_logo_id = get_theme_mod('custom_logo');
+	$html = '';
 
 	// If has logo
 	if ($custom_logo_id) {
@@ -431,6 +400,7 @@ function my_custom_logo() {
 		}
 
 		// Get the image
+		/** @psalm-suppress InvalidArgument WP accepts arbitrary extra attributes like itemprop */
 		$html = sprintf('<a href="%1$s" class="custom-logo-link" rel="home" itemprop="url" title="%2$s">%3$s</a>',
 			esc_url(home_url('/')),
 			esc_html(get_bloginfo('name')),
@@ -448,10 +418,8 @@ function my_custom_logo() {
 
 	// Return
 	return $html;
-
 }
 add_filter('get_custom_logo', 'my_custom_logo');
-
 
 function word_count($string, $limit) {
 	$words = explode(' ', $string);
@@ -468,7 +436,6 @@ function my_nonce_life() {
 	return 30 * 86400; // 30 days
 }
 
-
 //Translating values in “urlencoded” shortcodes in WPML
 add_filter('wpml_pb_shortcode_encode', 'wpml_pb_shortcode_encode_urlencoded_json', 10, 3);
 function wpml_pb_shortcode_encode_urlencoded_json($string, $encoding, $original_string) {
@@ -483,7 +450,7 @@ function wpml_pb_shortcode_encode_urlencoded_json($string, $encoding, $original_
 			}
 			$output[ $i ][ $key ] = $value;
 		}
-		$string = urlencode(json_encode($output));
+		$string = urlencode((string)json_encode($output));
 	}
 	return $string;
 }
@@ -509,11 +476,16 @@ function wpml_pb_shortcode_decode_urlencoded_json($string, $encoding, $original_
 	return $string;
 }
 
+/**
+ * @param string $value
+ * @param string $type
+ */
 function wpmlsupp_11368_decode_encode_vc_link($value, $type = 'decode') {
 	if (!function_exists('vc_build_link')) {
 		return $value;
 	}
 
+	$str = '';
 	if ($type === 'decode') {
 		$str = '[fakeshortcode ';
 		$link_arr = vc_build_link($value);
@@ -534,7 +506,6 @@ function wpmlsupp_11368_decode_encode_vc_link($value, $type = 'decode') {
 
 	return $str;
 }
-
 
 //dequeue podlove styles and scripts
 function dequeue_unused_style_scripts() {
@@ -589,7 +560,6 @@ function nc_custom_rss_filter($query) {
 }
 add_filter('pre_get_posts', 'nc_custom_rss_filter');
 
-
 // Unset the X-Mailer header
 function remove_phpmailer_x_mailer_header($phpmailer) {
 	// Check if PHPMailer class exists
@@ -597,7 +567,6 @@ function remove_phpmailer_x_mailer_header($phpmailer) {
 	//$phpmailer->addCustomHeader('X-Nextcloud', 'Action works');
 }
 add_action('phpmailer_init', 'remove_phpmailer_x_mailer_header');
-
 
 //alter search query when searching for webinar recordings
 function webinar_recordings_search_filter($query) {
@@ -608,7 +577,7 @@ function webinar_recordings_search_filter($query) {
 			if ($_GET['custom_type'] == 'webinar_recordings') {
 				//date_default_timezone_set('Europe/Berlin');
 				//$current_date_time = date('Y-m-d H:i:s', time());
-				
+
 				/*
 				$query->set('tax_query', array(
 					array(
@@ -618,8 +587,7 @@ function webinar_recordings_search_filter($query) {
 					)
 				));
 				*/
-	
-				
+
 				$query->set('meta_query', [
 					'relation' => 'AND',
 					[
@@ -630,8 +598,7 @@ function webinar_recordings_search_filter($query) {
 				]);
 				$query->set('post_type', 'on-demand-webinar');
 
-
-			} elseif (in_array($_GET['custom_type'], ['case_studies', 'whitepapers','data_sheets'])) {
+			} elseif (in_array($_GET['custom_type'], ['case_studies', 'whitepapers','data_sheets'], true)) {
 				$query->set('post_type', strip_tags($_GET['custom_type']));
 			}
 		}
@@ -640,7 +607,6 @@ function webinar_recordings_search_filter($query) {
 }
 add_action('pre_get_posts', 'webinar_recordings_search_filter', 99);
 
-
 // Removes anything that looks like a shortcode. This will remove anything in the post that
 // occurs inside of brackets `[...]`.
 add_filter('wp_discourse_excerpt', 'nc_discourse_forum_remove_ninja_form_shortcodes');
@@ -648,7 +614,6 @@ function nc_discourse_forum_remove_ninja_form_shortcodes($excerpt) {
 	$excerpt = preg_replace('/\[ninja.*\]/', '', $excerpt);
 	return $excerpt;
 }
-
 
 //add global variable "current_theme_template" used to check post template
 add_filter('template_include', 'var_template_include', 1000);
@@ -668,14 +633,12 @@ function get_current_template($echo = false) {
 	}
 }
 
-
 //overwrite email templates for the wordpress-email-templates plugin - https://github.com/wpexpertsio/wordpress-email-templates
 /*
 	add_filter('mailtpl/customizer_template', function(){
 	return get_stylesheet_directory() . '/inc/email-templates/admin/templates/default.php';
 });
 */
-
 
 //Get Featured Image from WordPress REST API
 add_action('rest_api_init', 'register_rest_images');
@@ -692,7 +655,7 @@ function register_rest_images() {
 function get_rest_featured_image($object, $field_name, $request) {
 	if ($object['featured_media']) {
 		$img = wp_get_attachment_image_src($object['featured_media'], 'app-thumb');
-		return $img[0];
+		return $img ? $img[0] : null;
 	}
 	return false;
 }
@@ -707,13 +670,11 @@ function nc_add_language_to_body_classes($classes) {
 }
 add_filter('body_class', 'nc_add_language_to_body_classes');
 
-
 /** * Enable shortcodes for menu navigation. */
 if (! has_filter('wp_nav_menu', 'do_shortcode')) {
 	add_filter('wp_nav_menu', 'shortcode_unautop');
 	add_filter('wp_nav_menu', 'do_shortcode', 11);
 }
-
 
 add_filter('body_class', 'custom_body_class');
 /**
@@ -725,20 +686,19 @@ add_filter('body_class', 'custom_body_class');
  * @return array Amended body classes.
  */
 function custom_body_class(array $classes) {
-	$new_class = get_post_meta(get_the_ID(), 'page_body_class', true);
+	$new_class = get_post_meta((int)get_the_ID(), 'page_body_class', true);
 	if ($new_class) {
 		$classes[] = $new_class;
 	}
 	return $classes;
 }
 
-
 // WP Discourse: Prevent posts without discourse_post_id from being re-published unless you explicitly want that
 function nc_disable_discourse_publish_for_older_posts($force_publish, $post_id, $post) {
 	// Don't auto-publish if there's no discourse_post_id and the post is older than X days
 	$force_publish = true;
 	if (!get_post_meta($post->ID, 'discourse_post_id', true)) {
-		$published_date = strtotime($post->post_date);
+		$published_date = (int)strtotime($post->post_date);
 		$days_old = (time() - $published_date) / (60 * 60 * 24);
 		if ($days_old > 7) {
 			return false;
@@ -754,7 +714,6 @@ function nc_disable_discourse_publish_for_older_posts($force_publish, $post_id, 
 	return $force_publish;
 }
 add_filter('wpdc_publish_after_save', 'nc_disable_discourse_publish_for_older_posts', 10, 3);
-
 
 /*
 //publish to discourse only posts in default language - English
@@ -774,11 +733,10 @@ add_filter('manage_post_posts_columns', function ($columns) {
 
 // Populate the column with content using ACF
 add_action('manage_post_posts_custom_column', function ($column_name, $post_id) {
-
 	if (!function_exists('get_field')) {
 		return;
 	}
-	
+
 	if ($column_name === 'discourse_topic') {
 		$permalink = get_field('discourse_permalink', $post_id);
 		if ($permalink) {
@@ -789,35 +747,37 @@ add_action('manage_post_posts_custom_column', function ($column_name, $post_id) 
 	}
 }, 10, 2);
 
-
-
 class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 	// 🔹 Start sub-menu
+	#[\Override]
 	public function start_lvl(&$output, $depth = 0, $args = []) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "\n$indent<ul class=\"sub-menu\">\n";
 	}
 
 	// 🔹 End sub-menu
+	#[\Override]
 	public function end_lvl(&$output, $depth = 0, $args = []) {
 		$indent = str_repeat("\t", $depth);
 		$output .= "$indent</ul>\n";
 	}
 
 	// 🔹 Start each <li>
-	public function start_el(&$output, $item, $depth = 0, $args = [], $id = 0) {
+	#[\Override]
+	public function start_el(&$output, $data_object, $depth = 0, $args = [], $current_object_id = 0) {
+		// Parameter names must match Walker::start_el(); keep the shorter alias below
+		$item = $data_object;
 		$classes = empty($item->classes) ? [] : (array)$item->classes;
 		$class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
 		$class_attr = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
-
-		
 
 		$output .= "<li$class_attr>";
 
 		// Check for shortcode item
 		if (in_array('link_w_shortcode', $classes)) {
 			//$output .= do_shortcode($item->title);
+			/** @psalm-suppress UndefinedMagicPropertyFetch */
 			$output .= '<div class="shortcode-wrapper">' . do_shortcode($item->title) . '</div>';
 		} else {
 			// Set up link attributes
@@ -840,6 +800,7 @@ class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 			}
 
 			// Filter title in case it's modified by wp_nav_menu_objects (your ACF fields etc.)
+			/** @psalm-suppress UndefinedMagicPropertyFetch */
 			$title = apply_filters('the_title', $item->title, $item->ID);
 
 			// Output link
@@ -852,17 +813,15 @@ class NC_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 				$output .= '</a>';
 			}
 
-			
 		}
 	}
 
 	// 🔹 Close each <li>
-	public function end_el(&$output, $item, $depth = 0, $args = []) {
+	#[\Override]
+	public function end_el(&$output, $data_object, $depth = 0, $args = []) {
 		$output .= "</li>\n";
 	}
 }
-
-
 
 //enable tags for pages
 function enable_tags_for_pages() {
@@ -870,11 +829,8 @@ function enable_tags_for_pages() {
 }
 add_action('init', 'enable_tags_for_pages');
 
-
 //deactivate Automatic Lazy rendering - https://docs.wp-rocket.me/article/1835-automatic-lazy-rendering
 add_filter('rocket_lrc_optimization', '__return_false', 999);
-
-
 
 // Filter URLs not to be altered by the Sticky slugs in WPML
 add_filter('wpml_sl_blacklist_requests', function ($blacklist, $sitepress) {
@@ -890,8 +846,6 @@ add_filter('wpml_sl_blacklist_requests', function ($blacklist, $sitepress) {
 	return $blacklist;
 }, 10, 2);
 
-
-
 //add referrerpolicy to iframe embed in WP - to avoid Error 153: Video player configuration error
 add_filter('embed_oembed_html', function ($html) {
 	if (strpos($html, 'youtube.com') !== false) {
@@ -902,13 +856,10 @@ add_filter('embed_oembed_html', function ($html) {
 	return $html;
 }, 10, 3);
 
-
-
-
 // Helper function to extract sections on Changelog unsupported page
 function my_extract_changelog_sections($post_id) {
 	$post = get_post($post_id);
-	if (! $post) {
+	if (! $post instanceof WP_Post) {
 		return [
 			'always' => [],
 			'lazy' => [],
@@ -1001,8 +952,6 @@ function my_changelog_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_changelog_scripts');
 
-
-
 //set parent page while still draft
 add_filter('page_attributes_dropdown_pages_args', 'my_attributes_dropdown_pages_args', 1, 1);
 function my_attributes_dropdown_pages_args($dropdown_args) {
@@ -1011,8 +960,9 @@ function my_attributes_dropdown_pages_args($dropdown_args) {
 }
 
 //try to solve cURL error 28: Resolving timed out after 5000 milliseconds
-add_filter('http_request_timeout', function ($timeout) { return 60; });
-
+add_filter('http_request_timeout', function ($timeout) {
+	return 60;
+});
 
 /**
  * Add custom field to each menu item in the admin.
@@ -1036,12 +986,10 @@ add_action('wp_nav_menu_item_custom_fields', function ($item_id, $item, $depth, 
 	<?php
 }, 10, 4);
 
-
 /**
  * Save custom menu item field.
  */
 add_action('wp_update_nav_menu_item', function ($menu_id, $menu_item_db_id, $args) {
-
 	if (isset($_POST['menu-item-link-id'][ $menu_item_db_id ])) {
 		$raw = wp_unslash($_POST['menu-item-link-id'][ $menu_item_db_id ]);
 
@@ -1054,9 +1002,7 @@ add_action('wp_update_nav_menu_item', function ($menu_id, $menu_item_db_id, $arg
 			update_post_meta($menu_item_db_id, '_menu_item_link_id', $value);
 		}
 	}
-
 }, 10, 3);
-
 
 /**
  * Add the saved ID onto the menu link (<a>).
@@ -1074,20 +1020,20 @@ add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
 /**
  * Event type meta tag for Matomo (webinar / in-person)
  */
-add_action( 'wp_head', 'nc_event_type_meta', 1 );
+add_action('wp_head', 'nc_event_type_meta', 1);
 
 function nc_event_type_meta() {
-    if ( ! is_singular( 'event' ) ) {
-        return;
-    }
+	if (! is_singular('event')) {
+		return;
+	}
 
-    $room_url = get_post_meta( get_the_ID(), 'webinar_talk_room_url', true );
-    $type     = trim( (string) $room_url ) !== '' ? 'webinar' : 'in-person';
+	$room_url = get_post_meta((int)get_the_ID(), 'webinar_talk_room_url', true);
+	$type = trim((string)$room_url) !== '' ? 'webinar' : 'in-person';
 
-    printf(
-        '<meta name="nc-event-type" content="%s">' . "\n",
-        esc_attr( $type )
-    );
+	printf(
+		'<meta name="nc-event-type" content="%s">' . "\n",
+		esc_attr($type)
+	);
 }
 
 /**
@@ -1095,17 +1041,17 @@ function nc_event_type_meta() {
  * Staging uses its own container (WP_ENVIRONMENT_TYPE in wp-config.php),
  * production needs no constant. Local loads nothing.
  */
-add_action( 'wp_head', 'nc_matomo_container', 5 );
+add_action('wp_head', 'nc_matomo_container', 5);
 
 function nc_matomo_container() {
-    $env = wp_get_environment_type();
+	$env = wp_get_environment_type();
 
-    if ( 'local' === $env ) {
-        return;
-    }
+	if ($env === 'local') {
+		return;
+	}
 
-    $container = ( 'staging' === $env ) ? 'C4ozLJsR' : 'wlmEL4w2';
-    ?>
+	$container = ($env === 'staging') ? 'C4ozLJsR' : 'wlmEL4w2';
+	?>
 <!-- Matomo Tag Manager -->
 <script id="matomo_script">
   var _mtm = window._mtm = window._mtm || [];
@@ -1114,7 +1060,7 @@ function nc_matomo_container() {
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.async=true;
     g.id='matomo_js';
-    g.src='https://cdn.matomo.cloud/nextcloud.matomo.cloud/container_<?php echo esc_js( $container ); ?>.js';
+    g.src='https://cdn.matomo.cloud/nextcloud.matomo.cloud/container_<?php echo esc_js($container); ?>.js';
     s.parentNode.insertBefore(g,s);
   })();
 </script>
@@ -1127,7 +1073,7 @@ add_action('wp_enqueue_scripts', function () {
 	// Ensure a script handle exists to attach inline JS to.
 	// You can attach to 'jquery' if you know it's loaded, but this is safer.
 	$handle = 'ez-toc-emoji-fix';
-	wp_register_script($handle, '', [], null, true);
+	wp_register_script($handle, false, [], null, true);
 	wp_enqueue_script($handle);
 
 	$js = <<<'JS'

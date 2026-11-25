@@ -65,16 +65,15 @@ function nc_normalize_wpbakery_raw_html_fields($content) {
 	return $content;
 }
 
-
 function get_webinar_info($data, $post_id = 0) {
 
 	if ($post_id == 0) {
 		$post_id = get_the_ID();
 	}
-			
+
 	//$timezone = new DateTimeZone('Europe/Berlin');
 	$timezone = wp_timezone(); // Get WordPress timezone object
-			
+
 	$my_current_lang = 'en';
 	$my_current_lang = apply_filters('wpml_current_language', null);
 
@@ -97,7 +96,7 @@ function get_webinar_info($data, $post_id = 0) {
 	$time_start_format = $date_custom_datetime->format('g:i a');
 	$date_custom_datetime->setTimezone(new DateTimeZone('America/New_York'));
 	$time_start_format_us = $date_custom_datetime->format('g:i a');
-					
+
 	//get CET/CEST
 	$date_start_utc = wp_date('Z', $event_start_unix, $timezone);
 	$utc_offset = $date_start_utc / 3600;
@@ -109,7 +108,6 @@ function get_webinar_info($data, $post_id = 0) {
 	}
 
 	$test_edt_est = wp_date('T'); // Get timezone abbreviation (EDT/EST)
-
 
 	$cats = '';
 	/*
@@ -125,7 +123,6 @@ function get_webinar_info($data, $post_id = 0) {
 	$original_ID = icl_object_id(200761, 'page', false, 'en');
 	$cats .= '<a href="' . get_the_permalink($original_ID) . '">' . get_the_title($original_ID) . ' </a>';
 
-
 	$meta_icon = 'far fa-calendar-alt';
 	if ($webinar_recording) {
 		$meta_icon = 'fa fa-video';
@@ -140,9 +137,8 @@ function get_webinar_info($data, $post_id = 0) {
 
 		//svg folder open
 		return '<li class="categories"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#0082c9"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640H447l-80-80H160v480l96-320h684L837-217q-8 26-29.5 41.5T760-160H160Zm84-80h516l72-240H316l-72 240Zm0 0 72-240-72 240Zm-84-400v-80 80Z"></path></svg>' . $cats . '</li><li class="webinar_lang"><img src="' . $flag_full_url . '" class="flag_icon">' . $webinar_language_details['display_name'] . '</li>';
-
 	} elseif ($data == 'webinar_datetime_and_lang_flag') {
-				
+
 		//svg calendar
 		return '<li><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24" style="">
 				<path class="st0" d="M5,22c-.55,0-1.021-.196-1.413-.588-.392-.392-.588-.863-.588-1.413V6c0-.55.196-1.021.588-1.413.392-.392.863-.588,1.413-.588h1V2h2v2h8V2h2v2h1c.55,0,1.021.196,1.413.588s.588.863.588,1.413v14c0,.55-.196,1.021-.588,1.413s-.863.588-1.413.588H5ZM5,20h14v-10H5v10ZM5,8h14v-2H5v2ZM5,8v-2,2ZM12,14c-.283,0-.521-.096-.713-.288s-.288-.429-.288-.713.096-.521.288-.713.429-.288.713-.288.521.096.713.288c.192.192.288.429.288.713s-.096.521-.288.713c-.192.192-.429.288-.713.288ZM8,14c-.283,0-.521-.096-.713-.288s-.288-.429-.288-.713.096-.521.288-.713.429-.288.713-.288.521.096.713.288.288.429.288.713-.096.521-.288.713-.429.288-.713.288ZM16,14c-.283,0-.521-.096-.713-.288s-.288-.429-.288-.713.096-.521.288-.713.429-.288.713-.288.521.096.713.288.288.429.288.713-.096.521-.288.713-.429.288-.713.288ZM12,18c-.283,0-.521-.096-.713-.288-.192-.192-.288-.429-.288-.713s.096-.521.288-.713.429-.288.713-.288.521.096.713.288c.192.192.288.429.288.713s-.096.521-.288.713c-.192.192-.429.288-.713.288ZM8,18c-.283,0-.521-.096-.713-.288-.192-.192-.288-.429-.288-.713s.096-.521.288-.713.429-.288.713-.288.521.096.713.288.288.429.288.713-.096.521-.288.713c-.192.192-.429.288-.713.288ZM16,18c-.283,0-.521-.096-.713-.288-.192-.192-.288-.429-.288-.713s.096-.521.288-.713.429-.288.713-.288.521.096.713.288.288.429.288.713-.096.521-.288.713c-.192.192-.429.288-.713.288Z"></path>
@@ -158,8 +154,6 @@ function get_webinar_info($data, $post_id = 0) {
 	}
 
 }
-
-
 
 //get ID of the next webinar
 function get_next_webinar_id() {
@@ -193,7 +187,7 @@ function get_next_webinar_id() {
 
 	$next_webinar_localized = 0;
 	$next_webinar_default = 0;
-	
+
 	$the_query = new WP_Query($args);
 	if ($the_query->have_posts()) {
 		while ($the_query->have_posts()) {
@@ -202,12 +196,10 @@ function get_next_webinar_id() {
 			//default
 			$webinar_lang = 'en';
 
-
 			$webinar_language_details = apply_filters('wpml_post_language_details', null, get_the_ID());
 			if (isset($webinar_language_details)) {
 				$webinar_lang = $webinar_language_details['language_code'];
 			}
-
 
 			if ($webinar_lang == $my_current_lang) {
 				$next_webinar_localized = get_the_ID();
@@ -217,9 +209,7 @@ function get_next_webinar_id() {
 					$next_webinar_default = get_the_ID();
 				}
 			}
-					
 
-					
 		}
 	}
 	wp_reset_postdata();
@@ -231,7 +221,6 @@ function get_next_webinar_id() {
 	}
 
 }
-
 
 //get ID of the next event LP
 function get_next_event_id($type) {
@@ -280,7 +269,7 @@ function get_next_event_id($type) {
 			'order' => 'ASC'
 		];
 	}
-	
+
 	$the_query = new WP_Query($args);
 	if ($the_query->have_posts()) {
 		while ($the_query->have_posts()) {
@@ -291,8 +280,6 @@ function get_next_event_id($type) {
 	wp_reset_postdata();
 	return $next_id;
 }
-
-
 
 function formatLanguage(DateTime $dt, string $format, string $language = 'en') : string {
 
@@ -333,12 +320,10 @@ function get_event_date($date_start_timestamp, $date_end_timestamp = null) {
 		$start_day = gmdate('d', $date_start_timestamp);
 		$start_datetime = new DateTime('@' . $date_start_timestamp);
 
-
 		$my_current_lang = 'en';
 		$my_current_lang = apply_filters('wpml_current_language', null);
 		$date_format = get_option('date_format');
 
-		
 		$start_month = gmdate('F', $date_start_timestamp);
 		$start_month_intl = formatLanguage($start_datetime, 'F', $my_current_lang);
 
@@ -352,7 +337,7 @@ function get_event_date($date_start_timestamp, $date_end_timestamp = null) {
 
 			$start_day = gmdate('j', $date_start_timestamp);
 			$end_day = gmdate('j', $date_end_timestamp);
-			
+
 			if ($start_month == $end_month) { //if is the same month
 
 				if ($my_current_lang == 'en') {
@@ -370,19 +355,17 @@ function get_event_date($date_start_timestamp, $date_end_timestamp = null) {
 				} else {
 					echo $start_day . ' ' . $start_month_intl . '-' . $end_day . ' ' . $end_month_intl . ' ';
 				}
-				
+
 				echo gmdate('Y', $date_end_timestamp);
 			}
-
 
 		} else {
 			echo formatLanguage($start_datetime, $date_format, $my_current_lang);
 		}
-		
+
 	}
 
 }
-
 
 //get the full URL, used in the forms
 function nc_get_full_url() {
@@ -394,7 +377,6 @@ function nc_get_full_url() {
 	return $return;
 }
 add_shortcode('fullURL', 'nc_get_full_url');
-
 
 //get UTM parameters, used in the forms
 function nc_get_utm_parameter($atts) {
@@ -414,7 +396,7 @@ function nc_get_utm_parameter($atts) {
 		$return = sanitize_text_field(wp_unslash($_GET[ $field ]));
 	} elseif (empty($return) && isset($_COOKIE['nc_utm_parameters'])) {
 		// 2. Cookie fallback
-		
+
 		$raw_cookie = wp_unslash($_COOKIE['nc_utm_parameters']);
 
 		// Convert JSON cookie string to array
@@ -428,8 +410,6 @@ function nc_get_utm_parameter($atts) {
 	return $return;
 }
 add_shortcode('get_utm_parameter', 'nc_get_utm_parameter');
-
-
 
 function nc_links_carousel_func($atts) {
 	$a = shortcode_atts([
@@ -468,8 +448,6 @@ function nc_links_carousel_func($atts) {
 }
 add_shortcode('links_carousel', 'nc_links_carousel_func');
 
-
-
 function nc_clients_carousel() {
 	// Title
 	vc_map(
@@ -478,8 +456,6 @@ function nc_clients_carousel() {
 			'base' => 'nc_clients_carousel_content',
 			'category' => __('Carousel'),
 			'params' => [
-
-
 				[
 					'type' => 'attach_images',
 					'heading' => esc_html__('Add Clients Images', 'appcastle-core'),
@@ -487,7 +463,6 @@ function nc_clients_carousel() {
 					'param_name' => 'screenshots',
 					'value' => '',
 				],
-
 			]
 		]
 	);
@@ -498,13 +473,13 @@ function nc_clients_carousel_content_function($atts, $content) {
 		[
 			'screenshots' => 'screenshots',
 		], $atts);
-	
+
 	$image_ids = explode(',', $gallery['screenshots']);
 	$return = '
 		<div class="clients_carousel owl-carousel owl-theme">';
 	foreach ($image_ids as $image_id) {
 		$image = wp_get_attachment_image($image_id, 'thumbnail');
-	
+
 		$return .= '<div class="item client_item">';
 		$return .= $image;
 		$return .= '</div>';
@@ -514,9 +489,6 @@ function nc_clients_carousel_content_function($atts, $content) {
 	return $return;
 }
 add_shortcode('nc_clients_carousel_content', 'nc_clients_carousel_content_function');
-
-
-
 
 //Repeater Clients Carousel
 add_action('vc_before_init', 'box_repeater_items_funct');
@@ -528,7 +500,6 @@ function box_repeater_items_funct() {
 			'class' => 'box-repeater',
 			'category' => __('Repeater', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -604,7 +575,6 @@ function box_repeater_items_funct() {
 					"value" => "",
 				),
 				*/
-				
 			]
 		]
 	);
@@ -632,7 +602,6 @@ function box_repeater_funct($atts) {
 	}
 	*/
 
-
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
@@ -645,7 +614,7 @@ function box_repeater_funct($atts) {
               	echo $custom_css_classes;
               } ?>">
                   <?php  foreach ($items as $item) {
-					
+
                   	if (isset($item['box_repeater_items_link'])) {
                   		$link = vc_build_link($item['box_repeater_items_link']);
                   	} ?>
@@ -695,9 +664,6 @@ function box_repeater_funct($atts) {
 	return $result;
 }
 
-
-
-
 // shortcode video Element
 function nc_vc_video_preview_custom() {
 	// Title
@@ -707,7 +673,6 @@ function nc_vc_video_preview_custom() {
 			'base' => 'nc_video_preview',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -725,7 +690,6 @@ function nc_vc_video_preview_custom() {
 					'value' => __('', 'nextcloud'),
 				],
 
-				
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Video URL', 'nextcloud'),
@@ -750,7 +714,6 @@ function nc_vc_video_preview_custom() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom CSS class', 'nextcloud'),
@@ -758,9 +721,6 @@ function nc_vc_video_preview_custom() {
 					'param_name' => 'css_class',
 					'value' => '',
 				]
-				
-				
-
 			]
 		]
 	);
@@ -804,7 +764,6 @@ function nc_video_preview_function($atts, $content) {
 				<div class="subtitle">' . $attributes['subtitle'] . '</div>
 				</div>
 				</div>';
-				
 
 	$return .= '</a>';
 	$return .= '</div>';
@@ -814,20 +773,20 @@ add_shortcode('nc_video_preview', 'nc_video_preview_function');
 
 // shortcode Transcript (collapsible, used under nc_video_preview)
 function nc_transcript_function($atts, $content = '') {
-	$a = shortcode_atts(array(
-		'label'       => __('Show transcript', 'nextcloud'),
+	$a = shortcode_atts([
+		'label' => __('Show transcript', 'nextcloud'),
 		'label_close' => __('Hide transcript', 'nextcloud'),
-		'open'        => '',
-		'css_class'   => '',
-	), $atts);
+		'open' => '',
+		'css_class' => '',
+	], $atts);
 
 	$content = wpautop(trim(shortcode_unautop($content)));
 	$content = do_shortcode($content);
 
 	return '<details class="nc-transcript ' . esc_attr($a['css_class']) . '"' . ($a['open'] ? ' open' : '') . '>'
 		. '<summary class="nc-transcript__toggle">'
-		.   '<span class="nc-transcript__label-open">' . esc_html($a['label']) . '</span>'
-		.   '<span class="nc-transcript__label-close">' . esc_html($a['label_close']) . '</span>'
+		. '<span class="nc-transcript__label-open">' . esc_html($a['label']) . '</span>'
+		. '<span class="nc-transcript__label-close">' . esc_html($a['label_close']) . '</span>'
 		. '</summary>'
 		. '<div class="nc-transcript__body">' . wp_kses_post($content) . '</div>'
 		. '</details>';
@@ -843,7 +802,6 @@ function nc_iconbox_element_custom() {
 			'base' => 'nc_iconbox',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-				
 				[
 					'type' => 'iconpicker',
 					'holder' => 'div',
@@ -852,7 +810,6 @@ function nc_iconbox_element_custom() {
 					'param_name' => 'icon',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				[
 					'type' => 'attach_image',
@@ -872,7 +829,6 @@ function nc_iconbox_element_custom() {
 					'param_name' => 'link',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				//top_title
 				[
@@ -928,7 +884,6 @@ function nc_iconbox_element_custom() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('See more label', 'nextcloud'),
@@ -936,9 +891,6 @@ function nc_iconbox_element_custom() {
 					'param_name' => 'see_more_label',
 					'value' => '',
 				],
-				
-				
-
 			]
 		]
 	);
@@ -978,7 +930,6 @@ function nc_iconbox_function($atts, $content) {
 	} else {
 		$icon = '';
 	}
-	
 
 	if ($attributes['link'] && $link['url'] != '#no_scroll') {
 		$return .= '<a href="' . $link['url'] . '" target="' . $link['target'] . '" title="' . $link['title'] . '" class="">';
@@ -986,12 +937,11 @@ function nc_iconbox_function($atts, $content) {
 		//$return .= '<a href="#no_scroll" class="no_scroll">';
 		$return .= '<div class="link_replacement no_scroll">';
 	}
-	
+
 	$custom_class = '';
 	if (!$attributes['link'] || $link['url'] == '#no_scroll') {
 		$custom_class = ' no-link';
 	}
-
 
 	if (isset($attributes['description'])) {
 		$desc = $attributes['description'];
@@ -999,10 +949,10 @@ function nc_iconbox_function($atts, $content) {
 			$desc = '<code>' . $attributes['description'] . '</code>';
 		}
 	}
-	
+
 	$return .= '<div class="iconbox_container ' . $custom_class . '">';
 	$return .= '<div class="icon">';
-	
+
 	if ($attributes['attached_images'] != '') {
 		$attached_images_ids = explode(',', $attributes['attached_images']);
 		$return .= '<div class="attached_images">';
@@ -1013,7 +963,7 @@ function nc_iconbox_function($atts, $content) {
 	} else {
 		$return .= $icon;
 	}
-	
+
 	$title = htmlspecialchars_decode($attributes['title']);
 
 	$return .= '</div>
@@ -1038,7 +988,6 @@ function nc_iconbox_function($atts, $content) {
 	}
 	$return .= '</div>';
 
-
 	$return .= '</div>';
 
 	if ($attributes['link'] && $link['url'] != '#no_scroll') {
@@ -1047,16 +996,12 @@ function nc_iconbox_function($atts, $content) {
 		$return .= '</div>';
 	}
 
-	
 	$return .= '</div>';
 
 	//add_filter('the_content', 'wptexturize');
 	return $return;
 }
 add_shortcode('nc_iconbox', 'nc_iconbox_function');
-
-
-
 
 // shortcode Eventbox
 function nc_eventbox_element_custom() {
@@ -1067,7 +1012,6 @@ function nc_eventbox_element_custom() {
 			'base' => 'nc_eventbox',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'attach_image',
 					'holder' => 'img',
@@ -1087,7 +1031,6 @@ function nc_eventbox_element_custom() {
 					'value' => __('', 'nextcloud'),
 				],
 
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Date', 'nextcloud'),
@@ -1103,7 +1046,6 @@ function nc_eventbox_element_custom() {
 					'param_name' => 'venue',
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'textfield',
@@ -1136,9 +1078,6 @@ function nc_eventbox_element_custom() {
 					'param_name' => 'css_classes',
 					'value' => '',
 				],
-				
-				
-
 			]
 		]
 	);
@@ -1166,17 +1105,16 @@ function nc_eventbox_function($atts, $content) {
 	} else {
 		$image = '';
 	}
-				
+
 	$return .= '<a href="' . $link['url'] . '" target="' . $link['target'] . '" title="' . $link['title'] . '" class="">';
 	$return .= '<div class="image">' . $image . '</div>';
-
 
 	$return .= '<div class="event_box_container">';
 
 	if (isset($attributes['title'])) {
 		$return .= '<h4 class="title">' . $attributes['title'] . '</h4>';
 	}
-				
+
 	$return .= '<div class="event_meta">
 				<div class="date"><i class="fas fa-calendar-alt"></i> ' . $attributes['date'] . '</div>
 				<div class="venue"><i class="fas fa-map-marker-alt"></i> ' . $attributes['venue'] . '</div>
@@ -1185,9 +1123,7 @@ function nc_eventbox_function($atts, $content) {
 	if (isset($attributes['description'])) {
 		$return .= '<div class="description">' . $attributes['description'] . '</div>';
 	}
-	
-	
-	
+
 	if ($link) {
 		$return .= '<span class="btn see_more">' . $attributes['btn_label'] . ' <i class="fas fa-angle-right"></i></span>';
 	}
@@ -1199,7 +1135,6 @@ function nc_eventbox_function($atts, $content) {
 }
 add_shortcode('nc_eventbox', 'nc_eventbox_function');
 
-
 //Repeater Features Carousel
 add_action('vc_before_init', 'features_repeater_items_funct');
 function features_repeater_items_funct() {
@@ -1210,7 +1145,6 @@ function features_repeater_items_funct() {
 			'class' => 'features_repeater',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -1337,7 +1271,6 @@ function features_repeater_items_funct() {
 							],
 							'std' => 'white'
 						]
-
 					]
 				],
 			]
@@ -1373,7 +1306,7 @@ function features_carousel_funct($atts) {
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
-	
+
 	?>
       <div class="box-repeater <?php if ($gallery) {
       	echo ' gallery ';
@@ -1381,7 +1314,7 @@ function features_carousel_funct($atts) {
           <?php if ($items) { ?>
               <div id="<?php echo $id; ?>" class="features_carousel owl-carousel owl-theme">
                   <?php  foreach ($items as $item) {
-				
+
                   	if (isset($item['link'])) {
                   		$link = vc_build_link($item['link']);
                   	}
@@ -1541,7 +1474,6 @@ function features_carousel_funct($atts) {
 	  $result = ob_get_clean();
 	return $result;
 }
-
 
 /**
  * Features Carousel (Translatable)
@@ -1879,7 +1811,6 @@ function nc_feature_item_funct($atts, $content = null) {
 	return ob_get_clean();
 }
 
-
 //Repeater Hub Circle
 add_action('vc_before_init', 'hub_circle_items_funct');
 function hub_circle_items_funct() {
@@ -1890,7 +1821,6 @@ function hub_circle_items_funct() {
 			'class' => 'hub_circle',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'attach_image',
 					'holder' => 'div',
@@ -1899,7 +1829,6 @@ function hub_circle_items_funct() {
 					'param_name' => 'static_image',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				[
 					'type' => 'param_group',
@@ -1922,8 +1851,6 @@ function hub_circle_items_funct() {
 							'param_name' => 'title',
 							'value' => __('', 'nextcloud'),
 						]
-
-
 					]
 				],
 			]
@@ -1940,11 +1867,11 @@ function hub_circle_funct($atts) {
 	], $atts, 'box_repeater');
 
 	$image = wp_get_attachment_image($atts['static_image'], 'large');
-	
+
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
-	
+
 	?>
       <div class="hub_circle">
 
@@ -1989,7 +1916,6 @@ function hub_circle_funct($atts) {
 	return $result;
 }
 
-
 //Old repeater Testimonials carousel
 add_action('vc_before_init', 'testimonials_repeater_items_funct');
 function testimonials_repeater_items_funct() {
@@ -2000,7 +1926,6 @@ function testimonials_repeater_items_funct() {
 			'class' => 'testimonials_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
@@ -2050,8 +1975,6 @@ function testimonials_repeater_items_funct() {
 							'param_name' => 'link',
 							'value' => __('', 'nextcloud'),
 						]
-
-
 					]
 				],
 
@@ -2064,7 +1987,6 @@ function testimonials_repeater_items_funct() {
 					'param_name' => 'custom_css',
 					'value' => __('', 'nextcloud'),
 				]
-
 			]
 		]
 	);
@@ -2088,7 +2010,7 @@ function testimonials_carousel_funct($atts) {
 			<div class="case_studies <?php echo $atts['custom_css']; ?>">
               <div class="testimonials_carousel owl-carousel owl-theme">
                   <?php  foreach ($items as $item) {
-					
+
                   	$item_link = false;
 
                   	if (isset($item['link'])) {
@@ -2136,7 +2058,7 @@ function testimonials_carousel_funct($atts) {
 									</div>
 								</div>
 								<?php }
-								
+
 								if ($item_link) { ?>
 								<div class="vc_btn3-container  btn-main btn-small vc_btn3-center">
 									<a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>"><?php echo __('Learn more', 'nextcloud'); ?> <i class="vc_btn3-icon fas fa-angle-right"></i>
@@ -2159,7 +2081,6 @@ function testimonials_carousel_funct($atts) {
 	return $result;
 }
 
-
 /**
  * Testimonials Carousel (Translatable)
  * Parent/child version of [testimonials_carousel]: every testimonial is its own [nc_testimonial_item]
@@ -2172,13 +2093,17 @@ function testimonials_carousel_funct($atts) {
  */
 add_action('vc_before_init', 'nc_testimonials_carousel_vc_map');
 function nc_testimonials_carousel_vc_map() {
-	if (!class_exists('WPBakeryShortCodesContainer')) return;
+	if (!class_exists('WPBakeryShortCodesContainer')) {
+		return;
+	}
 
 	if (!class_exists('WPBakeryShortCode_Nc_Testimonials_Carousel')) {
-		class WPBakeryShortCode_Nc_Testimonials_Carousel extends WPBakeryShortCodesContainer {}
+		class WPBakeryShortCode_Nc_Testimonials_Carousel extends WPBakeryShortCodesContainer {
+		}
 	}
 	if (!class_exists('WPBakeryShortCode_Nc_Testimonial_Item')) {
-		class WPBakeryShortCode_Nc_Testimonial_Item extends WPBakeryShortCode {}
+		class WPBakeryShortCode_Nc_Testimonial_Item extends WPBakeryShortCode {
+		}
 	}
 
 	vc_map([
@@ -2320,7 +2245,9 @@ function nc_testimonial_item_funct($atts, $content = null) {
 	ob_start();
 	?>
 	<div class="case_study testimonial">
-		<div class="vc_column-inner <?php if (!$has_link) { echo 'no_button'; } ?>">
+		<div class="vc_column-inner <?php if (!$has_link) {
+			echo 'no_button';
+		} ?>">
 			<div class="wpb_wrapper">
 
 				<div class="wpb_single_image wpb_content_element vc_align_left image_top">
@@ -2368,7 +2295,6 @@ function nc_testimonial_item_funct($atts, $content = null) {
 	return ob_get_clean();
 }
 
-
 //old iconboxes carousel
 add_action('vc_before_init', 'iconboxes_repeater_items_funct');
 function iconboxes_repeater_items_funct() {
@@ -2379,8 +2305,6 @@ function iconboxes_repeater_items_funct() {
 			'class' => 'iconboxes_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -2389,12 +2313,10 @@ function iconboxes_repeater_items_funct() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
 					'params' => [
-
 						[
 							'type' => 'iconpicker',
 							'holder' => 'icon',
@@ -2413,7 +2335,6 @@ function iconboxes_repeater_items_funct() {
 							'value' => __('', 'nextcloud'),
 						],
 
-
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -2423,7 +2344,6 @@ function iconboxes_repeater_items_funct() {
 							'param_name' => 'top_title',
 							'value' => __('', 'nextcloud'),
 						],
-
 
 						[
 							'type' => 'textfield',
@@ -2471,8 +2391,6 @@ function iconboxes_repeater_items_funct() {
 							'param_name' => 'css_classes',
 							'value' => __('', 'nextcloud'),
 						],
-
-
 					]
 				],
 
@@ -2495,7 +2413,7 @@ function iconboxes_repeater_items_funct() {
 						esc_html__('Yes', 'nextcloud') => 'yes'
 					]
 				],
-				
+
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom slider items', 'nextcloud'),
@@ -2520,7 +2438,6 @@ function iconboxes_repeater_items_funct() {
 					]
 				],
 
-
 				[
 					'type' => 'dropdown',
 					'heading' => 'Type',
@@ -2531,11 +2448,6 @@ function iconboxes_repeater_items_funct() {
 					],
 					'std' => 'default', // default selected value (optional)
 				],
-
-			
-
-				
-
 			]
 		]
 	);
@@ -2597,15 +2509,15 @@ function iconboxes_carousel_funct($atts) {
                   	?>
                       <div class="nc_iconbox iconbox feature_iconbox <?php echo $css_classes; ?>">
 					  	<?php
-                  		if ($has_link) {
-                  			?>
+						  if ($has_link) {
+						  	?>
 						<a class="<?php if ($type == 'flip_on_hover') {
 							echo ' flip-card ';
 						} ?>" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php
 						if (isset($item['title'])) {
 							echo $item['title'];
 						}
-                  			?>" >
+						  	?>" >
 						<?php  } else { ?> 
 						<div class="link_replacement no_scroll <?php if ($type == 'flip_on_hover') {
 							echo ' flip-card ';
@@ -2746,13 +2658,17 @@ function iconboxes_carousel_funct($atts) {
  */
 add_action('vc_before_init', 'nc_iconboxes_carousel_vc_map');
 function nc_iconboxes_carousel_vc_map() {
-	if (!class_exists('WPBakeryShortCodesContainer')) return;
+	if (!class_exists('WPBakeryShortCodesContainer')) {
+		return;
+	}
 
 	if (!class_exists('WPBakeryShortCode_Nc_Iconboxes_Carousel')) {
-		class WPBakeryShortCode_Nc_Iconboxes_Carousel extends WPBakeryShortCodesContainer {}
+		class WPBakeryShortCode_Nc_Iconboxes_Carousel extends WPBakeryShortCodesContainer {
+		}
 	}
 	if (!class_exists('WPBakeryShortCode_Nc_Iconbox_Item')) {
-		class WPBakeryShortCode_Nc_Iconbox_Item extends WPBakeryShortCode {}
+		class WPBakeryShortCode_Nc_Iconbox_Item extends WPBakeryShortCode {
+		}
 	}
 
 	vc_map([
@@ -2929,7 +2845,9 @@ function nc_iconboxes_carousel_funct($atts, $content = null) {
 	?>
 	<div class="iconbox_repeater" data-disable_carousel="<?php echo $disable_carousel; ?>">
 		<?php if (trim($items_html) !== '') { ?>
-			<div class="iconboxes <?php if ($type == 'flip_on_hover') { echo ' flip_on_hover '; } echo esc_attr($atts['custom_css']); ?>">
+			<div class="iconboxes <?php if ($type == 'flip_on_hover') {
+				echo ' flip_on_hover ';
+			} echo esc_attr($atts['custom_css']); ?>">
 
 				<?php if (!$disable_carousel) { ?>
 				<div id="<?php echo esc_attr($id); ?>" class="iconboxes_carousel owl-carousel owl-theme" data-items-desktop="<?php echo esc_attr($atts['custom_slider_items']); ?>">
@@ -2996,17 +2914,29 @@ function nc_iconbox_item_funct($atts, $content = null) {
 	?>
 	<div class="nc_iconbox iconbox feature_iconbox <?php echo esc_attr($atts['css_classes']); ?>">
 		<?php if ($has_link) { ?>
-		<a class="<?php if ($flip) { echo ' flip-card '; } ?>" href="<?php echo esc_url($atts['link_url']); ?>" target="<?php echo $link_target; ?>" title="<?php echo esc_attr($atts['title']); ?>">
+		<a class="<?php if ($flip) {
+			echo ' flip-card ';
+		} ?>" href="<?php echo esc_url($atts['link_url']); ?>" target="<?php echo $link_target; ?>" title="<?php echo esc_attr($atts['title']); ?>">
 		<?php } else { ?>
-		<div class="link_replacement no_scroll <?php if ($flip) { echo ' flip-card '; } ?>">
+		<div class="link_replacement no_scroll <?php if ($flip) {
+			echo ' flip-card ';
+		} ?>">
 		<?php } ?>
 
 			<div class="iconbox_container <?php
-				if (!$has_title) { echo ' no_title'; }
-				if (!$has_link) { echo ' no_link '; }
-				if ($has_label) { echo ' with_label '; }
-				if ($flip) { echo ' flip-card-inner '; }
-			?>">
+				if (!$has_title) {
+					echo ' no_title';
+				}
+	if (!$has_link) {
+		echo ' no_link ';
+	}
+	if ($has_label) {
+		echo ' with_label ';
+	}
+	if ($flip) {
+		echo ' flip-card-inner ';
+	}
+	?>">
 
 				<?php if ($flip) { ?>
 					<div class="flip-card-front">
@@ -3067,7 +2997,6 @@ function nc_iconbox_item_funct($atts, $content = null) {
 	return ob_get_clean();
 }
 
-
 //Repeater History Timeline
 add_action('vc_before_init', 'timeline_repeater_items_funct');
 function timeline_repeater_items_funct() {
@@ -3078,13 +3007,10 @@ function timeline_repeater_items_funct() {
 			'class' => 'history_timeline',
 			'category' => __('Repeater', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
 					'params' => [
-						
-
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -3112,10 +3038,6 @@ function timeline_repeater_items_funct() {
 							'param_name' => 'description',
 							'value' => '',
 						],
-
-
-
-
 					]
 				],
 			]
@@ -3158,9 +3080,6 @@ function history_timeline_funct($atts) {
 	return $result;
 }
 
-
-
-
 //Repeater Media Coverage
 add_action('vc_before_init', 'media_coverage_items_funct');
 function media_coverage_items_funct() {
@@ -3171,7 +3090,6 @@ function media_coverage_items_funct() {
 			'class' => 'media_coverage',
 			'category' => __('Repeater', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom CSS Classes', 'nextcloud'),
@@ -3230,7 +3148,6 @@ function media_coverage_items_funct() {
 							'value' => __('', 'nextcloud'),
 						],
 
-
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -3240,7 +3157,6 @@ function media_coverage_items_funct() {
 							'value' => __('', 'nextcloud'),
 						],
 
-
 						[
 							'type' => 'colorpicker',
 							'holder' => 'div',
@@ -3249,7 +3165,6 @@ function media_coverage_items_funct() {
 							'param_name' => 'bg_color',
 							'value' => '#fff', //Default White color
 						],
-
 
 						[
 							'type' => 'vc_link',
@@ -3261,7 +3176,6 @@ function media_coverage_items_funct() {
 							'value' => __('', 'nextcloud'),
 						],
 
-
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -3271,8 +3185,6 @@ function media_coverage_items_funct() {
 							'param_name' => 'rating',
 							'value' => __('', 'nextcloud'),
 						]
-
-
 					]
 				]
 			]
@@ -3291,7 +3203,7 @@ function media_coverage_funct($atts) {
 		'max_items' => 0
 		//'columns' => ''
 	], $atts, 'box_repeater');
-	
+
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
@@ -3322,10 +3234,10 @@ function media_coverage_funct($atts) {
                   <?php
 				  foreach ($items as $index => $item) {
 				  	/*
-				  	  if( $type === 'carousel') {
-				  		echo '<div class="media_coverage_carousel_item">';
-				  	}
-				  	*/
+				  		if( $type === 'carousel') {
+				  		  echo '<div class="media_coverage_carousel_item">';
+				  	  }
+				  	  */
 
 				  	$item_link = false;
 				  	if (isset($item['link'])) {
@@ -3410,14 +3322,14 @@ function media_coverage_funct($atts) {
 				  	</div>
 
 					<?php
-					
-					if ($type === 'carousel' && $max_items != 0 &&
-						($index + 1) % $max_items === 0
+
+					if ($type === 'carousel' && $max_items != 0
+						&& ($index + 1) % $max_items === 0
 					) { ?>
 						</div> <!-- close .media_coverage_posts item -->
 						<div data-type="<?php echo $type; ?>" class="row media_coverage_posts"> <!-- open carousel item -->
 					<?php }
-					
+
 					?>
 
 
@@ -3478,8 +3390,6 @@ function media_coverage_funct($atts) {
 	return $result;
 }
 
-
-
 /*
 function test_shortcode_pagination_func() {
 	//header("Content-Type: text/html");
@@ -3520,8 +3430,6 @@ function test_shortcode_pagination_func() {
 add_shortcode('test_shortcode_pagination', 'test_shortcode_pagination_func');
 */
 
-
-
 //Repeater Logo Resources
 add_action('vc_before_init', 'logo_resources_items_funct');
 function logo_resources_items_funct() {
@@ -3532,7 +3440,6 @@ function logo_resources_items_funct() {
 			'class' => 'logo_resources',
 			'category' => __('Repeater', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom CSS Classes', 'nextcloud'),
@@ -3545,7 +3452,6 @@ function logo_resources_items_funct() {
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
 					'params' => [
-
 						[
 							'type' => 'attach_image',
 							'holder' => 'img',
@@ -3554,7 +3460,6 @@ function logo_resources_items_funct() {
 							'param_name' => 'image_svg',
 							'value' => __('', 'nextcloud'),
 						],
-
 
 						[
 							'type' => 'attach_image',
@@ -3582,7 +3487,6 @@ function logo_resources_items_funct() {
 							'param_name' => 'custom_class',
 							'value' => '',
 						]
-
 					]
 				]
 			]
@@ -3598,7 +3502,7 @@ function logo_resources_funct($atts) {
 		'css_classes' => 'vc_col-sm-6 vc_col-lg-3 vc_col-md-3',
 		//'columns' => ''
 	], $atts, 'box_repeater');
-	
+
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
@@ -3653,9 +3557,6 @@ function logo_resources_funct($atts) {
 	return $result;
 }
 
-
-
-
 add_shortcode('press_releases', 'press_releases_funct');
 function press_releases_funct($atts) {
 	ob_start();
@@ -3666,7 +3567,6 @@ function press_releases_funct($atts) {
 	], $atts);
 	$year = $a['year'];
 	$blogs = $a['blogs'];
-	
 
 	/*
 	if (class_exists('WPML_Display_As_Translated_Tax_Query')) {
@@ -3676,17 +3576,15 @@ function press_releases_funct($atts) {
 	}
 	*/
 
-
 	// The Query
 	$press_posts_ids = [];
-	
+
 	/*
 	// Get the default category ID for 'pressrelease'
 	$default_category_id = 19; // Default category ID for 'pressrelease'
 	// Get the translated category ID for 'pressrelease' in the current language
 	$category_id = wpml_object_id($default_category_id, 'category', true);
 	*/
-
 
 	if ($blogs) {
 		$press_posts_ids = get_posts([
@@ -3706,14 +3604,11 @@ function press_releases_funct($atts) {
 		]);
 	}
 
-	
 	echo '<div id="press_posts_ids" class="hidden">';
 	echo '<pre>';
 	print_r($press_posts_ids);
 	echo '</pre>';
 	echo '</div>';
-	
-	
 
 	$press_releases_ids = get_posts([
 		'fields' => 'ids',
@@ -3730,7 +3625,6 @@ function press_releases_funct($atts) {
 		//'suppress_filters'    => true
 	]);
 
-	
 	/*
 	echo '<div id="press_releases_ids" class="hidden">';
 	echo '<pre>';
@@ -3738,7 +3632,6 @@ function press_releases_funct($atts) {
 	echo '</pre>';
 	echo '</div>';
 	*/
-	
 
 	$post_ids = array_merge($press_posts_ids, $press_releases_ids);
 
@@ -3749,7 +3642,6 @@ function press_releases_funct($atts) {
 	echo '</pre>';
 	echo '</div>';
 	*/
-
 
 	$the_query = new WP_Query([
 		'post_type' => 'any',
@@ -3816,10 +3708,6 @@ function press_releases_funct($atts) {
 	return $result;
 }
 
-
-
-
-
 // shortcode App Iconbox
 function nc_app_iconbox_element_custom() {
 	// Title
@@ -3829,7 +3717,6 @@ function nc_app_iconbox_element_custom() {
 			'base' => 'nc_app_iconbox',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-				
 				[
 					'type' => 'iconpicker',
 					'holder' => 'div',
@@ -3886,7 +3773,6 @@ function nc_app_iconbox_element_custom() {
 					'admin_label' => true,
 					'value' => '',
 				],
-				
 
 				[
 					'type' => 'textfield',
@@ -3896,7 +3782,6 @@ function nc_app_iconbox_element_custom() {
 					'value' => '',
 					'admin_label' => false
 				]
-
 			]
 		]
 	);
@@ -3926,20 +3811,17 @@ function nc_app_iconbox_function($atts, $content) {
 	} else {
 		$icon = '';
 	}
-	
 
 	if ($attributes['link'] && $link['url'] != '#no_scroll') {
 		$return .= '<a href="' . $link['url'] . '" target="' . $link['target'] . '" title="' . $link['title'] . '" class="app_link">';
 	} else {
 		$return .= '<a href="#no_scroll" class="no_scroll">';
 	}
-	
+
 	$custom_class = '';
 	if (!$attributes['link'] || $link['url'] == '#no_scroll') {
 		$custom_class = ' no-link';
 	}
-
-	
 
 	$return .= '<div class="iconbox_container ' . $custom_class . '">
 				<div class="icon">' . $icon . '</div>
@@ -3955,15 +3837,12 @@ function nc_app_iconbox_function($atts, $content) {
 		$return .= '<div class="description extra_description">' . nc_decode_raw_html_param($attributes['extra_description']) . '</div>';
 	}
 
-	
-
 	$return .= '</div></div></a>';
 
 	$return .= '</div>';
 	return $return;
 }
 add_shortcode('nc_app_iconbox', 'nc_app_iconbox_function');
-
 
 function nc_color_hex_func($atts) {
 	$a = shortcode_atts(
@@ -3972,11 +3851,8 @@ function nc_color_hex_func($atts) {
 		], $atts);
 
 	return '<span title="Click to copy" class="nc_color copy_color" data-color="' . $a['code'] . '" style="--codeColor: ' . $a['code'] . ';">' . $a['code'] . '</span>';
-
 }
 add_shortcode('nc_color', 'nc_color_hex_func');
-
-
 
 // shortcode App Iconbox
 function nc_colorbox_element_custom() {
@@ -3987,7 +3863,6 @@ function nc_colorbox_element_custom() {
 			'base' => 'nc_colorbox',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Title', 'nextcloud'),
@@ -4005,7 +3880,6 @@ function nc_colorbox_element_custom() {
 					'admin_label' => true,
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'textarea',
@@ -4025,7 +3899,6 @@ function nc_colorbox_element_custom() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'textarea',
 					'heading' => esc_html__('CMYK', 'nextcloud'),
@@ -4034,7 +3907,6 @@ function nc_colorbox_element_custom() {
 					'admin_label' => true,
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'textarea',
@@ -4045,7 +3917,6 @@ function nc_colorbox_element_custom() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'textarea',
 					'heading' => esc_html__('Pantone', 'nextcloud'),
@@ -4054,7 +3925,6 @@ function nc_colorbox_element_custom() {
 					'admin_label' => true,
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'textarea',
@@ -4065,7 +3935,6 @@ function nc_colorbox_element_custom() {
 					'value' => '',
 				],
 
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom CSS Classes', 'nextcloud'),
@@ -4074,7 +3943,6 @@ function nc_colorbox_element_custom() {
 					'value' => '',
 					'admin_label' => false
 				]
-
 			]
 		]
 	);
@@ -4125,15 +3993,13 @@ function nc_colorbox_function($atts, $content) {
 	if ($attributes['angle']) {
 		$return .= '<li><span class="code_title">Angle</span>' . $attributes['angle'] . '</li>';
 	}
-	
+
 	$return .= '</ul>';
-	
 
 	$return .= '</div></div>';
 	return $return;
 }
 add_shortcode('nc_colorbox', 'nc_colorbox_function');
-
 
 function nc_get_whitepaper_attachment($atts) {
 	global $post;
@@ -4143,7 +4009,6 @@ function nc_get_whitepaper_attachment($atts) {
 	return;
 }
 add_shortcode('nc_attachment', 'nc_get_whitepaper_attachment');
-
 
 function nc_get_whitepaper_type($atts) {
 	global $post;
@@ -4159,7 +4024,6 @@ function nc_get_whitepaper_type($atts) {
 	return $type;
 }
 add_shortcode('whitepaper_type', 'nc_get_whitepaper_type');
-
 
 /**
  * Is early-bird pricing currently active for a given event post?
@@ -4193,7 +4057,6 @@ function nc_is_early_bird_active($post_id) {
 
 	return $timestamp_deadline > $local_timestamp;
 }
-
 
 function nc_get_field_func($atts) {
 	global $post;
@@ -4237,21 +4100,17 @@ function nc_get_field_func($atts) {
 			}
 		}
 
-
-
 	}
 
 	return $return;
 }
 add_shortcode('nc_get_field', 'nc_get_field_func');
 
-
 function nc_get_whitepaper_slug() {
 	global $post;
 	return $post->post_name;
 }
 add_shortcode('nc_slug', 'nc_get_whitepaper_slug');
-
 
 function nc_get_get_actitiy_id() {
 	global $post;
@@ -4270,8 +4129,6 @@ function nc_get_webinar_video_url() {
 	return get_post_meta($post->ID, 'webinar_video_url', true);
 }
 add_shortcode('webinar_video_url', 'nc_get_webinar_video_url');
-
-
 
 /*
 function nc_typed_text_func($atts){
@@ -4403,7 +4260,6 @@ function nc_typed_text_func($atts) {
 
 add_shortcode('nc_typed', 'nc_typed_text_func');
 
-
 //webinars list used on /events page
 function webinars_list_func($atts) {
 	$a = shortcode_atts([
@@ -4432,13 +4288,12 @@ function webinars_list_func($atts) {
 	$my_current_lang = 'en';
 	$my_current_lang = apply_filters('wpml_current_language', null);
 
-
 	if ($a['btn'] === 'false') {
 		$btn = false;
 	} else {
 		$btn = true;
 	}
-	
+
 	ob_start();
 	$timezone = wp_timezone(); // Get WordPress timezone object
 	$timezone_us = new DateTimeZone('America/New_York');
@@ -4462,7 +4317,7 @@ function webinars_list_func($atts) {
 			],
 		],
 	];
-	
+
 	if ($exclude_next) {
 		$args['post__not_in'] = [get_next_webinar_id()];
 	}
@@ -4490,26 +4345,21 @@ function webinars_list_func($atts) {
 
 		$args['meta_query'] = [
 			'relation' => 'AND',
-			
+
 			[
 				'key' => 'event_start_date_and_time',
 				'value' => $current_date_time,
 				'compare' => '<',
 				'type' => 'DATETIME'
 			],
-			
 
 			[
 				'key' => 'download_available',
 				'value' => '',
 				'compare' => '!=',
 			],
-			
-			
 		];
 	}
-
-
 
 	if ($include_all_languages) {
 		$same_lang_posts_ids = [];
@@ -4549,7 +4399,6 @@ function webinars_list_func($atts) {
 		$the_query = new WP_Query($args);
 	}
 
-	
 	$count = $the_query->found_posts;
 	// The Loop
 	if ($the_query->have_posts()) {
@@ -4640,7 +4489,7 @@ function webinars_list_func($atts) {
 			if ($count > $limit) {
 				$my_current_lang = apply_filters('wpml_current_language', null);
 				$blog_wpml_permalink = apply_filters('wpml_permalink', '/blog', $my_current_lang);
-	
+
 				if ($type == 'upcoming') {
 					?>
 				<div class="vc_btn3-container  btn-main btn-small vc_btn3-center"><a class="<?php echo $blog_wpml_permalink; ?> vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey" title="" target="" href="/<?php echo $my_current_lang; ?>/blog/?webinars=upcoming"><?php echo __('All upcoming webinars', 'nextcloud'); ?><i class="vc_btn3-icon fas fa-angle-right"></i></a></div>
@@ -4673,7 +4522,6 @@ function webinars_list_func($atts) {
 }
 add_shortcode('webinars', 'webinars_list_func');
 
-
 //show next webinar used on /events page
 function next_webinar_func() {
 	ob_start();
@@ -4688,7 +4536,7 @@ function next_webinar_func() {
 		$webinar_lang_value = $webinar_language_details['language_code'];
 		$display_name = $webinar_language_details['display_name'];
 	}
-	
+
 	if (!empty(get_field('custom_language', $next_webinar_id))) {
 		$webinar_lang = get_field('custom_language', $next_webinar_id);
 		if ($webinar_lang['label'] != 'default') {
@@ -4697,7 +4545,6 @@ function next_webinar_func() {
 			$display_name = $webinar_lang['label'];
 		}
 	}
-
 
 	$title = get_the_title($post_id);
 	$post_excerpt_full = get_the_excerpt($post_id);
@@ -4758,7 +4605,6 @@ function next_webinar_func() {
 	$event_start_unix = strtotime($event_start_datetime);
 	$date = $date_start = date_create($event_start_datetime);
 
-
 	$date_custom_datetime = new DateTime($event_start_datetime, $timezone);
 	$time_start_format = $date_custom_datetime->format('g:i a');
 	$date_custom_datetime->setTimezone($timezone_us);
@@ -4802,7 +4648,6 @@ function next_webinar_func() {
 	return ob_get_clean();
 }
 add_shortcode('next_webinar', 'next_webinar_func');
-
 
 //show next event used on /events page
 function next_event_preview_func($atts) {
@@ -4875,7 +4720,6 @@ function next_event_preview_func($atts) {
 						echo '<a class="c-btn" title="' . $title . '" href="' . $link . '">' . __('Read more', 'nextcloud') . '<i class="fas fa-angle-right"></i></a>';
 					}
 
-					
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
@@ -4883,13 +4727,6 @@ function next_event_preview_func($atts) {
 	return ob_get_clean();
 }
 add_shortcode('next_event_preview', 'next_event_preview_func');
-
-
-
-
-
-
-
 
 function events_list_func($atts) {
 	$a = shortcode_atts([
@@ -4903,12 +4740,10 @@ function events_list_func($atts) {
 	//$current_year = date('Y', time());
 	//echo $current_date_time;
 
-
 	$args = [
 		'post_type' => 'event',
 		'post_status' => 'publish',
 		'posts_per_page' => '-1',
-		
 
 		'tax_query' => [
 			//'relation' => 'AND',
@@ -4927,11 +4762,9 @@ function events_list_func($atts) {
 				'operator' => 'NOT IN'
 			)
 			*/
-
 		],
 
 		'meta_query' => [
-
 			[
 				'key' => 'event_start_date_and_time',
 				'value' => [ $year . '-01-01 00:00:00', $year . '-12-31 00:00:00' ],
@@ -4939,20 +4772,16 @@ function events_list_func($atts) {
 				'compare' => 'BETWEEN',
 			],
 		],
-		
-
 	];
-	
 
 	$the_query = new WP_Query($args);
 	//print_r($the_query);
 	//echo $the_query->request;
 
-
 	// The Loop
 	if ($the_query->have_posts()) {
 		echo '<table class="table events_table events table-striped">';
-		
+
 		echo '<thead>';
 		echo '<tr>
 		<th>' . __('Event', 'nextcloud') . '</th>
@@ -5029,7 +4858,6 @@ function events_list_func($atts) {
 }
 add_shortcode('events', 'events_list_func');
 
-
 //print date and time for the webinars - to be used inside the email confirmation
 add_shortcode('webinar_datetime_email', 'webinar_date_time_email_func');
 function webinar_date_time_email_func($atts) {
@@ -5067,7 +4895,6 @@ function webinar_date_time_email_func($atts) {
 		//$start_day = gmdate("d", $event_start_unix);
 		$start_day = gmdate('j', $event_start_unix);
 
-
 		$start_day_suffix = '';
 		if ($my_current_lang == 'en' || $my_current_lang == 'de') {
 			$start_day_suffix = gmdate('S', $event_start_unix);
@@ -5093,7 +4920,6 @@ function webinar_date_time_email_func($atts) {
 		//get (EDT/EST)
 		$edt_est = wp_date('T', $event_start_unix, $timezone_us); // Get timezone abbreviation (EDT/EST)
 
-
 		//get time
 		$date_custom_datetime = new DateTime($event_start_datetime, $timezone);
 
@@ -5116,12 +4942,9 @@ function webinar_date_time_email_func($atts) {
 			//other languages
 			$webinar_datetime = $date_start_dayName . ', ' . $start_day . $start_day_suffix . ' ' . $start_month_intl . ' ' . __('at', 'nextcloud') . ' ' . $time_start_format;
 		}
-		
-
 
 		$webinar_datetime .= ' ';
 		//$webinar_datetime .= " Lang:".$my_current_lang;
-
 
 		if ($lang == 'jp') {
 			$webinar_datetime .= '(JST)';
@@ -5129,15 +4952,11 @@ function webinar_date_time_email_func($atts) {
 			$webinar_datetime .= $cet_cest;
 			$webinar_datetime .= ' / ' . $time_start_format_us . ' ' . $edt_est;
 		}
-		
 
 	}
 
 	return $webinar_datetime;
 }
-
-
-
 
 //get webinar / event details like time and duration
 function webinar_details_func($atts) {
@@ -5150,7 +4969,7 @@ function webinar_details_func($atts) {
 	$post_id = get_the_ID();
 	$timezone = wp_timezone(); // Get WordPress timezone object
 	$timezone_us = new DateTimeZone('America/New_York');
-	
+
 	if (isset($lang) && $lang != '') {
 		$my_current_lang = $lang;
 	} else {
@@ -5201,7 +5020,6 @@ function webinar_details_func($atts) {
 		$date_custom_datetime->setTimezone($timezone_us);
 		$time_start_format_us = $date_custom_datetime->format('g:i a');
 	}
-	
 
 	$event_end_datetime = get_field('event_end_date_and_time', $post_id, false);
 	if ($event_end_datetime) {
@@ -5241,7 +5059,7 @@ function webinar_details_func($atts) {
 				} else {
 					echo $start_day . ' - ' . $end_day . ' ' . $start_month_intl . ', ' . gmdate('Y', $start_datetime);
 				}
-				
+
 			}
 		} else {
 			//single day
@@ -5272,7 +5090,7 @@ function webinar_details_func($atts) {
 					} else {
 						echo __('days', 'nextcloud');
 					}
-						
+
 				} else {
 					echo ' ' . $diff_hours . ' ' . __('hours', 'nextcloud');
 				}
@@ -5298,10 +5116,6 @@ function webinar_details_func($atts) {
 }
 add_shortcode('webinar_details', 'webinar_details_func');
 
-
-
-
-
 function event_details_func($atts) {
 	$a = shortcode_atts([
 		'lang' => '',
@@ -5316,7 +5130,6 @@ function event_details_func($atts) {
 		$my_current_lang = $a['lang'];
 	}
 
-	
 	//$date_format = get_option( 'date_format' ); // e.g. "F j, Y"
 	$date_format = 'jS F';
 
@@ -5351,7 +5164,6 @@ function event_details_func($atts) {
 		$date_custom_datetime->setTimezone(new DateTimeZone('America/New_York'));
 		$time_start_format_us = $date_custom_datetime->format('g:i a');
 	}
-	
 
 	$event_end_datetime = get_field('event_end_date_and_time', $post_id, false);
 	if ($event_end_datetime) {
@@ -5388,7 +5200,7 @@ function event_details_func($atts) {
 				} else {
 					echo $start_day . ' - ' . $end_day . ' ' . $start_month_intl . ', ' . gmdate('Y', $start_datetime);
 				}
-				
+
 			}
 		} else {
 			//single day
@@ -5408,7 +5220,7 @@ function event_details_func($atts) {
 			$keynote_presentation_date_format = date_i18n('F j, Y', strtotime($keynote_presentation));
 			$keynote_presentation_time = date_format($keynote_presentation_date, 'g:i a');
 			echo $keynote_presentation_date_format . ' @ ' . $keynote_presentation_time;
-		
+
 			?>
 		</li>
 		<?php } ?>
@@ -5431,14 +5243,12 @@ function event_details_func($atts) {
 	</ul>
 <?php
 	return ob_get_clean();
-
 }
 add_shortcode('event_details', 'event_details_func');
 
-
 //create custom date time field for the wp bakery custom shortcods
 if (function_exists('vc_add_shortcode_param')) {
-	
+
 	function nc_wpb_datetime_settings_field($settings, $value) {
 		$js = '<script>!function($) {
 			$( ".datepicker" ).datepicker({
@@ -5447,16 +5257,15 @@ if (function_exists('vc_add_shortcode_param')) {
 		}(window.jQuery);</script>';
 
 		return $js . '<div class="datetime_field">'
-		. '<input name="' . esc_attr($settings['param_name']) . '" class="datepicker wpb_vc_param_value wpb-textinput ' .
-		esc_attr($settings['param_name']) . ' ' .
-		esc_attr($settings['type']) . '_field" type="text" value="' . esc_attr($value) . '" />' .
-		'</div>'; // This is html markup that will be outputted in content elements edit form
+		. '<input name="' . esc_attr($settings['param_name']) . '" class="datepicker wpb_vc_param_value wpb-textinput '
+		. esc_attr($settings['param_name']) . ' '
+		. esc_attr($settings['type']) . '_field" type="text" value="' . esc_attr($value) . '" />'
+		. '</div>'; // This is html markup that will be outputted in content elements edit form
 	}
 
 	vc_add_shortcode_param('datetime', 'nc_wpb_datetime_settings_field', get_template_directory_uri() . '/vc_extend/datetime.js');
 
 }
-
 
 //Event list repeater
 add_action('vc_before_init', 'events_list_repeater_items_funct');
@@ -5468,7 +5277,6 @@ function events_list_repeater_items_funct() {
 			'class' => 'events_list',
 			'category' => __('Repeater', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Year', 'nextcloud'),
@@ -5492,7 +5300,6 @@ function events_list_repeater_items_funct() {
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
 					'params' => [
-	
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -5534,7 +5341,6 @@ function events_list_repeater_items_funct() {
 							'param_name' => 'approximate_event_date',
 							'value' => '',
 						],
-						
 
 						[
 							'type' => 'vc_link',
@@ -5545,8 +5351,6 @@ function events_list_repeater_items_funct() {
 							'param_name' => 'link',
 							'value' => __('', 'nextcloud'),
 						]
-
-
 					]
 				],
 			]
@@ -5610,11 +5414,10 @@ function events_list_funct($atts) {
 					'link_debug' => isset($link_debug) ? $link_debug : '',
 					'target' => isset($item['link']) ? $link['target'] : '',
 				];
-	
+
 			}
 		}
-		
-		
+
 	//echo $type;
 	if ($type == 'enterprise_days') {
 		//get only Enterprise Days
@@ -5659,7 +5462,6 @@ function events_list_funct($atts) {
 		];
 	}
 
-		
 	$the_query = new WP_Query($args);
 	if ($the_query->have_posts() && $type != 'meetups') {
 		while ($the_query->have_posts()) {
@@ -5670,19 +5472,17 @@ function events_list_funct($atts) {
 			$event_end_datetime = get_field('event_end_date_and_time', false, false);
 			//echo $event_end_datetime;
 
-
 			if ($event_start_datetime) {
 				$date_start = DateTime::createFromFormat('Y-m-d H:i:s', $event_start_datetime, $timezone);
 				$date_start_timestamp = $date_start->getTimestamp();
 			}
-				
+
 			if ($event_end_datetime) {
 				$date_end = DateTime::createFromFormat('Y-m-d H:i:s', $event_end_datetime, $timezone);
 				$date_end_timestamp = $date_end->getTimestamp();
 			} else {
 				$date_end_timestamp = $date_start_timestamp; // set the same day; usually these are 1 day events
 			}
-				
 
 			$events[] = [
 				'id' => get_the_ID(),
@@ -5696,14 +5496,10 @@ function events_list_funct($atts) {
 				'target' => get_field('blog_post_url') ? '_blank' : '',
 			];
 
-
 		}
 	}
 	/* Restore original Post Data */
 	wp_reset_postdata();
-
-
-
 
 	//order by date
 	if ($events) {
@@ -5739,7 +5535,6 @@ function events_list_funct($atts) {
 			);
 		}
 
-
 		/*
 		$sortArray = array();
 		foreach($events as $event){
@@ -5760,8 +5555,6 @@ function events_list_funct($atts) {
 			array_multisort($sortArray[$orderby],SORT_DESC,$events);
 		}
 		*/
-
-
 
 		//get the next event
 		$now = new DateTime();
@@ -5787,7 +5580,7 @@ function events_list_funct($atts) {
 				}
 			}
 		}
-		
+
 		$events_label = __('Event', 'nextcloud');
 		$extra_css_class = '';
 		if ($type == 'enterprise_days') {
@@ -5808,7 +5601,6 @@ function events_list_funct($atts) {
 				</tr>';
 		echo '</thead>';
 		echo '<tbody>';
-
 
 		$current_lang = apply_filters('wpml_current_language', null);
 		$default_lang = apply_filters('wpml_default_language', null);
@@ -5834,7 +5626,7 @@ function events_list_funct($atts) {
 						echo apply_filters('wpml_permalink', $event['link'], $current_lang);
 			//echo $event['link'];
 			?>" href="<?php
-							
+
 				if (isset($event['link'])) {
 
 					if ($type == 'meetups') {
@@ -5842,7 +5634,7 @@ function events_list_funct($atts) {
 					} else {
 						echo apply_filters('wpml_permalink', $event['link'], $current_lang);
 					}
-									
+
 				} else {
 					echo '#';
 				}
@@ -5985,7 +5777,6 @@ function events_list_funct($atts) {
 					<?php
 				}
 
-
 		}
 		echo '</tbody>';
 		echo '</table>';
@@ -5995,7 +5786,6 @@ function events_list_funct($atts) {
 	  $result = ob_get_clean();
 	return $result;
 }
-
 
 if (! function_exists('nc_better_comments')):
 	function nc_better_comments($comment, $args, $depth) {
@@ -6043,8 +5833,6 @@ if (! function_exists('nc_better_comments')):
 	}
 endif;
 
-
-
 // Customizes the comment_html template.
 function my_wpd_comment_html($input) {
 	ob_start();
@@ -6087,8 +5875,6 @@ function my_wpd_comment_html($input) {
 // Hook into the function from the plugin's code.
 add_filter('discourse_comment_html', 'my_wpd_comment_html');
 
-
-
 //This removes the ‘participants’ section from the replies_html template.
 function my_namespace_remove_participants_html($input) {
 	ob_start();
@@ -6102,7 +5888,6 @@ function my_namespace_remove_participants_html($input) {
 	return $output;
 }
 add_filter('discourse_replies_html', 'my_namespace_remove_participants_html');
-
 
 add_shortcode('whitepapers_list', 'whitepapers_list_func');
 function whitepapers_list_func($atts) {
@@ -6124,14 +5909,13 @@ function whitepapers_list_func($atts) {
 		'order' => 'DESC',
 		'tag__not_in' => [269] // exclude unlisted tag
 	];
-	
 
 	$the_query = new WP_Query($args);
 	$count = $the_query->found_posts;
 
 	// The Loop
 	if ($the_query->have_posts()) {
-		
+
 		echo '<div class="row row-list-blog" data-count="' . $count . '" data-limit="' . $limit . '">';
 
 		while ($the_query->have_posts()) {
@@ -6153,12 +5937,10 @@ function whitepapers_list_func($atts) {
 			</div>
 		</div>
 	<?php }
-	
+
 	$result = ob_get_clean();
 	return $result;
 }
-
-
 
 add_shortcode('whitepapers_posts', 'whitepapers_posts_func');
 function whitepapers_posts_func($atts) {
@@ -6191,8 +5973,6 @@ function whitepapers_posts_func($atts) {
 	]);
 	$all_posts = $q_posts->posts;
 
-
-	
 	if ($include_podcasts) {
 		//get also the podcasts, tagged with Case story tag
 		$q_podcasts = new WP_Query([
@@ -6217,7 +5997,6 @@ function whitepapers_posts_func($atts) {
 
 	}
 
-
 	$count = count($all_posts);
 	$items = array_slice($all_posts, $offset, $ppp);
 
@@ -6237,7 +6016,6 @@ function whitepapers_posts_func($atts) {
 		echo '</div>';
 	}
 	wp_reset_postdata();
-
 
 	/*
 	else {
@@ -6271,8 +6049,6 @@ function whitepapers_posts_func($atts) {
 		wp_reset_postdata();
 	}*/
 
-
-
 	if ($limit > 0 && ($limit < $count)) { ?>
 		<div class="row loadNews_row">
 			<div class="col-12">
@@ -6284,13 +6060,9 @@ function whitepapers_posts_func($atts) {
 		</div>
 	<?php }
 
-
 	$result = ob_get_clean();
 	return $result;
 }
-
-
-
 
 //Repeater Quotes Carousel
 add_action('vc_before_init', 'quotes_repeater_items_funct');
@@ -6302,7 +6074,6 @@ function quotes_repeater_items_funct() {
 			'class' => 'quotes_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
@@ -6342,7 +6113,6 @@ function quotes_repeater_items_funct() {
 							'param_name' => 'link',
 							'value' => __('', 'nextcloud'),
 						]
-
 					]
 				],
 
@@ -6353,7 +6123,6 @@ function quotes_repeater_items_funct() {
 					'param_name' => 'custom_css',
 					'value' => '',
 				]
-
 			]
 		]
 	);
@@ -6381,7 +6150,7 @@ function quotes_carousel_funct($atts) {
               	echo $custom_css;
               } ?>">
                   <?php  foreach ($items as $item) {
-					
+
                   	//print_r($item['box_repeater_items_link']);
                   	if (isset($item['link'])) {
                   		$link = vc_build_link($item['link']);
@@ -6434,7 +6203,7 @@ function quotes_carousel_funct($atts) {
 									<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
 								<?php } ?>
 								<?php
-                  				echo __('Learn more', 'nextcloud');
+								  echo __('Learn more', 'nextcloud');
 								?> <i class="vc_btn3-icon fas fa-angle-right"></i>
 								<?php if ($item['link']) { ?>
 									</a>
@@ -6489,8 +6258,6 @@ function quotes_carousel_funct($atts) {
 	return $result;
 }
 
-
-
 add_shortcode('sector_selected', 'sector_selected_funct');
 function sector_selected_funct($atts) {
 	ob_start();
@@ -6521,9 +6288,6 @@ jQuery( document ).ready( function( $ ) {
 	return $result;
 }
 
-
-
-
 add_shortcode('plan_selected', 'plan_selected_funct');
 function plan_selected_funct($atts) {
 	ob_start();
@@ -6549,8 +6313,6 @@ jQuery( document ).ready( function( $ ) {
 	$result = ob_get_clean();
 	return $result;
 }
-
-
 
 add_shortcode('product_selected', 'product_selected_funct');
 function product_selected_funct($atts) {
@@ -6598,8 +6360,6 @@ function product_selected_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
-
-
 
 //Event list repeater
 add_action('vc_before_init', 'nc_element_team_select_funct');
@@ -6730,7 +6490,7 @@ function team_members_list_funct($atts) {
 		if (!empty($bio)) {
 			echo wpautop($bio);
 		}
-		
+
 		if ($social) {
 			echo '<ul>';
 			foreach ($social as $sm) {
@@ -6744,7 +6504,7 @@ function team_members_list_funct($atts) {
 			}
 			echo '</ul>';
 		}
-		
+
 		?>
 	</div>
 </div>
@@ -6761,7 +6521,6 @@ function team_members_list_funct($atts) {
 	return $result;
 }
 
-
 //featured blogs carousel shortcode
 add_action('vc_before_init', 'nc_custom_blogs_list_carousel_funct');
 function nc_custom_blogs_list_carousel_funct() {
@@ -6772,7 +6531,6 @@ function nc_custom_blogs_list_carousel_funct() {
 			'class' => 'custom_blogs_list',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -6796,7 +6554,6 @@ function nc_custom_blogs_list_carousel_funct() {
 					'param_name' => 'post_type',
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'textfield',
@@ -6872,14 +6629,13 @@ function custom_blogs_list_shortcode_funct($atts) {
 			$post_ids = explode(',', $post_ids);
 	$date_format = get_option('date_format'); // e.g. "F j, Y"
 
-
 	$args_custom = [
 		'post_type' => $post_types,
 		'post_status' => 'publish',
 		'ignore_sticky_posts' => true,
 		'posts_per_page' => -1
 	];
-		
+
 	if (str_contains($atts['post_type'], 'webinar')) {
 		$args_custom['tax_query'] = [
 			[
@@ -6949,7 +6705,6 @@ function custom_blogs_list_shortcode_funct($atts) {
 				echo '<div class="post-img" style=""><a href="' . $link . '" title="' . $title . '">' . $featured_image . '</a></div>';
 				echo '<div class="post-body">';
 
-						
 				if ($style != 'style_2') {
 					echo '<ul class="post-meta">';
 					//if ( in_array("event", $post_type) || in_array("on-demand-webinar", $post_type)  ) {
@@ -6972,13 +6727,11 @@ function custom_blogs_list_shortcode_funct($atts) {
 					echo '<h4><a href="' . $link . '" title="' . $title . '">' . $title . '</a></h4>';
 				}
 
-
 				if ($style == 'style_2') {
 					echo '<div class="excerpt">' . get_the_excerpt() . '</div>';
 
 					echo '<a class="c-btn btn-main" href="' . $link . '" title="' . $title . '">' . __('Read more', 'nextcloud') . '</a>';
 				}
-
 
 				if ($curr_post_type == 'event') { ?> 
 							<ul class="webinar_details">
@@ -7021,7 +6774,6 @@ function custom_blogs_list_shortcode_funct($atts) {
 					echo '<div class="post-img" style=""><a href="' . $link . '" title="' . $title . '">' . $featured_image . '</a></div>';
 					echo '<div class="post-body">';
 
-							
 					if ($style != 'style_2') {
 						echo '<ul class="post-meta">';
 						//if ( in_array("event", $post_type) || in_array("on-demand-webinar", $post_type)  ) {
@@ -7107,9 +6859,6 @@ function custom_blogs_list_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
-
 //featured blogs carousel shortcode
 add_action('vc_before_init', 'nc_featured_blogs_carousel_funct');
 function nc_featured_blogs_carousel_funct() {
@@ -7157,11 +6906,10 @@ function featured_blogs_shortcode_funct($atts) {
 		echo '</div>';
 
 		global $wpdb;
-		
+
 		//$sticky_ids = unserialize($wpdb->get_var( "SELECT `option_value`, `option_id` FROM `$wpdb->options` WHERE `option_name` = 'sticky_posts'" )); // taking also posts not sticky
 
 		$date_format = get_option('date_format'); // e.g. "F j, Y"
-
 
 		// 1) Get sticky IDs from the DEFAULT language (EN)
 		$sticky_ids_en = [];
@@ -7188,8 +6936,6 @@ function featured_blogs_shortcode_funct($atts) {
 			$translated_id = apply_filters('wpml_object_id', $en_id, 'post', false, $current_lang);
 			return $translated_id ? (int)$translated_id : (int)$en_id;
 		}, $sticky_ids_en)));
-
-
 
 		/*
 		echo '<div class="original_sticky_ids" style="display: none;">';
@@ -7218,8 +6964,6 @@ function featured_blogs_shortcode_funct($atts) {
 			}
 		echo '</div>';
 		*/
-		
-
 
 		/*
 		$array_query_sticky = array();
@@ -7241,7 +6985,6 @@ function featured_blogs_shortcode_funct($atts) {
 				}
 		}
 		*/
-
 
 		$sticky_posts_with_date = [];
 		if (!empty($sticky_ids_show)) {
@@ -7276,7 +7019,6 @@ function featured_blogs_shortcode_funct($atts) {
 			}
 		}
 
-
 		//get all sticky podcasts episodes
 		$args_podcast = [
 			'post_type' => ['podcast'],
@@ -7298,7 +7040,6 @@ function featured_blogs_shortcode_funct($atts) {
 
 			}
 		}
-
 
 		//sort sticky posts array
 		define('CUSTOM_DATE_FORMAT', 'Y-m-d G:i:s');
@@ -7401,7 +7142,6 @@ function featured_blogs_shortcode_funct($atts) {
 	return $result;
 }
 
-
 //blog list shortcode
 add_action('vc_before_init', 'nc_blog_list_funct');
 function nc_blog_list_funct() {
@@ -7479,7 +7219,7 @@ function blog_list_shortcode_funct($atts) {
 				} else {
 					echo __('Webinar recordings', 'nextcloud');
 				}
-				
+
 			} else {
 				echo $title;
 
@@ -7487,14 +7227,14 @@ function blog_list_shortcode_funct($atts) {
 					echo '<a class="rss_feed" href="' . get_site_url() . '/feed" title="' . __('RSS Feed', 'nextcloud') . '" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#0082c9"><path d="M200-120q-33 0-56.5-23.5T120-200q0-33 23.5-56.5T200-280q33 0 56.5 23.5T280-200q0 33-23.5 56.5T200-120Zm480 0q0-117-44-218.5T516-516q-76-76-177.5-120T120-680v-120q142 0 265 53t216 146q93 93 146 216t53 265H680Zm-240 0q0-67-25-124.5T346-346q-44-44-101.5-69T120-440v-120q92 0 171.5 34.5T431-431q60 60 94.5 139.5T560-120H440Z"/></svg></a>';
 				}
 			}
-			
+
 			echo '</h3>';
 			echo '</div>';
 			echo '</div>';
 		}
-		
+
 		if (function_exists('nc_search_form')) {
-			
+
 			if ($type == 'event') {
 				$search_profile = 'events';
 			} else {
@@ -7515,7 +7255,6 @@ function blog_list_shortcode_funct($atts) {
 
 			$default_posts_per_page = get_option('posts_per_page');
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
 
 		//get all sticky events and exclude them in the main query
 		$sticky_events = [];
@@ -7539,9 +7278,6 @@ function blog_list_shortcode_funct($atts) {
 		}
 		//print_r($sticky_events);
 
-
-
-
 		$limit = $default_posts_per_page;
 
 		// The main query
@@ -7558,7 +7294,6 @@ function blog_list_shortcode_funct($atts) {
 		//date_default_timezone_set('Europe/Berlin');
 		$current_date_time = date('Y-m-d H:i:s', time());
 
-
 		//if webinars parameter is present
 		if (isset($_GET['webinars'])) {
 
@@ -7572,7 +7307,7 @@ function blog_list_shortcode_funct($atts) {
 			];
 
 			if (strip_tags($_GET['webinars']) == 'upcoming') {
-					
+
 				$args['meta_query'] = [
 					[
 						'key' => 'event_start_date_and_time',
@@ -7590,28 +7325,24 @@ function blog_list_shortcode_funct($atts) {
 
 				$args['meta_query'] = [
 					'relation' => 'AND',
-						
+
 					[
 						'key' => 'event_start_date_and_time',
 						'value' => $current_date_time,
 						'compare' => '<',
 						'type' => 'DATETIME'
 					],
-						
-			
+
 					[
 						'key' => 'download_available',
 						'value' => '',
 						'compare' => '!=',
 					],
-						
-						
 				];
 				$args['orderby'] = 'meta_value';
 				$args['order'] = 'DESC';
 
 			}
-
 
 		} else {
 			//$args['post_type'] = array( $type );
@@ -7619,11 +7350,9 @@ function blog_list_shortcode_funct($atts) {
 			$args['order'] = 'DESC';
 		}
 
-			
 		$the_query = new WP_Query($args);
 		$count = $the_query->found_posts;
 		//print_r($the_query);
-
 
 		// The Loop
 		if ($the_query->have_posts()) {
@@ -7642,7 +7371,6 @@ function blog_list_shortcode_funct($atts) {
 						}
 					}
 				}
-
 
 				if ($webinar) {
 					get_template_part('inc/webinar_loop_single');
@@ -7694,9 +7422,6 @@ function blog_list_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
-
 add_shortcode('job_position', 'job_position_funct');
 function job_position_funct($atts) {
 	ob_start();
@@ -7733,10 +7458,6 @@ jQuery( document ).ready( function( $ ) {
 	return $result;
 }
 
-
-
-
-
 //partners search block
 add_action('vc_before_init', 'nc_partners_search_funct');
 function nc_partners_search_funct() {
@@ -7747,7 +7468,6 @@ function nc_partners_search_funct() {
 			'class' => 'partners_search',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				//title
 				[
 					'type' => 'textfield',
@@ -7777,7 +7497,6 @@ function nc_partners_search_funct() {
 					'value' => '',
 				],
 
-
 				//Certificate text
 				[
 					'type' => 'textfield',
@@ -7792,7 +7511,6 @@ function nc_partners_search_funct() {
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
 					'params' => [
-						  
 						[
 							'type' => 'attach_image',
 							'holder' => 'img',
@@ -7803,7 +7521,6 @@ function nc_partners_search_funct() {
 						]
 					]
 				],
-
 
 				[
 					'type' => 'checkbox',
@@ -7822,9 +7539,6 @@ function nc_partners_search_funct() {
 						'By level' => 'level'
 					]
 				],
-
-
-
 			]
 		]
 	);
@@ -7860,7 +7574,6 @@ function partners_search_shortcode_funct($atts) {
 	//$solution = get_field('solution_providers');
 	//$technology = get_field('technology_partners');
 
-
 	// Service providers query
 	$args_service_providers = [
 		'post_type' => 'partner_posts',
@@ -7895,11 +7608,7 @@ function partners_search_shortcode_funct($atts) {
 				p.menu_order ASC
 		");
 
-
 	}
-	
-
-	
 
 	//Technology providers query
 	$args_tech = [
@@ -7918,10 +7627,9 @@ function partners_search_shortcode_funct($atts) {
 	];
 	$technology_providers = get_posts($args_tech);
 
-
 	//Resellers query
 	if ($show_resellers) {
-		
+
 		$resellers = $wpdb->get_results("
 			SELECT p.*
 			FROM {$wpdb->posts} p
@@ -7936,7 +7644,6 @@ function partners_search_shortcode_funct($atts) {
 		");
 
 	}
-	
 
 	?>
 <section class="text-center">
@@ -7985,7 +7692,7 @@ function partners_search_shortcode_funct($atts) {
 							echo wp_get_attachment_image($item['cert_logo'], 'large');
 							echo '</li>';
 						}
-						
+
 					}
 					echo '</ul>';
 				}
@@ -8463,9 +8170,6 @@ $result = ob_get_clean();
 	return $result;
 }
 
-
-
-
 //Countdown element
 /*
 add_action('vc_before_init', 'wpb_nc_countdown_funct');
@@ -8560,7 +8264,6 @@ function countdown_shortcode_funct($atts) {
 	$early_bird_end = $atts['early_bird_end'];
 	$default_format = 'F j, Y H:i:s';
 
-
 	if (! empty($early_bird_end) && ! empty($early_bird_heading)) {
 		$tz = wp_timezone();
 		$now = new DateTime('now', $tz);
@@ -8575,7 +8278,6 @@ function countdown_shortcode_funct($atts) {
 			}
 		}
 	}
-
 
 	$custom_class = $atts['custom_class'];
 	?>		
@@ -8657,8 +8359,6 @@ function countdown_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
 //home page graphic carousel
 add_action('vc_before_init', 'nc_homepage_carousel_funct');
 function nc_homepage_carousel_funct() {
@@ -8714,8 +8414,6 @@ function nc_homepage_carousel_funct() {
 					'param_name' => 'autoplay_timeout',
 					'value' => '',
 				]
-
-
 			],
 			//'custom_markup' => '<div class="vc_custom-element-container">Mobile: "{{ params.mobile_images }}", Desktop: "{{ params.desktop_images }}"</div>'
 			'custom_markup' => '<div class="vc_custom-element-container">Custom screenshots for mobile and desktop</div>'
@@ -8893,10 +8591,6 @@ $result = ob_get_clean();
 	return $result;
 }
 
-
-
-
-
 //Single Quote element
 add_action('vc_before_init', 'wpb_nc_single_quote_funct');
 function wpb_nc_single_quote_funct() {
@@ -9028,11 +8722,11 @@ function single_quote_funct($atts) {
                 	echo $link['title'];
                 } ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
                 <?php
-				if (isset($link['title']) && $link['title'] != '') {
-					echo $link['title'];
-				} else {
-					echo __('Learn more', 'nextcloud');
-				}
+                if (isset($link['title']) && $link['title'] != '') {
+                	echo $link['title'];
+                } else {
+                	echo __('Learn more', 'nextcloud');
+                }
             	?> <i class="vc_btn3-icon fas fa-angle-right"></i>
                 </a>
             </div>
@@ -9073,11 +8767,11 @@ function single_quote_funct($atts) {
                 	echo $link['title'];
                 } ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
                 <?php
-				if (isset($link['title']) && $link['title'] != '') {
-					echo $link['title'];
-				} else {
-					echo __('Learn more', 'nextcloud');
-				}
+                if (isset($link['title']) && $link['title'] != '') {
+                	echo $link['title'];
+                } else {
+                	echo __('Learn more', 'nextcloud');
+                }
             	?> <i class="vc_btn3-icon fas fa-angle-right"></i>
                 </a>
             </div>
@@ -9090,8 +8784,6 @@ function single_quote_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
-
-
 
 /*
 //Single Quote element
@@ -9233,7 +8925,6 @@ function single_quote_funct($atts) {
 }
 */
 
-
 // Single Quote No Image element
 add_action('vc_before_init', 'wpb_nc_single_quote_no_image_funct');
 function wpb_nc_single_quote_no_image_funct() {
@@ -9337,11 +9028,11 @@ function single_quote_no_image_funct($atts) {
             	echo $link['title'];
             } ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
             <?php
-			if (isset($link['title']) && $link['title'] != '') {
-				echo $link['title'];
-			} else {
-				echo __('Learn more', 'nextcloud');
-			}
+            if (isset($link['title']) && $link['title'] != '') {
+            	echo $link['title'];
+            } else {
+            	echo __('Learn more', 'nextcloud');
+            }
         	?> <i class="vc_btn3-icon fas fa-angle-right"></i>
             </a>
         </div>
@@ -9353,11 +9044,6 @@ function single_quote_no_image_funct($atts) {
 	return $result;
 }
 
-
-
-
-
-
 //Repeater single quotes carousel
 add_action('vc_before_init', 'vc_single_quotes_carousel_funct');
 function vc_single_quotes_carousel_funct() {
@@ -9368,7 +9054,6 @@ function vc_single_quotes_carousel_funct() {
 			'class' => 'single_quotes_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'param_group',
 					'param_name' => 'box_repeater_items',
@@ -9418,7 +9103,6 @@ function vc_single_quotes_carousel_funct() {
 							'param_name' => 'link',
 							'value' => __('', 'nextcloud'),
 						]
-
 					]
 				],
 
@@ -9429,7 +9113,6 @@ function vc_single_quotes_carousel_funct() {
 					'param_name' => 'custom_css',
 					'value' => '',
 				]
-
 			]
 		]
 	);
@@ -9493,7 +9176,7 @@ function single_quotes_carousel_funct($atts) {
 									<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
 								<?php } ?>
 								<?php
-								echo __('Learn more', 'nextcloud');
+                    			echo __('Learn more', 'nextcloud');
                     	?> <i class="vc_btn3-icon fas fa-angle-right"></i>
 								<?php if ($item['link']) { ?>
 									</a>
@@ -9511,12 +9194,6 @@ function single_quotes_carousel_funct($atts) {
 	  $result = ob_get_clean();
 	return $result;
 }
-
-
-
-
-
-
 
 add_shortcode('previous_episodes_podcast', 'previous_episodes_podcast_funct');
 function previous_episodes_podcast_funct($atts) {
@@ -9552,12 +9229,10 @@ function previous_episodes_podcast_funct($atts) {
 
 	//$all_podcasts = array_merge($onepost, $onepodcast);
 
-
 	foreach ($onepodcast as $onepostsingle) {
-				
+
 		//get_template_part('inc/blog_loop_single');
 
-				
 		$featured_image = get_the_post_thumbnail($onepostsingle->ID, 'large', [ 'class' => 'feat_img' ]);
 		$title = $onepostsingle->post_title;
 		$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
@@ -9566,7 +9241,7 @@ function previous_episodes_podcast_funct($atts) {
 		$author_id = (int)$onepostsingle->post_author;
 		echo '<div class="col-lg-4 col-md-6 spacer">';
 		echo '<div class="post-box">';
-				
+
 		if ($featured_image) {
 			?>
 					<div class="post-img">
@@ -9576,7 +9251,6 @@ function previous_episodes_podcast_funct($atts) {
 					</div>
 					<?php
 		}
-				
 
 		echo '<div class="paper-box">';
 		echo '<ul class="cats">';
@@ -9591,8 +9265,6 @@ function previous_episodes_podcast_funct($atts) {
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';
-				
-
 
 	}
 	wp_reset_query();
@@ -9602,7 +9274,6 @@ function previous_episodes_podcast_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
-
 
 // shortcode to get all the tags associated with the current post/page
 function nc_get_post_tags() {
@@ -9620,7 +9291,6 @@ function nc_get_post_tags() {
 }
 add_shortcode('nc_tags', 'nc_get_post_tags');
 
-
 //shortcode to get all the event interests which are saved in a custom field "interests"
 function nc_get_event_interests() {
 	$interests = '';
@@ -9634,7 +9304,6 @@ function nc_get_event_interests() {
 }
 add_shortcode('nc_event_interests', 'nc_get_event_interests');
 
-
 //New version of Nextcloud Section - used mostly on Changelog page
 add_action('vc_before_init', 'wpb_nc_version_funct');
 function wpb_nc_version_funct() {
@@ -9645,7 +9314,6 @@ function wpb_nc_version_funct() {
 			'class' => 'nc_version_section',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'holder' => 'version',
@@ -9694,7 +9362,6 @@ function wpb_nc_version_funct() {
 					'param_name' => 'withdrawn',
 					'value' => __('', 'nextcloud'),
 				],
-
 			]
 		]
 	);
@@ -9709,7 +9376,6 @@ function nc_version_section_funct($atts, $content = null) {
 		'content' => '',
 		'link' => '',
 		'withdrawn' => ''
-
 	], $atts);
 
 	$version = $a['version'];
@@ -9825,8 +9491,6 @@ function nc_simple_slider() {
 			'base' => 'nc_simple_slider_content',
 			'category' => __('Carousel'),
 			'params' => [
-
-
 				[
 					'type' => 'attach_images',
 					'heading' => esc_html__('Add Images', 'nextcloud'),
@@ -9892,7 +9556,6 @@ function nc_simple_slider() {
 					'param_name' => 'custom_css',
 					'value' => '',
 				]
-
 			]
 		]
 	);
@@ -9918,7 +9581,7 @@ function nc_simple_slider_content_function($atts, $content) {
 		//$autoplay = "true";
 		$autoplay = $gallery['autoplay'];
 	}
-	
+
 	$removeStagePadding = $gallery['remove_stage_padding'];
 	$force_16_9_aspect_ratio = $gallery['force_16_9_aspect_ratio'];
 	$loop = $gallery['loop'];
@@ -10056,8 +9719,6 @@ function nc_simple_slider_content_function($atts, $content) {
 	return $result;
 }
 add_shortcode('nc_simple_slider_content', 'nc_simple_slider_content_function');
-
-
 
 add_shortcode('nc_filter_features', 'nc_filter_features_funct');
 function nc_filter_features_funct($atts, $content = null) {
@@ -10338,7 +9999,6 @@ function nc_filter_features_funct($atts, $content = null) {
 	return $result;
 }
 
-
 //Feature section
 add_action('vc_before_init', 'wpb_nc_feature_funct');
 function wpb_nc_feature_funct() {
@@ -10349,7 +10009,6 @@ function wpb_nc_feature_funct() {
 			'class' => 'nc_single_feature',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'holder' => 'div',
@@ -10360,7 +10019,6 @@ function wpb_nc_feature_funct() {
 					'value' => __('', 'nextcloud'),
 				],
 
-
 				[
 					'type' => 'textfield',
 					'holder' => 'div',
@@ -10370,7 +10028,6 @@ function wpb_nc_feature_funct() {
 					'param_name' => 'group',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				[
 					'type' => 'textfield',
@@ -10392,7 +10049,6 @@ function wpb_nc_feature_funct() {
 					'value' => __('', 'nextcloud'),
 				],
 
-
 				[
 					'type' => 'attach_image',
 					'holder' => 'img',
@@ -10402,7 +10058,6 @@ function wpb_nc_feature_funct() {
 					'value' => __('', 'nextcloud'),
 					'admin_label' => false
 				],
-
 
 				[
 					'type' => 'textarea',
@@ -10433,7 +10088,6 @@ function wpb_nc_feature_funct() {
 					'param_name' => 'link',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				[
 					'type' => 'param_group',
@@ -10498,7 +10152,6 @@ function wpb_nc_feature_funct() {
 							'param_name' => 'no_overlay',
 							'value' => '',
 						],
-
 					]
 				],
 
@@ -10511,7 +10164,6 @@ function wpb_nc_feature_funct() {
 					'param_name' => 'content',
 					'value' => '',
 				],
-
 			]
 		]
 	);
@@ -10810,12 +10462,10 @@ function nc_feature_funct($atts, $content = null) {
 	return $result;
 }
 
-
 function get_post_id_func() {
 	return get_the_id();
 }
 add_shortcode('get_post_id', 'get_post_id_func');
-
 
 function cl_acf_set_language() {
 	return acf_get_setting('default_language');
@@ -10827,7 +10477,6 @@ function get_global_option($name) {
 	remove_filter('acf/settings/current_language', 'cl_acf_set_language', 100);
 	return $option;
 }
-
 
 function get_clients_link_func($atts) {
 	$a = shortcode_atts([
@@ -10845,7 +10494,6 @@ function get_clients_link_func($atts) {
 	} else {
 		$url_base = 'https://github.com/nextcloud-releases/desktop/releases/latest/download/';
 	}
-
 
 	$return = $a['os'];
 
@@ -10873,22 +10521,20 @@ function get_clients_link_func($atts) {
 			$return = '<a class="a-btn btn-light macOS" href="' . $url_base . 'Nextcloud-' . $version . '-macOS-vfs.pkg" target="_blank" rel="noopener">
 			<i class="fab fa-apple"></i>macOS Virtual files 12+ (64 bit, universal)</a>';
 			break;
-		
+
 		case 'linux':
 			$return = '<a class="a-btn btn-light unixOS" href="' . $url_base . 'Nextcloud-' . $version . '-x86_64.AppImage" target="_blank">
 			<i class="fab fa-linux"></i>Linux AppImage</a>';
 			break;
-		
+
 		default:
 			$return = '';
 			break;
 	}
 
 	return $return;
-
 }
 add_shortcode('get_clients_link', 'get_clients_link_func');
-
 
 //webinars list shortcode
 add_action('vc_before_init', 'nc_webinars_list_funct');
@@ -10966,7 +10612,7 @@ function webinars_list_shortcode_funct($atts) {
 	<div class=""><?php //.container?>
 		<?php
 		echo '<div class="row justify-content-between align-items-center">';
-		
+
 	if (!empty($title)) {
 		echo '<div class="col-lg-6">';
 		echo '<div class="section-title">';
@@ -11051,7 +10697,6 @@ function webinars_list_shortcode_funct($atts) {
 		'category__not_in' => [225, 226] //exclude Private category
 	];
 	$args['orderby'] = 'meta_value';
-			
 
 	if ($upcoming) {
 		//upcoming webinars
@@ -11080,27 +10725,25 @@ function webinars_list_shortcode_funct($atts) {
 			$args['posts_per_page'] = -1;
 		}
 
-
 	} else {
 		//past webinars = recordings
 		$args['post_type'] = ['on-demand-webinar'];
 
 		$args['meta_query'] = [
 			'relation' => 'AND',
-					
+
 			[
 				'key' => 'event_start_date_and_time',
 				'value' => $current_date_time,
 				'compare' => '<',
 				'type' => 'DATETIME'
 			],
-		
+
 			[
 				'key' => 'download_available',
 				'value' => '',
 				'compare' => '!=',
 			],
-					
 		];
 		$args['order'] = 'DESC';
 		if ($include_all_languages) {
@@ -11109,7 +10752,6 @@ function webinars_list_shortcode_funct($atts) {
 		}
 
 	}
-
 
 	if ($include_all_languages) {
 		$same_lang_posts_ids = [];
@@ -11123,7 +10765,7 @@ function webinars_list_shortcode_funct($atts) {
 				$base_query->the_post();
 				$webinar_language_details = apply_filters('wpml_post_language_details', null, get_the_ID());
 				$webinar_lang_code = $webinar_language_details['language_code'];
-						
+
 				//echo '<p>';
 				//echo '<img style="max-width: 40px;" src="https://nextcloud.com/p/sitepress-multilingual-cms/res/flags/'.$webinar_lang_code.'.svg" /> ';
 
@@ -11164,7 +10806,6 @@ function webinars_list_shortcode_funct($atts) {
 		// limit to 9 items
 		$args_new['posts_per_page'] = $default_posts_per_page;
 
-
 		$the_query = new WP_Query($args_new);
 	} else {
 		//main query
@@ -11196,7 +10837,7 @@ function webinars_list_shortcode_funct($atts) {
 		<?php
 		//show Load more button for the recordings
 		if (!$upcoming) {
-			
+
 			if (!isset($type)) {
 				$type = 'on-demand-webinar';
 			}
@@ -11242,14 +10883,14 @@ function date_diff_shortcode_funct($atts) {
 	} else {
 		$return = $more . $days;
 	}
-	
+
 	if ($diff->days < 2) {
 		$return .= __(' day', 'nextcloud');
 
 		if ($diff->days == 0) {
 			$hours = $diff->format('%h');
 			$hours_label = __(' hours', 'nextcloud');
-			
+
 			if (ICL_LANGUAGE_CODE == 'en') {
 				$return = $hours . $more . $hours_label;
 			} else {
@@ -11263,7 +10904,6 @@ function date_diff_shortcode_funct($atts) {
 
 	return $return;
 }
-
 
 add_shortcode('custom_search_form', 'custom_search_form_funct');
 function custom_search_form_funct($atts) {
@@ -11294,7 +10934,6 @@ function custom_search_form_funct($atts) {
 
 	echo $return;
 }
-
 
 //popup shortcode
 add_action('vc_before_init', 'nc_popup_form_shortcode_funct');
@@ -11363,7 +11002,6 @@ function nc_popup_form_funct($atts, $content = null) {
 	return $result;
 }
 
-
 //sign up form
 add_shortcode('signup_form', 'signup_form_shortcode_funct');
 function signup_form_shortcode_funct($atts) {
@@ -11372,7 +11010,7 @@ function signup_form_shortcode_funct($atts) {
 	wp_enqueue_style('nc_register');
 
 	require_once locate_template('config.php');
-	
+
 	try {
 		$ip = whatismyip();
 		$readerCity = new GeoIp2\Database\Reader(locate_template('dist/signup/assets/GeoLite2/GeoLite2-City.mmdb'));
@@ -11383,7 +11021,7 @@ function signup_form_shortcode_funct($atts) {
 		$ip = null;
 	}
 	//print_r($location);
-	
+
 	$registerL10n = [
 		'subscribe' => __('Subscribe to our newsletter', 'nextcloud'),
 		'email' => __('Your email address', 'nextcloud'),
@@ -11399,7 +11037,7 @@ function signup_form_shortcode_funct($atts) {
 		'tosagree' => __('I agree to the %tos%', 'nextcloud'),
 		'toserror' => __('Please agree to the terms of service', 'nextcloud')
 	];
-	
+
 	$officialApps = [
 		'files' => __('Files', 'nextcloud'),
 		'calendar' => __('Calendar', 'nextcloud'),
@@ -11424,7 +11062,7 @@ function signup_form_shortcode_funct($atts) {
 		'audioplayer' => __('Audioplayer', 'nextcloud'),
 		'appointments' => __('Appointments', 'nextcloud')
 	];
-	
+
 	$coreApps = ['files', 'calendar', 'contacts', 'spreed', 'mail', 'tasks', 'notes'];
 	?>
 
@@ -11447,10 +11085,6 @@ function signup_form_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
-
-
 //Repeater Quotes Carousel
 add_action('vc_before_init', 'speakers_carousel_wpb_funct');
 function speakers_carousel_wpb_funct() {
@@ -11461,7 +11095,6 @@ function speakers_carousel_wpb_funct() {
 			'class' => 'speakers_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -11469,7 +11102,6 @@ function speakers_carousel_wpb_funct() {
 					'param_name' => 'id',
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'param_group',
@@ -11528,11 +11160,9 @@ function speakers_carousel_wpb_funct() {
 							'param_name' => 'item_custom_css',
 							'value' => '',
 						]
-
 					]
 				],
 
-				
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('Custom CSS Classes', 'nextcloud'),
@@ -11575,8 +11205,6 @@ function speakers_carousel_wpb_funct() {
 					'param_name' => 'custom_code',
 					'value' => '',
 				],
-				
-
 			]
 		]
 	);
@@ -11599,7 +11227,7 @@ function speakers_carousel_funct($atts) {
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
-	
+
 	$id = $atts['id'];
 	$custom_css = $atts['custom_css'];
 	$custom_slider_items = $atts['custom_slider_items'];
@@ -11696,9 +11324,9 @@ function speakers_carousel_funct($atts) {
 							
 							<?php if (isset($item['description'])) { ?>
 							<div class="wpb_text_column wpb_content_element quote <?php
-          			if (isset($atts['limit_text']) && $atts['limit_text']) {
-          				echo ' limit_text ';
-          			} ?>">
+					  if (isset($atts['limit_text']) && $atts['limit_text']) {
+					  	echo ' limit_text ';
+					  } ?>">
 							
 							<span><?php echo $item['description']; ?></span>
 
@@ -11722,7 +11350,7 @@ function speakers_carousel_funct($atts) {
 									<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>" title="<?php echo $item['title']; ?>" class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-right vc_btn3-color-grey">
 								<?php } ?>
 								<?php
-          				echo __('Learn more', 'nextcloud');
+						  echo __('Learn more', 'nextcloud');
 								?> <i class="vc_btn3-icon fas fa-angle-right"></i>
 								<?php if ($item['link']) { ?>
 									</a>
@@ -11791,8 +11419,6 @@ function speakers_carousel_funct($atts) {
 
 		<?php
 		}
-
-
 
 	if ($style == 'style_3') {
 		?> 
@@ -11960,9 +11586,6 @@ function speakers_carousel_funct($atts) {
 		<?php
 	}
 
-
-
-		
 	if ($custom_code) { ?>
 			<script>
 			jQuery(document).ready(function ($) {
@@ -11977,8 +11600,6 @@ function speakers_carousel_funct($atts) {
 	$result = ob_get_clean();
 	return $result;
 }
-
-
 
 /*
 add_shortcode('nc_price', 'nc_get_price_func');
@@ -12046,7 +11667,7 @@ function nc_get_price_func($atts) {
 		$price_200_m = $price_200 / 12;
 		$price_200_m_rounded = number_format((float)$price_200_m, 2, '.', '');
 	}
-	
+
 	$return = '<span class="nc_price 100_users" data-yearly="' . $price_100 . '" data-monthly="' . $price_100_m_rounded . '">' . $price_100 . '</span>';
 	$return .= '<span class="nc_price 200_users hidden" data-yearly="' . $price_200 . '" data-monthly="' . $price_200_m_rounded . '">' . $price_200 . '</span>';
 	$return .= '<span class="price_request_offer hidden">' . __('Please request an offer.', 'nextcloud') . '</span>';
@@ -12056,20 +11677,18 @@ function nc_get_price_func($atts) {
 }
 */
 
-
 add_shortcode('nc_test_mailing_list', 'nc_get_odoo_subs');
 function nc_get_odoo_subs() {
 	global $wp;
 	$page_id = get_the_ID();
 	$page_url = home_url(add_query_arg([], $wp->request));
 
-
 	[$url, $db, $username, $password] = getOdooConnection();
 
 	//authenticate
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
-		
+
 	$args = [];
 
 	$kwargs = [
@@ -12088,7 +11707,6 @@ function nc_get_odoo_subs() {
 	*/
 	//$subs = $models->execute_kw($db, $uid, $password, 'mailing.contact', 'fields_get', array(), array('attributes' => array('string', 'help', 'type')));
 
-
 	$sub_id = 2746334;
 	$args = [
 		/*['email', 'ilike', 'petermoc'],*/
@@ -12104,7 +11722,6 @@ function nc_get_odoo_subs() {
 
 	$subscription_list_ids = $subs[0]['subscription_list_ids'];
 	//print_r($subscription_list_ids);
-
 
 	//update opt out status to enabled initially
 	//$list_ids, $sub_id = array();
@@ -12126,11 +11743,10 @@ function nc_get_odoo_subs() {
 		echo 'Sub ID: ' . $sub_id;
 		$opt_out = $subscription[0]['opt_out'];
 		echo 'Opt out? ' . $opt_out;
-			
 
 		//$list_ids = $subscription[0]['list_id'][0];
 		//$sub_ids = $subscription[0]['id'];
-			
+
 		if ($opt_out == false /*&& $list_id == 12314*/) {
 			/*
 			$update_sub = $models->execute_kw($db, $uid, $password,
@@ -12141,22 +11757,18 @@ function nc_get_odoo_subs() {
 			);
 			*/
 		}
-			
+
 	}
 
 }
 
-
-
 add_shortcode('nc_mailing_list_manage_subscription', 'nc_mailing_list_manage_subscription_func');
 function nc_mailing_list_manage_subscription_func() {
-	
 
 	if (isset($_GET['action'])) {
 		global $wp;
 		$page_url = home_url(add_query_arg([], $wp->request));
-		
-		
+
 		[$url, $db, $username, $password] = getOdooConnection();
 
 		//authenticate
@@ -12164,7 +11776,6 @@ function nc_mailing_list_manage_subscription_func() {
 		$models = RipcordLogger::client("$url/xmlrpc/2/object");
 
 		$action = strip_tags($_GET['action']);
-
 
 		if ($action == 'subscribe') {
 
@@ -12191,7 +11802,7 @@ function nc_mailing_list_manage_subscription_func() {
 			}
 
 			echo '<div class="nc_success_message_alt">' . __('Thanks! You were subscribed successfully!', 'nextcloud') . '</div>';
-	
+
 		} elseif ($action == 'unsubscribe') {
 			//unsubscribe process here
 
@@ -12216,7 +11827,6 @@ function nc_mailing_list_manage_subscription_func() {
 			$lead = $leads[0];
 			//echo $lead['id'];
 			//echo $lead['x_studio_unsubscribe_token'];
-
 
 			if (isset($leadID) && isset($token)) {
 				if ($lead['x_studio_unsubscribe_token'] == $token && $lead['id'] == $leadID) {
@@ -12243,8 +11853,6 @@ function nc_mailing_list_manage_subscription_func() {
 							'fields' => ['id', 'email_from', 'partner_id']
 						]
 					);
-						
-						
 
 					if ($found_leads) {
 						//found all leads
@@ -12264,12 +11872,9 @@ function nc_mailing_list_manage_subscription_func() {
 								]
 							);
 
-
 						}
 
 					}
-
-
 
 					/*
 					$result = $models->execute_kw(
@@ -12289,28 +11894,23 @@ function nc_mailing_list_manage_subscription_func() {
 					} else {
 						echo 'Lead not deleted.';
 					}
-						
+
 				} else {
 					echo '<div class="">Token not valid.</div>';
 				}
 			}
-				
-				
 
 		}
-		
+
 	} else {
 		echo __('No action detected.', 'nextcloud');
 	}
 }
 
-
-
 add_shortcode('title', 'nc_get_title');
 function nc_get_title() {
 	return get_the_title();
 }
-
 
 add_shortcode('providers_list', 'providers_list_shortcode_funct');
 function providers_list_shortcode_funct($atts) {
@@ -12326,7 +11926,6 @@ function providers_list_shortcode_funct($atts) {
 	$service_type = $atts['service_type'];
 	$orderby = $atts['orderby'];
 	$see_all_link = $atts['see_all_link'];
-	
 
 	if ($atts['see_all_label']) {
 		$see_all_label = $atts['see_all_label'];
@@ -12350,13 +11949,12 @@ function providers_list_shortcode_funct($atts) {
 				'value' => 'host-home',
 				'compare' => 'LIKE'
 			],
-				
+
 			[
 				'key' => 'services',
 				'value' => 'host-enterprise',
 				'compare' => 'LIKE',
 			],
-				
 		];
 
 		$args['orderby'] = 'rand';
@@ -12386,20 +11984,19 @@ function providers_list_shortcode_funct($atts) {
 		$args['order'] = 'DESC';
 	}
 
-
 	$providers_query = new WP_Query($args);
 	if ($providers_query->have_posts()) { ?>
 		<div id="providers_carousel" class="owl-carousel providers_carousel">
 		<?php
 			while ($providers_query->have_posts()) {
 				$providers_query->the_post();
-					
+
 				//echo get_the_ID();
 				?>
 					<div class="item provider">
 						<?php
 					$post_id = get_the_ID();
-						
+
 				$name = get_the_title();
 				$level = get_field('partner_level');
 				$servs = get_field('services');
@@ -12447,7 +12044,6 @@ function providers_list_shortcode_funct($atts) {
 					echo '</p>';
 				}
 				echo '</div>';
-									
 
 				if ($type == 'all') {
 					echo "<div class='provider_type'>";
@@ -12460,7 +12056,6 @@ function providers_list_shortcode_funct($atts) {
 					echo '</div>';
 				}
 
-									
 				echo '</div>';
 				if (!empty($website_link)) {
 					echo '</a>';
@@ -12474,14 +12069,13 @@ function providers_list_shortcode_funct($atts) {
 					<?php
 
 			} // endwhile
-		
 
 		if (!empty($see_all_link) && $see_all_link != '') {
 			echo '<div class="item provider">';
 			echo '<div class="partner-col see_all_providers" id="" data-type="">';
 
 			echo '<a href="' . $see_all_link . '" target="_blank" title="' . $see_all_label . '">';
-				
+
 			echo '<div class="partner-box">';
 			echo '<div class="partner-text">';
 			echo '<h4>' . $see_all_label . '</h4>';
@@ -12493,7 +12087,7 @@ function providers_list_shortcode_funct($atts) {
 			echo '</div>';
 			echo '</div>';
 		}
-		
+
 		?>
 		</div>
 		<?php
@@ -12529,11 +12123,6 @@ function providers_list_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
-
-
-
 // shortcode text with icon
 function nc_text_with_icon_element_custom() {
 	// Title
@@ -12543,7 +12132,6 @@ function nc_text_with_icon_element_custom() {
 			'base' => 'nc_text_with_icon',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-				
 				[
 					'type' => 'iconpicker',
 					'holder' => 'div',
@@ -12552,7 +12140,6 @@ function nc_text_with_icon_element_custom() {
 					'param_name' => 'icon',
 					'value' => __('', 'nextcloud'),
 				],
-
 
 				[
 					'type' => 'attach_image',
@@ -12579,7 +12166,6 @@ function nc_text_with_icon_element_custom() {
 					'param_name' => 'css_classes',
 					'value' => '',
 				],
-
 			]
 		]
 	);
@@ -12602,7 +12188,7 @@ function nc_text_with_icon_function($atts, $content) {
 	} else {
 		$icon = '';
 	}
-	
+
 	$css_classes = '';
 	if (isset($attributes['css_classes'])) {
 		$css_classes = $attributes['css_classes'];
@@ -12624,10 +12210,6 @@ function nc_text_with_icon_function($atts, $content) {
 }
 add_shortcode('nc_text_with_icon', 'nc_text_with_icon_function');
 
-
-
-
-
 //Nextcloud Animation repeater element
 add_action('vc_before_init', 'wpb_nc_animation_funct');
 function wpb_nc_animation_funct() {
@@ -12638,7 +12220,6 @@ function wpb_nc_animation_funct() {
 			'class' => 'nc_animation',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -12667,7 +12248,6 @@ function wpb_nc_animation_funct() {
 					'type' => 'param_group',
 					'param_name' => 'images_repeater_items',
 					'params' => [
-						
 						[
 							'type' => 'attach_image',
 							'holder' => 'img',
@@ -12687,7 +12267,6 @@ function wpb_nc_animation_funct() {
 							'value' => __('', 'nextcloud'),
 						],
 
-
 						[
 							'type' => 'attach_image',
 							'holder' => 'img',
@@ -12696,7 +12275,6 @@ function wpb_nc_animation_funct() {
 							'param_name' => 'poster_image',
 							'value' => __('', 'nextcloud'),
 						],
-
 
 						[
 							'type' => 'textfield',
@@ -12715,7 +12293,7 @@ function wpb_nc_animation_funct() {
 							'param_name' => 'custom_css_style',
 							'value' => '',
 						],
-						
+
 						[
 							'type' => 'textarea_raw_html',
 							'heading' => esc_html__('Custom SVG code', 'nextcloud'),
@@ -12723,7 +12301,7 @@ function wpb_nc_animation_funct() {
 							'param_name' => 'custom_svg_code',
 							'value' => '',
 						],
-						
+
 						[
 							'type' => 'checkbox',
 							'heading' => esc_html__('Clickable', 'nextcloud'),
@@ -12739,20 +12317,12 @@ function wpb_nc_animation_funct() {
 							'param_name' => 'custom_link',
 							'value' => '',
 						]
-					
-
 					]
 				],
-
-
-
-				
-
 			]
 		]
 	);
 }
-
 
 add_shortcode('nc_animation', 'nc_animation_shortcode_funct');
 function nc_animation_shortcode_funct($atts) {
@@ -12765,7 +12335,6 @@ function nc_animation_shortcode_funct($atts) {
 		'images_repeater_items' => '',
 	], $atts);
 
-
 	$id = $a['id'];
 	$custom_css_classes_anim = $a['custom_css_classes'];
 	$animation_custom_css_style = $a['animation_custom_css_style'];
@@ -12776,7 +12345,7 @@ function nc_animation_shortcode_funct($atts) {
 
 	wp_enqueue_script('vc_waypoints');
 	wp_enqueue_style('vc_animate-css');
-	
+
 	if ($items) {
 		?>
         <div id="<?php if (isset($id)) {
@@ -12787,13 +12356,13 @@ function nc_animation_shortcode_funct($atts) {
         	echo str_replace('<br>', '', $animation_custom_css_style);
         } ?>">
         <?php
-		$i = 1;
+        $i = 1;
 		foreach ($items as $item) {
 
 			if (isset($item['image'])) {
 				$image = $item['image'];
 			}
-			
+
 			if (isset($item['custom_css_classes'])) {
 				$custom_css_classes = $item['custom_css_classes'];
 			}
@@ -12801,7 +12370,7 @@ function nc_animation_shortcode_funct($atts) {
 			if (isset($item['custom_css_style'])) {
 				$custom_css_style = $item['custom_css_style'];
 			}
-			
+
 			if (isset($item['video_link'])) {
 				$video_link = $item['video_link'];
 			}
@@ -12821,30 +12390,30 @@ function nc_animation_shortcode_funct($atts) {
             } ?>
 				z-index: <?php echo $i; ?>">
 			<?php
-			if (isset($item['image'])) {
+            if (isset($item['image'])) {
 
-				if (isset($item['clickable_image'])) {
-					echo '<a href="' . wp_get_attachment_image_url($item['image'], 'full') . '" class="popup-screenshot-gal">';
-				}
+            	if (isset($item['clickable_image'])) {
+            		echo '<a href="' . wp_get_attachment_image_url($item['image'], 'full') . '" class="popup-screenshot-gal">';
+            	}
 
-				if (isset($item['custom_link'])) {
-					echo '<a href="' . $link['url'] . '" target="' . $link['target'] . '" class="">';
-				}
+            	if (isset($item['custom_link'])) {
+            		echo '<a href="' . $link['url'] . '" target="' . $link['target'] . '" class="">';
+            	}
 
-				?>
+            	?>
 				<img src="<?php
-						echo wp_get_attachment_image_url($item['image'], 'full');
-				?>" class="" style="<?php
-				if (isset($custom_css_editor)) {
-					echo $custom_css_editor;
-				}
-				?>">
+            			echo wp_get_attachment_image_url($item['image'], 'full');
+            	?>" class="" style="<?php
+            	if (isset($custom_css_editor)) {
+            		echo $custom_css_editor;
+            	}
+            	?>">
 			<?php
-				if (isset($item['clickable_image']) || isset($item['custom_link'])) {
-					echo '</a>';
-				}
+            	if (isset($item['clickable_image']) || isset($item['custom_link'])) {
+            		echo '</a>';
+            	}
 
-			}
+            }
 			?>
 
 			<?php
@@ -12881,12 +12450,6 @@ function nc_animation_shortcode_funct($atts) {
 	return $result;
 }
 
-
-
-
-
-
-
 // shortcode text with icon
 function nc_custom_button_element() {
 	// Title
@@ -12896,7 +12459,6 @@ function nc_custom_button_element() {
 			'base' => 'nc_custom_button',
 			'category' => __('Content', 'nextcloud'),
 			'params' => [
-				
 				[
 					'type' => 'iconpicker',
 					'holder' => 'div',
@@ -12947,8 +12509,6 @@ function nc_custom_button_element() {
 					'param_name' => 'repeater_links',
 					'heading' => esc_html__('Additional links', 'nextcloud'),
 					'params' => [
-						
-
 						[
 							'type' => 'textfield',
 							'holder' => 'div',
@@ -12973,7 +12533,6 @@ function nc_custom_button_element() {
 							'param_name' => 'custom_link',
 							'value' => '',
 						],
-
 					]
 				],
 
@@ -12984,7 +12543,6 @@ function nc_custom_button_element() {
 					'param_name' => 'css_classes',
 					'value' => '',
 				],
-
 			]
 		]
 	);
@@ -13001,7 +12559,7 @@ function nc_custom_button_function($atts, $content) {
 			'repeater_links' => '',
 			'css_classes' => ''
 		], $atts);
-	
+
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($attributes['repeater_links']);
 	}
@@ -13016,7 +12574,7 @@ function nc_custom_button_function($atts, $content) {
 	} else {
 		$url_base = 'https://github.com/nextcloud-releases/desktop/releases/download/';
 	}
-	
+
 	if ($attributes['image_icon']) {
 		$icon = wp_get_attachment_image($attributes['image_icon'], 'small', '', ['class' => 'btn_icon']);
 	} elseif ($attributes['icon']) {
@@ -13056,7 +12614,6 @@ function nc_custom_button_function($atts, $content) {
 		}
 	}
 
-	
 	$css_classes = '';
 	if (isset($attributes['css_classes'])) {
 		$css_classes = $attributes['css_classes'];
@@ -13064,13 +12621,13 @@ function nc_custom_button_function($atts, $content) {
 
 	$return = '';
 
-	if ($items && ( $items[0]['link'] != '' || $items[0]['custom_link']!= '' )) {
+	if ($items && ($items[0]['link'] != '' || $items[0]['custom_link'] != '')) {
 		$return .= '<div class="btn-dropdown-container">';
 	}
 
 	$return .= '<div class="nc_custom_btn vc_btn3-container ' . $css_classes . ' vc_btn3-inline vc_do_btn"><a class="vc_general vc_btn3 vc_btn3-size-md vc_btn3-shape-rounded vc_btn3-style-modern vc_btn3-icon-left vc_btn3-color-grey" href="' . $main_link_url . '" title="" target="' . $target . '">' . $icon . ' ' . $btn_label . '</a>';
-	
-	if ($items && ( $items[0]['link'] != '' || $items[0]['custom_link']!= '' )) {
+
+	if ($items && ($items[0]['link'] != '' || $items[0]['custom_link'] != '')) {
 		$return .= '<i class="open_dropdown fas fa-angle-down"></i>';
 	}
 
@@ -13106,15 +12663,13 @@ function nc_custom_button_function($atts, $content) {
 		$return .= '</div>';
 	}
 
-	if ($items && ( $items[0]['link'] != '' || $items[0]['custom_link']!= '' )) {
+	if ($items && ($items[0]['link'] != '' || $items[0]['custom_link'] != '')) {
 		$return .= '</div>';
 	}
 
 	return $return;
 }
 add_shortcode('nc_custom_button', 'nc_custom_button_function');
-
-
 
 // Custom Webinar Title Element for WPBakery
 add_action('vc_before_init', 'webinar_element_intialize');
@@ -13175,16 +12730,15 @@ function webinar_element_shortcode($atts) {
 
 	$output .= '<div class="webinar-element webinar-title ' . esc_attr($webinar_type) . '">';
 	$output .= '<h1 class="webinar-title">' . esc_html($title) . '</h1>';
-	
+
 	// Only output subtitle if it's not empty
 	if (!empty($subtitle)) {
 		$output .= '<h2 class="webinar-subtitle">' . esc_html($subtitle) . '</h2>';
 	}
-	
+
 	$output .= '</div>';
 	return $output;
 }
-
 
 // Custom Speakers Element for WPBakery
 add_action('vc_before_init', 'speakers_element_initialize');
@@ -13235,14 +12789,14 @@ add_shortcode('speakers_element', 'speakers_element_shortcode');
 function speakers_element_shortcode($atts) {
 	$atts = vc_map_get_attributes('speakers_element', $atts);
 	$speakers = vc_param_group_parse_atts($atts['speakers']);
-	
+
 	$output = '<div class="webinar-speakers-list">';
-	
+
 	if (!empty($speakers)) {
 		foreach ($speakers as $speaker) {
 			if (!empty($speaker['photo']) && !empty($speaker['name']) && !empty($speaker['role'])) {
 				$output .= '<div class="speaker-item">';
-				
+
 				// Photo
 				$image = wp_get_attachment_image_src($speaker['photo'], 'full');
 				if ($image) {
@@ -13250,7 +12804,7 @@ function speakers_element_shortcode($atts) {
 					$output .= '<img src="' . esc_url($image[0]) . '" alt="' . esc_attr($speaker['name']) . '">';
 					$output .= '</div>';
 				}
-				
+
 				// Name and Role
 				$output .= '<div class="speaker-info">';
 				$output .= '<h3 class="speaker-name">' . esc_html($speaker['name']) . '</h3>';
@@ -13259,14 +12813,14 @@ function speakers_element_shortcode($atts) {
 					$output .= '<div class="speaker-email"><a href="mailto:' . esc_html($speaker['email']) . '">' . esc_html($speaker['email']) . '</a></div>';
 				}
 				$output .= '</div>'; // Close speaker-info
-				
+
 				$output .= '</div>'; // Close speaker-item
 			}
 		}
 	}
-	
+
 	$output .= '</div>'; // Close speakers-list
-	
+
 	return $output;
 }
 
@@ -13314,13 +12868,11 @@ function nc_dataguard_script($atts) {
 }
 add_shortcode('dataguard', 'nc_dataguard_script');
 
-
 //add dataguard shortcode
 function nc_general_option_func($atts) {
 	$a = shortcode_atts([
 		'field' => ''
 	], $atts);
-	
 
 	$my_current_lang = 'en';
 	$my_current_lang = apply_filters('wpml_current_language', null);
@@ -13346,19 +12898,15 @@ function nc_general_option_func($atts) {
 					$return .= formatLanguage($date, 'j F Y', $my_current_lang);
 					break;
 			}
-			
-			
-				
+
 		} else {
 			$return .= get_global_option($a['field']);
 		}
 	}
-	
+
 	return $return;
 }
 add_shortcode('nc_general_option', 'nc_general_option_func');
-
-
 
 // Custom Agenda Element for WPBakery
 add_action('vc_before_init', 'agenda_element_initialize');
@@ -13368,14 +12916,13 @@ function agenda_element_initialize() {
 		'base' => 'nc_event_agenda',
 		'category' => 'Custom Elements',
 		'params' => [
-
 			[
 				'type' => 'textfield',
 				'heading' => 'ID',
 				'param_name' => 'id',
 				'admin_label' => true,
 			],
-			
+
 			[
 				'type' => 'textfield',
 				'heading' => 'Table name',
@@ -13448,7 +12995,6 @@ function agenda_element_initialize() {
 						'heading' => 'Description',
 						'param_name' => 'description'
 					],
-					
 
 					[
 						'type' => 'textarea_raw_html',
@@ -13499,7 +13045,6 @@ function agenda_element_initialize() {
 									],
 								]
 							]
-
 						]
 					],
 
@@ -13521,20 +13066,17 @@ function agenda_element_initialize() {
 						'param_name' => 'speaker_description'
 					],
 
-					
 					[
 						'type' => 'textfield',
 						'heading' => 'Custom speaker type',
 						'param_name' => 'custom_speaker_type'
 					],
-					
 
 					[
 						'type' => 'param_group',
 						'heading' => 'Other participants',
 						'param_name' => 'participants',
 						'params' => [
-
 							[
 								'type' => 'attach_image',
 								'heading' => 'Image',
@@ -13559,16 +13101,11 @@ function agenda_element_initialize() {
 								'heading' => 'Speaker type',
 								'param_name' => 'speaker_type'
 							],
-
 						]
 					],
-
-
-
-					
 				]
 			],
-			
+
 			[
 				'type' => 'checkbox',
 				'heading' => 'Compact table',
@@ -13611,7 +13148,6 @@ function agenda_element_initialize() {
 				]
 			],
 
-
 			[
 				'type' => 'checkbox',
 				'heading' => 'Extra table?',
@@ -13643,7 +13179,6 @@ function agenda_element_initialize() {
 					'value' => 'true',
 				]
 			],
-
 
 			[
 				'type' => 'textfield',
@@ -13677,7 +13212,7 @@ function nc_event_agenda_shortcode($atts) {
 	$table_rows = !empty($atts['table_rows'])
 	? vc_param_group_parse_atts($atts['table_rows'])
 	: [];
-	
+
 	$custom_css = '';
 	if (isset($atts['custom_css'])) {
 		$custom_css = $atts['custom_css'];
@@ -13735,7 +13270,7 @@ function nc_event_agenda_shortcode($atts) {
 						} else {
 							echo __('Extra table', 'nextcloud');
 						}
-						
+
 						?></option>
 					<?php } ?>
 					
@@ -13769,7 +13304,6 @@ function nc_event_agenda_shortcode($atts) {
 			}
 			echo '</td>';
 
-
 			$colspan = 1;
 			if (!empty($table_row['colspan_2'])) {
 				$colspan = 2;
@@ -13784,7 +13318,6 @@ function nc_event_agenda_shortcode($atts) {
 				echo "<span class='event_row_type " . $table_row_type . "'>" . str_replace('_', ' ', $table_row_type) . '</span>';
 			}
 
-			
 			if (!empty($table_row['title'])) {
 				echo "<p class='table_row_title'>" . $table_row['title'];
 
@@ -13800,7 +13333,6 @@ function nc_event_agenda_shortcode($atts) {
 				echo '</p>';
 			}
 
-	
 			if (isset($table_row['image'])) {
 				echo '<div class="agenda_row_desc_container">';
 				echo '<div class="agenda_row_feat_image"><img src="' . wp_get_attachment_image_url($table_row['image'], 'full') . '" class="" /></div>';
@@ -13822,7 +13354,6 @@ function nc_event_agenda_shortcode($atts) {
 				echo '</div>'; //.agenda_row_desc_container
 			}
 
-
 			if (!empty($table_row['inner_tracks'])) {
 				$inner_tracks = $table_row['inner_tracks'];
 				//print_r($inner_tracks);
@@ -13830,12 +13361,12 @@ function nc_event_agenda_shortcode($atts) {
 				$num_tracks = count($inner_tracks);
 				//echo $num_tracks;
 				$col_class = '';
-				
+
 				$col_class = '4';
 				if ($num_tracks == 2) {
 					$col_class = '6';
 				}
-				
+
 				$scroll_class = '';
 				if ($num_tracks > 3) {
 					$scroll_class = 'scroll';
@@ -13845,21 +13376,18 @@ function nc_event_agenda_shortcode($atts) {
 					<i id="scroll-right" class="fas fa-angle-right"></i>
 					</div>';
 				}
-				
 
 				if ($table_row_type == 'successive_sessions') {
 					echo '<div class="row inner_tracks_row ' . $scroll_class . '">';
 				} else {
 					echo '<div class="inner_tracks_row ' . $scroll_class . '">';
 				}
-				
 
 				foreach ($inner_tracks as $inner_track_key => $inner_track) {
 					$inner_track_key_next = $inner_track_key + 1;
 
-
 					if (isset($inner_track['track_title']) || ($table_row_type == 'successive_sessions')) {
-					
+
 						if ($table_row_type == 'successive_sessions') {
 							echo '<div class="col-lg-12">';
 						} else {
@@ -13869,25 +13397,22 @@ function nc_event_agenda_shortcode($atts) {
 						echo '<div class="inner_track ' . $table_row_type . '">';
 
 						//if ( $table_row_type != 'successive_sessions') {
-							
+
 						if (isset($table_row['hide_automatic_track_numbers']) && !$table_row['hide_automatic_track_numbers']) {
 							echo '<span class="track_label">Track ' . $inner_track_key_next . '</span>';
 						}
 
 						echo "<p class='track_title'>" . $inner_track['track_title'] . '</p>';
 						//}
-						
+
 						if (isset($inner_track['track_description'])) {
 							echo "<p class='track_description'>" . $inner_track['track_description'] . '</p>';
 						}
-						
 
-						
 						if (!empty($inner_track['track_sessions'])) {
-							
+
 							$track_sessions = vc_param_group_parse_atts($inner_track['track_sessions']);
-							
-						
+
 							$first_track_title = '';
 							foreach ($track_sessions as $track_session_key => $track_session) {
 								if (isset($track_session['session_title'])) {
@@ -13916,14 +13441,12 @@ function nc_event_agenda_shortcode($atts) {
 											$custom_session_class = $track_session_key_next == 1 ? 'show' : 'hidden';
 
 											echo '<div id="session-' . $inner_track_key_next . '-' . $track_session_key_next . '" class="track_session ' . $custom_session_class . '">';
-											
+
 											echo '<span class="session_label">Session ' . $inner_track_key_next . '.' . $track_session_key_next . '</span>';
-											
+
 											if (!empty($track_session['session_speaker'])) {
 												echo "<div class='session_speaker'>Speaker: " . $track_session['session_speaker'] . '</div>';
 											}
-
-											
 
 											if (!empty($track_session['session_title'])) {
 												echo "<p class='session_title'><b>Title: </b>" . $track_session['session_title'] . '</p>';
@@ -13947,7 +13470,6 @@ function nc_event_agenda_shortcode($atts) {
 										} else {
 											echo '<span class="session_label">Session ' . $inner_track_key_next . '.' . $track_session_key_next . '</span>';
 										}
-										
 
 										if (!empty($track_session['session_title'])) {
 											echo "<p class='session_title'>" . $track_session['session_title'] . '</p>';
@@ -13966,13 +13488,9 @@ function nc_event_agenda_shortcode($atts) {
 									}
 								}
 
-
 								echo '</div>';
 
-
 							}
-
-							
 
 						}
 
@@ -13981,13 +13499,10 @@ function nc_event_agenda_shortcode($atts) {
 					}
 
 				}
-				
 
 				echo '</div>';
-				
 
 			}
-			
 
 			//if is compact, show the speaker
 			if (!empty($atts['compact_table'])) {
@@ -14000,7 +13515,7 @@ function nc_event_agenda_shortcode($atts) {
 					}
 					echo '<div class="event_speaker ' . $multiple_speakers_class . '" data-speakers="' . $num_speakers . '">';
 					echo '<div class="event_speaker_img">';
-					
+
 					foreach ($attached_images_ids as $attached_images_id) {
 						echo '<div class="speaker_img_holder"><img src="' . wp_get_attachment_image_url($attached_images_id, 'full') . '" class="speaker_image" /></div>';
 					}
@@ -14009,11 +13524,10 @@ function nc_event_agenda_shortcode($atts) {
 				} else {
 					echo '<div class="event_speaker">';
 				}
-				
+
 				if (!empty($table_row['speaker_name'])) {
 					echo '<div class="event_speaker_title">';
 				}
-				
 
 				if (!empty($table_row['custom_speaker_type'])) {
 					echo "<div class='speaker_type'>" . $table_row['custom_speaker_type'] . '</div>';
@@ -14031,7 +13545,7 @@ function nc_event_agenda_shortcode($atts) {
 				if (!empty($table_row['participants'])) {
 					$participants = vc_param_group_parse_atts($table_row['participants']);
 					$num_speakers = count($participants);
-					
+
 					echo '<div class="participants event_speaker multiple_speakers" data-speakers="' . $num_speakers . '">';
 					foreach ($participants as $participant_key => $participant) {
 
@@ -14053,15 +13567,13 @@ function nc_event_agenda_shortcode($atts) {
 							echo '</div>';
 						}
 
-						
 					}
 					echo '</div>';
 				}
 			}
 
 			echo '</td>';
-			
-	
+
 			if ($colspan == 1) {
 				//show second td only if colspan is not set
 				echo '<td>';
@@ -14075,7 +13587,7 @@ function nc_event_agenda_shortcode($atts) {
 					}
 					echo '<div class="event_speaker ' . $multiple_speakers_class . '" data-speakers="' . $num_speakers . '">';
 					echo '<div class="event_speaker_img">';
-					
+
 					foreach ($attached_images_ids as $attached_images_id) {
 						echo '<div class="speaker_img_holder"><img src="' . wp_get_attachment_image_url($attached_images_id, 'full') . '" class="speaker_image" /></div>';
 					}
@@ -14104,7 +13616,7 @@ function nc_event_agenda_shortcode($atts) {
 				if (!empty($table_row['participants'])) {
 					$participants = vc_param_group_parse_atts($table_row['participants']);
 					$num_speakers = count($participants);
-					
+
 					echo '<div class="participants event_speaker multiple_speakers" data-speakers="' . $num_speakers . '">';
 					foreach ($participants as $participant_key => $participant) {
 
@@ -14126,16 +13638,13 @@ function nc_event_agenda_shortcode($atts) {
 							echo '</div>';
 						}
 
-						
 					}
 					echo '</div>';
 				}
 
-
 				echo '</td>';
 			}
 
-			
 			echo '</tr>';
 		}
 	}
@@ -14149,11 +13658,6 @@ function nc_event_agenda_shortcode($atts) {
 	return $result;
 }
 
-
-
-
-
-
 add_shortcode('nc_odoo_confirm_registration', 'nc_odoo_confirm_registration_fallback');
 function nc_odoo_confirm_registration_fallback() {
 	$action = strip_tags($_GET['action']); // action=register
@@ -14166,11 +13670,11 @@ function nc_odoo_confirm_registration_fallback() {
 		//authenticate
 		$uid = ODOO_UID;
 		$models = RipcordLogger::client("$url/xmlrpc/2/object");
-		
+
 		if (isset($_GET['aids'])) {
 			$attendee_ids = explode(',', strip_tags($_GET['aids']));
 			//print_r($attendee_ids);
-			
+
 			foreach ($attendee_ids as $attendee_id) {
 				//echo "Attendee ID: ".$attendee_id."<br>";
 				$models->execute_kw(
@@ -14183,14 +13687,11 @@ function nc_odoo_confirm_registration_fallback() {
 			echo '<div class="marginAuto nc_success_message_alt">' . __('Thanks! You were registered successfully!', 'nextcloud') . '</div>';
 
 		}
-		
 
 	} else {
 		echo 'No action set.';
 	}
 }
-
-
 
 add_shortcode('nc_odoo_debug_attendee', 'nc_odoo_debug_attendee_fallback');
 function nc_odoo_debug_attendee_fallback() {
@@ -14203,10 +13704,8 @@ function nc_odoo_debug_attendee_fallback() {
 	$uid = ODOO_UID;
 	$models = RipcordLogger::client("$url/xmlrpc/2/object");
 
-
 	$specific_event_id = 39;
 	$attendee_id = 63091; // Peter test
-
 
 	/*
 	// Fetch all fields for this attendee
@@ -14268,7 +13767,6 @@ function nc_odoo_debug_attendee_fallback() {
 			echo "</pre>";
 	*/
 
-
 	$attendees = $models->execute_kw(
 		$db, $uid, $password,
 		'event.registration', 'read',
@@ -14301,12 +13799,11 @@ function nc_odoo_debug_attendee_fallback() {
 
 }
 
-
 function shortcode_show_current_template() {
 	global $template;
-	$return = '<div class="show_template hidden" style="">' .
-			   'Template file: <strong>' . basename($template) . '</strong>';
-			   
+	$return = '<div class="show_template hidden" style="">'
+			   . 'Template file: <strong>' . basename($template) . '</strong>';
+
 	$return .= '<pre>';
 	$return .= get_post_meta(get_the_ID(), '_wp_page_template', true);
 	$return .= '</pre>';
@@ -14314,7 +13811,6 @@ function shortcode_show_current_template() {
 	return $return;
 }
 add_shortcode('show_template', 'shortcode_show_current_template');
-
 
 //use Endroid\QrCode\Builder\Builder;
 function summit_print_attendee_infos_shortcode() {
@@ -14350,7 +13846,6 @@ function summit_print_attendee_infos_shortcode() {
 
 		if ($action == 'show_badge') {
 			//show badge
-
 
 			// Read the attendee record
 			/*
@@ -14391,7 +13886,7 @@ function summit_print_attendee_infos_shortcode() {
 			if ($barcode != $barcode_url) {
 				return '<p class="nc_alert_message">Barcode not found.</p>';
 			}
-	
+
 			?>
 	<div class="attendee_container">
 	<div class="attendee_info_shortcode summit type_<?php echo $attendee_type_class; ?>">
@@ -14486,7 +13981,7 @@ function summit_print_attendee_infos_shortcode() {
 		} elseif ($action == 'confirm') {
 			// set the attendee to "Attended"
 			if (is_user_logged_in()) { //if logged in, enable scanning
-			
+
 				$attendees = $models->execute_kw(
 					$db, $uid, $password,
 					'event.registration', 'read',
@@ -14509,12 +14004,10 @@ function summit_print_attendee_infos_shortcode() {
 				echo "<p class='nc_alert_message'>Only logged in users are able to scan.</p>";
 			}
 
-				
 		}
 	} else {
 		echo "<p class='nc_alert_message'>Action not recognized.</p>";
 	}
-
 
 	//return $output;
 	$result = ob_get_clean();
@@ -14529,8 +14022,6 @@ function br_shortcode() {
 }
 add_shortcode('br', 'br_shortcode');
 
-
-
 //get browser language - used for debugging for now
 function browser_language_shortcode_php() {
 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -14543,7 +14034,6 @@ function browser_language_shortcode_php() {
 	return esc_html($lang);
 }
 add_shortcode('browser_language', 'browser_language_shortcode_php');
-
 
 //automatically opens up the magnific popup once the nf_resume parameter is found in the URL
 function nf_resume_popup_shortcode($atts) {
@@ -14584,8 +14074,6 @@ function nf_resume_popup_shortcode($atts) {
 }
 add_shortcode('nf_resume_popup', 'nf_resume_popup_shortcode');
 
-
-
 //Repeater Images Carousel
 add_action('vc_before_init', 'images_carousel_wpb_funct');
 function images_carousel_wpb_funct() {
@@ -14596,7 +14084,6 @@ function images_carousel_wpb_funct() {
 			'class' => 'images_carousel',
 			'category' => __('Carousel', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -14604,7 +14091,6 @@ function images_carousel_wpb_funct() {
 					'param_name' => 'id',
 					'value' => '',
 				],
-
 
 				[
 					'type' => 'param_group',
@@ -14627,7 +14113,6 @@ function images_carousel_wpb_funct() {
 							'param_name' => 'link',
 							'value' => __('', 'nextcloud'),
 						]
-
 					]
 				],
 
@@ -14671,7 +14156,7 @@ function simple_images_carousel_funct($atts) {
 	if (function_exists('vc_param_group_parse_atts')) {
 		$items = vc_param_group_parse_atts($atts['box_repeater_items']);
 	}
-	
+
 	$id = $atts['id'];
 	$custom_css = $atts['custom_css'];
 	$custom_slider_items = $atts['custom_slider_items'];
@@ -14725,7 +14210,7 @@ function simple_images_carousel_funct($atts) {
 			jQuery(document).ready(function ($) {
 				$('#<?php echo $id; ?>').owlCarousel({
 					<?php
-          			echo $custom_code;
+					  echo $custom_code;
 			?>
 				});
 			});
@@ -14737,10 +14222,6 @@ function simple_images_carousel_funct($atts) {
 	return $result;
 }
 
-
-
-
-
 // Grid images
 add_action('vc_before_init', 'images_grid_wpb_funct');
 function images_grid_wpb_funct() {
@@ -14751,7 +14232,6 @@ function images_grid_wpb_funct() {
 			'class' => 'grid_images',
 			'category' => __('Images', 'nextcloud'),
 			'params' => [
-
 				[
 					'type' => 'textfield',
 					'heading' => esc_html__('ID', 'nextcloud'),
@@ -14776,7 +14256,6 @@ function images_grid_wpb_funct() {
 					'param_name' => 'custom_css',
 					'value' => '',
 				]
-				
 			]
 		]
 	);
@@ -14790,7 +14269,6 @@ function grid_images_funct($atts) {
 		'images' => '',
 		'custom_css' => ''
 	], $atts, 'box_repeater');
-
 
 	$id = $atts['id'];
 	$images = $atts['images'];
@@ -14818,8 +14296,6 @@ function grid_images_funct($atts) {
 	  $result = ob_get_clean();
 	return $result;
 }
-
-
 
 /**
  * Shortcode: [wpml_fallback_events]
@@ -14861,8 +14337,6 @@ add_shortcode('wpml_fallback_events', function ($atts) {
 	$current_lang = defined('ICL_LANGUAGE_CODE')
 		? ICL_LANGUAGE_CODE
 		: apply_filters('wpml_current_language', null);
-
-
 
 	// If WPML truly isn't present, just do a single query and return.
 	if (empty($current_lang)) {
@@ -14984,13 +14458,10 @@ add_shortcode('wpml_fallback_events', function ($atts) {
 				echo '</article>';
 			}
 
-		   
 		}
 		wp_reset_postdata();
 	}
 	//print_r($fallback_en_ids);
-
-
 
 	// 2) English fallback query (excluding English posts whose group already has a current-language post)
 	$args_fallback = $base_args;
@@ -15001,7 +14472,6 @@ add_shortcode('wpml_fallback_events', function ($atts) {
 	if (!empty($fallback_translations_ids)) {
 		$args_fallback['post__not_in'] = array_unique(array_map('intval', $fallback_translations_ids));
 	}
-
 
 	$q_fallback = new WP_Query($args_fallback);
 
@@ -15044,8 +14514,6 @@ add_shortcode('wpml_fallback_events', function ($atts) {
 
 	return ob_get_clean();
 });
-
-
 
 /**
  * Shortcode: [webinars_other_langs]
@@ -15141,7 +14609,7 @@ add_shortcode('webinars_other_langs', function ($atts) {
 		$strict_ids = [];
 
 		if (!empty($q->posts)) {
-			
+
 			$element_type = 'post_event';
 			foreach ($q->posts as $pid) {
 				$lang_code = apply_filters('wpml_element_language_code', null, [
@@ -15152,7 +14620,7 @@ add_shortcode('webinars_other_langs', function ($atts) {
 					$strict_ids[] = (int)$pid;
 				}
 			}
-			
+
 		}
 
 		if (!empty($strict_ids)) {
@@ -15205,9 +14673,6 @@ add_shortcode('webinars_other_langs', function ($atts) {
 
 	return $output;
 });
-
-
-
 
 // Shortcode printing the date and location of an event
 // WPBakery (Visual Composer) element registration
@@ -15263,7 +14728,6 @@ if (function_exists('vc_map')) {
 					'param_name' => 'custom_class',
 					'description' => __('', 'nextcloud'),
 				]
-
 			],
 		]);
 	}
@@ -15286,7 +14750,7 @@ function my_event_info_shortcode($atts) {
 	$my_current_lang = 'en';
 	$my_current_lang = apply_filters('wpml_current_language', null);
 	$timezone = new DateTimeZone('Europe/Berlin');
-	
+
 	$html = '';
 
 	/*
@@ -15333,16 +14797,13 @@ function my_event_info_shortcode($atts) {
 		$html .= '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#0082c9"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"></path></svg>';
 		$html .= '<span>' . esc_html($atts['location']) . '</span>';
 	}
-	
+
 	$html .= '</h5>';
 	$html .= '</div>';
 
 	return $html;
 }
 add_shortcode('event_info', 'my_event_info_shortcode');
-
-
-
 
 // WPBakery (Visual Composer) element registration
 if (function_exists('vc_map')) {
@@ -15399,7 +14860,6 @@ if (function_exists('vc_map')) {
 					'heading' => __('Custom heading (Default h3)', 'nextcloud'),
 					'param_name' => 'custom_heading',
 				]
-
 			],
 		]);
 	}
@@ -15447,7 +14907,6 @@ function content_grid_box_custom_shortcode($atts) {
 		$heading = isset($item['heading']) ? $item['heading'] : '';
 		$subtitle = isset($item['subtitle']) ? $item['subtitle'] : '';
 		$image_id = isset($item['image']) ? intval($item['image']) : 0;
-		
 
 		// If image is selected: output only the image
 		if ($image_id) {
@@ -15483,7 +14942,6 @@ function content_grid_box_custom_shortcode($atts) {
 }
 add_shortcode('content_grid_box_custom', 'content_grid_box_custom_shortcode');
 
-
 /**
  * Content Grid Box Custom (Translatable)
  * Parent/child version of [content_grid_box_custom]: every item is its own [nc_content_grid_item]
@@ -15496,13 +14954,17 @@ add_shortcode('content_grid_box_custom', 'content_grid_box_custom_shortcode');
  */
 add_action('vc_before_init', 'nc_content_grid_box_vc_map');
 function nc_content_grid_box_vc_map() {
-	if (!class_exists('WPBakeryShortCodesContainer')) return;
+	if (!class_exists('WPBakeryShortCodesContainer')) {
+		return;
+	}
 
 	if (!class_exists('WPBakeryShortCode_Nc_Content_Grid_Box')) {
-		class WPBakeryShortCode_Nc_Content_Grid_Box extends WPBakeryShortCodesContainer {}
+		class WPBakeryShortCode_Nc_Content_Grid_Box extends WPBakeryShortCodesContainer {
+		}
 	}
 	if (!class_exists('WPBakeryShortCode_Nc_Content_Grid_Item')) {
-		class WPBakeryShortCode_Nc_Content_Grid_Item extends WPBakeryShortCode {}
+		class WPBakeryShortCode_Nc_Content_Grid_Item extends WPBakeryShortCode {
+		}
 	}
 
 	vc_map([
@@ -15642,7 +15104,6 @@ function nc_content_grid_item_funct($atts, $content = null) {
 	return ob_get_clean();
 }
 
-
 //add custom search input text field to filter icon boxes
 function filter_iconboxes_custom_shortcode($atts) {
 	$a = shortcode_atts([
@@ -15661,7 +15122,7 @@ function filter_iconboxes_custom_shortcode($atts) {
 	if (isset($a['carousel_items_type'])) {
 		$carousel_items_type = $a['carousel_items_type'];
 	}
-	
+
 	?>
 	<div class="filter_iconboxes">
 	<div class="input-outer">
@@ -15769,7 +15230,6 @@ function filter_iconboxes_custom_shortcode($atts) {
 }
 add_shortcode('filter_iconboxes', 'filter_iconboxes_custom_shortcode');
 
-
 //add custom select field to filter tutorials
 function filter_tutorials_custom_shortcode($atts) {
 	$a = shortcode_atts([
@@ -15780,7 +15240,7 @@ function filter_tutorials_custom_shortcode($atts) {
 	if (isset($a['inner_item_class'])) {
 		$inner_item_class = $a['inner_item_class'];
 	}
-	
+
 	?>
 	<div class="filter_tutorials filter_iconboxes">
 	<div class="input-outer">
@@ -15842,10 +15302,8 @@ function filter_tutorials_custom_shortcode($atts) {
 }
 add_shortcode('filter_tutorials', 'filter_tutorials_custom_shortcode');
 
-
 //WPBakery: Meetup element + shortcode
 add_action('vc_before_init', function () {
-
 	// If WPBakery isn't active, bail.
 	if (! function_exists('vc_map')) {
 		return;
@@ -15958,7 +15416,6 @@ add_action('vc_before_init', function () {
  * 2) Shortcode output
  */
 add_shortcode('meetup', function ($atts, $content = null) {
-
 	$atts = shortcode_atts([
 		'image_id' => '',
 		'headline' => '',
@@ -16120,7 +15577,6 @@ add_shortcode('meetup', function ($atts, $content = null) {
   return ob_get_clean();
 });
 
-
 //get pricing from settings page using a shortcode
 add_shortcode('nc_price', function ($atts) {
 	$atts = shortcode_atts([
@@ -16177,8 +15633,6 @@ add_shortcode('nc_price', function ($atts) {
 	return '';
 });
 
-
-
 /**
  * WPBakery Timeline Carousel Element
  */
@@ -16200,7 +15654,7 @@ function wpb_timeline_carousel_shortcode($atts) {
 			$events = [];
 		}
 	}
-	
+
 	$custom_items_no = 3; // set default
 	if (isset($atts['custom_items_no']) && $atts['custom_items_no'] != '') {
 		$custom_items_no = $atts['custom_items_no'];
@@ -16376,12 +15830,10 @@ function nc_timeline_carousel_vc_map() {
 				'value' => '',
 				'description' => __('', 'nextcloud'),
 			],
-
 		],
 	]);
 }
 add_action('vc_before_init', 'nc_timeline_carousel_vc_map');
-
 
 /**
  * Shortcode Disclaimer content
@@ -16446,7 +15898,6 @@ add_action('vc_before_init', function () {
 	]);
 });
 
-
 function my_test_shortcode($atts) {
 	ob_start();
 	// Your PHP logic here
@@ -16458,10 +15909,8 @@ function my_test_shortcode($atts) {
 		$browser_lang = str_replace('_', '-', $browser_lang);
 		$browser_lang = strtolower(substr($browser_lang, 0, 2));
 	}
-	
+
 	echo 'Lang: ' . $browser_lang;
-
-
 
 	return ob_get_clean();
 }

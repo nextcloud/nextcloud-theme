@@ -10,7 +10,6 @@ $text = get_field('text');
 $columns = get_field('no_of_columns');
 $css = get_field('custom_css_classes');
 
-$col_class = '';
 if ($columns == 4) {
 	$col_class = 'col-lg-3';
 } elseif ($columns == 3) {
@@ -72,7 +71,7 @@ else : /* rendering in editor body */
 
 					echo '<div class="' . $col_class . ' col-md-6 spacer">';
 					echo '<div class="item-box ' . $custom_css . '">';
-					
+
 					if (!empty($link)) {
 						echo '<a href="' . $link['url'] . '" title="' . $link['title'] . '" target="' . $link['target'] . '">';
 					}
@@ -94,7 +93,7 @@ else : /* rendering in editor body */
 							$label = $link['title'];
 						}
 						echo '<span class="see_more">' . $label . ' <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"></path></svg></span>';
-						
+
 						echo '</a>';
 					}
 

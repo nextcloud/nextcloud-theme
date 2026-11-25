@@ -167,7 +167,6 @@ echo '<div class="row">';
 		'order' => 'DSC',
 	]);
 	foreach ($onepost as $onepostsingle) {
-		$img = wp_get_attachment_url(get_post_thumbnail_id($onepostsingle->ID) ?: 0) ?: '';
 		$title = $onepostsingle->post_title;
 		$date = (string)get_the_date('F d, Y', $onepostsingle->ID);
 		$cat = get_the_category($onepostsingle->ID);

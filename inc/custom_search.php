@@ -57,9 +57,6 @@ function my_rate_limit_search() {
 }
 add_action('template_redirect', 'my_rate_limit_search');
 
-
-
-
 //Customize search results by ordering by post title and slug
 /** Tiny singularizer (newsletters→newsletter, companies→company, boxes→box, cats→cat) */
 if (! function_exists('my_singularize_term')) {
@@ -117,7 +114,6 @@ add_filter( 'posts_search', function( $search, WP_Query $q ) {
 	return $search . ' AND (' . implode( ' OR ', $or ) . ')';
 }, 20, 2 );
 */
-
 
 /** 2) Prefer TITLE + SLUG in ORDER BY (runs late so it wins ordering) */
 /*
@@ -212,9 +208,6 @@ add_filter( 'posts_clauses', function( $clauses, WP_Query $q ) {
 }, 20000, 2 );
 */
 
-
-
-
 /** 3) After-query cleaner: drop results where the keyword occurs ONLY inside VC button shortcodes */
 add_filter('the_posts', function (array $posts, WP_Query $q) {
 	if (is_admin() || ! $q->is_search()) {
@@ -256,16 +249,16 @@ add_filter('the_posts', function (array $posts, WP_Query $q) {
 
 			// Exact OR contained match in EITHER direction, using raw + singular forms
 			if (
-				$title_raw === $n || $title_raw === $n_sg || $title_sg === $n || $title_sg === $n_sg ||
-				mb_strpos($title_raw, $n) !== false || mb_strpos($title_raw, $n_sg) !== false ||
-				mb_strpos($n, $title_raw) !== false || mb_strpos($n_sg, $title_raw) !== false ||
+				$title_raw === $n || $title_raw === $n_sg || $title_sg === $n || $title_sg === $n_sg
+				|| mb_strpos($title_raw, $n) !== false || mb_strpos($title_raw, $n_sg) !== false
+				|| mb_strpos($n, $title_raw) !== false || mb_strpos($n_sg, $title_raw) !== false
 
-				$slug_raw === $n || $slug_raw === $n_sg || $slug_sg === $n || $slug_sg === $n_sg ||
-				mb_strpos($slug_raw, $n) !== false || mb_strpos($slug_raw, $n_sg) !== false ||
-				mb_strpos($n, $slug_raw) !== false || mb_strpos($n_sg, $slug_raw) !== false ||
+				|| $slug_raw === $n || $slug_raw === $n_sg || $slug_sg === $n || $slug_sg === $n_sg
+				|| mb_strpos($slug_raw, $n) !== false || mb_strpos($slug_raw, $n_sg) !== false
+				|| mb_strpos($n, $slug_raw) !== false || mb_strpos($n_sg, $slug_raw) !== false
 
-				mb_strpos($excerpt_raw, $n) !== false || mb_strpos($excerpt_raw, $n_sg) !== false ||
-				mb_strpos($excerpt_sg, $n) !== false || mb_strpos($excerpt_sg, $n_sg) !== false
+				|| mb_strpos($excerpt_raw, $n) !== false || mb_strpos($excerpt_raw, $n_sg) !== false
+				|| mb_strpos($excerpt_sg, $n) !== false || mb_strpos($excerpt_sg, $n_sg) !== false
 			) {
 				$hits_core = true;
 				break;

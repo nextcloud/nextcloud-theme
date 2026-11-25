@@ -489,7 +489,9 @@ function nc_agenda_render($tables, $atts) {
 
 	ob_start();
 	?>
-	<div class="nc_agenda" <?php if ($atts['id'] !== '') { echo 'id="' . esc_attr($atts['id']) . '"'; } ?>>
+	<div class="nc_agenda" <?php if ($atts['id'] !== '') {
+		echo 'id="' . esc_attr($atts['id']) . '"';
+	} ?>>
 	<?php foreach ($tables as $key => $table) {
 		$table_classes = 'nc_event_agenda ' . $atts['custom_css'];
 		if ($compact) {
@@ -527,7 +529,7 @@ function nc_agenda_render($tables, $atts) {
 				foreach ($table['rows'] as $row_key => $row) {
 					echo nc_agenda_render_row($row, $table['id'] . '-' . ($row_key + 1), $compact);
 				}
-				?>
+		?>
 			</tbody>
 		</table>
 	<?php } ?>
@@ -552,40 +554,40 @@ function nc_agenda_render_row($row, $row_id, $compact) {
 				echo '<span class="event_row_type ' . esc_attr($type) . '">' . esc_html($types[$type]) . '</span>';
 			}
 
-			if ($row['title'] !== '') {
-				echo "<p class='table_row_title'>" . wp_kses_post($row['title']);
-				if ($num_tracks > 3) {
-					echo '<span class="scroll_help_text">' . __('You can scroll horizontally to see more items', 'nextcloud') . '</span>';
-				}
-				echo '</p>';
-			}
+	if ($row['title'] !== '') {
+		echo "<p class='table_row_title'>" . wp_kses_post($row['title']);
+		if ($num_tracks > 3) {
+			echo '<span class="scroll_help_text">' . __('You can scroll horizontally to see more items', 'nextcloud') . '</span>';
+		}
+		echo '</p>';
+	}
 
-			if ($row['image'] !== '') {
-				echo '<div class="agenda_row_desc_container">';
-				echo '<div class="agenda_row_feat_image"><img src="' . esc_url(wp_get_attachment_image_url($row['image'], 'full')) . '" alt="" /></div>';
-			}
+	if ($row['image'] !== '') {
+		echo '<div class="agenda_row_desc_container">';
+		echo '<div class="agenda_row_feat_image"><img src="' . esc_url(wp_get_attachment_image_url($row['image'], 'full')) . '" alt="" /></div>';
+	}
 
-			echo '<div class="agenda_row_description">';
-			if ($row['description'] !== '') {
-				echo '<p>' . wp_kses_post($row['description']) . '</p>';
-			}
-			foreach ($row['texts'] as $text) {
-				echo '<div class="extra_description">' . $text . '</div>';
-			}
-			echo '</div>'; //.agenda_row_description
+	echo '<div class="agenda_row_description">';
+	if ($row['description'] !== '') {
+		echo '<p>' . wp_kses_post($row['description']) . '</p>';
+	}
+	foreach ($row['texts'] as $text) {
+		echo '<div class="extra_description">' . $text . '</div>';
+	}
+	echo '</div>'; //.agenda_row_description
 
-			if ($row['image'] !== '') {
-				echo '</div>'; //.agenda_row_desc_container
-			}
+	if ($row['image'] !== '') {
+		echo '</div>'; //.agenda_row_desc_container
+	}
 
-			if ($num_tracks > 0) {
-				echo nc_agenda_render_tracks($row, $row_id);
-			}
+	if ($num_tracks > 0) {
+		echo nc_agenda_render_tracks($row, $row_id);
+	}
 
-			if ($compact) {
-				echo nc_agenda_render_speakers($row);
-			}
-			?>
+	if ($compact) {
+		echo nc_agenda_render_speakers($row);
+	}
+	?>
 		</td>
 		<?php if ($colspan == 1) { ?>
 			<td><?php echo nc_agenda_render_speakers($row); ?></td>

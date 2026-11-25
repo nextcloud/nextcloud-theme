@@ -71,7 +71,7 @@ class RipcordLogger {
 		if (self::$enabled !== null) {
 			return self::$enabled;
 		}
-		return defined('RIPCORD_LOGGING') ? (bool) RIPCORD_LOGGING : true;
+		return defined('RIPCORD_LOGGING') ? (bool)RIPCORD_LOGGING : true;
 	}
 
 	public static function enable() {

@@ -24,30 +24,30 @@ if ($rows) {
                     	echo $custom_css_classes;
                     } ?>">
                         <?php
-							if ($image) {
-								?>
+                    		if ($image) {
+                    			?>
                         <div class="cloudcomputing-logo">
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-								if (isset($promo_text)) {
-									echo strip_tags($promo_text);
-								}
-								?>" target="_blank">
+                            	if (isset($promo_text)) {
+                            		echo strip_tags($promo_text);
+                            	}
+                    			?>" target="_blank">
 
                             <?php
-								if (isset($promo_custom_html_code) && $promo_custom_html_code != '') {
-									echo $promo_custom_html_code;
-								} elseif ($image) {
-									?>
+                    			if (isset($promo_custom_html_code) && $promo_custom_html_code != '') {
+                    				echo $promo_custom_html_code;
+                    			} elseif ($image) {
+                    				?>
                                 <img src="<?php echo esc_url($image['url']); ?>" alt="<?php
-									if (isset($promo_text)) {
-										echo strip_tags($promo_text);
-									}
-									?>">
+                    				if (isset($promo_text)) {
+                    					echo strip_tags($promo_text);
+                    				}
+                    				?>">
                                 <?php
-								}
-								?>
+                    			}
+                    			?>
                             </a>
                         </div>
                         <?php } ?>
@@ -57,9 +57,9 @@ if ($rows) {
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-							if (isset($promo_text)) {
-								echo strip_tags($promo_text);
-							} ?>" target="_blank">
+                            if (isset($promo_text)) {
+                            	echo strip_tags($promo_text);
+                            } ?>" target="_blank">
                                 <?php if (isset($promo_text)) {
                                 	echo $promo_text;
                                 } ?>
@@ -72,11 +72,11 @@ if ($rows) {
                             <a tabindex="-1" href="<?php if (isset($link)) {
                             	echo $link;
                             } ?>" title="<?php
-								if (isset($promo_text)) {
-									echo strip_tags($promo_text);
-								} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon <?php if (isset($custom_css_classes)) {
-									echo $custom_css_classes;
-								} ?>">
+                            	if (isset($promo_text)) {
+                            		echo strip_tags($promo_text);
+                            	} ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon <?php if (isset($custom_css_classes)) {
+                            		echo $custom_css_classes;
+                            	} ?>">
                                 <?php if (isset($btn_label) && $btn_label != '') {
                                 	echo $btn_label;
                                 } else {
@@ -90,7 +90,7 @@ if ($rows) {
                 </div>
             <?php
 						}
-   
+
 	// The Query for pages
 	$args_top_banner = [
 		'post_type' => ['page', /*'post'*/],
@@ -130,12 +130,12 @@ if ($rows) {
                                 <div class="btn-awards">
                                     <a tabindex="-1" href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
                                         <?php
-										if (get_field('button_label')) {
-											echo get_field('button_label');
-										} else {
-											echo __('Learn more', 'nextcloud');
-										}
-										
+                                        if (get_field('button_label')) {
+                                        	echo get_field('button_label');
+                                        } else {
+                                        	echo __('Learn more', 'nextcloud');
+                                        }
+
 				?>
                                         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"/></svg>
                                     </a>
@@ -193,12 +193,12 @@ if ($rows) {
                                 <div class="btn-awards">
                                     <a tabindex="-1" href="<?php echo get_permalink(); ?>" title="<?php echo get_the_title(); ?>" target="_blank" class="c-btn btn-top btn-small btn-with-icon">
                                         <?php
-										if (get_field('button_label')) {
-											echo get_field('button_label');
-										} else {
-											echo __('Learn more', 'nextcloud');
-										}
-										
+                                        if (get_field('button_label')) {
+                                        	echo get_field('button_label');
+                                        } else {
+                                        	echo __('Learn more', 'nextcloud');
+                                        }
+
 				?>
                                         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path class="st0" d="M12.6,12l-4.6-4.6,1.4-1.4,6,6-6,6-1.4-1.4,4.6-4.6Z"/></svg>
                                     </a>

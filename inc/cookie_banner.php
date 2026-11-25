@@ -299,7 +299,7 @@
 
 </div>
 
-<?php if ( 'local' !== wp_get_environment_type() ) : ?>
+<?php if (wp_get_environment_type() !== 'local') : ?>
 <!-- Matomo consent, A/B testing and form goals (container loads in <head>, see functions.php) -->
 <script id="matomo_settings" type="text/javascript">
   var _paq = window._paq = window._paq || [];

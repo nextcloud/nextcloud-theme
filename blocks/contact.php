@@ -5,7 +5,6 @@
 $id = get_field('section_id');
 $title = get_field('title');
 $text = get_field('text');
-$playground = str_contains(get_permalink() ?: '', 'playground');
 ?>
 <section class="contact-section gr" id="<?php echo $id; ?>">
 	<div class="container">

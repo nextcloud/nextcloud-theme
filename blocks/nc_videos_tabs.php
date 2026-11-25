@@ -26,17 +26,13 @@ else : /* rendering in editor body */
 									$i = 1;
 									while (have_rows('videos_list')) {
 										the_row();
-									
+
 										$id = get_sub_field('id');
-										$icon = get_sub_field('icon');
 										//$title = str_replace('<br>', '\n', get_sub_field( 'title' ));
-										$title = str_replace('\n', '<br>', get_sub_field('title'));
+										$title = str_replace('\n', '<br>', (string)get_sub_field('title'));
 										$description = get_sub_field('description');
-										$video_url = get_sub_field('video_url');
-										$video_preview_image = get_sub_field('video_preview_image');
 										$link = get_sub_field('link');
-									
-										$custom_css = '';
+
 										?>
 
 
@@ -130,14 +126,10 @@ else : /* rendering in editor body */
 						the_row();
 
 						$id = get_sub_field('id');
-						$icon = get_sub_field('icon');
-						$title = str_replace('\n', '', get_sub_field('title'));
-						$description = get_sub_field('description');
+						$title = str_replace('\n', '', (string)get_sub_field('title'));
 						$video_url = get_sub_field('video_url');
 						$video_preview_image = get_sub_field('video_preview_image');
-						$link = get_sub_field('link');
-						$custom_css = '';
-		
+
 						echo '<div id="' . $id . '-preview" class="nc_video_preview_box popup-video release_video">';
 						?>
                         
@@ -146,9 +138,9 @@ else : /* rendering in editor body */
                         }?>" title="<?php echo $title; ?>" class="">
                             <div class="overlay"></div>
                             <?php
-							if (!empty($video_preview_image)) {
-								echo '<img src="' . $video_preview_image['url'] . '" alt="Nextcloud - ' . $title . '"/>';
-							}
+                        	if (!empty($video_preview_image)) {
+                        		echo '<img src="' . $video_preview_image['url'] . '" alt="Nextcloud - ' . $title . '"/>';
+                        	}
 						?>
 
                             <div class="video_text">

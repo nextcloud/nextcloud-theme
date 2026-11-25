@@ -35,8 +35,8 @@ if (have_rows('column')) {
 	while (have_rows('column')) {
 		the_row();
 		$img_id = get_sub_field('column_image');
-		$img2 = wp_get_attachment_image($img_id, 'full', '', [ 'class' => 'img-responsive' ]);
-		$img_url = wp_get_attachment_image_url($img_id, 'full');
+		$img2 = wp_get_attachment_image($img_id, 'full', false, [ 'class' => 'img-responsive' ]);
+		$img_url = (string)wp_get_attachment_image_url($img_id, 'full');
 		$text = get_sub_field('column_text');
 		if ($count == '1') {
 			echo '<div class="col-lg-12 spacer">';

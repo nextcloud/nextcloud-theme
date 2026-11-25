@@ -16,117 +16,119 @@
  * Tier slug => translated label.
  */
 function nc_sponsor_tiers() {
-	return array(
+	return [
 		'platinum' => __('Platinum', 'nextcloud'),
-		'gold'     => __('Gold', 'nextcloud'),
-		'silver'   => __('Silver', 'nextcloud'),
-	);
+		'gold' => __('Gold', 'nextcloud'),
+		'silver' => __('Silver', 'nextcloud'),
+	];
 }
 
 /**
  * Activity slug => translated pill label.
  */
 function nc_sponsor_activities() {
-	return array(
-		'speaking'    => __('Speaking slot', 'nextcloud'),
-		'demo'        => __('Demo', 'nextcloud'),
+	return [
+		'speaking' => __('Speaking slot', 'nextcloud'),
+		'demo' => __('Demo', 'nextcloud'),
 		'guided_tour' => __('Guided tour', 'nextcloud'),
-	);
+	];
 }
 
 add_action('vc_before_init', 'nc_sponsor_wall_vc_map');
 function nc_sponsor_wall_vc_map() {
 
 	if (class_exists('WPBakeryShortCodesContainer') && !class_exists('WPBakeryShortCode_Nc_Sponsor_Wall')) {
-		class WPBakeryShortCode_Nc_Sponsor_Wall extends WPBakeryShortCodesContainer {}
+		class WPBakeryShortCode_Nc_Sponsor_Wall extends WPBakeryShortCodesContainer {
+		}
 	}
 	if (class_exists('WPBakeryShortCode') && !class_exists('WPBakeryShortCode_Nc_Sponsor_Card')) {
-		class WPBakeryShortCode_Nc_Sponsor_Card extends WPBakeryShortCode {}
+		class WPBakeryShortCode_Nc_Sponsor_Card extends WPBakeryShortCode {
+		}
 	}
 
-	vc_map(array(
-		'name'                    => __('Sponsor wall', 'nextcloud'),
-		'base'                    => 'nc_sponsor_wall',
-		'category'                => __('Repeater', 'nextcloud'),
-		'as_parent'               => array('only' => 'nc_sponsor_card'),
-		'content_element'         => true,
+	vc_map([
+		'name' => __('Sponsor wall', 'nextcloud'),
+		'base' => 'nc_sponsor_wall',
+		'category' => __('Repeater', 'nextcloud'),
+		'as_parent' => ['only' => 'nc_sponsor_card'],
+		'content_element' => true,
 		'show_settings_on_create' => false,
-		'is_container'            => true,
-		'js_view'                 => 'VcColumnView',
-		'icon'                    => 'nc-wpb-default-icon', // see nc_sponsor_wall_editor_icon_css()
-		'description'             => __('Flip cards with sponsorship tier', 'nextcloud'),
-		'params'                  => array(
-			array(
-				'type'        => 'dropdown',
-				'heading'     => __('Cards per row (desktop)', 'nextcloud'),
+		'is_container' => true,
+		'js_view' => 'VcColumnView',
+		'icon' => 'nc-wpb-default-icon', // see nc_sponsor_wall_editor_icon_css()
+		'description' => __('Flip cards with sponsorship tier', 'nextcloud'),
+		'params' => [
+			[
+				'type' => 'dropdown',
+				'heading' => __('Cards per row (desktop)', 'nextcloud'),
 				'description' => __('Maximum per row / visible in the carousel. Smaller screens show fewer, phones always 2.', 'nextcloud'),
-				'param_name'  => 'columns',
-				'value'       => array('2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'),
-				'std'         => '3',
-			),
-			array(
-				'type'        => 'checkbox',
-				'heading'     => __('Show as carousel', 'nextcloud'),
+				'param_name' => 'columns',
+				'value' => ['2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'],
+				'std' => '3',
+			],
+			[
+				'type' => 'checkbox',
+				'heading' => __('Show as carousel', 'nextcloud'),
 				'description' => __('Ticked: carousel with arrows on all screen sizes. Unticked: wall on all screen sizes.', 'nextcloud'),
-				'param_name'  => 'carousel',
-				'value'       => array(__('Yes', 'nextcloud') => 'yes'),
-			),
-			array(
-				'type'       => 'textfield',
-				'heading'    => esc_html__('Custom CSS classes', 'nextcloud'),
+				'param_name' => 'carousel',
+				'value' => [__('Yes', 'nextcloud') => 'yes'],
+			],
+			[
+				'type' => 'textfield',
+				'heading' => esc_html__('Custom CSS classes', 'nextcloud'),
 				'param_name' => 'custom_css',
-				'value'      => '',
-			),
-		),
-	));
+				'value' => '',
+			],
+		],
+	]);
 
-	$tier_options = array(esc_html__('None', 'nextcloud') => '');
+	$tier_options = [esc_html__('None', 'nextcloud') => ''];
 	foreach (nc_sponsor_tiers() as $slug => $label) {
 		$tier_options[$label] = $slug;
 	}
 
-	$activity_options = array();
+	$activity_options = [];
 	foreach (nc_sponsor_activities() as $slug => $label) {
 		$activity_options[$label] = $slug;
 	}
 
-	vc_map(array(
-		'name'     => __('Sponsor card', 'nextcloud'),
-		'base'     => 'nc_sponsor_card',
+	vc_map([
+		'name' => __('Sponsor card', 'nextcloud'),
+		'base' => 'nc_sponsor_card',
 		'category' => __('Repeater', 'nextcloud'),
-		'as_child' => array('only' => 'nc_sponsor_wall'),
-		'params'   => array(
-			array(
-				'type'       => 'attach_image',
-				'heading'    => __('Sponsor logo', 'nextcloud'),
+		'as_child' => ['only' => 'nc_sponsor_wall'],
+		'params' => [
+			[
+				'type' => 'attach_image',
+				'heading' => __('Sponsor logo', 'nextcloud'),
 				'param_name' => 'image',
-			),
-			array(
-				'type'        => 'textfield',
-				'heading'     => __('Sponsor name', 'nextcloud'),
-				'param_name'  => 'name',
-			),
-			array(
-				'type'        => 'dropdown',
-				'heading'     => __('Sponsorship tier', 'nextcloud'),
-				'param_name'  => 'tier',
-				'value'       => $tier_options,
-				'std'         => '',
-			),
-			array(
-				'type'        => 'textarea',
-				'heading'     => __('One-liner', 'nextcloud'),
+			],
+			[
+				'type' => 'textfield',
+				'heading' => __('Sponsor name', 'nextcloud'),
+				'param_name' => 'name',
+			],
+			[
+				'type' => 'dropdown',
+				'heading' => __('Sponsorship tier', 'nextcloud'),
+				'param_name' => 'tier',
+				'value' => $tier_options,
+				'std' => '',
+			],
+			[
+				'type' => 'textarea',
+				'heading' => __('One-liner', 'nextcloud'),
 				'description' => __('Short sentence shown on the back of the card.', 'nextcloud'),
-				'param_name'  => 'content',
-			),
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __('At the event', 'nextcloud'),
+				'param_name' => 'content',
+			],
+			[
+				'type' => 'checkbox',
+				'heading' => __('At the event', 'nextcloud'),
 				'param_name' => 'activities',
-				'value'      => $activity_options,
-			),
-		),
-	));
+				'value' => $activity_options,
+			],
+		],
+	]);
 }
 
 /**
@@ -144,13 +146,13 @@ function nc_sponsor_wall_editor_icon_css() {
 
 add_shortcode('nc_sponsor_wall', 'nc_sponsor_wall_funct');
 function nc_sponsor_wall_funct($atts, $content = null) {
-	$atts = shortcode_atts(array(
-		'columns'    => '3',
-		'carousel'   => '',
+	$atts = shortcode_atts([
+		'columns' => '3',
+		'carousel' => '',
 		'custom_css' => '',
-	), $atts, 'nc_sponsor_wall');
+	], $atts, 'nc_sponsor_wall');
 
-	$columns  = max(2, min(6, (int) $atts['columns']));
+	$columns = max(2, min(6, (int)$atts['columns']));
 	$carousel = $atts['carousel'] === 'yes';
 
 	return '<div class="iconbox_repeater">'
@@ -242,20 +244,22 @@ HTML;
 
 add_shortcode('nc_sponsor_card', 'nc_sponsor_card_funct');
 function nc_sponsor_card_funct($atts, $content = null) {
-	$atts = shortcode_atts(array(
-		'image'      => '',
-		'name'       => '',
-		'tier'       => '',
+	$atts = shortcode_atts([
+		'image' => '',
+		'name' => '',
+		'tier' => '',
 		'activities' => '',
-	), $atts, 'nc_sponsor_card');
+	], $atts, 'nc_sponsor_card');
 
-	$tiers      = nc_sponsor_tiers();
-	$tier       = isset($tiers[$atts['tier']]) ? $atts['tier'] : '';
+	$tiers = nc_sponsor_tiers();
+	$tier = isset($tiers[$atts['tier']]) ? $atts['tier'] : '';
 	$activities = nc_sponsor_activities();
 
 	ob_start();
 	?>
-	<div class="nc_iconbox iconbox feature_iconbox sponsor_card <?php if ($tier) echo 'sponsor_tier_' . esc_attr($tier); ?>">
+	<div class="nc_iconbox iconbox feature_iconbox sponsor_card <?php if ($tier) {
+		echo 'sponsor_tier_' . esc_attr($tier);
+	} ?>">
 		<div class="link_replacement no_scroll flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="<?php echo esc_attr($atts['name']); ?>">
 
 			<div class="iconbox_container flip-card-inner no_link">
@@ -268,7 +272,7 @@ function nc_sponsor_card_funct($atts, $content = null) {
 					<?php if ($atts['image']) { ?>
 					<div class="image-icon">
 						<div class="vc_single_image-wrapper">
-							<?php echo wp_get_attachment_image($atts['image'], 'large', false, array('alt' => esc_attr($atts['name']))); ?>
+							<?php echo wp_get_attachment_image($atts['image'], 'large', false, ['alt' => esc_attr($atts['name'])]); ?>
 						</div>
 					</div>
 					<?php } else { ?>
@@ -281,19 +285,19 @@ function nc_sponsor_card_funct($atts, $content = null) {
 					<div class="title"><h4><?php echo esc_html($atts['name']); ?></h4></div>
 					<?php } ?>
 
-					<?php if (trim((string) $content) !== '') { ?>
+					<?php if (trim((string)$content) !== '') { ?>
 					<div class="description"><?php echo wp_kses_post(trim($content)); ?></div>
 					<?php } ?>
 
 					<?php
 					$selected = array_filter(array_map('trim', explode(',', $atts['activities'])));
-					if ($selected) { ?>
+	if ($selected) { ?>
 					<ul class="sponsor_pills">
 						<?php foreach ($selected as $slug) {
 							if (isset($activities[$slug])) { ?>
 							<li><?php echo esc_html($activities[$slug]); ?></li>
 						<?php }
-						} ?>
+							} ?>
 					</ul>
 					<?php } ?>
 				</div>

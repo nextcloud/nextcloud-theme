@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Search profiles - replaces the "WP Extended Search" plugin.
  *
@@ -274,9 +275,9 @@ function nc_search_form($profile_key, $echo = true) {
 			<span class="screen-reader-text">' . _x('Search for:', 'label') . '</span>
 			<input type="search" class="search-field" placeholder="' . esc_attr_x('Search &hellip;', 'placeholder') . '" value="' . get_search_query() . '" name="s" />
 		</label>
-		<input type="submit" class="search-submit" value="' . esc_attr_x('Search', 'submit button') . '" />' .
-		nc_search_profile_field($profile_key) .
-		'</form>';
+		<input type="submit" class="search-submit" value="' . esc_attr_x('Search', 'submit button') . '" />'
+		. nc_search_profile_field($profile_key)
+		. '</form>';
 
 	if ($echo) {
 		echo $form;
@@ -284,7 +285,6 @@ function nc_search_form($profile_key, $echo = true) {
 
 	return $form;
 }
-
 
 /**
  * [wpes_search_form wpessid="1612"] - the plugin's shortcode, kept so existing content keeps working.

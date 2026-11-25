@@ -58,7 +58,6 @@ if (vc_shortcode_custom_css_has_property($css, [
 	$css_classes[] = 'vc_section-has-fill';
 }
 
-
 $wrapper_attributes = [];
 // build attributes for wrapper
 if (! empty($el_id)) {
@@ -86,8 +85,6 @@ if (! empty($flex_row)) {
 	$css_classes[] = 'vc_section-flex';
 }
 
-
-
 //$has_video_bg = (! empty($video_bg) && ! empty($video_bg_url) && vc_extract_youtube_id($video_bg_url));
 $has_video_bg = (! empty($video_bg) && ! empty($video_bg_url));
 $parallax_speed = $parallax_speed_bg;
@@ -98,9 +95,6 @@ if ($has_video_bg) {
 	$css_classes[] = 'vc_video-bg-container';
 	//wp_enqueue_script('vc_youtube_iframe_api_js');
 }
-
-
-
 
 if (! empty($parallax)) {
 	wp_enqueue_script('vc_jquery_skrollr_js');
@@ -129,8 +123,6 @@ if (! empty($parallax_image)) {
 }
 */
 
-
-
 /*
 if (! $parallax && $has_video_bg) {
 	$wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr($video_bg_url) . '"';
@@ -153,7 +145,6 @@ if ($has_video_bg) {
 
 $output .= '<div class="overlay-gradient"></div>';
 
-
 $custom_section_div_css = isset($atts['custom_section_div_css']) ? $atts['custom_section_div_css'] : '';
 $custom_section_div_id = isset($atts['custom_section_div_id']) ? $atts['custom_section_div_id'] : '';
 if (isset($atts['custom_section_div_css']) || isset($atts['custom_section_div_id'])) {
@@ -163,7 +154,6 @@ if (isset($atts['custom_section_div_css']) || isset($atts['custom_section_div_id
 if (isset($atts['custom_html_code'])) {
 	$output .= rawurldecode(base64_decode($atts['custom_html_code']));
 }
-
 
 if (empty($full_width)) {
 	$output .= '<div class="container">';

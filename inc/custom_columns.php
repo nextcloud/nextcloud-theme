@@ -15,7 +15,6 @@ function set_custom_edit_partner_posts_columns($columns) {
 add_action('manage_partner_posts_posts_custom_column', 'partner_posts_custom_book_column', 10, 2);
 function partner_posts_custom_book_column($column, $post_id) {
 	switch ($column) {
-
 		case 'partner_level':
 			$partner_level = get_post_meta($post_id, 'partner_level', true);
 			if (is_array($partner_level)) {
@@ -24,7 +23,7 @@ function partner_posts_custom_book_column($column, $post_id) {
 				echo $partner_level;
 			}
 			break;
-			
+
 		case 'partner_region':
 			$region = get_post_meta($post_id, 'region', true);
 			if (is_array($region)) {
@@ -43,7 +42,6 @@ function partner_posts_custom_book_column($column, $post_id) {
 			}
 			break;
 
-			
 		case 'partner_services':
 			$services = get_post_meta($post_id, 'services', true);
 			if (is_array($services)) {
@@ -52,7 +50,6 @@ function partner_posts_custom_book_column($column, $post_id) {
 				echo $services;
 			}
 			break;
-
 
 		case 'service_type':
 			// Load field settings and values.
@@ -74,7 +71,6 @@ function partner_posts_custom_book_column($column, $post_id) {
 			//break;
 	}
 }
-
 
 /**
  * 1) Mark the columns as sortable in the Partners list.
@@ -139,17 +135,14 @@ add_filter('posts_clauses', function ($clauses, $query) {
 
 	// Order: custom FIELD (with empties last), then menu_order, then title
 	// COALESCE(NULLIF(FIELD(...),0), 999) pushes posts without a level to the end.
-	$orderby =
-		"COALESCE(NULLIF($field_expr, 0), 999) $direction, " .
-		"{$wpdb->posts}.menu_order ASC, {$wpdb->posts}.post_title ASC";
+	$orderby
+		= "COALESCE(NULLIF($field_expr, 0), 999) $direction, "
+		. "{$wpdb->posts}.menu_order ASC, {$wpdb->posts}.post_title ASC";
 
 	$clauses['orderby'] = $orderby;
 
 	return $clauses;
 }, 10, 2);
-
-
-
 
 /**
  * Admin dropdown filters for Partners: Service type (ACF checkbox) + Partner level.

@@ -44,8 +44,7 @@ else :
 	if (!empty($pos)) {
 		echo '<span>' . $pos . '</span>';
 	}
-					
-					
+
 	if ($link) {
 		//print_r($link);
 		$link_url = $link['url'];

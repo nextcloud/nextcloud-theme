@@ -277,7 +277,6 @@ if (! empty($custom_onclick) && $custom_onclick_code) {
 	$attributes[] = 'onclick="' . esc_attr($custom_onclick_code) . '"';
 }
 
-
 //custom additions
 //added custom functionality, to print the aria popup attribute
 $aria_popup = isset($atts['aria_popup']) ? $atts['aria_popup'] : '';
@@ -290,7 +289,6 @@ $link_id = isset($atts['link_id']) ? $atts['link_id'] : '';
 if ($link_id != '') {
 	$attributes[] = 'id="' . $link_id . '"';
 }
-
 
 $attributes = implode(' ', $attributes);
 

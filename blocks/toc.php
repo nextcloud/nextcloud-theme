@@ -23,7 +23,7 @@ if (empty($title)) {
 		if (!empty($is_preview)) {
 			echo '<p class="nc-toc__notice">The headings of the page will be listed here.</p>';
 		}
-		?>
+?>
 	</nav>
 </div>
 <?php if (empty($is_preview)) : ?>

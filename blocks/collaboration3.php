@@ -37,7 +37,6 @@ if (have_rows('slides')) {
 		$col_text = get_sub_field('slide_text');
 		$link = get_sub_field('slide_link');
 
-
 		echo '<div>';
 		echo '<div class="row align-items-center">';
 
@@ -51,7 +50,6 @@ if (have_rows('slides')) {
 			echo '<div class="col-lg-12">';
 		}
 
-
 		if (!empty($col_vid)) {
 			echo '<div class="video-block">';
 			echo $col_vid;
@@ -63,7 +61,6 @@ if (have_rows('slides')) {
 		}
 		echo '</div>';
 
-
 		if (!empty($col_text)) {
 			if ($invert) {
 				echo '<div class="col-lg-6 order-lg-0">';
@@ -73,8 +70,6 @@ if (have_rows('slides')) {
 		} else {
 			echo '<div class="col-lg-12">';
 		}
-
-				
 
 		echo '<div class="text-block">';
 		if (!empty($col_title)) {
